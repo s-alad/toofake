@@ -1,0 +1,84 @@
+.instant {
+  margin-left: 12px;
+  margin-right: 12px;
+  display: flex;
+  flex-direction: column;
+  min-width: 300px;
+  max-width: 300px;
+  width: 300px;
+  border: 1px solid white;
+}
+.instant .details {
+  display: flex;
+  height: 50px;
+  border: 1px solid red;
+}
+.instant .details .icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50px;
+  border: 1px solid yellow;
+}
+.instant .details .icon .avatar {
+  background-color: white;
+  border-radius: 100%;
+  height: 35px;
+  width: 35px;
+}
+.instant .details .icon .avatar img {
+  height: 100%;
+  width: 100%;
+  border-radius: 100%;
+}
+.instant .details .information {
+  padding-left: 12px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  flex: 1;
+  border: 1px solid orange;
+  text-align: left;
+}
+.instant .details .extra {
+  width: 50px;
+  border: 1px solid pink;
+}
+.instant .event {
+  flex: 1;
+  width: 100%;
+}
+.instant .event .front {
+  position: relative;
+  height: 400PX;
+  width: 100%;
+  background-color: red;
+}
+.instant .event .front img {
+  height: 100%;
+  width: 100%;
+}
+.instant .event .front .back {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  height: 150px;
+  width: 112.5px;
+  background-color: yellow;
+}
+.instant .event .front .back img {
+  height: 100%;
+}
+.instant .event .front .reactions {
+  width: 100%;
+  height: 45px;
+  border: 5px solid aqua;
+  position: absolute;
+  bottom: 1px;
+  left: 0;
+}
+.instant .caption {
+  height: 30px;
+  text-align: left;
+  padding-left: 12px;
+}/*# sourceMappingURL=instant.css.map */

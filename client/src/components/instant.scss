@@ -1,0 +1,96 @@
+
+@use '../shared/common' as common;
+
+.instant {
+    margin-left: 12px;
+    margin-right: 12px;
+    display: flex;
+    flex-direction: column;
+
+
+    min-width: 300px;
+    max-width: 300px;
+    width: 300px;
+
+    border: 1px solid white;
+
+    .details {
+        display: flex;
+        height: 50px;
+        border: 1px solid red;
+
+        .icon {
+            @include common.center();
+            width: 50px;
+            border: 1px solid yellow;
+            
+            .avatar {
+                background-color: white;
+                border-radius: 100%;
+                height: 35px;
+                width: 35px;
+                img {
+                    height: 100%;
+                    width: 100%;
+                    border-radius: 100%;
+                }
+            }
+        }
+
+        .information {
+            padding-left: 12px;
+            display: flex; justify-content: center; flex-direction: column;
+            flex: 1;
+            border: 1px solid orange;
+            text-align: left;
+        }
+
+        .extra {
+            width: 50px;
+            border: 1px solid pink;
+        }
+
+    }
+
+    .event {
+        flex: 1;
+        width: 100%;
+        .front {
+            position: relative;
+            height: 400PX;
+            width: 100%;
+            background-color: red;
+
+            img {
+                height: 100%;
+                width: 100%;
+            }
+
+            .back {
+                position: absolute;
+                top: 10px;
+                left: 10px;
+                height: 200px * .75;
+                width: 150px * .75;
+                background-color: yellow;
+                img {
+                    height: 100%;
+                }
+            }
+            .reactions {
+                width: 100%;
+                height: 45px;
+                border: 5px solid aqua;
+                position: absolute;
+                bottom: 1px;
+                left: 0;
+            }
+        }
+    }
+
+    .caption {
+        height: 30px;
+        text-align: left;
+        padding-left: 12px;
+    }
+}

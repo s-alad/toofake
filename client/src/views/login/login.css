@@ -1,0 +1,33 @@
+.login, .verify {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding-top: 100px;
+}
+.login .text, .verify .text {
+  font-size: 22px;
+}
+.login .number, .verify .number {
+  margin-top: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.login .number .digits, .verify .number .digits {
+  background-color: transparent;
+  color: white;
+  font-size: 18px;
+  border-radius: 6px;
+  border: 2px solid white;
+  margin-right: 10px;
+}
+.login .number .send, .verify .number .send {
+  background-color: white;
+  color: black;
+  font-size: 18px;
+  border-radius: 6px;
+  border: 2px solid white;
+  cursor: pointer;
+}/*# sourceMappingURL=login.css.map */

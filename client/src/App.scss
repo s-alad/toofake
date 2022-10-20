@@ -1,0 +1,17 @@
+@use './shared/common.scss' as common;
+
+
+
+.App {
+    text-align: center;
+    flex: 1;
+
+    .toofake {
+        font-weight: bold;
+        font-size: 44px;
+
+        padding-top: 20px;
+        margin-bottom: 20px;
+    }
+
+}

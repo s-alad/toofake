@@ -1,0 +1,10 @@
+.App {
+  text-align: center;
+  flex: 1;
+}
+.App .toofake {
+  font-weight: bold;
+  font-size: 44px;
+  padding-top: 20px;
+  margin-bottom: 20px;
+}/*# sourceMappingURL=App.css.map */

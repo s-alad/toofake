@@ -1,0 +1,11 @@
+.home {
+  padding-left: 50px;
+}
+.home .instants {
+  overflow-x: scroll;
+  overflow-y: hidden;
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: initial;
+}/*# sourceMappingURL=home.css.map */
