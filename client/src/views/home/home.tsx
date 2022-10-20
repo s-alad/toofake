@@ -40,7 +40,7 @@ function Home() {
                         <Instant 
                             username={data.username} 
                             location={data.location}
-                            late={'null hr late'} 
+                            late={data.late} 
                             icon={data.avatar} 
                             primary={data.primary} 
                             secondary={data.secondary} 
