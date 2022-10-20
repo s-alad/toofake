@@ -1,17 +1,29 @@
 @use './shared/common.scss' as common;
 
 
-
 .App {
-    text-align: center;
     flex: 1;
 
     .toofake {
         font-weight: bold;
         font-size: 44px;
-
+        padding-left: 60px;
         padding-top: 20px;
         margin-bottom: 20px;
+        .faketoo {
+
+        }
+    }
+    .git {
+        position: absolute;
+        padding-left: 60px;
+        margin-top: 50px;
+        a, a:visited, a:active {
+            img {height: 25px; width: inherit; margin-right: 6px;}
+            color: white;
+            text-decoration: underline;
+            @include common.center()
+        }
     }
 
 }

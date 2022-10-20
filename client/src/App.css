@@ -1,10 +1,27 @@
 .App {
-  text-align: center;
   flex: 1;
 }
 .App .toofake {
   font-weight: bold;
   font-size: 44px;
+  padding-left: 60px;
   padding-top: 20px;
   margin-bottom: 20px;
+}
+.App .git {
+  position: absolute;
+  padding-left: 60px;
+  margin-top: 50px;
+}
+.App .git a, .App .git a:visited, .App .git a:active {
+  color: white;
+  text-decoration: underline;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.App .git a img, .App .git a:visited img, .App .git a:active img {
+  height: 25px;
+  width: inherit;
+  margin-right: 6px;
 }/*# sourceMappingURL=App.css.map */
