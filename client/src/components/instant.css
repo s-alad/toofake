@@ -91,6 +91,10 @@
 }
 .instant .caption {
   height: 30px;
-  text-align: left;
   padding-left: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  justify-content: start;
+  font-size: 12px;
 }/*# sourceMappingURL=instant.css.map */

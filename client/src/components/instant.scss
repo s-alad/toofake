@@ -106,7 +106,9 @@
 
     .caption {
         height: 30px;
-        text-align: left;
         padding-left: 12px;
+        @include common.center();
+        justify-content: start;
+        font-size: 12px;
     }
 }

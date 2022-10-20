@@ -20,7 +20,7 @@ function App() {
       </div>
       {
 
-        (login && !(sessionStorage.getItem('token') != null)) ?
+        (login && !(sessionStorage.getItem('idtoken') != null)) ?
           <Login auth={auth}></Login>
           :
           <Home></Home>

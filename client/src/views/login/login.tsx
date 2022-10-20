@@ -31,6 +31,8 @@ function Login(props:any) {
             (data) => {
                 console.log(data)
                 sessionStorage.setItem('token', JSON.stringify(data))
+                sessionStorage.setItem('idtoken', data['idToken'])
+                sessionStorage.setItem('refresh', data['refreshToken'])
                 setData(JSON.stringify(data))
 
                 if (data["phoneNumber"] === telephone) {
@@ -38,9 +40,6 @@ function Login(props:any) {
                 }
             }
         ).catch((e) => console.log(e))
-        
-        console.log('---')
-        console.log(data)
     }
 
     return (

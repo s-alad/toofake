@@ -50,6 +50,19 @@ def verify_otp(otp: str, session: str):
     print(res)
     return res
 
+@app.route("/refresh/<token>")
+def refresh(token: str):
+    res = requests.post(
+        url="https://securetoken.googleapis.com/v1/token",
+        params={"key": google_api_key},
+        data={
+            "refresh_token": token,
+            "grant_type": "refresh_token"
+        }
+    ).json()
+    print(res)
+    return res
+
 @app.route("/instants/<token>")
 def instants(token: str):
     res = requests.get(
