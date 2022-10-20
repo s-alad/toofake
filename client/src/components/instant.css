@@ -32,7 +32,7 @@
   border-radius: 100%;
 }
 .instant .details .information {
-  padding-left: 12px;
+  padding-left: 8px;
   display: flex;
   justify-content: center;
   flex-direction: column;
@@ -40,8 +40,11 @@
   border: 1px solid orange;
   text-align: left;
 }
+.instant .details .information .location {
+  font-size: 12px;
+}
 .instant .details .extra {
-  width: 50px;
+  width: 30px;
   border: 1px solid pink;
 }
 .instant .event {

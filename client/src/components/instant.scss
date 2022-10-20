@@ -38,15 +38,20 @@
         }
 
         .information {
-            padding-left: 12px;
+            padding-left: 8px;
             display: flex; justify-content: center; flex-direction: column;
             flex: 1;
             border: 1px solid orange;
             text-align: left;
+
+            .username {}
+            .location {
+                font-size: 12px;
+            }
         }
 
         .extra {
-            width: 50px;
+            width: 30px;
             border: 1px solid pink;
         }
 
