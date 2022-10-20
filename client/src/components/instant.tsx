@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './instant.css';
 
 type Instant = {
@@ -13,6 +13,9 @@ type Instant = {
 }
 
 function Instant({username, location, late, caption, primary, secondary, avatar}: Instant) {
+
+    const [main, setMain] = useState(true)
+
     return (
       <div className='instant'>
         <div className='details'>
@@ -35,9 +38,9 @@ function Instant({username, location, late, caption, primary, secondary, avatar}
         </div>
         <div className='event'>
           <div className='front'>
-              <img src={primary}/>
-              <div className='back'>
-                <img src={secondary}/>
+              {main ? <img src={primary}/> : <img src={secondary}/>}
+              <div className='back' onClick={() => {setMain(!main)}}>
+                {main ? <img src={secondary}/> : <img src={primary}/>}
               </div>
             <div className='reactions'>
 

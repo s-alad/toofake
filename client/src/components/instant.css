@@ -58,7 +58,7 @@
   position: relative;
   height: 400PX;
   width: 100%;
-  background-color: red;
+  /* background-color: red; */
   /* border: 1px solid white; */
   border-radius: 12px;
 }
@@ -68,6 +68,7 @@
   width: 100%;
 }
 .instant .event .front .back {
+  cursor: pointer;
   position: absolute;
   top: 10px;
   left: 10px;

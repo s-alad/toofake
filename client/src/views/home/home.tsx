@@ -38,6 +38,7 @@ function Home() {
                 instants && instants.length>0 && instants.map(function(data, idx) {
                     return ([
                         <Instant 
+                            key={data}
                             username={data.username} 
                             location={data.location}
                             late={data.late} 
