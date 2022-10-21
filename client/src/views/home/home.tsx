@@ -3,13 +3,11 @@ import React, { useEffect } from 'react';
 import './home.css';
 import { useState } from 'react';
 
-function Home() {
-
-    let token = JSON.parse(localStorage.getItem('token') ?? '')['idToken']
-    
+function Home() {    
     const [instants, setInstants] = useState<any[]>([])
 
     function display() {
+        let token = JSON.parse(localStorage.getItem('token') ?? '')['idToken']
         fetch(`instants/${token}`).then(
             (value) => {return value.json()}
         ).then(
@@ -25,12 +23,6 @@ function Home() {
     useEffect(()=>{
         display()
     }, []) 
-
-
-    function logger(x: any) {
-        console.log(x)
-        return ''
-    }
 
     return (
         <div className='home'> 
