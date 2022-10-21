@@ -1,3 +1,9 @@
+#Pycache 
+__pycache__/
+models/__pycache__/
+
+
+#Dependencies 
 node_modules/
 prop.py
 .env
