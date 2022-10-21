@@ -8,9 +8,27 @@ import gitlogo from './static/gitlogo.png';
 
 function App() {
 
-  const [login, setLogin] = useState(true)
-  function auth() {
-    setLogin(false)
+  const [login, setLogin] = useState(false)
+  function auth() {setLogin(true);}
+
+  function verify(): boolean {
+    if (localStorage.getItem('idtoken') != null) {
+      if (Date.now() > parseInt(localStorage.getItem('expiration') ?? '0')) {
+        const rtok = localStorage.getItem('refresh');
+        fetch(`/refresh/${rtok}`).then(
+          (value) => {return value.json()}
+        ).then(
+          (data) => {
+            localStorage.setItem('refresh', data['refresh_token'])
+            localStorage.setItem('idtoken', data['id_token'])
+            localStorage.setItem('expiration', (Date.now() + parseInt(data['expires_in']) * 1000).toString())
+          }
+        ).then(
+          () => {return true;}
+        )
+      }
+      return true;
+    } else {return login}
   }
 
   return (
@@ -19,11 +37,10 @@ function App() {
           TooFake
       </div>
       {
-
-        (login && !(sessionStorage.getItem('idtoken') != null)) ?
-          <Login auth={auth}></Login>
+        (verify()) ?
+          <Home></Home> 
           :
-          <Home></Home>
+          <Login auth={auth}></Login>
       }
       <div className='git'>
           <a href='https://github.com/s-alad/toofake' target="_blank">

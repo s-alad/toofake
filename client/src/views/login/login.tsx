@@ -30,9 +30,10 @@ function Login(props:any) {
         ).then(
             (data) => {
                 console.log(data)
-                sessionStorage.setItem('token', JSON.stringify(data))
-                sessionStorage.setItem('idtoken', data['idToken'])
-                sessionStorage.setItem('refresh', data['refreshToken'])
+                localStorage.setItem('token', JSON.stringify(data))
+                localStorage.setItem('idtoken', data['idToken'])
+                localStorage.setItem('refresh', data['refreshToken'])
+                localStorage.setItem('expiration', (Date.now() + parseInt(data['expiresIn']) * 1000).toString())
                 setData(JSON.stringify(data))
 
                 if (data["phoneNumber"] === telephone) {

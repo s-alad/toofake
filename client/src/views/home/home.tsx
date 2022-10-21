@@ -5,7 +5,7 @@ import { useState } from 'react';
 
 function Home() {
 
-    let token = JSON.parse(sessionStorage.getItem('token') ?? '')['idToken']
+    let token = JSON.parse(localStorage.getItem('token') ?? '')['idToken']
     
     const [instants, setInstants] = useState<any[]>([])
 
@@ -17,6 +17,7 @@ function Home() {
                 console.log('heres response')
                 console.log(data)
                 setInstants(data)
+                console.log(Date.now())
             }
         )
     }
