@@ -9,5 +9,5 @@ toofake gives the ability to view bereals and post custom bereals without ever h
 ## how to run locally
 
 - you need the geopy and humanfriendly libraries installed for python
-> start flask server on authenticate.py
-> npm start in client directory
+- start flask server on authenticate.py
+- npm start in client directory
