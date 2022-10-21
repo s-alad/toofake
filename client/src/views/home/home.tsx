@@ -2,11 +2,14 @@ import Instant from "../../components/instant";
 import React, { useEffect } from 'react';
 import './home.css';
 import { useState } from 'react';
+import { refresh } from "../../api/auth";
 
 function Home() {    
     const [instants, setInstants] = useState<any[]>([])
 
     function display() {
+        refresh();
+        
         let token = JSON.parse(localStorage.getItem('token') ?? '')['idToken']
         fetch(`instants/${token}`).then(
             (value) => {return value.json()}
