@@ -7,9 +7,9 @@ import { refresh } from "../../api/auth";
 function Home() {    
     const [instants, setInstants] = useState<any[]>([])
 
-    function display() {
+    async function display() {
         console.log('attempting')
-        refresh();
+        await refresh();
         let token = localStorage.getItem('idtoken') ?? ''
         fetch(`instants/${token}`).then(
             (value) => {return value.json()}
