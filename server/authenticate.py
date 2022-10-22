@@ -78,7 +78,7 @@ def instants(token: str):
 code = str(input('otp >> '))
 tok = verify_otp(code, ses)
 instants(tok['idToken']) """
-""" instants('eyJhbGciOiJSUzI1NiIsImtpZCI6IjVkMzQwZGRiYzNjNWJhY2M0Y2VlMWZiOWQxNmU5ODM3ZWM2MTYzZWIiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vYWxleGlzYmFycmV5YXQtYmVyZWFsIiwiYXVkIjoiYWxleGlzYmFycmV5YXQtYmVyZWFsIiwiYXV0aF90aW1lIjoxNjY2MTUwNzc2LCJ1c2VyX2lkIjoic21idkRWSUdjY09hMFIzbzhQU3RaUXRxeDVEMiIsInN1YiI6InNtYnZEVklHY2NPYTBSM284UFN0WlF0cXg1RDIiLCJpYXQiOjE2NjYxNTA3NzYsImV4cCI6MTY2NjE1NDM3NiwicGhvbmVfbnVtYmVyIjoiKzE5MjkzMzA5MzQxIiwiZmlyZWJhc2UiOnsiaWRlbnRpdGllcyI6eyJwaG9uZSI6WyIrMTkyOTMzMDkzNDEiXX0sInNpZ25faW5fcHJvdmlkZXIiOiJwaG9uZSJ9fQ.1Kn3d4nzl9XW_sGSEJ-x-7yc_CrJpZ6BkkFJst9wQkRtTBzi3udFk21auA8_0l-kgYW1y02TVHAernVb8tNOlKfFdSJL1aIdobN4juhQ0-Fzw_ZgEL3s8sNl9Kppc94evjwRsOLfxWlR8mY8RaXFIA-cgbAF33aQRcKB-Mb96E68HUCEUCHTNtvP65e872IAV2N-mj9KWBU2_mTwbhKe9HjDR3lrJnw5YmcIhRdczlGsTmnu3MpQS22vxomhZkplvt_7z1dTNEKafF4GmuDXjYXeONBSTT59BKU5MnhJJlHvyZqYVl3iOjJbvHLkAXYIa41v9Z-ryFPZ40agbYjKKg') """
+""" instants('') """
 if __name__ == '__main__':
     app.run(port=5100, debug=True)
     print('online')
