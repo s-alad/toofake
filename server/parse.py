@@ -17,7 +17,7 @@ class Parse:
     @staticmethod
     def time(t):
         if t == 0: return 'on time'
-        return format_timespan(t).replace('hour','hr').replace('minutes','min').split('and')[0] +' late'
+        return format_timespan(t).replace('hour','hr').replace('seconds','s').replace('minutes','min').split('and')[0] +' late'
 
     @staticmethod
     def instant(data):

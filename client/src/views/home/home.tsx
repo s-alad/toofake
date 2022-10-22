@@ -8,6 +8,7 @@ function Home() {
     const [instants, setInstants] = useState<any[]>([])
 
     function display() {
+        console.log('attempting')
         refresh();
         let token = localStorage.getItem('idtoken') ?? ''
         fetch(`instants/${token}`).then(
