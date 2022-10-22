@@ -9,8 +9,7 @@ function Home() {
 
     function display() {
         refresh();
-        
-        let token = JSON.parse(localStorage.getItem('token') ?? '')['idToken']
+        let token = localStorage.getItem('idtoken') ?? ''
         fetch(`instants/${token}`).then(
             (value) => {return value.json()}
         ).then(
