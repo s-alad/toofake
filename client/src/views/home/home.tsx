@@ -10,6 +10,7 @@ function Home() {
     async function display() {
         console.log('attempting')
         await refresh();
+        console.log('attempted refresh')
         let token = localStorage.getItem('idtoken') ?? ''
         fetch(`instants/${token}`).then(
             (value) => {return value.json()}
