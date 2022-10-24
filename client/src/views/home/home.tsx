@@ -42,8 +42,6 @@ function Home() {
                     ]);
                  })
             }
-            {/* <Instant username={'salad'} location='boston' late={'null hr late'} icon={''} picture={''} caption={'lorem iptsum'}></Instant> */}
-
             </div>
         </div>
     )
