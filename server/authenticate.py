@@ -74,11 +74,6 @@ def instants(token: str):
     print(ret)
     return json.dumps(ret)
 
-""" ses = send_otp("+1")['sessionInfo']
-code = str(input('otp >> '))
-tok = verify_otp(code, ses)
-instants(tok['idToken']) """
-""" instants('') """
 if __name__ == '__main__':
     app.run(port=5100, debug=True)
     print('online')
