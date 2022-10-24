@@ -8,18 +8,13 @@ function Home() {
     const [instants, setInstants] = useState<any[]>([])
 
     async function display() {
-        console.log('attempting')
         await refresh();
-        console.log('attempted refresh')
         let token = localStorage.getItem('idtoken') ?? ''
         fetch(`instants/${token}`).then(
             (value) => {return value.json()}
         ).then(
             (data) => {
-                console.log('heres response')
-                console.log(data)
                 setInstants(data)
-                console.log(Date.now())
             }
         )
     }
