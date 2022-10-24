@@ -20,6 +20,18 @@ class Parse:
         return format_timespan(t).replace('hour','hr').replace('seconds','s').replace('minutes','min').split('and')[0] +' late'
 
     @staticmethod
+    def reaction(l):
+        out = []
+        for reac in l:
+            out.append( {
+                'name': reac['userName'],
+                'emoji': reac['emoji'],
+                'link': reac['uri']
+            })
+        return out
+
+
+    @staticmethod
     def instant(data):
         computed = []
         for instant in data:
@@ -31,7 +43,8 @@ class Parse:
                 'caption' : instant['caption'] if 'caption' in instant else '',
                 'location' : Parse.location(instant['location']) if 'location' in instant else '',
                 'retakes' : instant['retakeCounter'],
-                'late' : Parse.time(instant['lateInSeconds'])
+                'late' : Parse.time(instant['lateInSeconds']),
+                'reactions' : Parse.reaction(instant['realMojis'])
             }
             computed.append(ins)
         return computed

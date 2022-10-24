@@ -9,10 +9,11 @@ type Instant = {
   primary: string,
   secondary: string,
   location: string
-  caption: string
+  caption: string,
+  reactions: Array<any>,
 }
 
-function Instant({username, location, late, caption, primary, secondary, avatar}: Instant) {
+function Instant({username, location, late, caption, primary, secondary, avatar, reactions}: Instant) {
 
     const [main, setMain] = useState(true)
 
@@ -43,7 +44,12 @@ function Instant({username, location, late, caption, primary, secondary, avatar}
                 {main ? <img src={secondary}/> : <img src={primary}/>}
               </div>
             <div className='reactions'>
-
+              {reactions.map(function(data, idx) {
+                return <div className='reaction'>
+                    <img src={data.link}/>
+                    <div className='emoji'> {data.emoji} </div>
+                  </div>
+              })}
             </div>
           </div>
           

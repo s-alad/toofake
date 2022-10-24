@@ -38,7 +38,8 @@ function Home() {
                             primary={data.primary} 
                             secondary={data.secondary} 
                             caption={data.caption}
-                            avatar={data.avatar}></Instant>,
+                            avatar={data.avatar}
+                            reactions={data.reactions}></Instant>,
                     ]);
                  })
             }
