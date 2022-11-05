@@ -80,9 +80,9 @@ function Instant({username, location, late, caption, primary, secondary, avatar,
               <div className='seperator'></div> 
               {
                 expanded ? 
-                <div className='toggle' onClick={() => minimize()}> minimize comments ⬆</div> 
+                <div className='toggle' onClick={() => minimize()}> minimize comments ⮥</div> 
                 : 
-                <div className='toggle' onClick={() => expand()}>expand comments ⬇</div>}
+                <div className='toggle' onClick={() => expand()}>expand comments ↴</div>}
             </div>
           : <div className='placeholder'></div>
         }
