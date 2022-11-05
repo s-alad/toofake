@@ -28,10 +28,10 @@
   background-color: white;
 }
 .App .git {
-  position: relative;
+  position: absolute;
   display: flex;
   padding-left: 60px;
-  bottom: -20px;
+  bottom: 20px;
 }
 .App .git a, .App .git a:visited, .App .git a:active {
   margin-right: 12px;

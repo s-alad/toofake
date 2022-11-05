@@ -1,10 +1,10 @@
 .login, .verify {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  align-items: start;
   width: 100%;
   padding-top: 100px;
+  padding-left: 60px;
 }
 .login .text, .verify .text {
   font-size: 22px;

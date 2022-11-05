@@ -28,10 +28,10 @@
         }
     }
     .git {
-        position: relative;
+        position: absolute;
         display: flex;
         padding-left: 60px;
-        bottom: -20px;
+        bottom: 20px;
         a, a:visited, a:active {
             margin-right: 12px;
             img {height: 25px; width: inherit; margin-right: 6px;}
