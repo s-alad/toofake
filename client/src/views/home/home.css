@@ -10,5 +10,6 @@
   height: initial;
 }
 .home .takespace {
+  min-height: 8px;
   flex: 1;
 }/*# sourceMappingURL=home.css.map */
