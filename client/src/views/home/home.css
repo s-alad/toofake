@@ -8,4 +8,7 @@
   flex-direction: row;
   width: 100%;
   height: initial;
+}
+.home .takespace {
+  flex: 1;
 }/*# sourceMappingURL=home.css.map */

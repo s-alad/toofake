@@ -53,10 +53,12 @@
 .instant .event {
   flex: 1;
   width: 100%;
+  height: 400px;
+  max-height: 400px;
 }
 .instant .event .front {
   position: relative;
-  height: 400PX;
+  height: 400px;
   width: 100%;
   /* background-color: red; */
   /* border: 1px solid white; */
@@ -112,10 +114,85 @@
 }
 .instant .caption {
   height: 30px;
+  max-height: 30px;
   padding-left: 12px;
   display: flex;
   justify-content: center;
   align-items: center;
   justify-content: start;
   font-size: 12px;
+}
+.instant .placeholder {
+  height: 20px;
+}
+.instant .comment-control {
+  height: 20px;
+  padding-left: 12px;
+  padding-right: 12px;
+}
+.instant .comment-control .seperator {
+  background-color: white;
+  width: 100%;
+  margin: auto;
+  height: 1px;
+}
+.instant .comment-control .toggle {
+  font-size: 12px;
+  cursor: pointer;
+}
+.instant .comments {
+  padding-top: 6px;
+  padding-left: 12px;
+  justify-content: start;
+  font-size: 12px;
+}
+.instant .comments .comment {
+  margin-bottom: 4px;
+  display: flex;
+  align-items: center;
+  min-height: 20px;
+  display: flex;
+}
+.instant .comments .comment .username {
+  margin-left: 4px;
+  font-weight: bold;
+}
+.instant .comments .comment .text {
+  margin-left: 4px;
+}
+.instant .comments .comment .avatar {
+  height: 20px;
+  width: 20px;
+  border-radius: 100%;
+}
+.instant .comments .comment .avatar img {
+  height: 100%;
+  width: 100%;
+  border-radius: 100%;
+}
+.instant .add {
+  margin-top: 4px;
+  margin-bottom: 8px;
+  padding-left: 12px;
+  padding-right: 12px;
+  height: 20px;
+  display: flex;
+  flex-direction: row;
+}
+.instant .add input {
+  flex: 1;
+  background-color: white;
+  text-decoration: none;
+  border-radius: 4px;
+}
+.instant .add .button {
+  margin-left: 8px;
+  width: 62px;
+  height: 100%;
+  background-color: transparent;
+  border: 2px solid white;
+  color: white;
+  font-size: 12px;
+  border-radius: 4px;
+  text-align: center;
 }/*# sourceMappingURL=instant.css.map */

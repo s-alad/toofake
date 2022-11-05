@@ -9,11 +9,13 @@
   margin-bottom: 20px;
 }
 .App .git {
-  position: absolute;
+  position: relative;
+  display: flex;
   padding-left: 60px;
-  margin-top: 50px;
+  bottom: -20px;
 }
 .App .git a, .App .git a:visited, .App .git a:active {
+  margin-right: 12px;
   color: white;
   text-decoration: underline;
   display: flex;

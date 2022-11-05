@@ -46,6 +46,7 @@ function App() {
           <a href='https://github.com/s-alad/toofake' target="_blank">
             <img src={gitlogo} /> source code
           </a>
+          <a>about</a>
         </div>
     </div>
   );

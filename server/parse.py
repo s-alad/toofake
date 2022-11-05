@@ -44,7 +44,10 @@ class Parse:
                 'location' : Parse.location(instant['location']) if 'location' in instant else '',
                 'retakes' : instant['retakeCounter'],
                 'late' : Parse.time(instant['lateInSeconds']),
-                'reactions' : Parse.reaction(instant['realMojis'])
+                'reactions' : Parse.reaction(instant['realMojis']),
+                'comments' : instant['comment']
             }
+            print("=====================================")
+            print(instant['comment'])
             computed.append(ins)
         return computed

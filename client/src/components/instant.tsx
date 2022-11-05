@@ -11,9 +11,26 @@ type Instant = {
   location: string
   caption: string,
   reactions: Array<any>,
+  comments: any
 }
 
-function Instant({username, location, late, caption, primary, secondary, avatar, reactions}: Instant) {
+function Instant({username, location, late, caption, primary, secondary, avatar, reactions, comments}: Instant) {
+
+    const [expanded, setExpanded] = useState(false);
+    function expand() {
+        setExpanded(!expanded);
+    }
+    function minimize () {
+        setExpanded(false);
+    }
+
+    function logComments() {
+        console.log(comments)
+        return ''
+    }
+    function addComment() {
+        console.log('add comment')
+    }
 
     const [main, setMain] = useState(true)
 
@@ -56,6 +73,40 @@ function Instant({username, location, late, caption, primary, secondary, avatar,
         </div>
         <div className='caption'>
           {caption}
+        </div>
+        {
+          comments.length != 0 ?
+            <div className='comment-control'>
+              <div className='seperator'></div> 
+              {
+                expanded ? 
+                <div className='toggle' onClick={() => minimize()}> minimize comments ⬆</div> 
+                : 
+                <div className='toggle' onClick={() => expand()}>expand comments ⬇</div>}
+            </div>
+          : <div className='placeholder'></div>
+        }
+        {
+          comments.length != 0 && expanded == true? 
+            <div className='comments'>
+              {comments.map(function(data:any, idx:any) {
+                logComments()
+                return <div className='comment'>
+                    <div className='avatar'>
+                      <img src={data.user.profilePicture.url}></img>
+                    </div>
+                    <div className='username'> {data.userName} </div>
+                    <div className='text'> {data.text} </div>
+                  </div>
+                })
+              }
+            </div> 
+          : 
+            <div></div>
+        }   
+        <div className='add'>
+          <input></input>
+          <div className='button' onClick={() => addComment()}>comment</div>
         </div>
       </div>
     );

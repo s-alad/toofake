@@ -15,10 +15,12 @@
         }
     }
     .git {
-        position: absolute;
+        position: relative;
+        display: flex;
         padding-left: 60px;
-        margin-top: 50px;
+        bottom: -20px;
         a, a:visited, a:active {
+            margin-right: 12px;
             img {height: 25px; width: inherit; margin-right: 6px;}
             color: white;
             text-decoration: underline;

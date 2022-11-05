@@ -28,8 +28,10 @@ function Home() {
           <div className='instants'>
             {
                 instants && instants.length>0 && instants.map(function(data, idx) {
+                    console.log(data.comments)
                     return ([
-                        <Instant 
+                        <div>
+                            <Instant 
                             key={data}
                             username={data.username} 
                             location={data.location}
@@ -39,7 +41,10 @@ function Home() {
                             secondary={data.secondary} 
                             caption={data.caption}
                             avatar={data.avatar}
-                            reactions={data.reactions}></Instant>,
+                            reactions={data.reactions}
+                            comments={data.comments}></Instant>
+                            <div className="takespace"></div>
+                        </div>,
                     ]);
                  })
             }
