@@ -16,18 +16,72 @@
   align-items: center;
 }
 .login .number .digits, .verify .number .digits {
+  text-decoration: none;
   background-color: transparent;
   color: white;
   font-size: 18px;
   border-radius: 6px;
   border: 2px solid white;
   margin-right: 10px;
+  height: 40px;
+}
+.login .number .digits:hover, .verify .number .digits:hover {
+  background-color: transparent;
+}
+.login .number .digits:focus, .verify .number .digits:focus {
+  outline: 0;
+}
+.login .number .dropdown, .verify .number .dropdown {
+  background-color: transparent;
+  border: 2px solid white;
+}
+.login .number .dropdown:hover, .verify .number .dropdown:hover {
+  background-color: transparent;
+}
+.login .number .search, .verify .number .search {
+  outline: 0;
+  text-decoration: none;
+  background-color: #121212;
+}
+.login .number .search:focus, .verify .number .search:focus {
+  outline: 0;
+}
+.login .number .search:hover, .verify .number .search:hover {
+  background-color: #121212;
+}
+.login .number .button, .verify .number .button {
+  outline: 0;
+  text-decoration: none;
+}
+.login .number .button:hover, .verify .number .button:hover {
+  outline: 0;
+  text-decoration: none;
+}
+.login .number .button:focus, .verify .number .button:focus {
+  outline: 0;
+  text-decoration: none;
+}
+.login .number .cont, .verify .number .cont {
+  background-color: transparent;
+}
+.login .number .cont:hover, .verify .number .cont:hover {
+  background-color: transparent;
 }
 .login .number .send, .verify .number .send {
+  height: 40px;
+  width: 60px;
   background-color: white;
   color: black;
   font-size: 18px;
   border-radius: 6px;
   border: 2px solid white;
   cursor: pointer;
+}
+
+.country:hover {
+  background-color: rgba(122, 122, 122, 0.2235294118) !important;
+}
+
+.country.highlight {
+  background-color: rgba(122, 122, 122, 0.2235294118) !important;
 }/*# sourceMappingURL=login.css.map */

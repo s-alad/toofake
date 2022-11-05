@@ -15,14 +15,59 @@
         @include common.center();
 
         .digits {
+            text-decoration: none;
             background-color: transparent;
             color: white;
             font-size: 18px;
             border-radius: 6px;
             border: 2px solid white;
             margin-right: 10px;
+            height: 40px;
+        }
+        .digits:hover {
+            background-color: transparent;
+        }
+        .digits:focus {outline:0;}
+
+        .dropdown {
+            background-color: transparent;
+            border: 2px solid white;
+        }
+        .dropdown:hover {
+            background-color: transparent;
+        }
+
+        .search {
+            outline:0;
+            text-decoration: none;
+            background-color: #121212;
+        }
+        .search:focus {outline:0;}
+        .search:hover {
+            background-color: #121212;
+        }
+        .button {
+
+            outline: 0;
+            text-decoration: none;
+        }
+        .button:hover {
+            outline: 0;
+            text-decoration: none;
+        }
+        .button:focus {
+            outline: 0;
+            text-decoration: none;
+        }
+        .cont {
+            background-color: transparent;
+        }
+        .cont:hover {
+            background-color: transparent;
         }
         .send {
+            height: 40px;
+            width: 60px;
             background-color: white;
             color: black;
             font-size: 18px;
@@ -31,4 +76,12 @@
             cursor: pointer;
         }
     }
+}
+
+//overides
+.country:hover {
+    background-color: #7a7a7a39 !important;
+}
+.country.highlight {
+    background-color: #7a7a7a39 !important;
 }
