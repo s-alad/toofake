@@ -32,8 +32,8 @@
         display: flex;
         padding-left: 60px;
         bottom: 20px;
+        .space {margin: 0 12px 0 12px;}
         a, a:visited, a:active {
-            margin-right: 12px;
             img {height: 25px; width: inherit; margin-right: 6px;}
             color: white;
             text-decoration: underline;

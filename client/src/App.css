@@ -33,8 +33,10 @@
   padding-left: 60px;
   bottom: 20px;
 }
+.App .git .space {
+  margin: 0 12px 0 12px;
+}
 .App .git a, .App .git a:visited, .App .git a:active {
-  margin-right: 12px;
   color: white;
   text-decoration: underline;
   display: flex;
