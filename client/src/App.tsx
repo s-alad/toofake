@@ -35,6 +35,10 @@ function App() {
     <div className="App">
       <div className='toofake'>
           TooFake
+          <div className='space'>|</div>
+          <div className='befake'>
+            post a bereal
+          </div>
       </div>
       {
         (verify()) ?

@@ -5,13 +5,26 @@
     flex: 1;
 
     .toofake {
+        display: flex;
+        align-items: center;
         font-weight: bold;
         font-size: 44px;
-        padding-left: 60px;
+        padding-left: 60px; padding-right: 60px;
         padding-top: 20px;
         margin-bottom: 20px;
-        .faketoo {
-
+        .space {
+            margin-left: 12px;
+            margin-right: 12px;
+        }
+        .befake {
+            @include common.center();
+            cursor: pointer;
+            font-size: 18px;
+            color: black;
+            width: 120px;
+            height: 40px;
+            border-radius: 12px;
+            background-color: white;
         }
     }
     .git {
