@@ -1,7 +1,6 @@
 import React from 'react';
 import './App.css';
-import { useState } from 'react';
-import Instant from './components/instant';
+import { useState, useEffect  } from 'react';
 import Login from './views/login/login';
 import Home from './views/home/home';
 import gitlogo from './static/gitlogo.png';
@@ -26,22 +25,20 @@ function App() {
             localStorage.setItem('expiration', (Date.now() + parseInt(data['expires_in']) * 1000).toString())
           }
         ).then(
-          () => {return true;}
+          () => {
+            setLogin(true)
+            return login;
+          }
         )
       }
-      return true;
+      return login;
     } else {return login}
   }
 
   function logout() {
     localStorage.clear()
     setLogin(false)
-  }
-
-  function goback() {
-    console.log(back)
-    setBack(false)
-    console.log(back)
+    verify();
   }
 
   return (
