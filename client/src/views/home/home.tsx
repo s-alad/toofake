@@ -1,4 +1,4 @@
-import Instant from "../../components/instant";
+import Instant from "../../components/instant/instant";
 import React, { useEffect } from 'react';
 import './home.css';
 import { useState } from 'react';
