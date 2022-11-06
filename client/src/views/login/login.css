@@ -15,6 +15,9 @@
   justify-content: center;
   align-items: center;
 }
+.login .number .space, .verify .number .space {
+  padding-left: 10px;
+}
 .login .number .digits, .verify .number .digits {
   text-decoration: none;
   background-color: transparent;
@@ -76,6 +79,11 @@
   border-radius: 6px;
   border: 2px solid white;
   cursor: pointer;
+}
+.login .error, .verify .error {
+  margin-top: 12px;
+  color: #bf616a;
+  font-size: 14px;
 }
 
 .country:hover {

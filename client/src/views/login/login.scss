@@ -13,6 +13,7 @@
     .number {
         margin-top: 12px;
         @include common.center();
+        .space {padding-left: 10px;}
 
         .digits {
             text-decoration: none;
@@ -75,6 +76,12 @@
             border: 2px solid white;
             cursor: pointer;
         }
+    }
+
+    .error {
+        margin-top: 12px;
+        color: #bf616a;
+        font-size: 14px;
     }
 }
 

@@ -10,13 +10,19 @@ function Login(props:any) {
     const [info, setInfo] = useState('')
     const [data, setData] = useState('')
 
-    const [valid, setValid] = useState(false);
+    const [valid, setValid] = useState(true);
     const [telephone, setTelephone] = useState('');
     const [passcode, setPasscode] = useState('');
 
     function check(number: string) {
-        if (number.length < 10) {
-            
+        console.log(number)
+        console.log(number.length)
+        if (number.length <= 11 || number.length > 16) {
+            setValid(false);
+            //wait 5 seconds then reset
+            setTimeout(() => {
+                setValid(true);
+            }, 3000);
         }
         else {verify(telephone)}
     }
@@ -80,6 +86,12 @@ function Login(props:any) {
                             send
                         </button>
                     </div>
+
+                    <div className='error'>
+                        {
+                            valid ? '' : <div className='err'>invalid phone number</div>
+                        }
+                    </div>
                 </div>
                 :
                 <div className='verify'>
@@ -87,7 +99,7 @@ function Login(props:any) {
                         enter the one time passcode
                     </div>
                     <div className='number'>
-                        <input className='digits' onChange={(e) => setPasscode(e.target.value)} value={passcode} placeholder={'000111'}></input>
+                        <input className='digits space' onChange={(e) => setPasscode(e.target.value)} value={passcode} placeholder={'000111'}></input>
                         <button className='send' onClick={() => handle(passcode)}>
                             send
                         </button>
