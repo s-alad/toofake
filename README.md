@@ -11,5 +11,5 @@ toofake gives the ability to view bereals and post custom bereals without ever h
 
 - you need the geopy and humanfriendly libraries installed for python
 - create a .env file in the server directory and add a google maps api key labeled GAPI='your_key'
-- start flask server on authenticate.py
+- start flask server on api.py
 - npm start in client directory
