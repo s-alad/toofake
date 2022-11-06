@@ -12,19 +12,28 @@
         padding-left: 60px; padding-right: 60px;
         padding-top: 20px;
         margin-bottom: 20px;
-        .space {
-            margin-left: 12px;
-            margin-right: 12px;
-        }
-        .befake {
+        .functionality {
+            display: flex;
             @include common.center();
-            cursor: pointer;
-            font-size: 18px;
-            color: black;
-            width: 120px;
-            height: 40px;
-            border-radius: 12px;
-            background-color: white;
+            .space {
+                margin-left: 12px;
+                margin-right: 12px;
+            }
+            .befake {
+                @include common.center();
+                cursor: pointer;
+                font-size: 18px;
+                color: black;
+                width: 120px;
+                height: 40px;
+                border-radius: 12px;
+                background-color: white;
+            }
+            .logout {
+                cursor: pointer;
+                font-size: 18px;
+                text-decoration: underline;
+            }
         }
     }
     .git {

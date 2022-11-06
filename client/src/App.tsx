@@ -31,13 +31,25 @@ function App() {
     } else {return login}
   }
 
+  function logout() {
+    localStorage.clear()
+    setLogin(false)
+  }
+
   return (
     <div className="App">
       <div className='toofake'>
           TooFake
-          <div className='space'>|</div>
           {
-            verify() ? <div className='befake'>post a bereal</div> : ''
+            verify() ?
+              <div className='functionality'>
+                <div className='space'>|</div>
+                <div className='befake'>post a bereal</div>
+                <div className='space'>|</div>
+                <div className='logout' onClick={() => logout()}>logout</div>
+              </div>
+            :
+              ''
           }
       </div>
       {

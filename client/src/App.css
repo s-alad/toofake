@@ -11,11 +11,17 @@
   padding-top: 20px;
   margin-bottom: 20px;
 }
-.App .toofake .space {
+.App .toofake .functionality {
+  display: flex;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.App .toofake .functionality .space {
   margin-left: 12px;
   margin-right: 12px;
 }
-.App .toofake .befake {
+.App .toofake .functionality .befake {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -26,6 +32,11 @@
   height: 40px;
   border-radius: 12px;
   background-color: white;
+}
+.App .toofake .functionality .logout {
+  cursor: pointer;
+  font-size: 18px;
+  text-decoration: underline;
 }
 .App .git {
   position: absolute;
