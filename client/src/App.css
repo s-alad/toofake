@@ -32,10 +32,7 @@
   height: 40px;
   border-radius: 12px;
   background-color: white;
-}
-.App .toofake .functionality .befake .link {
   text-decoration: none;
-  color: black;
 }
 .App .toofake .functionality .logout {
   cursor: pointer;
