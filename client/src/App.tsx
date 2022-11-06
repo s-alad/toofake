@@ -5,6 +5,7 @@ import Instant from './components/instant';
 import Login from './views/login/login';
 import Home from './views/home/home';
 import gitlogo from './static/gitlogo.png';
+import { Link } from 'react-router-dom';
 
 function App() {
 
@@ -44,7 +45,7 @@ function App() {
             verify() ?
               <div className='functionality'>
                 <div className='space'>|</div>
-                <div className='befake'>post a bereal</div>
+                <div className='befake'><Link className='link' to="/about">post a bereal</Link></div>
                 <div className='space'>|</div>
                 <div className='logout' onClick={() => logout()}>logout</div>
               </div>
@@ -63,7 +64,7 @@ function App() {
             <img src={gitlogo} /> source code
           </a>
           <div className='space'>|</div>
-          <a>about</a>
+          <a href=''><Link to="/about">about</Link></a>
         </div>
     </div>
   );
