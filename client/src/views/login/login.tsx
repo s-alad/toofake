@@ -10,16 +10,15 @@ function Login(props:any) {
     const [info, setInfo] = useState('')
     const [data, setData] = useState('')
 
-    const [phone, setPhone] = useState('');
-
+    const [valid, setValid] = useState(false);
     const [telephone, setTelephone] = useState('');
     const [passcode, setPasscode] = useState('');
 
-    function handleTele(p: any) {
-        setTelephone('+'+p)
-    }
-    function printTele() {
-        console.log(telephone)
+    function check(number: string) {
+        if (number.length < 10) {
+            
+        }
+        else {verify(telephone)}
     }
 
     function verify(number: string) {
@@ -68,8 +67,8 @@ function Login(props:any) {
                             placeholder={'xxxyyyzzzz'}
                             enableSearch={true}
                             country={'us'}
-                            value={phone}
-                            onChange={phone => handleTele(phone)}
+                            value={telephone}
+                            onChange={phone => setTelephone('+'+phone)}
                             inputClass='digits'
                             dropdownClass='dropdown'
                             searchClass='search'
@@ -77,7 +76,7 @@ function Login(props:any) {
                             containerClass='cont'
                         />
                        {/*  <input className='digits' onChange={(e) => setTelephone(e.target.value)} value={telephone} placeholder={'+1xxxyyyzzzz'}></input> */}
-                        <button className='send' onClick={() => verify(telephone)}>
+                        <button className='send' onClick={() => check(telephone)}>
                             send
                         </button>
                     </div>

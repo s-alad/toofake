@@ -84,4 +84,13 @@
 
 .country.highlight {
   background-color: rgba(122, 122, 122, 0.2235294118) !important;
+}
+
+.arrow.up {
+  border-top: none !important;
+  border-bottom: 4px solid white !important;
+}
+
+.arrow {
+  border-top: 4px solid white !important;
 }/*# sourceMappingURL=login.css.map */
