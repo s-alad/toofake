@@ -65,7 +65,16 @@ function App() {
                   <div className='logout' onClick={() => logout()}>logout</div>
                 </div>
               :
-                ''
+              <div>
+                {
+                  back === true ? 
+                  <div className='functionality'>
+                    <div className='space'>|</div>
+                    <Link className='befake' to="/" onClick={() => {setBack(false)}}>back</Link>
+                  </div>
+                  : ''
+                }
+              </div>  
             }
         </div>
         <Routes>
