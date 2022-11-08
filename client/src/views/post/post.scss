@@ -1,0 +1,36 @@
+@use '../../shared/common.scss' as c;
+
+.post {
+    padding-left: 60px; padding-right: 60px;
+
+    .images {
+        display: flex;
+        .img {
+            width: 300px;
+            height: 400px;
+            border: 2px solid white;
+            margin-right: 18px;
+            border-radius: 12px;
+        }
+    }
+    .functionality {
+        display: flex;
+        margin-top: 14px;
+        .caption {
+            padding-left: 14px; padding-right: 14px;
+            width: 400px;
+            height: 40px;
+            border-radius: 12px;
+            background-color: white;
+        }
+        .submit {
+            cursor: pointer;
+            @include c.center();
+            margin-left: 12px;
+            border: 2px solid white;
+            width: 120px;
+            height: 40px;
+            border-radius: 12px;
+        }
+    }
+}

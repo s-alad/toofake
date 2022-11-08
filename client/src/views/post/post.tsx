@@ -3,7 +3,23 @@ import './post.css';
 
 function Post() {
     return (
-        <h1>post page</h1>
+        <div className='post'>
+            <div className='images'>
+                <div className='img one'>
+
+                </div>
+                <div className='img two'>
+
+                </div>
+            </div>
+            <div className='functionality'>
+                <input className='caption'>
+                </input>
+                <div className='submit'>
+                    submit
+                </div>
+            </div>
+        </div>
     )
 }
 

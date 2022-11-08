@@ -1,1 +1,13 @@
-/*# sourceMappingURL=back.css.map */
+.befake {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  font-size: 18px;
+  color: black;
+  width: 120px;
+  height: 40px;
+  border-radius: 12px;
+  background-color: white;
+  text-decoration: none;
+}/*# sourceMappingURL=back.css.map */

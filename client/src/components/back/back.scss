@@ -1,0 +1,13 @@
+@use '../../shared/common.scss' as common;
+
+.befake {
+    @include common.center();
+    cursor: pointer;
+    font-size: 18px;
+    color: black;
+    width: 120px;
+    height: 40px;
+    border-radius: 12px;
+    background-color: white;
+    text-decoration: none;
+}
