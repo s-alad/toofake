@@ -1,6 +1,6 @@
 @use '../../shared/common.scss' as common;
 
-.befake {
+.back {
     @include common.center();
     cursor: pointer;
     font-size: 18px;

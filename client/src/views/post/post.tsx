@@ -16,6 +16,10 @@ function Post() {
                 <input className='caption'>
                 </input>
                 <div className='submit'>
+                    <input type={'checkbox'} onChange={()=>console.log('c')}></input>
+                    location?
+                </div>
+                <div className='submit'>
                     submit
                 </div>
             </div>
