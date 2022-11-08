@@ -5,6 +5,8 @@ import Login from './views/login/login';
 import Home from './views/home/home';
 import gitlogo from './static/gitlogo.png';
 import { BrowserRouter as Router, Routes, Route, Link, useLocation } from 'react-router-dom';
+import About from './views/about/about';
+import Post from './views/post/post';
 
 function App() {
 
@@ -84,7 +86,8 @@ function App() {
               :
               <Login auth={auth}></Login>
           }/>
-          <Route path='about' element={<h1>about</h1>}/>
+          <Route path='about' element={<About></About>}/>
+          <Route path='post' element={<Post></Post>}/>
         </Routes>
         
         <div className='git'>
