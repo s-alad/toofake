@@ -19,7 +19,7 @@ class Parse:
         except: 
             geolocator = Nominatim(user_agent="GetLoc")
             location = geolocator.reverse("{}, {}".format(loc['_latitude'], loc['_longitude']), exactly_one=False)
-            return str(location)
+            return str(location[0])
             loose = str(location[-6]).split(',')
             return loose[1] +', ' + loose[0]
 
