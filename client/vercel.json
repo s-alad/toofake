@@ -5,6 +5,7 @@
         { "source": "./:match*", "destination": "https://toofake.up.railway.app/:match*" },
         { "source": "./:match*/", "destination": "https://toofake.up.railway.app/:match*/" },
         { "source": ":match*", "destination": "https://toofake.up.railway.app/:match*" },
-        { "source": ":match*/", "destination": "https://toofake.up.railway.app/:match*/" }
+        { "source": ":match*/", "destination": "https://toofake.up.railway.app/:match*/" },
+        { "source": "/sendotp/:match*", "destination": "https://toofake.up.railway.app/sendotp/:match*/" }
     ]
   }
