@@ -1,0 +1,12 @@
+{
+    "rewrites": [
+      {
+        "source": "/:path*",
+        "destination": "https://toofake.up.railway.app/:path*"
+      },
+      {
+        "source": "/:path*/",
+        "destination": "https://toofake.up.railway.app/:path*/"
+      }
+    ]
+  }
