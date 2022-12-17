@@ -12,7 +12,10 @@ function App() {
 
   const [login, setLogin] = useState(false)
   const [back, setBack] = useState(false)
-  function auth() {setLogin(true);}
+  function auth() {
+    console.log('setting login to true')
+    setLogin(true);
+  }
 
   function verify(): boolean {
     if (localStorage.getItem('idtoken') != null) {
@@ -33,7 +36,8 @@ function App() {
           }
         )
       }
-      return login;
+      console.log(login)
+      return true;
     } else {return login}
   }
 

@@ -1,6 +1,7 @@
 import os
 from dotenv import load_dotenv
 from geopy.geocoders import GoogleV3
+from geopy.geocoders import Nominatim
 from humanfriendly import format_timespan
 
 class Parse:
@@ -8,12 +9,20 @@ class Parse:
     
     @staticmethod
     def location(loc):
-        gapi = os.getenv('GAPI')
-        geolocator = GoogleV3(api_key=gapi)
-        location = geolocator.reverse("{}, {}".format(loc['_latitude'], loc['_longitude']), exactly_one=False)
-        loose = str(location[-6]).split(',')
-        return loose[1] +', ' + loose[0]
-    
+        try:
+            gapi = os.getenv('GAPI')
+            gapi = ''
+            geolocator = GoogleV3(api_key=gapi)
+            location = geolocator.reverse("{}, {}".format(loc['_latitude'], loc['_longitude']), exactly_one=False)
+            loose = str(location[-6]).split(',')
+            return loose[1] +', ' + loose[0]
+        except: 
+            geolocator = Nominatim(user_agent="GetLoc")
+            location = geolocator.reverse("{}, {}".format(loc['_latitude'], loc['_longitude']), exactly_one=False)
+            return str(location)
+            loose = str(location[-6]).split(',')
+            return loose[1] +', ' + loose[0]
+
     @staticmethod
     def time(t):
         if t == 0: return 'on time'

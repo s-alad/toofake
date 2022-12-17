@@ -53,6 +53,7 @@ function Login(props:any) {
                 setData(JSON.stringify(data))
 
                 if (data["phoneNumber"] === telephone) {
+                    console.log('authenticating')
                     props.auth()
                 }
             }
