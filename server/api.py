@@ -1,6 +1,6 @@
 import json
 import requests
-
+import os
 from flask import Flask
 
 import models.instant
@@ -75,7 +75,8 @@ def instants(token: str):
     return json.dumps(ret)
 
 if __name__ == '__main__':
-    app.run(port=5100, debug=True)
+    #app.run(port=5100, debug=True)
+    app.run(debug=True, port=os.getenv("PORT", default=5100))
     print('online')
 
     
