@@ -13,7 +13,6 @@ function App() {
   const [login, setLogin] = useState(false)
   const [back, setBack] = useState(false)
   function auth() {
-    console.log('setting login to true')
     setLogin(true);
   }
 
