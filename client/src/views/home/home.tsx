@@ -13,7 +13,10 @@ function Home() {
         console.log('refreshhhhh')
         console.log(token)
         fetch(`instants/${token}`).then(
-            (value) => {return value.json()}
+            (value) => {
+                console.log(value)
+                return value.json()
+            }
         ).then(
             (data) => {
                 setInstants(data)
