@@ -75,7 +75,7 @@ def instants(token: str):
     return json.dumps(ret)
 
 def post():
-    json_data = {
+    """ json_data = {
         "isPublic": is_public,
         "isLate": is_late,
         "retakeCounter": retakes,
@@ -94,7 +94,8 @@ def post():
             "width": secondary_picture.width,
             "path": secondary_picture.url.replace("https://storage.bere.al/", ""),
         },
-    }
+    } """
+    return ''
 
 
 if __name__ == '__main__':

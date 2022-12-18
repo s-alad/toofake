@@ -11,6 +11,37 @@
             border: 2px solid white;
             margin-right: 18px;
             border-radius: 12px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            input[type=file] {
+                display: none;
+            }
+            .upload {
+                position: absolute;
+                border: 2px solid #fff;
+                display: inline-block;
+                cursor: pointer;
+                border-radius: 12px;
+                padding-left: 14px; padding-right: 14px;
+                height: 40px;
+                @include c.center();
+                background-color: rgb(0, 0, 0, 0.5);
+            }
+            .sub {
+                height: 100%;
+                width: 100%;
+                img {
+                    height: 100%;
+                    width: 100%;
+                    object-fit: cover;
+                    border-radius: 12px;
+                }
+                .data {
+                    position: absolute;
+                    top: 0px;
+                }
+            }
         }
     }
     .functionality {
@@ -28,7 +59,7 @@
             @include c.center();
             margin-left: 12px;
             border: 2px solid white;
-            width: 90px;
+            min-width: 90px;
             height: 40px;
             border-radius: 12px;
             padding-left: 14px; padding-right: 14px;
