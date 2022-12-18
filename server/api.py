@@ -74,6 +74,29 @@ def instants(token: str):
     print(ret)
     return json.dumps(ret)
 
+def post():
+    json_data = {
+        "isPublic": is_public,
+        "isLate": is_late,
+        "retakeCounter": retakes,
+        "takenAt": taken_at,
+        "location": location,
+        "caption": caption,
+        "backCamera": {
+            "bucket": "storage.bere.al",
+            "height": primary_picture.height,
+            "width": primary_picture.width,
+            "path": primary_picture.url.replace("https://storage.bere.al/", ""),
+        },
+        "frontCamera": {
+            "bucket": "storage.bere.al",
+            "height": secondary_picture.height,
+            "width": secondary_picture.width,
+            "path": secondary_picture.url.replace("https://storage.bere.al/", ""),
+        },
+    }
+
+
 if __name__ == '__main__':
     #app.run(port=5100, debug=True)
     app.run(debug=True, port=os.getenv("PORT", default=5100))
