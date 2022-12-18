@@ -65,6 +65,7 @@ def refresh(token: str):
 
 @app.route("/instants/<token>")
 def instants(token: str):
+    print('token', token)
     res = requests.get(
         url=api_url+'/feeds/friends',
         headers={"authorization": token},
@@ -74,29 +75,38 @@ def instants(token: str):
     print(ret)
     return json.dumps(ret)
 
-def post():
-    """ json_data = {
-        "isPublic": is_public,
-        "isLate": is_late,
-        "retakeCounter": retakes,
-        "takenAt": taken_at,
-        "location": location,
-        "caption": caption,
+#/<caption>/<location>/<primary>/<secondary>
+#, caption: str, location: str, primary: str, secondary: str
+@app.route("/post/<token>")
+def post(token: str):
+    json_data = {
+        "isPublic": False,
+        "caption": 'test',
+        "takenAt": 1610000000,
+        "isLate": False,
+        "location": { 'latitude': "37.2297175", 'longitude': "-115.7911082" },
+        "retakeCounter": 0,
         "backCamera": {
             "bucket": "storage.bere.al",
-            "height": primary_picture.height,
-            "width": primary_picture.width,
-            "path": primary_picture.url.replace("https://storage.bere.al/", ""),
+            "height": 2000,
+            "width": 1500,
+            "path": 'https://www.tutlane.com/images/python/python_string_replace_method.png',
         },
         "frontCamera": {
             "bucket": "storage.bere.al",
-            "height": secondary_picture.height,
-            "width": secondary_picture.width,
-            "path": secondary_picture.url.replace("https://storage.bere.al/", ""),
+            "height": 2000,
+            "width": 1500,
+            "path": 'https://www.tutlane.com/images/python/python_string_replace_method.png',
         },
-    } """
-    return ''
-
+    }
+    res = requests.post(
+        url=api_url+'/content/post',
+        json=json_data,
+        headers={"authorization": token},
+    )
+    print(res)
+    print(res.json())
+    return res.json()
 
 if __name__ == '__main__':
     #app.run(port=5100, debug=True)
