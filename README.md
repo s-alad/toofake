@@ -18,7 +18,7 @@ https://toofake.vercel.app/
 
 * you need the correct python libraries installed (flask, dotenv, geopy and humanfriendly) 
   * in the server directory run:
-    - pip install requirements.txt
+    - pip install -r requirements.txt
 * If you would like better location accuracy, create a .env file in the server directory and add a google maps api key labeled GAPI='your_key'. Otherwise ignore.
 * start flask server on api.py
 * npm start in client directory
