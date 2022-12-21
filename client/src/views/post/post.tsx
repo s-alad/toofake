@@ -15,8 +15,8 @@ function Post() {
     };
 
     function fileTwoHandler(event: any) {
-        setSelectedFileTwo(event.target.files[0]);
         setIsSecondFilePicked(true);
+        setSelectedFileTwo(event.target.files[0]);
     };
 
     function handleSubmission() {
@@ -43,7 +43,7 @@ function Post() {
                 </div>
                 <div className='img two'>
                     <label htmlFor="file-one-upload" className='upload'>Choose Back image</label>
-                    <input id="file-one-upload" type="file" name="file" onChange={fileTwoHandler} />
+                    <input id="file-two-upload" type="file" name="file" onChange={fileTwoHandler} />
                     {isSecondFilePicked ? (
                         <>
                             <div className='sub'>
