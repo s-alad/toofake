@@ -42,7 +42,7 @@ function Post() {
                     )}
                 </div>
                 <div className='img two'>
-                    <label htmlFor="file-one-upload" className='upload'>Choose Back image</label>
+                    <label htmlFor="file-two-upload" className='upload'>Choose Back image</label>
                     <input id="file-two-upload" type="file" name="file" onChange={fileTwoHandler} />
                     {isSecondFilePicked ? (
                         <>
