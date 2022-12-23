@@ -62,7 +62,7 @@ function Instant({username, location, late, caption, primary, secondary, avatar,
               </div>
             <div className='reactions'>
               {reactions.map(function(data, idx) {
-                return <div className='reaction'>
+                return <div className='reaction' key={idx}>
                     <img src={data.link}/>
                     <div className='emoji'> {data.emoji} </div>
                   </div>
@@ -91,7 +91,7 @@ function Instant({username, location, late, caption, primary, secondary, avatar,
             <div className='comments'>
               {comments.map(function(data:any, idx:any) {
                 logComments()
-                return <div className='comment'>
+                return <div className='comment' key={idx}>
                     <div className='avatar'>
                       <img src={data.user.profilePicture.url}></img>
                     </div>
