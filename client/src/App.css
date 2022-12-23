@@ -13,8 +13,11 @@
 }
 @media screen and (max-width: 500px) {
   .App .toofake {
+    padding-left: 50px;
+    padding-right: 50px;
     flex-direction: column;
     align-items: start;
+    margin-bottom: 40px;
   }
   .App .toofake .functionality {
     flex-direction: column;
@@ -70,6 +73,13 @@
   display: flex;
   padding-left: 60px;
   bottom: 20px;
+}
+@media screen and (max-width: 500px) {
+  .App .git {
+    position: relative;
+    bottom: 0;
+    margin-bottom: 20px;
+  }
 }
 .App .git .space {
   margin: 0 12px 0 12px;

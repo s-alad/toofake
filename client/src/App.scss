@@ -13,8 +13,11 @@
         padding-top: 20px;
         margin-bottom: 20px;
         @media screen and (max-width: 500px) {
+            padding-left: 50px;
+            padding-right: 50px;
             flex-direction: column;
             align-items: start;
+            margin-bottom: 40px;
             .functionality {flex-direction: column; align-items: start !important;}
             .functionality-inner {margin-top: 12px; margin-bottom: 12px}
             .space {display: none;}
@@ -50,6 +53,11 @@
         }
     }
     .git {
+        @media  screen and (max-width: 500px) {
+            position: relative;
+            bottom: 0;
+            margin-bottom: 20px;
+        }
         position: absolute;
         display: flex;
         padding-left: 60px;
