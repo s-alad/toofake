@@ -44,7 +44,7 @@ function Home() {
                             instants && instants.length > 0 && instants.map(function (data, idx) {
                                 console.log("comments: ", data.comments)
                                 return ([
-                                    <div>
+                                    <div key={idx}>
                                         <Instant
                                             key={data}
                                             username={data.username}
