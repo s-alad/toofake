@@ -126,22 +126,14 @@ def postinstant(token:str, uid:str, caption:str):
         print("URI: ", uri)
         init_res = requests.post(uri, headers=headers, params=params, data=json.dumps(json_data))
         print("INITIAL RESULT: ", init_res)
-        if init_res.status_code != 200:
-            raise Exception(f"Error initiating upload: {init_res.status_code}")
+        if init_res.status_code != 200: raise Exception(f"Error initiating upload: {init_res.status_code}")
         upload_url = init_res.headers["x-goog-upload-url"]
-        upheaders = {
-            "x-goog-upload-command": "upload, finalize",
-            "x-goog-upload-protocol": "resumable",
-            "x-goog-upload-offset": "0",
-            "content-type": "image/jpeg",
-        }
+        upheaders = {"x-goog-upload-command": "upload, finalize","x-goog-upload-protocol": "resumable",
+        "x-goog-upload-offset": "0","content-type": "image/jpeg",}
         # upload the image
         print("UPLOAD URL", upload_url)
         upload_res = requests.put(url=upload_url, headers=upheaders, data=file_data)
-        if upload_res.status_code != 200:
-            print("ISSUE!!!!")
-            print(upload_res)
-            raise Exception(f"Error uploading image: {upload_res.status_code}, {upload_res.text}")
+        if upload_res.status_code != 200: raise Exception(f"Error uploading image: {upload_res.status_code}, {upload_res.text}")
         res_data = upload_res.json()
         return res_data
     
@@ -181,11 +173,7 @@ def postinstant(token:str, uid:str, caption:str):
             "path": secondary_url.replace("https://storage.bere.al/", ""),
         },
     }
-    complete_res = requests.post(
-        url=api_url+'/content/post',
-        json=payload,
-        headers={"authorization": token},
-    )
+    complete_res = requests.post(url=api_url+'/content/post',json=payload,headers={"authorization": token},)
     print(complete_res)
     print(complete_res.json())
 
