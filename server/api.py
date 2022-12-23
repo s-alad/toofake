@@ -98,6 +98,8 @@ def uploadinstant(token:str, uid:str):
     print(len(prim_data))
     print(prim_data)
     print(primary)
+    with open('test.jpg', 'wb') as f:
+        f.write(prim_data)
     print('--------------')
 
     name = f"Photos/{uid}/bereal/{uuid.uuid4()}-{int(pendulum.now().timestamp())}{'-secondary' if False else ''}.jpg"
@@ -114,7 +116,7 @@ def uploadinstant(token:str, uid:str):
             "x-firebase-storage-version": "ios/9.4.0",
             "x-goog-upload-content-type": "image/webp",
             "Authorization": f"Firebase {token}",
-            "x-goog-upload-content-length": primarysize, #str(len(primary)),
+            "x-goog-upload-content-length": str(133400),#""" primarysize """, #str(len(primary)),
             "content-type": "application/json",
             "x-firebase-gmpid": "1:405768487586:ios:28c4df089ca92b89",
         }
@@ -139,12 +141,12 @@ def uploadinstant(token:str, uid:str):
     }
     # upload the image
     print("UPLOAD URL", upload_url)
-    upload_res = requests.put(url=upload_url, headers=headers2, data=prim_data)
+    u""" pload_res = requests.put(url=upload_url, headers=headers2, data=prim_data)
     if upload_res.status_code != 200:
         print("ISSUE!!!!")
         print(upload_res)
         raise Exception(f"Error uploading image: {upload_res.status_code}, {upload_res.text}")
-    res_data = upload_res.json()
+    res_data = upload_res.json() """
     return ''
 
 @app.route("/postinstant/<token>")
@@ -179,8 +181,8 @@ def postinstant(token: str):
     return res.json()
 
 if __name__ == '__main__':
-    app.run(port=5100, debug=True)
-    #app.run(debug=True, port=os.getenv("PORT", default=5100))
+    #app.run(port=5100, debug=True)
+    app.run(debug=True, port=os.getenv("PORT", default=5100))
     print('online')
 
     
