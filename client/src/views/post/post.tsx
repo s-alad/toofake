@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import './post.css';
 
 function Post() {
-
+    
+    const [valid, setValid] = useState(true);
     const [caption, setCaption] = useState('');
     const [selectedFileOne, setSelectedFileOne]: any = useState();
     const [selectedFileTwo, setSelectedFileTwo]: any = useState();
@@ -21,6 +22,14 @@ function Post() {
     };
 
     function handleSubmission() {
+
+        if (!selectedFileOne || !selectedFileTwo) {
+            setValid(false);
+            //wait 5 seconds then reset
+            setTimeout(() => {
+                setValid(true);
+            }, 3000);
+        }
 
         const data = new FormData();
         data.append('primary', selectedFileOne);
@@ -96,6 +105,7 @@ function Post() {
             <div className='send' onClick={handleSubmission}>
                 submit
             </div>
+            {!valid ? (<div className='validation'>please select both images</div>) : (<></>)}
         </div>
     )
 }

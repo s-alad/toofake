@@ -58,6 +58,7 @@
   height: 40px;
   border-radius: 12px;
   background-color: white;
+  color: black;
 }
 .post .functionality .submit {
   cursor: pointer;
@@ -89,4 +90,14 @@
   border-radius: 12px;
   padding-left: 14px;
   padding-right: 14px;
+  transition: 0.2s ease-in-out;
+}
+.post .send:hover {
+  background-color: white;
+  color: black;
+}
+.post .validation {
+  margin-top: 12px;
+  color: #bf616a;
+  font-size: 14px;
 }/*# sourceMappingURL=post.css.map */

@@ -53,6 +53,7 @@
             height: 40px;
             border-radius: 12px;
             background-color: white;
+            color: black;
         }
         .submit {
             cursor: pointer;
@@ -73,11 +74,21 @@
     .send {
         cursor: pointer;
         margin-top: 20px;
-            @include c.center();
-            border: 2px solid white;
-            max-width: 620px;
-            height: 40px;
-            border-radius: 12px;
-            padding-left: 14px; padding-right: 14px;
+        @include c.center();
+        border: 2px solid white;
+        max-width: 620px;
+        height: 40px;
+        border-radius: 12px;
+        padding-left: 14px; padding-right: 14px;
+        transition: .2s ease-in-out;
+        &:hover {
+            background-color: white;
+            color: black;
+        }
+    }
+    .validation {
+        margin-top: 12px;
+        color: #bf616a;
+        font-size: 14px;
     }
 }
