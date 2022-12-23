@@ -86,67 +86,61 @@ def instants(token: str):
 
 @app.route("/uploadinstant/<token>/<uid>", methods=["POST"])
 def uploadinstant(token:str, uid:str):
-    p = request.files['primary'] 
-    print(type(p))
-    primary = Image.open(io.BytesIO(p.read()))
-    prim_data = io.BytesIO()
-    primary.save(prim_data, format="JPEG", quality=90)
-    prim_data = prim_data.getvalue()
-    primarysize = str(len(prim_data))
-    print('--------------')
-    print(type(prim_data))
-    print(len(prim_data))
-    print(prim_data)
-    print(primary)
-    with open('test.jpg', 'wb') as f:
-        f.write(prim_data)
-    print('--------------')
 
-    name = f"Photos/{uid}/bereal/{uuid.uuid4()}-{int(pendulum.now().timestamp())}{'-secondary' if False else ''}.jpg"
-    print(name)
-    json_data = {
-            "cacheControl": "public,max-age=172800",
-            "contentType": "image/webp",
-            "metadata": {"type": "bereal"},
-            "name": name,
-        }
-    headers = {
-            "x-goog-upload-protocol": "resumable",
-            "x-goog-upload-command": "start",
-            "x-firebase-storage-version": "ios/9.4.0",
-            "x-goog-upload-content-type": "image/webp",
+    def get_data(version):
+        version_data = io.BytesIO()
+        version.save(version_data, format="JPEG", quality=90)
+        version_data = version_data.getvalue()
+        return version_data
+
+    p = request.files['primary'] 
+    primary = Image.open(io.BytesIO(p.read()))
+    prim_data = get_data(primary)
+    primarysize = str(len(prim_data))
+
+    s = request.files['secondary']
+    secondary = Image.open(io.BytesIO(s.read()))
+    sec_data = get_data(secondary)
+    secondarysize = str(len(sec_data))
+
+    def upload(file_data, size, alt: bool):
+        name = f"Photos/{uid}/bereal/{uuid.uuid4()}-{int(pendulum.now().timestamp())}{'-secondary' if alt else ''}.jpg"
+        print(name)
+
+        json_data = {"cacheControl": "public,max-age=172800","contentType": "image/webp","metadata": {"type": "bereal"},"name": name}
+        headers = {
+            "x-goog-upload-protocol": "resumable","x-goog-upload-command": "start","x-firebase-storage-version": "ios/9.4.0",
+            "x-goog-upload-content-type": "image/webp","content-type": "application/json","x-firebase-gmpid": "1:405768487586:ios:28c4df089ca92b89",
             "Authorization": f"Firebase {token}",
-            "x-goog-upload-content-length": str(133400),#""" primarysize """, #str(len(primary)),
-            "content-type": "application/json",
-            "x-firebase-gmpid": "1:405768487586:ios:28c4df089ca92b89",
+            "x-goog-upload-content-length": size,
         }
-    params = {
-            "uploadType": "resumable",
-            "name": name,
+        params = {"uploadType": "resumable","name": name}
+
+        uri = f"https://firebasestorage.googleapis.com/v0/b/storage.bere.al/o/{quote_plus(name)}"
+        print("URI: ", uri)
+        init_res = requests.post(uri, headers=headers, params=params, data=json.dumps(json_data))
+        print("INITIAL RESULT: ", init_res)
+        if init_res.status_code != 200:
+            raise Exception(f"Error initiating upload: {init_res.status_code}")
+        upload_url = init_res.headers["x-goog-upload-url"]
+        upheaders = {
+            "x-goog-upload-command": "upload, finalize",
+            "x-goog-upload-protocol": "resumable",
+            "x-goog-upload-offset": "0",
+            "content-type": "image/jpeg",
         }
-    uri = f"https://firebasestorage.googleapis.com/v0/b/storage.bere.al/o/{quote_plus(name)}"
-    print("URI: ", uri)
-    init_res = requests.post(
-            uri, headers=headers, params=params, data=json.dumps(json_data)
-    )
-    print("INITIAL RESULT: ", init_res)
-    if init_res.status_code != 200:
-        raise Exception(f"Error initiating upload: {init_res.status_code}")
-    upload_url = init_res.headers["x-goog-upload-url"]
-    headers2 = {
-        "x-goog-upload-command": "upload, finalize",
-        "x-goog-upload-protocol": "resumable",
-        "x-goog-upload-offset": "0",
-        "content-type": "image/jpeg",
-    }
-    # upload the image
-    print("UPLOAD URL", upload_url)
-    u""" pload_res = requests.put(url=upload_url, headers=headers2, data=prim_data)
-    if upload_res.status_code != 200:
-        print("ISSUE!!!!")
-        print(upload_res)
-        raise Exception(f"Error uploading image: {upload_res.status_code}, {upload_res.text}")
-    res_data = upload_res.json() """
+        # upload the image
+        print("UPLOAD URL", upload_url)
+        upload_res = requests.put(url=upload_url, headers=upheaders, data=file_data)
+        if upload_res.status_code != 200:
+            print("ISSUE!!!!")
+            print(upload_res)
+            raise Exception(f"Error uploading image: {upload_res.status_code}, {upload_res.text}")
+        res_data = upload_res.json()
+    
+    upload(prim_data, primarysize, False)
+    upload(sec_data, secondarysize, True)
+    
     return ''
 
 @app.route("/postinstant/<token>")
