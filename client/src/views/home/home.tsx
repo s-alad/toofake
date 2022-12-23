@@ -3,9 +3,11 @@ import React, { useEffect } from 'react';
 import './home.css';
 import { useState } from 'react';
 import { refresh } from "../../api/auth";
+import loader from "https://i.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy.webp"
 
-function Home() {    
+function Home() {
     const [instants, setInstants] = useState<any[]>([])
+    const [loading, setLoading] = useState(true)
 
     async function display() {
         await refresh();
@@ -19,40 +21,50 @@ function Home() {
         ).then(
             (data) => {
                 setInstants(data)
+                setLoading(false)
             }
         )
     }
 
-    useEffect(()=>{
+    useEffect(() => {
         display()
-    }, []) 
+    }, [])
 
     return (
-        <div className='home'> 
-          <div className='instants'>
+        <div className='home'>
             {
-                instants && instants.length>0 && instants.map(function(data, idx) {
-                    console.log(data.comments)
-                    return ([
-                        <div>
-                            <Instant 
-                            key={data}
-                            username={data.username} 
-                            location={data.location}
-                            late={data.late} 
-                            icon={data.avatar} 
-                            primary={data.primary} 
-                            secondary={data.secondary} 
-                            caption={data.caption}
-                            avatar={data.avatar}
-                            reactions={data.reactions}
-                            comments={data.comments}></Instant>
-                            <div className="takespace"></div>
-                        </div>,
-                    ]);
-                 })
+                loading ? 
+                    <div className='loading'>
+                        {/* <img src={"https://i.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy.webp"} /> */}
+                        Loading... (this can take a sec but shouldn't take tooo long)
+                    </div> 
+                    :
+                    <div className='instants'>
+                        {
+                            instants && instants.length > 0 && instants.map(function (data, idx) {
+                                console.log(data.comments)
+                                return ([
+                                    <div>
+                                        <Instant
+                                            key={data}
+                                            username={data.username}
+                                            location={data.location}
+                                            late={data.late}
+                                            icon={data.avatar}
+                                            primary={data.primary}
+                                            secondary={data.secondary}
+                                            caption={data.caption}
+                                            avatar={data.avatar}
+                                            reactions={data.reactions}
+                                            comments={data.comments}></Instant>
+                                        <div className="takespace"></div>
+                                    </div>,
+                                ]);
+                            })
+                        }
+                    </div>
             }
-            </div>
+
         </div>
     )
 }

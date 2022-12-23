@@ -57,12 +57,12 @@ function App() {
                 <div className='functionality'>
                   {
                     back === false ?
-                    <div className='functionality'>
+                    <div className='functionality-inner'>
                       <div className='space'>|</div>
                       <Link className='befake' to="/post" onClick={() => {setBack(true)}}>post a bereal</Link>
                     </div>
                     :
-                    <div className='functionality'>
+                    <div className='functionality-inner'>
                       <div className='space'>|</div>
                       <Link className='befake' to="/" onClick={() => {setBack(false)}}>back</Link>
                     </div>

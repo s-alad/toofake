@@ -11,17 +11,39 @@
   padding-top: 20px;
   margin-bottom: 20px;
 }
+@media screen and (max-width: 500px) {
+  .App .toofake {
+    flex-direction: column;
+    align-items: start;
+  }
+  .App .toofake .functionality {
+    flex-direction: column;
+    align-items: start !important;
+  }
+  .App .toofake .functionality-inner {
+    margin-top: 12px;
+    margin-bottom: 12px;
+  }
+  .App .toofake .space {
+    display: none;
+  }
+  .App .toofake .logout {
+    text-align: start;
+  }
+}
 .App .toofake .functionality {
   display: flex;
   display: flex;
   justify-content: center;
   align-items: center;
 }
-.App .toofake .functionality .space {
-  margin-left: 12px;
-  margin-right: 12px;
+.App .toofake .functionality .functionality-inner {
+  display: flex;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
-.App .toofake .functionality .befake {
+.App .toofake .functionality .functionality-inner .befake {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -33,6 +55,10 @@
   border-radius: 12px;
   background-color: white;
   text-decoration: none;
+}
+.App .toofake .functionality .space {
+  margin-left: 12px;
+  margin-right: 12px;
 }
 .App .toofake .functionality .logout {
   cursor: pointer;

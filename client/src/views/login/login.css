@@ -15,6 +15,15 @@
   justify-content: center;
   align-items: center;
 }
+@media (max-width: 500px) {
+  .login .number, .verify .number {
+    flex-direction: column !important;
+    align-items: start !important;
+  }
+  .login .number .send, .verify .number .send {
+    margin-top: 16px;
+  }
+}
 .login .number .space, .verify .number .space {
   padding-left: 10px;
 }

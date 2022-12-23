@@ -7,6 +7,11 @@
         flex-direction: row;
         width: 100%;
         height: initial;
+        //check if screen is small
+        @media (max-width: 500px) {
+            flex-direction: column !important;
+            align-items: start !important;
+        }
     }
     .takespace {
         min-height: 8px;

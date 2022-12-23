@@ -56,7 +56,5 @@ class Parse:
                 'reactions' : Parse.reaction(instant['realMojis']),
                 'comments' : instant['comment']
             }
-            print("=====================================")
-            print(instant['comment'])
             computed.append(ins)
         return computed

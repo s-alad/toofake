@@ -10,9 +10,15 @@
 
     .text {font-size: 22px}
 
+    //check if screen is small
     .number {
         margin-top: 12px;
         @include common.center();
+        @media (max-width: 500px) {
+            flex-direction: column !important;
+            align-items: start !important;
+            .send {margin-top: 16px;}
+        }
         .space {padding-left: 10px;}
 
         .digits {

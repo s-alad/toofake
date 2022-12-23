@@ -12,23 +12,35 @@
         padding-left: 60px; padding-right: 60px;
         padding-top: 20px;
         margin-bottom: 20px;
+        @media screen and (max-width: 500px) {
+            flex-direction: column;
+            align-items: start;
+            .functionality {flex-direction: column; align-items: start !important;}
+            .functionality-inner {margin-top: 12px; margin-bottom: 12px}
+            .space {display: none;}
+            .logout {text-align: start;}
+        }
         .functionality {
             display: flex;
             @include common.center();
+            .functionality-inner {
+                display: flex;
+                @include common.center();
+                .befake {
+                    @include common.center();
+                    cursor: pointer;
+                    font-size: 18px;
+                    color: black;
+                    width: 120px;
+                    height: 40px;
+                    border-radius: 12px;
+                    background-color: white;
+                    text-decoration: none;
+                }
+            }
             .space {
                 margin-left: 12px;
                 margin-right: 12px;
-            }
-            .befake {
-                @include common.center();
-                cursor: pointer;
-                font-size: 18px;
-                color: black;
-                width: 120px;
-                height: 40px;
-                border-radius: 12px;
-                background-color: white;
-                text-decoration: none;
             }
             .logout {
                 cursor: pointer;

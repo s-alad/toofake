@@ -1,7 +1,13 @@
 
-@use '../shared/common' as common;
+@use '../../shared/common.scss' as common;
 
 .instant {
+    //check if screen is small
+    @media (max-width: 500px) {
+        margin-left: 0px !important;
+        margin-right: 0px !important;
+        margin-bottom: 12px;
+    }
     margin-left: 12px;
     margin-right: 12px;
     display: flex;
