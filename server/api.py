@@ -150,7 +150,45 @@ def uploadinstant(token:str, uid:str):
 
     print(primary_res)
     print(secondary_res)
-    
+
+    primary_ret_name = primary_res['name']
+    secondary_ret_name = secondary_res['name']
+    primary_bucket = primary_res['bucket']
+    secondary_bucket = secondary_res['bucket']
+    primary_url = f"https://{primary_bucket}/{primary_ret_name}"
+    secondary_url = f"https://{secondary_bucket}/{secondary_ret_name}"
+
+    now = pendulum.now()
+    taken_at = f"{now.to_date_string()}T{now.to_time_string()}Z"
+
+    payload = {
+        "isPublic": False,
+        "isLate": False,
+        "retakeCounter": 0,
+        "takenAt": taken_at,
+        #"location": location,
+        "caption": "test caption",
+        "backCamera": {
+            "bucket": "storage.bere.al",
+            "height": 2000,
+            "width": 1500,
+            "path": primary_url.replace("https://storage.bere.al/", ""),
+        },
+        "frontCamera": {
+            "bucket": "storage.bere.al",
+            "height": 2000,
+            "width": 1500,
+            "path": secondary_url.replace("https://storage.bere.al/", ""),
+        },
+    }
+    complete_res = requests.post(
+        url=api_url+'/content/post',
+        json=payload,
+        headers={"authorization": token},
+    )
+    print(complete_res)
+    print(complete_res.json())
+
     return json.dumps({"primary": primary_res, "secondary": secondary_res})
 
 @app.route("/postinstant/<token>")
