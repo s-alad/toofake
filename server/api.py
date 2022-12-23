@@ -1,10 +1,14 @@
 import json
+import uuid
 import requests
 import os
-from flask import Flask
-
+import io
+from flask import Flask, request
 import models.instant
 from parse import Parse
+from urllib.parse import quote_plus
+import pendulum
+from PIL import Image
 
 app = Flask(__name__)
 
@@ -80,10 +84,71 @@ def instants(token: str):
     print(ret)
     return json.dumps(ret)
 
-#/<caption>/<location>/<primary>/<secondary>
-#, caption: str, location: str, primary: str, secondary: str
-@app.route("/post/<token>")
-def post(token: str):
+@app.route("/uploadinstant/<token>/<uid>", methods=["POST"])
+def uploadinstant(token:str, uid:str):
+    p = request.files['primary'] 
+    print(type(p))
+    primary = Image.open(io.BytesIO(p.read()))
+    prim_data = io.BytesIO()
+    primary.save(prim_data, format="JPEG", quality=90)
+    prim_data = prim_data.getvalue()
+    primarysize = str(len(prim_data))
+    print('--------------')
+    print(type(prim_data))
+    print(len(prim_data))
+    print(prim_data)
+    print(primary)
+    print('--------------')
+
+    name = f"Photos/{uid}/bereal/{uuid.uuid4()}-{int(pendulum.now().timestamp())}{'-secondary' if False else ''}.jpg"
+    print(name)
+    json_data = {
+            "cacheControl": "public,max-age=172800",
+            "contentType": "image/webp",
+            "metadata": {"type": "bereal"},
+            "name": name,
+        }
+    headers = {
+            "x-goog-upload-protocol": "resumable",
+            "x-goog-upload-command": "start",
+            "x-firebase-storage-version": "ios/9.4.0",
+            "x-goog-upload-content-type": "image/webp",
+            "Authorization": f"Firebase {token}",
+            "x-goog-upload-content-length": primarysize, #str(len(primary)),
+            "content-type": "application/json",
+            "x-firebase-gmpid": "1:405768487586:ios:28c4df089ca92b89",
+        }
+    params = {
+            "uploadType": "resumable",
+            "name": name,
+        }
+    uri = f"https://firebasestorage.googleapis.com/v0/b/storage.bere.al/o/{quote_plus(name)}"
+    print("URI: ", uri)
+    init_res = requests.post(
+            uri, headers=headers, params=params, data=json.dumps(json_data)
+    )
+    print("INITIAL RESULT: ", init_res)
+    if init_res.status_code != 200:
+        raise Exception(f"Error initiating upload: {init_res.status_code}")
+    upload_url = init_res.headers["x-goog-upload-url"]
+    headers2 = {
+        "x-goog-upload-command": "upload, finalize",
+        "x-goog-upload-protocol": "resumable",
+        "x-goog-upload-offset": "0",
+        "content-type": "image/jpeg",
+    }
+    # upload the image
+    print("UPLOAD URL", upload_url)
+    upload_res = requests.put(url=upload_url, headers=headers2, data=prim_data)
+    if upload_res.status_code != 200:
+        print("ISSUE!!!!")
+        print(upload_res)
+        raise Exception(f"Error uploading image: {upload_res.status_code}, {upload_res.text}")
+    res_data = upload_res.json()
+    return ''
+
+@app.route("/postinstant/<token>")
+def postinstant(token: str):
     json_data = {
         "isPublic": False,
         "caption": 'test',
@@ -114,8 +179,8 @@ def post(token: str):
     return res.json()
 
 if __name__ == '__main__':
-    #app.run(port=5100, debug=True)
-    app.run(debug=True, port=os.getenv("PORT", default=5100))
+    app.run(port=5100, debug=True)
+    #app.run(debug=True, port=os.getenv("PORT", default=5100))
     print('online')
 
     

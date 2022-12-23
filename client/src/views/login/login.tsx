@@ -28,12 +28,13 @@ function Login(props:any) {
     }
 
     function verify(number: string) {
+        console.log(number)
         fetch(`/sendotp/${number}`).then(
             (value) => {return value.json()}
         ).then(
             (data) => {
                 setInfo(data['sessionInfo'])
-                console.log(info)
+                console.log(info)   
             }
         ).catch((e) => console.log(e))
 
@@ -49,6 +50,8 @@ function Login(props:any) {
                 localStorage.setItem('token', JSON.stringify(data))
                 localStorage.setItem('idtoken', data['idToken'])
                 localStorage.setItem('refresh', data['refreshToken'])
+                localStorage.setItem('uid', data['localId'])
+                localStorage.setItem('phoneNumber', data['phoneNumber'])
                 localStorage.setItem('expiration', (Date.now() + parseInt(data['expiresIn']) * 1000).toString())
                 setData(JSON.stringify(data))
 

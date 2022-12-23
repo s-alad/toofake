@@ -10,6 +10,7 @@ function refresh(): void {
           (data) => {
             localStorage.setItem('refresh', data['refresh_token'])
             localStorage.setItem('idtoken', data['id_token'])
+            localStorage.setItem('uid', data['user_id'])
             localStorage.setItem('expiration', (Date.now() + parseInt(data['expires_in'])).toString())
           }
         )

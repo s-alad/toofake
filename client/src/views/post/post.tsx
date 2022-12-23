@@ -21,6 +21,25 @@ function Post() {
 
     function handleSubmission() {
 
+        const data = new FormData();
+        data.append('primary', selectedFileOne);
+        data.append('secondary', selectedFileTwo);
+
+        let primary = URL.createObjectURL(selectedFileOne);
+        let secondary = URL.createObjectURL(selectedFileTwo);
+
+        let tok = localStorage.getItem('idtoken');
+        let uid = localStorage.getItem('uid');
+
+        console.log('trying to upload')
+        console.log(tok, uid)
+        console.log(primary, secondary)
+        fetch(`/uploadinstant/${tok}/${uid}`, {method: 'POST', body: data}).then(
+            (value) => {
+                console.log(value)
+            }
+        )
+
     };
 
     return (
@@ -68,7 +87,7 @@ function Post() {
                     <input type={'checkbox'} onChange={() => console.log('c')}></input>
                     location?
                 </div>
-                <div className='submit'>
+                <div className='submit' onClick={handleSubmission}>
                     submit
                 </div>
             </div>
