@@ -9,11 +9,10 @@ https://toofake.vercel.app/
 ### work in progress
 - commenting feature is still needed
  - currently there is UI to comment but the backend api route needs to be implemented
-- posting is still needed
- - currently there is also UI to post, add a caption, and add location but api route needs to be added in backend aswell
-- mobile resize and different screen support still needed
+- posting any image as a beareal has been added but still is buggy! Make sure to upload both images!
+ - the location? and public? toggles still don't do anything yet
 - there might still be refresh auth token issues
-- theres countless bugs (send them over)
+- there are still countless bugs (send them over)
 
 ## how to run locally
 
