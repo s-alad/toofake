@@ -90,8 +90,8 @@ def instants(token: str):
     print('- END -')
     return json.dumps(ret)
 
-@app.route("/uploadinstant/<token>/<uid>", methods=["POST"])
-def uploadinstant(token:str, uid:str):
+@app.route("/postinstant/<token>/<uid>/<caption>", methods=["POST"])
+def postinstant(token:str, uid:str, caption:str):
 
     def get_data(version):
         version_data = io.BytesIO()
@@ -167,7 +167,7 @@ def uploadinstant(token:str, uid:str):
         "retakeCounter": 0,
         "takenAt": taken_at,
         #"location": location,
-        "caption": "test caption",
+        "caption": caption,
         "backCamera": {
             "bucket": "storage.bere.al",
             "height": 2000,
@@ -190,37 +190,6 @@ def uploadinstant(token:str, uid:str):
     print(complete_res.json())
 
     return json.dumps({"primary": primary_res, "secondary": secondary_res})
-
-@app.route("/postinstant/<token>")
-def postinstant(token: str):
-    json_data = {
-        "isPublic": False,
-        "caption": 'test',
-        "takenAt": 1610000000,
-        "isLate": False,
-        "location": { 'latitude': "37.2297175", 'longitude': "-115.7911082" },
-        "retakeCounter": 0,
-        "backCamera": {
-            "bucket": "storage.bere.al",
-            "height": 2000,
-            "width": 1500,
-            "path": 'https://www.tutlane.com/images/python/python_string_replace_method.png',
-        },
-        "frontCamera": {
-            "bucket": "storage.bere.al",
-            "height": 2000,
-            "width": 1500,
-            "path": 'https://www.tutlane.com/images/python/python_string_replace_method.png',
-        },
-    }
-    res = requests.post(
-        url=api_url+'/content/post',
-        json=json_data,
-        headers={"authorization": token},
-    )
-    print(res)
-    print(res.json())
-    return res.json()
 
 if __name__ == '__main__':
     #app.run(port=5100, debug=True)

@@ -3,6 +3,7 @@ import './post.css';
 
 function Post() {
 
+    const [caption, setCaption] = useState('');
     const [selectedFileOne, setSelectedFileOne]: any = useState();
     const [selectedFileTwo, setSelectedFileTwo]: any = useState();
     const [isFirstFilePicked, setIsFirstFilePicked] = useState(false);
@@ -34,7 +35,7 @@ function Post() {
         console.log('trying to upload')
         console.log(tok, uid)
         console.log(primary, secondary)
-        fetch(`/uploadinstant/${tok}/${uid}`, {method: 'POST', body: data}).then(
+        fetch(`/postinstant/${tok}/${uid}/${caption}`, {method: 'POST', body: data}).then(
             (value) => {
                 console.log(value)
             }
@@ -80,16 +81,20 @@ function Post() {
                 </div>
             </div>
             <div className='functionality'>
-                <input className='caption' placeholder='your caption'>
+                <input className='caption' placeholder='your caption' onChange={(txt) => setCaption(txt.target.value)}>
 
                 </input>
-                <div className='submit'>
-                    <input type={'checkbox'} onChange={() => console.log('c')}></input>
+                <div className='submit location'>
+                    <input type={'checkbox'} onChange={() => console.log('c')} disabled={true}></input>
                     location?
                 </div>
-                <div className='submit' onClick={handleSubmission}>
-                    submit
+                <div className='submit public'>
+                    <input type={'checkbox'} onChange={() => console.log('c')}></input>
+                    public?
                 </div>
+            </div>
+            <div className='send' onClick={handleSubmission}>
+                submit
             </div>
         </div>
     )

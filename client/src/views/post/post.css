@@ -67,6 +67,24 @@
   margin-left: 12px;
   border: 2px solid white;
   min-width: 90px;
+  width: 144px;
+  height: 40px;
+  border-radius: 12px;
+  padding-left: 14px;
+  padding-right: 14px;
+}
+.post .functionality .location {
+  margin-left: 16px;
+  opacity: 0.8;
+}
+.post .send {
+  cursor: pointer;
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid white;
+  max-width: 620px;
   height: 40px;
   border-radius: 12px;
   padding-left: 14px;
