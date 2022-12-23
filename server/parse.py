@@ -39,6 +39,13 @@ class Parse:
             })
         return out
 
+    @staticmethod
+    def me(data):
+        return {
+            'username' : data['username'],
+            'fullname' : data['fullname'],
+            'canPost' : data['canPost'],
+        }
 
     @staticmethod
     def instant(data):

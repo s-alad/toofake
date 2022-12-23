@@ -29,6 +29,7 @@ def slash():
 
 @app.route("/sendotp/<phone>")
 def send_otp(phone: str):
+    print("=========================================")
     print(phone)
     res = requests.post(
         url="https://www.googleapis.com/identitytoolkit/v3/relyingparty/sendVerificationCode",
@@ -40,9 +41,9 @@ def send_otp(phone: str):
             },
         headers=head
     ).json()
-    print('- SENT OTP -')
+    print('----- SENT OTP -----')
     print(res)
-    print('- END -')
+    print('----- END -----')
     return res
 
 @app.route("/verifyotp/<otp>/<session>")
@@ -58,9 +59,9 @@ def verify_otp(otp: str, session: str):
             "operation": "SIGN_UP_OR_IN",
         },
     ).json()
-    print("- VERIFIED OTP -")
+    print("----- VERIFIED OTP -----")
     print(res)
-    print('- END -')
+    print('----- END -----')
     return res
 
 @app.route("/refresh/<token>")
@@ -73,7 +74,9 @@ def refresh(token: str):
             "grant_type": "refresh_token"
         }
     ).json()
+    print("----- REFRESHED -----")
     print(res)
+    print('----- END -----')
     return res
 
 @app.route("/instants/<token>")
@@ -83,11 +86,11 @@ def instants(token: str):
         url=api_url+'/feeds/friends',
         headers={"authorization": token},
     ).json()
-    print("- INSTANTS -")
-    print(res)
+    print("----- INSTANTS -----")
+    #print(res)
     ret = Parse.instant(res)
     print(ret)
-    print('- END -')
+    print('----- END -----')
     return json.dumps(ret)
 
 @app.route("/postinstant/<token>/<uid>/<caption>", methods=["POST"])
@@ -178,6 +181,17 @@ def postinstant(token:str, uid:str, caption:str):
     print(complete_res.json())
 
     return json.dumps({"primary": primary_res, "secondary": secondary_res})
+
+@app.route("/me/<token>")
+def me(token: str):
+    res = requests.get(
+        url=api_url+'/person/me',
+        headers={"authorization": token},
+    ).json()
+    print("----- ME -----")
+    print(res)
+    print('----- END -----')
+    return Parse.me(res)
 
 if __name__ == '__main__':
     #app.run(port=5100, debug=True)

@@ -7,6 +7,7 @@ import gitlogo from './static/gitlogo.png';
 import { BrowserRouter as Router, Routes, Route, Link, useLocation } from 'react-router-dom';
 import About from './views/about/about';
 import Post from './views/post/post';
+import { getme } from './api/auth';
 
 function App() {
 
@@ -14,6 +15,7 @@ function App() {
   const [back, setBack] = useState(false)
   function auth() {
     setLogin(true);
+    getme();
   }
 
   function verify(): boolean {

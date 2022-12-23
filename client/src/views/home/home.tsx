@@ -2,7 +2,7 @@ import Instant from "../../components/instant/instant";
 import React, { useEffect } from 'react';
 import './home.css';
 import { useState } from 'react';
-import { refresh } from "../../api/auth";
+import { getme, refresh } from "../../api/auth";
 import loader from "https://i.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy.webp"
 
 function Home() {
@@ -42,7 +42,7 @@ function Home() {
                     <div className='instants'>
                         {
                             instants && instants.length > 0 && instants.map(function (data, idx) {
-                                console.log(data.comments)
+                                console.log("comments: ", data.comments)
                                 return ([
                                     <div>
                                         <Instant

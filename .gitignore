@@ -1,6 +1,8 @@
 #Pycache 
 __pycache__/
 models/__pycache__/
+server/models/__pycache__/
+__pycache__
 
 
 #Dependencies 
