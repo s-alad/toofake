@@ -13,6 +13,7 @@ https://toofake.vercel.app/
  - currently there is also UI to post, add a caption, and add location but api route needs to be added in backend aswell
 - mobile resize and different screen support still needed
 - there might still be refresh auth token issues
+- theres countless bugs (send them over)
 
 ## how to run locally
 
