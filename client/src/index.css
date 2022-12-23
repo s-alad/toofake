@@ -6,6 +6,9 @@ input {
   outline: none;
 }
 
+html {
+  height: 100vh;
+}
 
 body {
   display: flex;

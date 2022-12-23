@@ -64,7 +64,7 @@ function Login(props:any) {
     }
 
     return (
-        <div>
+        <div className='log'>
             {
                 unverified ?
                 <div className='login'>
