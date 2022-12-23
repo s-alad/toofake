@@ -40,6 +40,7 @@ def send_otp(phone: str):
             },
         headers=head
     ).json()
+    print(' SENT OTP ')
     print(res)
     return res
 
@@ -56,6 +57,7 @@ def verify_otp(otp: str, session: str):
             "operation": "SIGN_UP_OR_IN",
         },
     ).json()
+    print("- VERIFIED OTP -")
     print(res)
     return res
 
@@ -79,6 +81,7 @@ def instants(token: str):
         url=api_url+'/feeds/friends',
         headers={"authorization": token},
     ).json()
+    print("- INSTANTS -")
     print(res)
     ret = Parse.instant(res)
     print(ret)
@@ -137,11 +140,15 @@ def uploadinstant(token:str, uid:str):
             print(upload_res)
             raise Exception(f"Error uploading image: {upload_res.status_code}, {upload_res.text}")
         res_data = upload_res.json()
+        return res_data
     
-    upload(prim_data, primarysize, False)
-    upload(sec_data, secondarysize, True)
+    primary_res = upload(prim_data, primarysize, False)
+    secondary_res = upload(sec_data, secondarysize, True)
+
+    print(primary_res)
+    print(secondary_res)
     
-    return ''
+    return json.dumps({"primary": primary_res, "secondary": secondary_res})
 
 @app.route("/postinstant/<token>")
 def postinstant(token: str):
