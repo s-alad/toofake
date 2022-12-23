@@ -40,8 +40,9 @@ def send_otp(phone: str):
             },
         headers=head
     ).json()
-    print(' SENT OTP ')
+    print('- SENT OTP -')
     print(res)
+    print('- END -')
     return res
 
 @app.route("/verifyotp/<otp>/<session>")
@@ -59,6 +60,7 @@ def verify_otp(otp: str, session: str):
     ).json()
     print("- VERIFIED OTP -")
     print(res)
+    print('- END -')
     return res
 
 @app.route("/refresh/<token>")
@@ -85,6 +87,7 @@ def instants(token: str):
     print(res)
     ret = Parse.instant(res)
     print(ret)
+    print('- END -')
     return json.dumps(ret)
 
 @app.route("/uploadinstant/<token>/<uid>", methods=["POST"])
