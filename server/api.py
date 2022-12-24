@@ -87,7 +87,8 @@ def instants(token: str):
         headers={"authorization": token},
     ).json()
     print("----- INSTANTS -----")
-    #print(res)
+    print(res)
+    print("<>")
     ret = Parse.instant(res)
     print(ret)
     print('----- END -----')
@@ -192,6 +193,20 @@ def me(token: str):
     print(res)
     print('----- END -----')
     return Parse.me(res)
+
+@app.route("/comment/<postid>/<comment>/<token>")
+def comment(postid: str, comment: str, token: str):
+    print(postid)
+    res = requests.post(
+        url=api_url+'/content/comments',
+        data={"content":comment}, 
+        params={"postId":postid}, 
+        headers={"authorization": token}
+    ).json()
+    print("----- COMMENT -----")
+    print(res)
+    print('----- END -----')
+    return res
 
 if __name__ == '__main__':
     #app.run(port=5100, debug=True)

@@ -171,6 +171,7 @@
   height: 20px;
   width: 20px;
   border-radius: 100%;
+  background-color: white;
 }
 .instant .comments .comment .avatar img {
   height: 100%;

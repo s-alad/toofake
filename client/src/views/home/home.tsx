@@ -56,7 +56,8 @@ function Home() {
                                             caption={data.caption}
                                             avatar={data.avatar}
                                             reactions={data.reactions}
-                                            comments={data.comments}></Instant>
+                                            comments={data.comments}
+                                            postid={data.postid}></Instant>
                                         <div className="takespace"></div>
                                     </div>,
                                 ]);

@@ -61,7 +61,8 @@ class Parse:
                 'retakes' : instant['retakeCounter'],
                 'late' : Parse.time(instant['lateInSeconds']),
                 'reactions' : Parse.reaction(instant['realMojis']),
-                'comments' : instant['comment']
+                'comments' : instant['comment'],
+                'postid' : instant['id'],
             }
             computed.append(ins)
         return computed

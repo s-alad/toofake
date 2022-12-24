@@ -11,10 +11,13 @@ type Instant = {
   location: string
   caption: string,
   reactions: Array<any>,
-  comments: any
+  comments: any,
+  postid: string,
 }
 
-function Instant({username, location, late, caption, primary, secondary, avatar, reactions, comments}: Instant) {
+function Instant({username, location, late, caption, primary, secondary, avatar, reactions, comments, postid}: Instant) {
+
+    const [comment, setComment] = useState('');
 
     const [expanded, setExpanded] = useState(false);
     function expand() {
@@ -24,12 +27,23 @@ function Instant({username, location, late, caption, primary, secondary, avatar,
         setExpanded(false);
     }
 
-    function logComments() {
-        console.log(comments)
+    function logComments(data:any) {
+        console.log('comments!', comments)
         return ''
     }
     function addComment() {
         console.log('add comment')
+        let token = localStorage.getItem('idtoken') ?? ''
+        fetch(`comment/${postid}/${comment}/${token}`).then(
+            (value) => {
+                console.log(value)
+                return value.json()
+            }
+        ).then(
+            (data) => {
+                console.log(data)
+            }
+        )
     }
 
     const [main, setMain] = useState(true)
@@ -90,10 +104,13 @@ function Instant({username, location, late, caption, primary, secondary, avatar,
           comments.length != 0 && expanded == true? 
             <div className='comments'>
               {comments.map(function(data:any, idx:any) {
-                logComments()
+                logComments(data)
                 return <div className='comment' key={idx}>
                     <div className='avatar'>
-                      <img src={data.user.profilePicture.url}></img>
+                      <img src={
+                        (data.user.profilePicture != undefined && data.user.profilePicture != null) 
+                        ? data.user.profilePicture.url : ''}>
+                      </img>
                     </div>
                     <div className='username'> {data.userName} </div>
                     <div className='text'> {data.text} </div>
@@ -105,7 +122,7 @@ function Instant({username, location, late, caption, primary, secondary, avatar,
             <div></div>
         }   
         <div className='add'>
-          <input></input>
+          <input onChange={(txt) => setComment(txt.target.value)}></input>
           <div className='button' onClick={() => addComment()}>comment</div>
         </div>
       </div>
