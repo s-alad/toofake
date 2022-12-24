@@ -84,6 +84,8 @@
                 border-radius: 12px;
                 height: 100%;
                 width: 100%;
+                //fix image fit
+                object-fit: cover;
             }
 
             .back {
