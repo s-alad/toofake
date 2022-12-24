@@ -23,4 +23,4 @@ https://toofake.vercel.app/
 * start flask server on api.py
 * npm start in client directory
 
-##### big shoutout to the team at [BeFake](https://github.com/notmarek/BeFake) for exposing many of the api endpoints!
+> ##### big shoutout to the team at [BeFake](https://github.com/notmarek/BeFake) for exposing many of the api endpoints!
