@@ -6,7 +6,7 @@ toofake gives the ability to view bereals and post custom bereals without ever h
 
 https://toofake.vercel.app/
 
-### work in progress
+## work in progress
 - commenting does not refresh the comments; you have to manually refresh
 - posting any image as a beareal has been added but still is buggy! Make sure to upload both images!
  - the location? and public? toggles still don't do anything yet
