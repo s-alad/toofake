@@ -1,6 +1,6 @@
 # toofake: a bereal viewer
 
-### client for bereal.com </br></br> want to stalk your friends, family, or ex without posting your own bereal? </br> toofake gives the ability to view bereals and post custom bereals without ever having to click on that annoying notification
+### a client for bereal.com! </br></br> want to stalk your friends, family, or ex without posting your own bereal? </br> toofake gives the ability to view bereals and post custom bereals without ever having to click on that annoying notification
 
 https://toofake.vercel.app/
 
