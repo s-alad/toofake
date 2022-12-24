@@ -14,8 +14,6 @@ https://toofake.vercel.app/
 - still need better mobile resize support
 - there are still countless bugs (send them over)
 
-big shoutout to the team at [BeFake](https://github.com/notmarek/BeFake) for exposing many of the api endpoints!
-
 ## how to run locally
 
 * you need the correct python libraries installed (flask, dotenv, geopy and humanfriendly) 
@@ -24,3 +22,5 @@ big shoutout to the team at [BeFake](https://github.com/notmarek/BeFake) for exp
 * if you would like better location accuracy, create a .env file in the server directory and add a google maps api key labeled GAPI='your_key'. Otherwise ignore.
 * start flask server on api.py
 * npm start in client directory
+
+##### big shoutout to the team at [BeFake](https://github.com/notmarek/BeFake) for exposing many of the api endpoints!
