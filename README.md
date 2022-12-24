@@ -25,4 +25,4 @@ https://toofake.vercel.app/
 
 ---
 
-> ##### big shoutout to the team at [BeFake](https://github.com/notmarek/BeFake) for exposing many of the api endpoints!
+> #### big shoutout to the team at [BeFake](https://github.com/notmarek/BeFake) for exposing many of the api endpoints!
