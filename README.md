@@ -11,6 +11,7 @@ https://toofake.vercel.app/
 - posting any image as a beareal has been added but still is buggy! Make sure to upload both images!
  - the location? and public? toggles still don't do anything yet
 - there might still be refresh auth token issues
+- still need better mobile resize support
 - there are still countless bugs (send them over)
 
 big shoutout to the team at [BeFake](https://github.com/notmarek/BeFake) for exposing many of the api endpoints!
