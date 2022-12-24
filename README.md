@@ -14,7 +14,7 @@ https://toofake.vercel.app/
 - there might still be refresh auth token issues
 - there are still countless bugs (send them over)
 
-big shoutout to the team at https://github.com/notmarek/BeFake for exposing many of the api endpoints!
+big shoutout to the team at [BeFake](https://github.com/notmarek/BeFake) for exposing many of the api endpoints!
 
 ## how to run locally
 
