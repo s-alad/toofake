@@ -101,7 +101,7 @@ function App() {
             <img src={gitlogo} /> source code
           </a>
           <div className='space'>|</div>
-          <a href='' onClick={() => {setBack(true)}}><Link to="/about">about</Link></a>
+          <Link to='/about' onClick={() => {setBack(true)}}>about</Link>
         </div>
       </Router>
     </div>

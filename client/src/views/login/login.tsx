@@ -15,8 +15,6 @@ function Login(props:any) {
     const [passcode, setPasscode] = useState('');
 
     function check(number: string) {
-        console.log(number)
-        console.log(number.length)
         if (number.length <= 11 || number.length > 16) {
             setValid(false);
             //wait 5 seconds then reset
