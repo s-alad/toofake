@@ -4,12 +4,21 @@ import './post.css';
 function Post() {
     
     const [valid, setValid] = useState(true);
+    const [validContent, setValidContent] = useState('');
     const [caption, setCaption] = useState('');
     const [selectedFileOne, setSelectedFileOne]: any = useState();
     const [selectedFileTwo, setSelectedFileTwo]: any = useState();
     const [isFirstFilePicked, setIsFirstFilePicked] = useState(false);
     const [isSecondFilePicked, setIsSecondFilePicked] = useState(false);
 
+    function handleValidation(content: any) {
+        setValid(false);
+        setValidContent(content);
+        setTimeout(() => {
+            setValid(true);
+            setValidContent('');
+        }, 5000);
+    }
 
     function fileOneHandler(event: any) {
         setIsFirstFilePicked(true);
@@ -24,11 +33,7 @@ function Post() {
     function handleSubmission() {
 
         if (!selectedFileOne || !selectedFileTwo) {
-            setValid(false);
-            //wait 5 seconds then reset
-            setTimeout(() => {
-                setValid(true);
-            }, 3000);
+           handleValidation('please select both images')
         }
 
         const data = new FormData();
@@ -44,12 +49,21 @@ function Post() {
         console.log('trying to upload')
         console.log(tok, uid)
         console.log(primary, secondary)
+        handleValidation('submitting request')
         fetch(`/postinstant/${tok}/${uid}/${caption}`, {method: 'POST', body: data}).then(
-            (value) => {
-                console.log(value)
+            (data) => {
+                data.json().then((value) => {
+                    if ('error' in value) {
+                        handleValidation(value.error)
+                    } else {
+                        handleValidation('success')
+                        setTimeout(() => {
+                           /*  window.location.replace('/'); */
+                        }, 3000);
+                    }
+                })
             }
         )
-
     };
 
     return (
@@ -105,7 +119,7 @@ function Post() {
             <div className='send' onClick={handleSubmission}>
                 submit
             </div>
-            {!valid ? (<div className='validation'>please select both images</div>) : (<></>)}
+            {!valid ? (<div className='validation'>{validContent}</div>) : (<></>)}
         </div>
     )
 }

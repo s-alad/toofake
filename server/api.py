@@ -94,10 +94,11 @@ def instants(token: str):
     print('----- END -----')
     return json.dumps(ret)
 
+@app.route("/postinstant/<token>/<uid>/", methods=["POST"])
 @app.route("/postinstant/<token>/<uid>/<caption>", methods=["POST"])
-def postinstant(token:str, uid:str, caption:str):
-
-    def get_data(version):
+def postinstant(token:str, uid:str, caption:str=''):
+    print('CAPTION:', caption)
+    def get_data(version):  
         version_data = io.BytesIO()
         version.save(version_data, format="JPEG", quality=90)
         version_data = version_data.getvalue()
@@ -190,7 +191,7 @@ def postinstant(token:str, uid:str, caption:str):
     print(complete_res)
     print(complete_res.json())
 
-    return json.dumps({"primary": primary_res, "secondary": secondary_res})
+    return complete_res.json()
 
 @app.route("/me/<token>")
 def me(token: str):
