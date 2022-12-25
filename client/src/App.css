@@ -52,19 +52,6 @@
   justify-content: center;
   align-items: center;
 }
-.App .toofake .functionality .functionality-inner .befake {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-  font-size: 18px;
-  color: black;
-  width: 120px;
-  height: 40px;
-  border-radius: 12px;
-  background-color: white;
-  text-decoration: none;
-}
 .App .toofake .functionality .space {
   margin-left: 12px;
   margin-right: 12px;
@@ -85,6 +72,19 @@
   /* cursor: pointer;
   font-size: 18px;
   text-decoration: underline; */
+}
+.App .toofake .befake {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  font-size: 18px;
+  color: black;
+  width: 120px;
+  height: 40px;
+  border-radius: 12px;
+  background-color: white;
+  text-decoration: none;
 }
 .App .git {
   position: relative;

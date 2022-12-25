@@ -34,17 +34,6 @@
             .functionality-inner {
                 display: flex;
                 @include common.center();
-                .befake {
-                    @include common.center();
-                    cursor: pointer;
-                    font-size: 18px;
-                    color: black;
-                    width: 120px;
-                    height: 40px;
-                    border-radius: 12px;
-                    background-color: white;
-                    text-decoration: none;
-                }
             }
             .space {
                 margin-left: 12px;
@@ -65,6 +54,17 @@
                 font-size: 18px;
                 text-decoration: underline; */
             }
+        }
+        .befake {
+            @include common.center();
+            cursor: pointer;
+            font-size: 18px;
+            color: black;
+            width: 120px;
+            height: 40px;
+            border-radius: 12px;
+            background-color: white;
+            text-decoration: none;
         }
     }
     .git {
