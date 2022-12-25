@@ -10,7 +10,7 @@ import Post from './views/post/post';
 import { getme } from './api/auth';
 
 function App() {
-
+  const location = useLocation();
   const [login, setLogin] = useState(false)
   const [back, setBack] = useState(false)
   function auth() {
@@ -50,9 +50,18 @@ function App() {
     verify();
   }
 
+  useEffect(() => {
+    console.log('trigger')
+    if (window.location.pathname === '/') {
+      console.log('setting back default')
+      setBack(false)
+    }
+  }, [location])
+  
+
   return (
     <div className="App">
-      <Router>
+
         <div className='toofake'>
             <Link to='/' onClick={() => {setBack(false)}}>TooFake</Link>
             {
@@ -105,7 +114,7 @@ function App() {
           <div className='space'>|</div>
           <Link to='/about' onClick={() => {setBack(true)}}>about</Link>
         </div>
-      </Router>
+      
     </div>
   );
 }

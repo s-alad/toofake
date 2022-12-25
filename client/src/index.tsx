@@ -12,7 +12,9 @@ root.render(
   <React.StrictMode>
     <>
       {inject()}
-      <App />
+      <Router>
+        <App />
+      </Router>
     </>
   </React.StrictMode>
 );
