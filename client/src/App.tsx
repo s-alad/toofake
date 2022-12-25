@@ -46,6 +46,7 @@ function App() {
   function logout() {
     localStorage.clear()
     setLogin(false)
+    window.location.replace('/');
     verify();
   }
 
