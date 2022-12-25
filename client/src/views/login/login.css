@@ -3,7 +3,7 @@
   padding-left: 60px;
   padding-right: 60px;
 }
-@media screen and (max-width: 500px) {
+@media screen and (max-width: 600px) {
   .log {
     padding-left: 30px !important;
     padding-right: 30px !important;
@@ -27,7 +27,7 @@
   justify-content: center;
   align-items: center;
 }
-@media (max-width: 500px) {
+@media (max-width: 600px) {
   .login .number, .verify .number {
     flex-direction: column !important;
     align-items: start !important;
