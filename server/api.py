@@ -102,14 +102,23 @@ def postinstant(token:str, uid:str, caption:str):
         version.save(version_data, format="JPEG", quality=90)
         version_data = version_data.getvalue()
         return version_data
+    
+    def extension(img):
+        mime_type = Image.MIME[img.format]
+        if mime_type != "image/jpeg":
+            if not img.mode == "RGB":
+                img = img.convert("RGB")
+        return img
 
     p = request.files['primary'] 
     primary = Image.open(io.BytesIO(p.read()))
+    primary = extension(primary)
     prim_data = get_data(primary)
     primarysize = str(len(prim_data))
 
     s = request.files['secondary']
     secondary = Image.open(io.BytesIO(s.read()))
+    secondary = extension(secondary)
     sec_data = get_data(secondary)
     secondarysize = str(len(sec_data))
 
