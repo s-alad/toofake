@@ -71,7 +71,7 @@ function App() {
                     </div>
                   }
                   <div className='space'>|</div>
-                  <div className='befake logout' onClick={() => logout()}>logout</div>
+                  <div className='logout' onClick={() => logout()}>logout</div>
                 </div>
               :
               <div>
