@@ -5,6 +5,10 @@ function Post() {
     
     const [valid, setValid] = useState(true);
     const [validContent, setValidContent] = useState('');
+
+    const [posting, setPosting] = useState(false);
+    const [postContent, setPostContent] = useState('');
+
     const [caption, setCaption] = useState('');
     const [selectedFileOne, setSelectedFileOne]: any = useState();
     const [selectedFileTwo, setSelectedFileTwo]: any = useState();
@@ -18,6 +22,10 @@ function Post() {
             setValid(true);
             setValidContent('');
         }, 5000);
+    }
+    function handlePostResponse(content: any) {
+        setPosting(true);
+        setPostContent(content);
     }
 
     function fileOneHandler(event: any) {
@@ -49,16 +57,18 @@ function Post() {
         console.log('trying to upload')
         console.log(tok, uid)
         console.log(primary, secondary)
-        handleValidation('submitting request')
+        handlePostResponse('submitting request')
         fetch(`/postinstant/${tok}/${uid}/${caption}`, {method: 'POST', body: data}).then(
             (data) => {
                 data.json().then((value) => {
+                    console.log(value)
                     if ('error' in value) {
-                        handleValidation(value.error)
+                        handleValidation(value.statusCode + " | " + value.error + ": " + value.errorKey)
+                        setPosting(false);
                     } else {
-                        handleValidation('success')
+                        handlePostResponse('success')
                         setTimeout(() => {
-                           /*  window.location.replace('/'); */
+                            window.location.replace('/');
                         }, 3000);
                     }
                 })
@@ -120,6 +130,7 @@ function Post() {
                 submit
             </div>
             {!valid ? (<div className='validation'>{validContent}</div>) : (<></>)}
+            {!posting ? (<></>) : (<div className='posting'>{postContent}</div>)}
         </div>
     )
 }
