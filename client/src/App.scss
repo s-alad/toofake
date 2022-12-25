@@ -47,6 +47,13 @@
                 margin-right: 12px;
             }
             .logout {
+                @include common.center();
+                cursor: pointer;
+                font-size: 18px;
+                width: 120px;
+                height: 40px;
+                border-radius: 12px;
+                text-decoration: none;
                 background-color: transparent !important;
                 color: white !important;
                 border: 2px solid white !important;
