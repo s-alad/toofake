@@ -66,9 +66,12 @@
   margin-right: 12px;
 }
 .App .toofake .functionality .logout {
-  cursor: pointer;
+  background-color: transparent !important;
+  color: white !important;
+  border: 2px solid white !important;
+  /* cursor: pointer;
   font-size: 18px;
-  text-decoration: underline;
+  text-decoration: underline; */
 }
 .App .git {
   position: absolute;
