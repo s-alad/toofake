@@ -69,10 +69,13 @@
             bottom: 0;
             margin-bottom: 20px;
         }
-        position: absolute;
+        position: relative;
+            bottom: 0;
+            margin-bottom: 20px;
+        /* position: absolute; */
         display: flex;
         padding-left: 60px;
-        bottom: 20px;
+        /* bottom: 20px; */
         .space {margin: 0 12px 0 12px;}
         a, a:visited, a:active {
             img {height: 25px; width: inherit; margin-right: 6px;}

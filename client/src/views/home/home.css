@@ -1,5 +1,6 @@
 .home {
   padding-left: 50px;
+  flex: 1;
 }
 .home .instants {
   overflow-x: scroll;

@@ -83,10 +83,13 @@
   text-decoration: underline; */
 }
 .App .git {
-  position: absolute;
+  position: relative;
+  bottom: 0;
+  margin-bottom: 20px;
+  /* position: absolute; */
   display: flex;
   padding-left: 60px;
-  bottom: 20px;
+  /* bottom: 20px; */
 }
 @media screen and (max-width: 500px) {
   .App .git {
