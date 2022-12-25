@@ -57,7 +57,7 @@ class Parse:
                 'primary' : instant['photoURL'],
                 'secondary' : instant['secondaryPhotoURL'],
                 'caption' : instant['caption'] if 'caption' in instant else '',
-                'location' : Parse.location(instant['location']) if 'location' in instant else '',
+                'location' : Parse.location(instant['location']) if 'location' in instant else 'no location',
                 'retakes' : instant['retakeCounter'],
                 'late' : Parse.time(instant['lateInSeconds']),
                 'reactions' : Parse.reaction(instant['realMojis']),
