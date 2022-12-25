@@ -2,7 +2,7 @@
   padding-left: 50px;
   flex: 1;
 }
-@media screen and (max-width: 500px) {
+@media screen and (max-width: 600px) {
   .home {
     padding-left: 30px;
   }
@@ -15,7 +15,7 @@
   width: 100%;
   height: initial;
 }
-@media (max-width: 500px) {
+@media (max-width: 600px) {
   .home .instants {
     flex-direction: column !important;
     align-items: start !important;
