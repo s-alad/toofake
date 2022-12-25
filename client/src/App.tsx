@@ -51,9 +51,7 @@ function App() {
   }
 
   useEffect(() => {
-    console.log('trigger')
     if (window.location.pathname === '/') {
-      console.log('setting back default')
       setBack(false)
     }
   }, [location])

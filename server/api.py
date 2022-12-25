@@ -85,7 +85,11 @@ def instants(token: str):
     res = requests.get(
         url=api_url+'/feeds/friends',
         headers={"authorization": token},
-    ).json()
+    )
+    if res.status_code != 200:
+        print(res.json())
+        return res.json()
+    res = res.json()
     print("----- INSTANTS -----")
     print(res)
     print("<>")

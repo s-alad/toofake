@@ -8,20 +8,25 @@ import loader from "https://i.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy.webp"
 function Home() {
     const [instants, setInstants] = useState<any[]>([])
     const [loading, setLoading] = useState(true)
+    const [loadingContent, setLoadingContent] = useState('')
 
     async function display() {
         await refresh();
         let token = localStorage.getItem('idtoken') ?? ''
         console.log(token)
+        setLoadingContent('Loading... (this can take a sec but shouldn\'t take tooo long')
         fetch(`instants/${token}`).then(
             (value) => {
-                console.log(value)
                 return value.json()
             }
         ).then(
             (data) => {
-                setInstants(data)
-                setLoading(false)
+                if ('error' in data) {
+                    setLoadingContent('Error: ' + data['error'])
+                } else {
+                    setInstants(data)
+                    setLoading(false)
+                }
             }
         )
     }
@@ -36,7 +41,7 @@ function Home() {
                 loading ? 
                     <div className='loading'>
                         {/* <img src={"https://i.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy.webp"} /> */}
-                        Loading... (this can take a sec but shouldn't take tooo long)
+                        {loadingContent}
                     </div> 
                     :
                     <div className='instants'>
