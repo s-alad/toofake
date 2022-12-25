@@ -6,6 +6,10 @@
     flex-direction: column;
     min-height: 100vh;
     .toofake {
+        a {
+            text-decoration: none;
+            color: white;
+        }
         display: flex;
         align-items: center;
         font-weight: bold;

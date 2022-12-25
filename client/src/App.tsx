@@ -54,7 +54,7 @@ function App() {
     <div className="App">
       <Router>
         <div className='toofake'>
-            TooFake
+            <Link to='/' onClick={() => {setBack(false)}}>TooFake</Link>
             {
               verify() ?
                 <div className='functionality'>
