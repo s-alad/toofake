@@ -3,6 +3,12 @@
   padding-right: 60px;
   flex: 1;
 }
+@media screen and (max-width: 750px) {
+  .post {
+    padding-left: 30px;
+    padding-right: 30px;
+  }
+}
 .post .images {
   display: flex;
   flex-wrap: wrap;

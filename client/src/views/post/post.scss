@@ -2,6 +2,10 @@
 
 .post {
     padding-left: 60px; padding-right: 60px;
+    @media screen and (max-width: 750px) {
+        padding-left: 30px;
+        padding-right: 30px;
+    }
     flex: 1;
     .images {
         display: flex;
