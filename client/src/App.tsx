@@ -86,6 +86,7 @@ function App() {
               </div>  
             }
         </div>
+        <div className='divider'></div>
         <Routes>
           <Route path='/' element={
             (verify()) ?
@@ -96,7 +97,7 @@ function App() {
           <Route path='about' element={<About></About>}/>
           <Route path='post' element={<Post></Post>}/>
         </Routes>
-        
+        <div className='divider'></div>
         <div className='git'>
           <a href='https://github.com/s-alad/toofake' target="_blank">
             <img src={gitlogo} /> source code

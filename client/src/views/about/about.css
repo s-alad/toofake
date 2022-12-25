@@ -3,6 +3,12 @@
   padding-right: 60px;
   flex: 1;
 }
+@media screen and (max-width: 500px) {
+  .about {
+    padding-left: 30px;
+    padding-right: 30px;
+  }
+}
 .about a {
   color: #81a1c1;
   text-decoration: underline;

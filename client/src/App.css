@@ -11,7 +11,7 @@
   padding-left: 60px;
   padding-right: 60px;
   padding-top: 20px;
-  margin-bottom: 20px;
+  /* margin-bottom: 20px; */
 }
 .App .toofake a {
   text-decoration: none;
@@ -19,11 +19,10 @@
 }
 @media screen and (max-width: 500px) {
   .App .toofake {
-    padding-left: 50px;
-    padding-right: 50px;
+    padding-left: 30px;
+    padding-right: 30px;
     flex-direction: column;
     align-items: start;
-    margin-bottom: 40px;
   }
   .App .toofake .functionality {
     flex-direction: column;
@@ -86,6 +85,20 @@
   background-color: white;
   text-decoration: none;
 }
+.App .divider {
+  background-color: white;
+  height: 2px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  margin-left: 60px;
+  margin-right: 60px;
+}
+@media screen and (max-width: 500px) {
+  .App .divider {
+    margin-left: 30px;
+    margin-right: 30px;
+  }
+}
 .App .git {
   position: relative;
   bottom: 0;
@@ -100,6 +113,7 @@
     position: relative;
     bottom: 0;
     margin-bottom: 20px;
+    padding-left: 30px !important;
   }
 }
 .App .git .space {

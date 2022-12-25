@@ -2,6 +2,11 @@
   padding-left: 50px;
   flex: 1;
 }
+@media screen and (max-width: 500px) {
+  .home {
+    padding-left: 30px;
+  }
+}
 .home .instants {
   overflow-x: scroll;
   overflow-y: hidden;

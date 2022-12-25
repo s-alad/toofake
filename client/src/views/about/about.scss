@@ -1,4 +1,8 @@
 .about {
+    @media screen and (max-width: 500px) {
+        padding-left: 30px;
+        padding-right: 30px;
+    }
     padding-left: 60px;
     padding-right: 60px;
     flex: 1;
