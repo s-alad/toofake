@@ -4,9 +4,11 @@
 }
 .post .images {
   display: flex;
+  flex-wrap: wrap;
 }
 .post .images .img {
   width: 300px;
+  min-width: 300px;
   height: 400px;
   border: 2px solid white;
   margin-right: 18px;
@@ -14,6 +16,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-bottom: 14px;
 }
 .post .images .img input[type=file] {
   display: none;
@@ -49,12 +52,23 @@
 }
 .post .functionality {
   display: flex;
-  margin-top: 14px;
+  /* margin-top: 14px; */
+}
+@media screen and (max-width: 750px) {
+  .post .functionality {
+    flex-direction: column;
+  }
+  .post .functionality .submit {
+    margin-left: 0px !important;
+    margin-top: 12px;
+    width: 300px !important;
+  }
 }
 .post .functionality .caption {
   padding-left: 14px;
   padding-right: 14px;
   width: 300px;
+  min-width: 300px;
   height: 40px;
   border-radius: 12px;
   background-color: white;
@@ -67,7 +81,7 @@
   align-items: center;
   margin-left: 12px;
   border: 2px solid white;
-  min-width: 90px;
+  min-width: 144px;
   width: 144px;
   height: 40px;
   border-radius: 12px;
@@ -86,11 +100,18 @@
   align-items: center;
   border: 2px solid white;
   max-width: 620px;
+  min-width: 300px;
   height: 40px;
   border-radius: 12px;
   padding-left: 14px;
   padding-right: 14px;
   transition: 0.2s ease-in-out;
+  margin-bottom: 30px;
+}
+@media screen and (max-width: 750px) {
+  .post .send {
+    width: 300px !important;
+  }
 }
 .post .send:hover {
   background-color: white;

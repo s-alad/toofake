@@ -5,8 +5,10 @@
 
     .images {
         display: flex;
+        flex-wrap: wrap;
         .img {
             width: 300px;
+            min-width: 300px;
             height: 400px;
             border: 2px solid white;
             margin-right: 18px;
@@ -14,6 +16,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            margin-bottom: 14px;
             input[type=file] {
                 display: none;
             }
@@ -45,11 +48,21 @@
         }
     }
     .functionality {
+        @media screen and (max-width: 750px) {
+            flex-direction: column;
+            .submit {
+                margin-left: 0px !important;
+                margin-top: 12px;
+                width: 300px !important;
+            }
+        }
+
         display: flex;
-        margin-top: 14px;
+        /* margin-top: 14px; */
         .caption {
             padding-left: 14px; padding-right: 14px;
             width: 300px;
+            min-width: 300px;
             height: 40px;
             border-radius: 12px;
             background-color: white;
@@ -60,7 +73,7 @@
             @include c.center();
             margin-left: 12px;
             border: 2px solid white;
-            min-width: 90px;
+            min-width: 144px;
             width: 144px;
             height: 40px;
             border-radius: 12px;
@@ -72,15 +85,20 @@
         }
     }
     .send {
+        @media screen and (max-width: 750px) {
+            width: 300px !important;
+        }
         cursor: pointer;
         margin-top: 20px;
         @include c.center();
         border: 2px solid white;
         max-width: 620px;
+        min-width: 300px;
         height: 40px;
         border-radius: 12px;
         padding-left: 14px; padding-right: 14px;
         transition: .2s ease-in-out;
+        margin-bottom: 30px;
         &:hover {
             background-color: white;
             color: black;
