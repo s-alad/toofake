@@ -17,7 +17,7 @@
   text-decoration: none;
   color: white;
 }
-@media screen and (max-width: 500px) {
+@media screen and (max-width: 550px) {
   .App .toofake {
     padding-left: 30px;
     padding-right: 30px;
