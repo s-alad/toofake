@@ -25,7 +25,7 @@ head = {
 
 @app.route("/")
 def slash():
-    return "<p>/</p>"
+    return "<p></p>"
 
 @app.route("/sendotp/<phone>")
 def send_otp(phone: str):
