@@ -25,7 +25,7 @@ head = {
 
 @app.route("/")
 def slash():
-    return "<p></p>"
+    return "<p>-</p>"
 
 @app.route("/sendotp/<phone>")
 def send_otp(phone: str):
@@ -91,10 +91,10 @@ def instants(token: str):
         return res.json()
     res = res.json()
     print("----- INSTANTS -----")
-    print(res)
-    print("<>")
+    #print(res)
+    #print("<>")
     ret = Parse.instant(res)
-    print(ret)
+    #print(ret)
     print('----- END -----')
     return json.dumps(ret)
 
