@@ -22,7 +22,7 @@ function Home() {
         ).then(
             (data) => {
                 if ('error' in data) {
-                    setLoadingContent('Error: ' + data['error'])
+                    setLoadingContent('Error: ' + data['error'] + ' try refreshing the page :)')
                 } else {
                     setInstants(data)
                     setLoading(false)
