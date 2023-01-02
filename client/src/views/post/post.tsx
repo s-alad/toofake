@@ -122,7 +122,7 @@ function Post() {
                     location?
                 </div>
                 <div className='submit public'>
-                    <input type={'checkbox'} onChange={() => console.log('c')}></input>
+                    <input type={'checkbox'} onChange={() => console.log('c')} disabled={true}></input>
                     public?
                 </div>
             </div>
