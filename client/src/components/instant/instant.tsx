@@ -48,6 +48,7 @@ function Instant({username, location, late, caption, primary, secondary, avatar,
         setTimeout(() => {
           window.location.replace('/');
         }, 1000);
+        document.querySelector('input')!.defaultValue = '';
         //reload comments
     }
 
