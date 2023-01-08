@@ -45,6 +45,7 @@ function Instant({username, location, late, caption, primary, secondary, avatar,
             }
         )
         setComment('')
+        //reload comments
     }
 
     const [main, setMain] = useState(true)
