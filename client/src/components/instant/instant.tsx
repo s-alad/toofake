@@ -44,6 +44,7 @@ function Instant({username, location, late, caption, primary, secondary, avatar,
                 console.log(data)
             }
         )
+        setComment('')
     }
 
     const [main, setMain] = useState(true)
