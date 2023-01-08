@@ -45,6 +45,9 @@ function Instant({username, location, late, caption, primary, secondary, avatar,
             }
         )
         setComment('')
+        setTimeout(() => {
+          window.location.replace('/');
+        }, 1000);
         //reload comments
     }
 
