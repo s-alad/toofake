@@ -76,7 +76,6 @@ def refresh(token: str):
     ).json()
     print("----- REFRESHED -----")
     #print(res)
-    me(token)
     print('----- END -----')
     return res
 
