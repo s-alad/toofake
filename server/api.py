@@ -81,13 +81,13 @@ def refresh(token: str):
 
 @app.route("/instants/<token>")
 def instants(token: str):
-    print('token', token)
+    #print('token', token)
     res = requests.get(
         url=api_url+'/feeds/friends',
         headers={"authorization": token},
     )
     if res.status_code != 200:
-        print(res.json())
+        print("instant fetch error", res.json())
         return res.json()
     res = res.json()
     print("----- INSTANTS -----")
