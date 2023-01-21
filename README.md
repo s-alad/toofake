@@ -16,6 +16,18 @@
 
 ## how to run locally
 
+### Using one-click-install-and-run.sh
+- Download file  : ```ONE_CLICK_INSTALL_AND_RUN.sh``` 
+- Give execute permission for linux : 
+   ```
+   sudo chmod +x ONE_CLICK_INSTALL_AND_RUN.sh
+   ```
+- run the file 
+   ```
+   ./ONE_CLICK_INSTALL_AND_RUN.sh
+   ```
+
+### From source
 * you need the correct python libraries installed (flask, dotenv, geopy, pendulum, Pillow, humanfriendly, and some others) 
   * in the server directory run: ```pip install -r requirements.txt```
 * if you would like better location accuracy, create a .env file in the server directory and add a google maps api key labeled GAPI='your_key'. Otherwise ignore.
