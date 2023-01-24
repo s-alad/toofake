@@ -101,6 +101,7 @@ def instants(token: str):
 @app.route("/postinstant/<token>/<uid>/", methods=["POST"])
 @app.route("/postinstant/<token>/<uid>/<caption>", methods=["POST"])
 def postinstant(token:str, uid:str, caption:str=''):
+    print('========================= attempt post =========================')
     print('CAPTION:', caption)
     def get_data(version):  
         version_data = io.BytesIO()
@@ -128,15 +129,19 @@ def postinstant(token:str, uid:str, caption:str=''):
     secondarysize = str(len(sec_data))
 
     def upload(file_data, size, alt: bool):
-        name = f"Photos/{uid}/bereal/{uuid.uuid4()}-{int(pendulum.now().timestamp())}{'-secondary' if alt else ''}.jpg"
-        print(name)
+        name = f"Photos/{uid}/bereal/{uuid.uuid4()}-{int(pendulum.now().timestamp())}{'-secondary' if alt else ''}.webp"
+        print("name: ", name)
 
         json_data = {"cacheControl": "public,max-age=172800","contentType": "image/webp","metadata": {"type": "bereal"},"name": name}
         headers = {
-            "x-goog-upload-protocol": "resumable","x-goog-upload-command": "start","x-firebase-storage-version": "ios/9.4.0",
+            "x-goog-upload-protocol": "resumable",
+            "x-goog-upload-command": "start",
+            "x-firebase-storage-version": "ios/9.4.0",
             "x-goog-upload-content-type": "image/webp","content-type": "application/json","x-firebase-gmpid": "1:405768487586:ios:28c4df089ca92b89",
             "Authorization": f"Firebase {token}",
             "x-goog-upload-content-length": size,
+            "content-type": "application/json",
+            "x-firebase-gmpid": "1:405768487586:ios:28c4df089ca92b89",
         }
         params = {"uploadType": "resumable","name": name}
 
@@ -144,6 +149,7 @@ def postinstant(token:str, uid:str, caption:str=''):
         print("URI: ", uri)
         init_res = requests.post(uri, headers=headers, params=params, data=json.dumps(json_data))
         print("INITIAL RESULT: ", init_res)
+        print("INITIAL RESULT MSG: ", init_res.text)
         if init_res.status_code != 200: raise Exception(f"Error initiating upload: {init_res.status_code}")
         upload_url = init_res.headers["x-goog-upload-url"]
         upheaders = {"x-goog-upload-command": "upload, finalize","x-goog-upload-protocol": "resumable",
