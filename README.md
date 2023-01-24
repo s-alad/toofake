@@ -7,6 +7,9 @@
 ---
 
 ## this is a work in progress!
+
+### posting is currently not working 
+
 - commenting does not refresh the comments; you have to manually refresh
 - posting any image as a beareal has been added but still is buggy! Make sure to upload both images!
  - the location? and public? toggles still don't do anything yet
