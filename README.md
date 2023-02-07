@@ -8,7 +8,7 @@
 
 ## this is a work in progress!
 
-## posting is currently not working, feel free to make a PR for fixes
+## posting has currently been fixed, however there are login issues!
 
 ---
 
