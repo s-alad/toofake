@@ -203,6 +203,16 @@ def postinstant(token:str, uid:str, caption:str=''):
 
     return complete_res.json()
 
+def signedpostinstant(token:str, uid:str, caption:str=''):
+    apiurl = f"https://mobile.bereal.com/api/content/posts/upload-url?mimeType=image%2Fwebp"
+    headers = {
+        "authorization": "Bearer {}".format(token),
+        "accept-encoding": "gzip",
+        "user-agent": "okhttp/4.10.0",
+        "if-none-match": 'W/"507-M16WxEgA1LffRgMAGSRIlonfNV8"'
+    }
+
+
 @app.route("/me/<token>")
 def me(token: str):
     res = requests.get(
