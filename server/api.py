@@ -119,13 +119,13 @@ def postinstant(token:str, uid:str, caption:str=''):
     p = request.files['primary'] 
     primary = Image.open(io.BytesIO(p.read()))
     primary = extension(primary)
-    prim_data = get_data(primary)
+    prim_data = get_data(primary) #this is the primary image file
     primarysize = str(len(prim_data))
 
     s = request.files['secondary']
     secondary = Image.open(io.BytesIO(s.read()))
     secondary = extension(secondary)
-    sec_data = get_data(secondary)
+    sec_data = get_data(secondary) #this is the secondary image file
     secondarysize = str(len(sec_data))
 
     def upload(file_data, size, alt: bool):
@@ -203,7 +203,37 @@ def postinstant(token:str, uid:str, caption:str=''):
 
     return complete_res.json()
 
+@app.route("/signedpostinstant/<token>/<uid>/", methods=["POST"])
+@app.route("/signedpostinstant/<token>/<uid>/<caption>", methods=["POST"])
 def signedpostinstant(token:str, uid:str, caption:str=''):
+    #==============================================================================================
+    #file manipulation
+    def get_data(version):  
+        version_data = io.BytesIO()
+        version.save(version_data, format="JPEG", quality=90)
+        version_data = version_data.getvalue()
+        return version_data
+    
+    def extension(img):
+        mime_type = Image.MIME[img.format]
+        if mime_type != "image/jpeg":
+            if not img.mode == "RGB":
+                img = img.convert("RGB")
+        return img
+
+    p = request.files['primary'] 
+    primary = Image.open(io.BytesIO(p.read()))
+    primary = extension(primary)
+    prim_data = get_data(primary) #this is the primary image file
+    primarysize = str(len(prim_data))
+
+    s = request.files['secondary']
+    secondary = Image.open(io.BytesIO(s.read()))
+    secondary = extension(secondary)
+    sec_data = get_data(secondary) #this is the secondary image file
+    secondarysize = str(len(sec_data))
+    #==============================================================================================
+
     apiurl = f"https://mobile.bereal.com/api/content/posts/upload-url?mimeType=image%2Fwebp"
     headers = {
         "authorization": "Bearer {}".format(token),
@@ -211,6 +241,61 @@ def signedpostinstant(token:str, uid:str, caption:str=''):
         "user-agent": "okhttp/4.10.0",
         "if-none-match": 'W/"507-M16WxEgA1LffRgMAGSRIlonfNV8"'
     }
+    signed_upload_res = requests.get(url=apiurl, headers=headers).json()
+    print("----- SIGNED UPLOAD -----")
+    print(signed_upload_res)
+    print('----- END -----')
+
+    prim_path = signed_upload_res["0"]["path"]
+    sec_path = signed_upload_res["1"]["path"]
+
+    def intostorage(signed_res, file):
+        bucket = signed_res['bucket']
+        expires = signed_res['expireAt']
+        image_path = signed_res['path']
+        bucket_headers = signed_res['headers']
+        bucket_url = signed_res['url']
+
+        ret = requests.put(url=bucket_url, headers=bucket_headers, data=file).json()
+        return ret
+
+    prim_bucket_ret = intostorage(signed_upload_res["0"] ,prim_data)
+    sec_bucket_ret = intostorage(signed_upload_res["1"] ,sec_data)
+    print("----- BUCKET RET -----")
+    print(prim_bucket_ret)
+    print(">>>>>")
+    print(sec_bucket_ret)
+    print('----- END -----')
+
+    now = pendulum.now()
+    taken_at = f"{now.to_date_string()}T{now.to_time_string()}Z"
+
+    payload = {
+        "isPublic": False,
+        "isLate": False,
+        "retakeCounter": 0,
+        "takenAt": taken_at,
+        #"location": location,
+        "caption": caption,
+        "backCamera": {
+            "bucket": "storage.bere.al",
+            "height": 2000,
+            "width": 1500,
+            "path": prim_path,
+        },
+        "frontCamera": {
+            "bucket": "storage.bere.al",
+            "height": 2000,
+            "width": 1500,
+            "path": sec_path,
+        },
+    }
+
+    complete_res = requests.post(url=api_url+'/content/post',json=payload,headers={"content-type" : "application/json", "authorization": token},)
+    print(complete_res)
+    print(complete_res.json())
+
+    return complete_res.json()
 
 
 @app.route("/me/<token>")
