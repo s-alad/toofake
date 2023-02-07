@@ -50,6 +50,17 @@ function App() {
     verify();
   }
 
+  function me() {
+    let token = localStorage.getItem('idtoken') ?? ''
+    fetch(`/me/${token}`).then(
+      (value) => {return value.json()}
+    ).then(
+      (data) => {
+        console.log(data)
+      }
+    )
+  }
+
   useEffect(() => {
     if (window.location.pathname === '/') {
       setBack(false)
@@ -79,6 +90,8 @@ function App() {
                   }
                   <div className='space'>|</div>
                   <div className='logout' onClick={() => logout()}>logout</div>
+                  {/* <div className='space'>|</div>
+                  <div className='logout' onClick={() => me()}>test</div> */}
                 </div>
               :
               <div>

@@ -246,8 +246,10 @@ def signedpostinstant(token:str, uid:str, caption:str=''):
     print(signed_upload_res)
     print('----- END -----')
 
-    prim_path = signed_upload_res["0"]["path"]
-    sec_path = signed_upload_res["1"]["path"]
+    signed_upload_res = signed_upload_res["data"]
+
+    prim_path = signed_upload_res[0]["path"]
+    sec_path = signed_upload_res[1]["path"]
 
     def intostorage(signed_res, file):
         bucket = signed_res['bucket']
@@ -256,11 +258,24 @@ def signedpostinstant(token:str, uid:str, caption:str=''):
         bucket_headers = signed_res['headers']
         bucket_url = signed_res['url']
 
-        ret = requests.put(url=bucket_url, headers=bucket_headers, data=file).json()
+        print("----- BUCKET INFO -----")
+        print(bucket, "\n >>>>")
+        print(expires, "\n >>>>")
+        print(image_path, "\n >>>>")
+        print(bucket_headers, "\n >>>>")
+        print(bucket_url, "\n >>>>")
+        print('----- END -----')
+
+        ret = requests.put(url=bucket_url, headers=bucket_headers, data=file)
+        print("----- BUCKET PUT RESP -----")
+        print(ret)
+        print(ret.text)
+        print('----- END -----')
+        if ret.status_code != 200: raise Exception(f"Error uploading image: {ret.status_code}, {ret.text}")
         return ret
 
-    prim_bucket_ret = intostorage(signed_upload_res["0"] ,prim_data)
-    sec_bucket_ret = intostorage(signed_upload_res["1"] ,sec_data)
+    prim_bucket_ret = intostorage(signed_upload_res[0] ,prim_data)
+    sec_bucket_ret = intostorage(signed_upload_res[1] ,sec_data)
     print("----- BUCKET RET -----")
     print(prim_bucket_ret)
     print(">>>>>")

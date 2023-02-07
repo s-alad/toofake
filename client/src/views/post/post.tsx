@@ -58,7 +58,7 @@ function Post() {
         console.log(tok, uid)
         console.log(primary, secondary)
         handlePostResponse('submitting request')
-        fetch(`/postinstant/${tok}/${uid}/${caption}`, {method: 'POST', body: data}).then(
+        /* fetch(`/postinstant/${tok}/${uid}/${caption}`, {method: 'POST', body: data}).then(
             (data) => {
                 data.json().then((value) => {
                     console.log(value)
@@ -73,7 +73,27 @@ function Post() {
                     }
                 })
             }
-        )
+        ) */
+        fetch(`/signedpostinstant/${tok}/${uid}/${caption}`, {method: 'POST', body: data}).then(
+            (data) => {
+                data.json().then((value) => {
+                    console.log(value)
+                    if ('error' in value) {
+                        handleValidation(value.statusCode + " | " + value.error + ": " + value.errorKey)
+                        setPosting(false);
+                    } else {
+                        handlePostResponse('success')
+                        setTimeout(() => {
+                            window.location.replace('/');
+                        }, 3000);
+                    }
+                })
+            }
+        ).catch((err) => {
+            console.log(err)
+            handleValidation('error')
+            setPosting(false);
+        })
     };
 
     return (
