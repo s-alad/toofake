@@ -66,6 +66,29 @@
             text-decoration: none;
         }
     }
+    .issues {
+        display: flex;
+        flex-direction: column;
+        .divide {
+            margin-bottom: 16px;
+            width: 45%;
+            height: 1px;
+            background-color: white;
+        }
+        @media  screen and (max-width: 600px) {
+            position: relative;
+            bottom: 0;
+            margin-bottom: 20px;
+            padding-left: 30px !important;
+            padding-right: 30px !important;
+
+        }
+        /* position: absolute; */
+        display: flex;
+        padding-left: 60px;
+        padding-right: 60px;
+        height: 150px;
+    }
     .divider {
         background-color: white;
         height: 2px;

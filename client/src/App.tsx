@@ -117,6 +117,14 @@ function App() {
           <Route path='about' element={<About></About>}/>
           <Route path='post' element={<Post></Post>}/>
         </Routes>
+        <div className='issues'>
+          <div className='divide'>
+
+          </div>
+          There currently might be issues loging in, specifically: 400 INVALID_APP_CREDENTIAL,
+          <br/>
+          bereal has been changing api, looking for solutions.
+        </div>
         <div className='divider'></div>
         <div className='git'>
           <a href='https://github.com/s-alad/toofake' target="_blank">
