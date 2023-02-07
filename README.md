@@ -8,7 +8,9 @@
 
 ## this is a work in progress!
 
-### posting is currently not working 
+## posting is currently not working, feel free to make a PR for fixes
+
+---
 
 - commenting does not refresh the comments; you have to manually refresh
 - posting any image as a beareal has been added but still is buggy! Make sure to upload both images!
