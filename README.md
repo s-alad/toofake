@@ -26,3 +26,4 @@
 ---
 
 > ### big shoutout to the team at [BeFake](https://github.com/notmarek/BeFake) for exposing many of the api endpoints!
+> ### heavily inspired by [shomil](https://shomil.me/bereal/) and [rvaidun](https://github.com/rvaidun) 
