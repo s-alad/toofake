@@ -6,6 +6,8 @@ function Post() {
     const [valid, setValid] = useState(true);
     const [validContent, setValidContent] = useState('');
 
+    const [publicpost, setPublic] = useState(false);
+
     const [posting, setPosting] = useState(false);
     const [postContent, setPostContent] = useState('');
 
@@ -40,13 +42,12 @@ function Post() {
 
     function handleSubmission() {
 
-        if (!selectedFileOne || !selectedFileTwo) {
-           handleValidation('please select both images')
-        }
+        if (!selectedFileOne || !selectedFileTwo) {handleValidation('please select both images')}
 
         const data = new FormData();
         data.append('primary', selectedFileOne);
         data.append('secondary', selectedFileTwo);
+        data.append('public', publicpost.toString())
 
         let primary = URL.createObjectURL(selectedFileOne);
         let secondary = URL.createObjectURL(selectedFileTwo);
@@ -142,7 +143,7 @@ function Post() {
                     location?
                 </div>
                 <div className='submit public'>
-                    <input type={'checkbox'} onChange={() => console.log('c')} disabled={true}></input>
+                    <input type={'checkbox'} onChange={() => {setPublic(!publicpost)}}></input>
                     public?
                 </div>
             </div>

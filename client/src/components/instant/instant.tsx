@@ -33,6 +33,12 @@ function Instant({username, location, late, caption, primary, secondary, avatar,
     }
     function addComment() {
         console.log('add comment')
+
+        if (comment == '') {
+            return
+        }
+
+
         let token = localStorage.getItem('idtoken') ?? ''
         fetch(`comment/${postid}/${comment}/${token}`).then(
             (value) => {
@@ -128,7 +134,7 @@ function Instant({username, location, late, caption, primary, secondary, avatar,
             <div></div>
         }   
         <div className='add'>
-          <input onChange={(txt) => setComment(txt.target.value)}></input>
+          <textarea rows={2} onChange={(txt) => setComment(txt.target.value)}></textarea>
           <div className='button' onClick={() => addComment()}>comment</div>
         </div>
       </div>

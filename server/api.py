@@ -106,6 +106,7 @@ def instants(token: str):
     print('----- END -----')
     return json.dumps(ret)
 
+# does not work anymore, using signedpostinstant ==================================================
 @app.route("/postinstant/<token>/<uid>/", methods=["POST"])
 @app.route("/postinstant/<token>/<uid>/<caption>", methods=["POST"])
 def postinstant(token:str, uid:str, caption:str=''):
@@ -215,6 +216,14 @@ def postinstant(token:str, uid:str, caption:str=''):
 @app.route("/signedpostinstant/<token>/<uid>/<caption>", methods=["POST"])
 def signedpostinstant(token:str, uid:str, caption:str=''):
     #==============================================================================================
+    print(request.form.to_dict())
+    print(request.files)
+    print(caption)
+    #==============================================================================================
+
+    ispublic = json.loads(request.form.to_dict()['public'].lower())
+    print(ispublic, type(ispublic))
+
     #file manipulation
     def get_data(version):  
         version_data = io.BytesIO()
@@ -249,11 +258,14 @@ def signedpostinstant(token:str, uid:str, caption:str=''):
         "user-agent": "okhttp/4.10.0",
         "if-none-match": 'W/"507-M16WxEgA1LffRgMAGSRIlonfNV8"'
     }
-    signed_upload_res = requests.get(url=apiurl, headers=headers).json()
+    signed_upload_res = requests.get(url=apiurl, headers=headers)
     print("----- SIGNED UPLOAD -----")
     print(signed_upload_res)
+    print(signed_upload_res.json())
+    if signed_upload_res.status_code != 200: return signed_upload_res.json()
     print('----- END -----')
 
+    signed_upload_res = signed_upload_res.json()
     signed_upload_res = signed_upload_res["data"]
 
     prim_path = signed_upload_res[0]["path"]
@@ -294,7 +306,7 @@ def signedpostinstant(token:str, uid:str, caption:str=''):
     taken_at = f"{now.to_date_string()}T{now.to_time_string()}Z"
 
     payload = {
-        "isPublic": False,
+        "isPublic": ispublic,
         "isLate": False,
         "retakeCounter": 0,
         "takenAt": taken_at,
