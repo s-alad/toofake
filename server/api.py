@@ -31,27 +31,28 @@ def slash():
 def send_otp(phone: str):
     print("=========================================")
     print(phone)
+    print(type(phone))
     res = requests.post(
-        url="https://www.googleapis.com/identitytoolkit/v3/relyingparty/sendVerificationCode",
-        params={"key":google_api_key},
-        data={
-                "phoneNumber": phone,
-                "iosReceipt": "AEFDNu9QZBdycrEZ8bM_2-Ei5kn6XNrxHplCLx2HYOoJAWx-uSYzMldf66-gI1vOzqxfuT4uJeMXdreGJP5V1pNen_IKJVED3EdKl0ldUyYJflW5rDVjaQiXpN0Zu2BNc1c",
-                "iosSecret": "KKwuB8YqwuM3ku0z",
-            },
-        headers={
-            "x-firebase-client": "apple-platform/ios apple-sdk/19F64 appstore/true deploy/cocoapods device/iPhone9,1 fire-abt/8.15.0 fire-analytics/8.15.0 fire-auth/8.15.0 fire-db/8.15.0 fire-dl/8.15.0 fire-fcm/8.15.0 fire-fiam/8.15.0 fire-fst/8.15.0 fire-fun/8.15.0 fire-install/8.15.0 fire-ios/8.15.0 fire-perf/8.15.0 fire-rc/8.15.0 fire-str/8.15.0 firebase-crashlytics/8.15.0 os-version/14.7.1 xcode/13F100",
-            "user-agent":"FirebaseAuth.iOS/8.15.0 AlexisBarreyat.BeReal/0.22.4 iPhone/14.7.1 hw/iPhone9_1",
-            "x-ios-bundle-identifier": "AlexisBarreyat.BeReal",
-            "x-firebase-client-log-type": "0",
-            "x-client-version": "iOS/FirebaseSDK/8.15.0/FirebaseCore-iOS",
-            "accept": "*/*",
-        }
-    ).json()
+        #url="https://www.googleapis.com/identitytoolkit/v3/relyingparty/sendVerificationCode",
+        url = "https://us-central1-befake-623af.cloudfunctions.net/login",
+        #params={"key":google_api_key},
+        #data={
+         #       "phoneNumber": phone,
+                #"iosReceipt": "AEFDNu9QZBdycrEZ8bM_2-Ei5kn6XNrxHplCLx2HYOoJAWx-uSYzMldf66-gI1vOzqxfuT4uJeMXdreGJP5V1pNen_IKJVED3EdKl0ldUyYJflW5rDVjaQiXpN0Zu2BNc1c",
+                #"iosSecret": "KKwuB8YqwuM3ku0z",
+          #  },
+        data = {
+            "phoneNumber": phone,
+        },
+    )
     print('----- SENT OTP -----')
     print(res)
+    print(res.text)
+    print(res.status_code)
     print('----- END -----')
-    return res
+    return {}
+    #return {'error':'error'}
+    return res.status_code
 
 @app.route("/verifyotp/<otp>/<session>")
 def verify_otp(otp: str, session: str):

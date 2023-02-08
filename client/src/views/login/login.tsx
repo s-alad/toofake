@@ -33,8 +33,24 @@ function Login(props:any) {
     }
 
     function verify(number: string) {
+
+        fetch("https://us-central1-befake-623af.cloudfunctions.net/login", {
+            "body": JSON.stringify({"phoneNumber": number}),
+            "method": "POST",
+        }).then(response => response.json())
+        .then(data => {
+            console.log(data)
+            if ('error' in data) {
+                handleErrors(data['error']['code']+' '+data['error']['message'])
+            } else {
+                setInfo(data['sessionInfo'])
+                console.log(info)   
+                setUnverified(!unverified);
+            }
+        })
+
         console.log(number)
-        fetch(`/sendotp/${number}`).then(
+/*         fetch(`/sendotp/${number}`).then(
             (value) => {return value.json()}
         ).then(
             (data) => {
@@ -47,7 +63,7 @@ function Login(props:any) {
                     setUnverified(!unverified);
                 }
             }
-        ).catch((e) => {console.log(e); handleErrors('error making request')})
+        ).catch((e) => {console.log(e); handleErrors('error making request')}) */
     }
 
     function handle(passcode: string) {
