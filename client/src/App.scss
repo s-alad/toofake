@@ -67,6 +67,7 @@
         }
     }
     .issues {
+        font-size: 14px;
         display: flex;
         flex-direction: column;
         .divide {
@@ -87,7 +88,7 @@
         display: flex;
         padding-left: 60px;
         padding-right: 60px;
-        height: 150px;
+        height: 100px;
     }
     .divider {
         background-color: white;

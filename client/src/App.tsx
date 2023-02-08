@@ -121,9 +121,12 @@ function App() {
           <div className='divide'>
 
           </div>
-          There currently might be issues loging in, specifically: 400 INVALID_APP_CREDENTIAL,
+          Recently more issues have started appearing as Bereal changes api,
           <br/>
-          bereal has been changing api, looking for solutions.
+          however everything should work fine. If any new issues pop up,
+          <br/>
+          feel free to send them over on the github!
+          <br/>
         </div>
         <div className='divider'></div>
         <div className='git'>

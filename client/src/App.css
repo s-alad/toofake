@@ -86,13 +86,14 @@
   text-decoration: none;
 }
 .App .issues {
+  font-size: 14px;
   display: flex;
   flex-direction: column;
   /* position: absolute; */
   display: flex;
   padding-left: 60px;
   padding-right: 60px;
-  height: 150px;
+  height: 100px;
 }
 .App .issues .divide {
   margin-bottom: 16px;

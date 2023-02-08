@@ -11,7 +11,9 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <>
+      {/* vercel analytics */}
       {inject()}
+
       <Router>
         <App />
       </Router>
