@@ -5,9 +5,7 @@
 ### https://toofake.vercel.app/
 
 ---
-
-## posting has currently been fixed, however there are login issues!
-## this is a work in progress!
+## posting and logging in should be fixed!
 ---
 
 - commenting does not refresh the comments; you have to manually refresh
@@ -28,3 +26,4 @@
 ---
 
 > ### big shoutout to the team at [BeFake](https://github.com/notmarek/BeFake) for exposing many of the api endpoints!
+> ### heavily inspired by [shomil](https://shomil.me/bereal/) and [rvaidun](https://github.com/rvaidun) 
