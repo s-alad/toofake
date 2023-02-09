@@ -38,8 +38,8 @@ def send_otp(phone: str):
         #params={"key":google_api_key},
         #data={
          #       "phoneNumber": phone,
-                #"iosReceipt": "AEFDNu9QZBdycrEZ8bM_2-Ei5kn6XNrxHplCLx2HYOoJAWx-uSYzMldf66-gI1vOzqxfuT4uJeMXdreGJP5V1pNen_IKJVED3EdKl0ldUyYJflW5rDVjaQiXpN0Zu2BNc1c",
-                #"iosSecret": "KKwuB8YqwuM3ku0z",
+                #"iosReceipt": "AEFDNu_OEYwP_wtXAGYh-EwqHILEHOSN1s8f2YLL1b_vauehU_h7cbV6e07IxeqqWcXyXb_mWD73LqNPFEgId1dv4uSnh1gDZ3yN83cHfqINn0pcOoAETcAz8PjfYk1HIWvJ",
+                #"iosSecret": "BmwqtXs9BqcM00ts",
           #  },
         data = {
             "phoneNumber": phone,
@@ -226,6 +226,9 @@ def signedpostinstant(token:str, uid:str, caption:str=''):
     longitude = request.form.to_dict()['longitude']
     haslocation = json.loads(request.form.to_dict()['haslocation'].lower())
     print(ispublic, type(ispublic))
+    print(latitude, type(latitude))
+    print(longitude, type(longitude))
+    print(haslocation, type(haslocation))
 
     #file manipulation
     def get_data(version):  

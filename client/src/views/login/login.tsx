@@ -33,7 +33,7 @@ function Login(props:any) {
     }
 
     function verify(number: string) {
-
+        //using rvaiduns cloud function proxy for now :)
         fetch("https://us-central1-befake-623af.cloudfunctions.net/login", {
             "body": JSON.stringify({"phoneNumber": number}),
             "method": "POST",

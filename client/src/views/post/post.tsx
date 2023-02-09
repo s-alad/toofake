@@ -48,7 +48,7 @@ function Post() {
 
     function handleSubmission() {
 
-        if (loading) {handleValidation('please wait for state to finish loading'); return}
+        //if (loading) {handleValidation('please wait for state to finish loading'); return}
         if (!selectedFileOne || !selectedFileTwo) {handleValidation('please select both images'); return}
 
         const data = new FormData();
@@ -122,7 +122,6 @@ function Post() {
           );
         }
         
-        setLoading(false);
     }
 
     return (
