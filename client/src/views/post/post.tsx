@@ -3,10 +3,16 @@ import './post.css';
 
 function Post() {
     
+    const [loading, setLoading] = useState(false);
+
     const [valid, setValid] = useState(true);
     const [validContent, setValidContent] = useState('');
 
     const [publicpost, setPublic] = useState(false);
+
+    const [haslocation, setHasLocation] = useState(false);
+    const [latitude, setLatitude] = useState(0);
+    const [longitude, setLongitude] = useState(0);
 
     const [posting, setPosting] = useState(false);
     const [postContent, setPostContent] = useState('');
@@ -42,12 +48,16 @@ function Post() {
 
     function handleSubmission() {
 
-        if (!selectedFileOne || !selectedFileTwo) {handleValidation('please select both images')}
+        if (loading) {handleValidation('please wait for state to finish loading'); return}
+        if (!selectedFileOne || !selectedFileTwo) {handleValidation('please select both images'); return}
 
         const data = new FormData();
         data.append('primary', selectedFileOne);
         data.append('secondary', selectedFileTwo);
         data.append('public', publicpost.toString())
+        data.append('haslocation', haslocation.toString())
+        data.append('latitude', latitude.toString())
+        data.append('longitude', longitude.toString())
 
         let primary = URL.createObjectURL(selectedFileOne);
         let secondary = URL.createObjectURL(selectedFileTwo);
@@ -97,6 +107,24 @@ function Post() {
         })
     };
 
+    async function toggleLocation() {
+        console.log(loading)
+        if (latitude !== 0 && longitude !== 0) {
+            setLatitude(0);
+            setLongitude(0);
+        } else {
+            await navigator.geolocation.getCurrentPosition(
+            position => {
+                console.log(position.coords.latitude, position.coords.longitude)
+                setLatitude(position.coords.latitude);
+                setLongitude(position.coords.longitude);
+            }
+          );
+        }
+        
+        setLoading(false);
+    }
+
     return (
         <div className='post'>
             <div className='images'>
@@ -139,7 +167,7 @@ function Post() {
 
                 </input>
                 <div className='submit location'>
-                    <input type={'checkbox'} onChange={() => console.log('c')} disabled={true}></input>
+                    <input type={'checkbox'} onChange={() => toggleLocation()}></input>
                     location?
                 </div>
                 <div className='submit public'>
@@ -147,7 +175,7 @@ function Post() {
                     public?
                 </div>
             </div>
-            <div className='send' onClick={handleSubmission}>
+            <div className='send' onClick={()=> {setLoading(true); handleSubmission()}}>
                 submit
             </div>
             {!valid ? (<div className='validation'>{validContent}</div>) : (<></>)}

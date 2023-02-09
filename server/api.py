@@ -222,6 +222,9 @@ def signedpostinstant(token:str, uid:str, caption:str=''):
     #==============================================================================================
 
     ispublic = json.loads(request.form.to_dict()['public'].lower())
+    latitude = request.form.to_dict()['latitude']
+    longitude = request.form.to_dict()['longitude']
+    haslocation = json.loads(request.form.to_dict()['haslocation'].lower())
     print(ispublic, type(ispublic))
 
     #file manipulation
@@ -325,6 +328,7 @@ def signedpostinstant(token:str, uid:str, caption:str=''):
             "path": sec_path,
         },
     }
+    if haslocation: payload["location"] = {"latitude": latitude,"longitude": longitude,}
 
     complete_res = requests.post(url=api_url+'/content/post',json=payload,headers={"content-type" : "application/json", "authorization": token},)
     print(complete_res)
