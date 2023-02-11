@@ -2,17 +2,13 @@ import React, { useState } from 'react';
 import './post.css';
 
 function Post() {
-    
+
     const [loading, setLoading] = useState(false);
 
     const [valid, setValid] = useState(true);
     const [validContent, setValidContent] = useState('');
 
     const [publicpost, setPublic] = useState(false);
-
-    const [haslocation, setHasLocation] = useState(false);
-    const [latitude, setLatitude] = useState(0);
-    const [longitude, setLongitude] = useState(0);
 
     const [posting, setPosting] = useState(false);
     const [postContent, setPostContent] = useState('');
@@ -49,7 +45,7 @@ function Post() {
     function handleSubmission() {
 
         //if (loading) {handleValidation('please wait for state to finish loading'); return}
-        if (!selectedFileOne || !selectedFileTwo) {handleValidation('please select both images'); return}
+        if (!selectedFileOne || !selectedFileTwo) { handleValidation('please select both images'); return }
 
         const data = new FormData();
         data.append('primary', selectedFileOne);
@@ -85,7 +81,7 @@ function Post() {
                 })
             }
         ) */
-        fetch(`/signedpostinstant/${tok}/${uid}/${caption}`, {method: 'POST', body: data}).then(
+        fetch(`/signedpostinstant/${tok}/${uid}/${caption}`, { method: 'POST', body: data }).then(
             (data) => {
                 data.json().then((value) => {
                     console.log(value)
@@ -107,21 +103,37 @@ function Post() {
         })
     };
 
-    async function toggleLocation() {
-        console.log(loading)
-        if (latitude !== 0 && longitude !== 0) {
+
+    const [haslocation, setHasLocation] = useState(false);
+    const [current, setCurrent] = useState(false);
+    const [custom, setCustom] = useState(false);
+    const [latitude, setLatitude] = useState(0);
+    const [longitude, setLongitude] = useState(0);
+
+    async function toggleLocation(typ: string) {
+
+        if (typ === 'current') {
+            if (current) {
+                setHasLocation(false);setCurrent(false);setCustom(false);
+            } else {
+                setHasLocation(true);setCurrent(true);setCustom(false);
+                await navigator.geolocation.getCurrentPosition(
+                    position => {
+                        console.log(position.coords.latitude, position.coords.longitude)
+                        setLatitude(position.coords.latitude);
+                        setLongitude(position.coords.longitude);
+                    }
+                );
+            }
+
+        } else if (typ === 'custom') {
+            setCurrent(false);
+            setCustom(!custom);
             setLatitude(0);
             setLongitude(0);
-        } else {
-            await navigator.geolocation.getCurrentPosition(
-            position => {
-                console.log(position.coords.latitude, position.coords.longitude)
-                setLatitude(position.coords.latitude);
-                setLongitude(position.coords.longitude);
-            }
-          );
+            setHasLocation(true);
+            if (custom) {setHasLocation(false);}
         }
-        
     }
 
     return (
@@ -163,18 +175,30 @@ function Post() {
             </div>
             <div className='functionality'>
                 <input className='caption' placeholder='your caption' onChange={(txt) => setCaption(txt.target.value)}>
-
                 </input>
-                <div className='submit location'>
-                    <input type={'checkbox'} onChange={() => toggleLocation()}></input>
-                    location?
+
+                <div className='location-func'>
+                    <div className='current'>
+                        <input type={'checkbox'} onChange={() => toggleLocation('current')} checked={current}></input>
+                        current location?
+                    </div>
+                    <div className='custom'>
+                        <div className=''>
+                            <input type={'checkbox'} onChange={() => toggleLocation('custom')} checked={custom}></input>
+                            custom loc?
+                        </div>
+                        <div className='coords'>
+                            <input disabled={!custom} type={'number'} placeholder={'latitude'} onChange={(v) => setLatitude(parseInt(v.target.value))}></input>
+                            <input disabled={!custom} type={'number'} placeholder={'longitude'} onChange={(v) => setLongitude(parseInt(v.target.value))}></input>
+                        </div>
+                    </div>
                 </div>
                 <div className='submit public'>
-                    <input type={'checkbox'} onChange={() => {setPublic(!publicpost)}}></input>
+                    <input type={'checkbox'} onChange={() => { setPublic(!publicpost) }}></input>
                     public?
                 </div>
             </div>
-            <div className='send' onClick={()=> {setLoading(true); handleSubmission()}}>
+            <div className='send' onClick={() => { setLoading(true); handleSubmission() }}>
                 submit
             </div>
             {!valid ? (<div className='validation'>{validContent}</div>) : (<></>)}

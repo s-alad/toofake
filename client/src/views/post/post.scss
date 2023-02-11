@@ -6,7 +6,6 @@
         padding-left: 30px;
         padding-right: 30px;
     }
-    flex: 1;
     .images {
         display: flex;
         flex-wrap: wrap;
@@ -52,21 +51,43 @@
         }
     }
     .functionality {
+
         @media screen and (max-width: 750px) {
             flex-direction: column;
-            .submit {
+            .submit, .caption {
                 margin-left: 0px !important;
                 margin-top: 12px;
                 width: 300px !important;
             }
+            .location-func {
+                flex-direction: column;
+                .current, .custom {
+                    margin-left: 0px !important;
+                    margin-top: 12px;
+                    width: 300px !important;
+                }
+                .custom {
+                    height: 100px;
+                    flex-direction: column; 
+                    padding: 6px;
+                    .coords {
+                        width: 100%;
+                        flex-direction: column; 
+                        align-items: center;
+                        input {margin-bottom: 6px; width: 90% !important;}
+                    }
+                }
+            }
         }
 
         display: flex;
+        flex-direction: column;
         /* margin-top: 14px; */
         .caption {
             padding-left: 14px; padding-right: 14px;
-            width: 300px;
+            width: 100%;
             min-width: 300px;
+            max-width: 620px;
             height: 40px;
             border-radius: 12px;
             background-color: white;
@@ -75,7 +96,6 @@
         .submit {
             cursor: pointer;
             @include c.center();
-            margin-left: 12px;
             border: 2px solid white;
             min-width: 144px;
             width: 144px;
@@ -83,9 +103,50 @@
             border-radius: 12px;
             padding-left: 14px; padding-right: 14px;
         }
-        .location {
-            margin-left: 16px;
-            opacity: .8;
+        .location-func {
+            margin-top: 12px;
+            display: flex;
+            .current {
+                cursor: pointer;
+                @include c.center();
+                border: 2px solid white;
+                min-width: 184px;
+                width: 184px;
+                height: 40px;
+                border-radius: 12px;
+                padding-left: 14px; padding-right: 14px;
+                margin-right: 12px;
+            }
+            .custom {
+                width: 425px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                border: 2px solid white;
+                border-radius: 12px;
+
+                .coords {
+                    display: flex;
+                    margin-left: 12px;
+                    height: 70%;
+                    input[type=text] {
+                        height: 100%;
+                        width: 120px;
+                        background-color: transparent;
+                        border: none;
+                        border-bottom: 1px solid white;
+                        margin-right: 12px;
+                        color: white;
+                    }
+                }
+
+            }
+            /* opacity: .8; */
+        }
+        .public {
+            margin-top: 12px;
+            min-width: 184px;
+                width: 184px;
         }
     }
     .send {

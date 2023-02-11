@@ -1,7 +1,6 @@
 .post {
   padding-left: 60px;
   padding-right: 60px;
-  flex: 1;
 }
 @media screen and (max-width: 750px) {
   .post {
@@ -59,23 +58,47 @@
 }
 .post .functionality {
   display: flex;
+  flex-direction: column;
   /* margin-top: 14px; */
 }
 @media screen and (max-width: 750px) {
   .post .functionality {
     flex-direction: column;
   }
-  .post .functionality .submit {
+  .post .functionality .submit, .post .functionality .caption {
     margin-left: 0px !important;
     margin-top: 12px;
     width: 300px !important;
+  }
+  .post .functionality .location-func {
+    flex-direction: column;
+  }
+  .post .functionality .location-func .current, .post .functionality .location-func .custom {
+    margin-left: 0px !important;
+    margin-top: 12px;
+    width: 300px !important;
+  }
+  .post .functionality .location-func .custom {
+    height: 100px;
+    flex-direction: column;
+    padding: 6px;
+  }
+  .post .functionality .location-func .custom .coords {
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+  }
+  .post .functionality .location-func .custom .coords input {
+    margin-bottom: 6px;
+    width: 90% !important;
   }
 }
 .post .functionality .caption {
   padding-left: 14px;
   padding-right: 14px;
-  width: 300px;
+  width: 100%;
   min-width: 300px;
+  max-width: 620px;
   height: 40px;
   border-radius: 12px;
   background-color: white;
@@ -86,7 +109,6 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-left: 12px;
   border: 2px solid white;
   min-width: 144px;
   width: 144px;
@@ -95,9 +117,51 @@
   padding-left: 14px;
   padding-right: 14px;
 }
-.post .functionality .location {
-  margin-left: 16px;
-  opacity: 0.8;
+.post .functionality .location-func {
+  margin-top: 12px;
+  display: flex;
+  /* opacity: .8; */
+}
+.post .functionality .location-func .current {
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid white;
+  min-width: 184px;
+  width: 184px;
+  height: 40px;
+  border-radius: 12px;
+  padding-left: 14px;
+  padding-right: 14px;
+  margin-right: 12px;
+}
+.post .functionality .location-func .custom {
+  width: 425px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid white;
+  border-radius: 12px;
+}
+.post .functionality .location-func .custom .coords {
+  display: flex;
+  margin-left: 12px;
+  height: 70%;
+}
+.post .functionality .location-func .custom .coords input[type=text] {
+  height: 100%;
+  width: 120px;
+  background-color: transparent;
+  border: none;
+  border-bottom: 1px solid white;
+  margin-right: 12px;
+  color: white;
+}
+.post .functionality .public {
+  margin-top: 12px;
+  min-width: 184px;
+  width: 184px;
 }
 .post .send {
   cursor: pointer;
