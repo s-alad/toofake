@@ -107,8 +107,8 @@ function Post() {
     const [haslocation, setHasLocation] = useState(false);
     const [current, setCurrent] = useState(false);
     const [custom, setCustom] = useState(false);
-    const [latitude, setLatitude] = useState(0);
-    const [longitude, setLongitude] = useState(0);
+    const [latitude, setLatitude] = useState(0.0);
+    const [longitude, setLongitude] = useState(0.0);
 
     async function toggleLocation(typ: string) {
 
@@ -129,8 +129,8 @@ function Post() {
         } else if (typ === 'custom') {
             setCurrent(false);
             setCustom(!custom);
-            setLatitude(0);
-            setLongitude(0);
+            setLatitude(0.0);
+            setLongitude(0.0);
             setHasLocation(true);
             if (custom) {setHasLocation(false);}
         }
@@ -188,8 +188,8 @@ function Post() {
                             custom loc?
                         </div>
                         <div className='coords'>
-                            <input disabled={!custom} type={'number'} placeholder={'latitude'} onChange={(v) => setLatitude(parseInt(v.target.value))}></input>
-                            <input disabled={!custom} type={'number'} placeholder={'longitude'} onChange={(v) => setLongitude(parseInt(v.target.value))}></input>
+                            <input disabled={!custom} type={'number'} placeholder={'latitude'} onChange={(v) => setLatitude(parseFloat(v.target.value))}></input>
+                            <input disabled={!custom} type={'number'} placeholder={'longitude'} onChange={(v) => setLongitude(parseFloat(v.target.value))}></input>
                         </div>
                     </div>
                 </div>
