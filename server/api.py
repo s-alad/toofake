@@ -240,6 +240,7 @@ def signedpostinstant(token:str, uid:str, caption:str=''):
     def extension(img):
         mime_type = Image.MIME[img.format]
         if mime_type != "image/jpeg":
+            print("Converting Mime Type")
             if not img.mode == "RGB":
                 img = img.convert("RGB")
         return img

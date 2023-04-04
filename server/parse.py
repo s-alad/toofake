@@ -9,19 +9,19 @@ class Parse:
     
     @staticmethod
     def location(loc):
-        try:
+        """         try:
             gapi = os.getenv('GAPI')
             gapi = ''
             geolocator = GoogleV3(api_key=gapi)
             location = geolocator.reverse("{}, {}".format(loc['_latitude'], loc['_longitude']), exactly_one=False)
             loose = str(location[-6]).split(',')
             return loose[1] +', ' + loose[0]
-        except: 
-            geolocator = Nominatim(user_agent="GetLoc")
-            location = geolocator.reverse("{}, {}".format(loc['_latitude'], loc['_longitude']), exactly_one=False)
-            return str(location[0]).split(',')[1] + ', ' + str(location[0]).split(',')[2]
-            loose = str(location[-6]).split(',')
-            return loose[1] +', ' + loose[0]
+        except:  """
+        geolocator = Nominatim(user_agent="GetLoc")
+        location = geolocator.reverse("{}, {}".format(loc['_latitude'], loc['_longitude']), exactly_one=False)
+        return str(location[0]).split(',')[1] + ', ' + str(location[0]).split(',')[2]
+        loose = str(location[-6]).split(',')
+        return loose[1] +', ' + loose[0]
 
     @staticmethod
     def time(t):
