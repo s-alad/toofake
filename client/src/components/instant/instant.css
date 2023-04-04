@@ -57,6 +57,13 @@
   width: 30px;
   /* border: 1px solid pink; */
 }
+.instant .details .extra .trash {
+  height: 20px;
+  margin-top: 16px;
+  cursor: pointer;
+  position: relative;
+  right: -2px;
+}
 .instant .event {
   flex: 1;
   width: 100%;

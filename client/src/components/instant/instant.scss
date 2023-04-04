@@ -63,6 +63,13 @@
         .extra {
             width: 30px;
             /* border: 1px solid pink; */
+            .trash {
+                height: 20px;
+                margin-top: 16px;
+                cursor: pointer;
+                position: relative;
+                right: -2px;
+            }
         }
 
     }
