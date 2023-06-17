@@ -5,7 +5,7 @@
 ### https://toofake.vercel.app/
 
 ---
-## posting and logging in should be fixed!
+## current status: on life support, unsure if viewing / logging in still works. Check out [rvaidun](https://github.com/rvaidun)'s project as it is much more up to date and well kept!
 ---
 
 - commenting does not refresh the comments; you have to manually refresh
