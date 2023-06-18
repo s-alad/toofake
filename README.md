@@ -6,7 +6,7 @@
 
 ---
 ## current status:
-not working, all the functionality has been broken due to BeReal chaanges. [rvaidun](https://github.com/rvaidun)'s project has been shut down and no longer works aswell. Check out the project at [BeFake](https://github.com/notmarek/BeFake) for a working client!
+not working, all the functionality has been broken due to BeReal changes. [rvaidun](https://github.com/rvaidun)'s project has been shut down and no longer works aswell. Check out the project at [BeFake](https://github.com/notmarek/BeFake) for a working client!
 ---
 
 ## how to run locally
