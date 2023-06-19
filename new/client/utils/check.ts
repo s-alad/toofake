@@ -72,6 +72,9 @@ export default function useCheck() {
         }
 
         console.log("token is valid");
+
+        
+
         if (router.pathname == "/") {
             router.push("/feed");
         }
