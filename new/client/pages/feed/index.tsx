@@ -23,6 +23,7 @@ export default function Feed() {
 
         axios.request(options).then(
             (response) => {
+                console.log(response.data);
                 let newinstances: { [key: string]: Instance } = {};
                 for (let i = 0; i < response.data.length; i++) {
                     let id = response.data[i].id;
@@ -45,10 +46,7 @@ export default function Feed() {
             {
                 Object.keys(instances).map((key) => {
                     return (
-                        <div>
-                            <h1>{instances[key].username}</h1>
-                            <p>{instances[key].caption}</p>
-                        </div>
+                        <Instant key={key} instance={instances[key]} />
                     )
                 })
             }

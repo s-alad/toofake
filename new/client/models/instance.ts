@@ -21,8 +21,8 @@ class Instance {
         let username = raw.userName;
         let caption = raw.caption;
         let id = raw.id;
-        let primary = raw.photoUrl;
-        let secondary = raw.secondaryPhotoUrl;
+        let primary = raw.photoURL;
+        let secondary = raw.secondaryPhotoURL;
         return new Instance(username, caption, id, primary, secondary);
     }
 }
