@@ -9,10 +9,13 @@ import { generateDeviceId } from '@/utils/device'
 import PhoneInput from 'react-phone-input-2';
 import "react-phone-input-2/lib/bootstrap.css";
 import { useRouter } from 'next/router'
+import useCheck from '@/utils/check'
 
 const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {
+
+	useCheck();
 
 	let router = useRouter();
 
@@ -35,18 +38,21 @@ export default function Home() {
 		let refresh_token = response.data.refresh_token;
 		let is_new_user = response.data.is_new_user;
 		let token_type = response.data.token_type;
+		let expiration = response.data.expiration;
 
 		console.log(response.data);
 
 		if (localStorage.getItem("token") != null) {
 			localStorage.removeItem("token");
 			localStorage.removeItem("refresh_token");
+			localStorage.removeItem("expiration");
 			localStorage.removeItem("uid");
 			localStorage.removeItem("is_new_user");
 			localStorage.removeItem("token_type");
 		}
 		localStorage.setItem("token", token);
 		localStorage.setItem("refresh_token", refresh_token);
+		localStorage.setItem("expiration", expiration)
 		localStorage.setItem("uid", uid);
 		localStorage.setItem("is_new_user", is_new_user);
 		localStorage.setItem("token_type", token_type);

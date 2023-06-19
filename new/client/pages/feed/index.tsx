@@ -6,10 +6,18 @@ import Instant from '@/components/instant/instant';
 import Instance from '@/models/instance';
 import { useState } from 'react';
 
+import { useRouter } from 'next/router'
+
+import useCheck from '@/utils/check';
+
 import s from './feed.module.scss';
 import l from '@/styles/loader.module.scss';
 
+
 export default function Feed() {
+
+    let router = useRouter();
+    useCheck();
 
     let [instances, setInstances] = useState<{ [key: string]: Instance }>({})
     let [loading, setLoading] = useState<boolean>(true);
@@ -17,7 +25,6 @@ export default function Feed() {
     useEffect(() => {
 
         setLoading(true);
-
         let token = localStorage.getItem("token");
         let body = JSON.stringify({ "token": token });
 
