@@ -19,7 +19,7 @@ export default function Home() {
 		console.log("------------------")
 		let body = JSON.stringify({"code": otp, "vonageRequestId": vonageid});
 		let options = {
-			url: "/api/verifyotp",
+			url: "/api/otp/verify",
 			method: "POST",
 			headers: {'Content-Type': 'application/json'},
 			data: body,
@@ -55,7 +55,7 @@ export default function Home() {
 
 		let body = JSON.stringify({"number": number})
 		let options = {
-			url: "/api/sendotp",
+			url: "/api/otp/send",
 			method: "POST",
 			headers: {'Content-Type': 'application/json'},
 			data: body,
@@ -75,7 +75,7 @@ export default function Home() {
 
 	let [inputNumber, setInputNumber] = useState<string>("");
 	let [inputOTP, setInputOTP] = useState<string>("");
-	
+
 	return (
 		<>
 			<Head>
