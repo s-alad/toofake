@@ -33,6 +33,18 @@ export default function Instant({ instance }: _Instant) {
                         <img src={swap ? instance.secondary : instance.primary} className={s.secondary} onClick={() => setSwap(!swap)}/>
                     </Draggable>
                 </div>
+                <div className={s.realmojis}>
+                    {
+                        instance.realmojis.map((realmoji) => {
+                            return (
+                                <div className={s.realmoji}>
+                                    <div className={s.moji}>{realmoji.emoji}</div>
+                                    <img src={realmoji.uri} />
+                                </div>
+                            )
+                        })
+                    }
+                </div>
             </div>
 
             <div className={s.caption}>

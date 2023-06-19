@@ -1,16 +1,21 @@
 
 import User from './user';
+import Realmoji from './realmoji';
 
 class Instance {
     user: User;
+
+    realmojis: Realmoji[];
+
     caption: string;
     instanceid: string;
     primary: string;
     secondary: string;
 
     // make a constructor
-    constructor(user: User, caption: string, instanceid: string, primary: string, secondary: string) {
+    constructor(user: User, realmojis: Realmoji[], caption: string, instanceid: string, primary: string, secondary: string) {
         this.user = user;
+        this.realmojis = realmojis;
         this.caption = caption;
         this.instanceid = instanceid;
         this.primary = primary;
@@ -31,7 +36,13 @@ class Instance {
         let primary = raw.photoURL;
         let secondary = raw.secondaryPhotoURL;
 
-        return new Instance(user, caption, instanceid, primary, secondary);
+        let raw_realmojis = raw.realMojis;
+        let realmojis: Realmoji[] = [];
+        for (let raw_moji of raw_realmojis) {
+            realmojis.push(Realmoji.create(raw_moji));
+        }
+
+        return new Instance(user, realmojis, caption, instanceid, primary, secondary);
     }
 }
 
