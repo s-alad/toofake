@@ -10,6 +10,7 @@ import PhoneInput from 'react-phone-input-2';
 import "react-phone-input-2/lib/bootstrap.css";
 import { useRouter } from 'next/router'
 import useCheck from '@/utils/check'
+import myself from '@/utils/myself'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -41,22 +42,13 @@ export default function Home() {
 		let expiration = response.data.expiration;
 
 		console.log(response.data);
-
-		if (localStorage.getItem("token") != null) {
-			localStorage.removeItem("token");
-			localStorage.removeItem("refresh_token");
-			localStorage.removeItem("expiration");
-			localStorage.removeItem("uid");
-			localStorage.removeItem("is_new_user");
-			localStorage.removeItem("token_type");
-		}
 		localStorage.setItem("token", token);
 		localStorage.setItem("refresh_token", refresh_token);
 		localStorage.setItem("expiration", expiration)
 		localStorage.setItem("uid", uid);
 		localStorage.setItem("is_new_user", is_new_user);
 		localStorage.setItem("token_type", token_type);
-
+		myself();
 		router.push("/feed");
 	}
 

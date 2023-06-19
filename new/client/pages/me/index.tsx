@@ -3,6 +3,7 @@ import React from 'react'
 import { useEffect } from 'react'
 import axios from 'axios'
 import useCheck from '@/utils/check';
+import myself from '@/utils/myself';
 
 export default function Profile() {
 
@@ -15,7 +16,6 @@ export default function Profile() {
     useEffect(() => {
         let token = localStorage.getItem("token");
         let body = JSON.stringify({ "token": token });
-
         let options = {
             url: "/api/me",
             method: "POST",
