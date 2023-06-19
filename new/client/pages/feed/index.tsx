@@ -7,12 +7,17 @@ import Instance from '@/models/instance';
 import { useState } from 'react';
 
 import s from './feed.module.scss';
+import l from '@/styles/loader.module.scss';
 
 export default function Feed() {
 
     let [instances, setInstances] = useState<{ [key: string]: Instance }>({})
+    let [loading, setLoading] = useState<boolean>(true);
 
     useEffect(() => {
+
+        setLoading(true);
+
         let token = localStorage.getItem("token");
         let body = JSON.stringify({ "token": token });
 
@@ -43,6 +48,7 @@ export default function Feed() {
                 console.log("newinstances");
                 console.log(newinstances);
                 setInstances(newinstances);
+                setLoading(false);
             }
         ).catch(
             (error) => {
@@ -55,6 +61,7 @@ export default function Feed() {
     return (
         <div className={s.feed}>
             {
+                loading ? <div className={l.loader}></div> :
                 Object.keys(instances).map((key) => {
                     return (
                         <Instant key={key} instance={instances[key]} />
