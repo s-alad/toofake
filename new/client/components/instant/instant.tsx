@@ -18,10 +18,10 @@ export default function Instant({ instance }: _Instant) {
 
             <div className={s.top}>
                 <div className={s.pfp}>
-                    <img src={""} />
+                    <img src={instance.user.pfp} />
                 </div>
                 <div className={s.details}>
-                    <div className={s.username}> @{instance.username} </div>
+                    <div className={s.username}> @{instance.user.username} </div>
                     <div className={s.location}> {"-0 +0"} </div>
                 </div> 
             </div>
