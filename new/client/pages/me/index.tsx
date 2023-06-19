@@ -2,8 +2,11 @@
 import React from 'react'
 import { useEffect } from 'react'
 import axios from 'axios'
+import useCheck from '@/utils/check';
 
 export default function Profile() {
+
+    useCheck();
 
     let [username, setUsername] = React.useState<string>("");
     let [name, setName] = React.useState<string>("");

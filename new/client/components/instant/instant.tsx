@@ -38,7 +38,7 @@ export default function Instant({ instance }: _Instant) {
                     {
                         instance.realmojis.map((realmoji) => {
                             return (
-                                <div className={s.realmoji}>
+                                <div className={s.realmoji} key={realmoji.emoji_id}>
                                     <div className={s.moji}>{realmoji.emoji}</div>
                                     <img src={realmoji.uri} />
                                 </div>

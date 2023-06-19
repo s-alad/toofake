@@ -30,8 +30,8 @@ class Instance {
 
     // static method to create instances
     static async create(raw: any) {
-        console.log("CREATION")
-        console.log(raw);
+        /* console.log("CREATION")
+        console.log(raw); */
         let username = raw.user.username;
         let pfp = raw.user.profilePicture.url;
         let uid = raw.user.id;
@@ -57,7 +57,6 @@ class Instance {
             let response = await axios.get(
                 `https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${long}&zoom=15&format=jsonv2`
             )
-            console.log(response.data);
             initial_location = response.data.display_name.split(",")[0] + ", " + response.data.display_name.split(",")[1];
 
         }
