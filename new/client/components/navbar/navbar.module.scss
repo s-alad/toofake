@@ -1,3 +1,5 @@
+@use "../../styles/common.scss" as c;
+
 .toofake {
     font-size: 44px;
     font-weight: 700;
@@ -23,12 +25,27 @@
             flex: 1;
             justify-content: flex-end;
             align-items: center;
+            a {
+                @include c.center();
+                color: white;
+                text-decoration: none;
+            }
             img {
                 height: 40px;
                 width: 40px;
                 border-radius: 100%;
                 object-fit: cover;
                 background-color: white;
+            }
+            button {
+                cursor: pointer;
+                font-size: 16px;
+                font-weight: 500;
+                height: 34px;
+                width: 80px;
+                border-radius: 8px;
+                background-color: white;
+                border: none;
             }
         }
     }

@@ -27,9 +27,25 @@ export default function Navbar() {
                         <div className={s.feed}>
                             Feed
                         </div>
-                        <Link className={s.profile} href={"/me"}>
-                            <img src={pfp}/>
-                        </Link>
+                        <div className={s.profile} >
+                            <Link href={"/me"}>
+                                <img src={pfp}/>
+                            </Link>
+                        </div>
+                    </> : ''
+                }
+                {
+                    router.pathname == "/me" ? 
+                    <> 
+                        <div className={s.sep}></div>
+                        <div className={s.feed}>
+                            Profile
+                        </div>
+                        <div className={s.profile} >
+                            <Link href={"/feed"}>
+                                <button>back</button>
+                            </Link>
+                        </div>
                     </> : ''
                 }
             </div>

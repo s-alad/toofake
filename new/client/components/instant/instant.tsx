@@ -11,9 +11,11 @@ interface _Instant {
 export default function Instant({ instance }: _Instant) {
 
     let [swap, setSwap] = useState<boolean>(false);
+    let [expanded, setExpanded] = useState<boolean>(false);
 
     console.log("instance")
     console.log(instance);
+
     return (
         <div className={s.instant}>
 
@@ -51,7 +53,25 @@ export default function Instant({ instance }: _Instant) {
             <div className={s.caption}>
                 {instance.caption}
             </div>
-
+            <div className={s.comments}>
+                {
+                    instance.comments.length > 0 ?
+                    <div className={s.expand} onClick={() => setExpanded(!expanded)}>expand comments</div>
+                    : null
+                }
+                {
+                    expanded ?
+                    instance.comments.map((comment) => {
+                        return (
+                            <div className={s.comment} key={comment.comment_id}>
+                                <div className={s.username}>@{comment.owner.username}</div>
+                                <div className={s.commenttext}>{comment.text}</div>
+                            </div>
+                        )
+                    })
+                    : null
+                }
+            </div>
             
         </div>
 

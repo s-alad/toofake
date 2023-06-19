@@ -12,6 +12,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     let refresh_token = req.body.refresh;
 
+    console.log("refresh token")
+    console.log(refresh_token);
+
     let refresh_body = JSON.stringify({
         "grant_type": "refresh_token",
         "client_id": "ios",
@@ -38,6 +41,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         }
     ).catch(
         (error) => {
+            console.log("ERROR");
             console.log(error);
             res.status(400).json({ status: "error" });
         }

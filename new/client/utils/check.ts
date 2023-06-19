@@ -62,6 +62,7 @@ export default function useCheck() {
                         }
                     }).catch(
                         (error) => {
+                            console.log("refresh fetch error");
                             console.log(error);
                             removeStorage();
                             router.push("/");
