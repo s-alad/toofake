@@ -5,15 +5,9 @@
 ### https://toofake.vercel.app/
 
 ---
-## current status: on life support, unsure if viewing / logging in still works. Check out [rvaidun](https://github.com/rvaidun)'s project as it is much more up to date and well kept!
+## current status:
+not working, all the functionality has been broken due to BeReal changes. [rvaidun](https://github.com/rvaidun)'s project has been shut down and no longer works aswell. Check out the project at [BeFake](https://github.com/notmarek/BeFake) for a working client!
 ---
-
-- commenting does not refresh the comments; you have to manually refresh
-- posting any image as a beareal has been added but still is buggy! Make sure to upload both images!
- - the location? and public? toggles still don't do anything yet
-- there might still be refresh auth token issues
-- still need better mobile resize support
-- there are still countless bugs (send them over)
 
 ## how to run locally
 
