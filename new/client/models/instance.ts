@@ -1,6 +1,7 @@
 
 import User from './user';
 import Realmoji from './realmoji';
+import Comment from './comment';
 import axios from 'axios';
 
 
@@ -8,6 +9,7 @@ class Instance {
     user: User;
 
     realmojis: Realmoji[];
+    comments: Comment[];
 
     location: string;
 
@@ -17,9 +19,10 @@ class Instance {
     secondary: string;
 
     // make a constructor
-    constructor(user: User, realmojis: Realmoji[], location: string, caption: string, instanceid: string, primary: string, secondary: string) {
+    constructor(user: User, realmojis: Realmoji[], comments: Comment[], location: string, caption: string, instanceid: string, primary: string, secondary: string) {
         this.user = user;
         this.realmojis = realmojis;
+        this.comments = comments;
         this.location = location;
         this.caption = caption;
         this.instanceid = instanceid;
@@ -62,7 +65,12 @@ class Instance {
         }
         let location = initial_location
 
-        return new Instance(user, realmojis, location, caption, instanceid, primary, secondary);
+        let comments: Comment[] = [];
+        for (let raw_comment of raw.comment) {
+            comments.push(Comment.create(raw_comment));
+        }
+
+        return new Instance(user, realmojis, comments ,location, caption, instanceid, primary, secondary);
     }
 }
 

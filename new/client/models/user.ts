@@ -8,6 +8,14 @@ class User {
         this.pfp = pfp;
         this.uid = uid;
     }
+
+    static create(rawuser: any) {
+        let username = rawuser.username;
+        let pfp = rawuser.profilePicture.url;
+        let uid = rawuser.id;
+
+        return new User(username, pfp, uid);
+    }
 }
 
 export default User;
