@@ -22,16 +22,26 @@ export default function Feed() {
             headers: { 'Content-Type': 'application/json' },
             data: body,
         }
+        
 
         axios.request(options).then(
-            (response) => {
+            async (response) => {
+                
                 console.log(response.data);
                 let newinstances: { [key: string]: Instance } = {};
-                for (let i = 0; i < response.data.length; i++) {
-                    let id = response.data[i].id;
-                    let newinstance = Instance.create(response.data[i]);
+
+                async function createInstance(data: any) {
+                    let id = data.id;
+                    let newinstance = await Instance.create(data);
                     newinstances[id] = newinstance;
+                    return newinstance;
                 }
+
+                for (let i = 0; i < response.data.length; i++) {
+                    await createInstance(response.data[i]);
+                }
+                console.log("newinstances");
+                console.log(newinstances);
                 setInstances(newinstances);
             }
         ).catch(

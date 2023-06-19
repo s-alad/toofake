@@ -12,6 +12,7 @@ export default function Instant({ instance }: _Instant) {
 
     let [swap, setSwap] = useState<boolean>(false);
 
+    console.log("instance")
     console.log(instance);
     return (
         <div className={s.instant}>
@@ -22,7 +23,7 @@ export default function Instant({ instance }: _Instant) {
                 </div>
                 <div className={s.details}>
                     <div className={s.username}> @{instance.user.username} </div>
-                    <div className={s.location}> {"-0 +0"} </div>
+                    <div className={s.location}> {instance.location} </div>
                 </div> 
             </div>
 
