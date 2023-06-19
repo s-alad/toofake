@@ -2,10 +2,12 @@ import Head from 'next/head'
 import { Inter } from 'next/font/google'
 import styles from '@/styles/Home.module.css'
 import Image from 'next/image'
-import s from './index.module.css'
+import s from './index.module.scss'
 import axios from "axios";
 import { useState } from 'react';
 import { generateDeviceId } from '@/utils/device'
+import PhoneInput from 'react-phone-input-2';
+import "react-phone-input-2/lib/bootstrap.css";
 
 
 const inter = Inter({ subsets: ['latin'] })
@@ -17,11 +19,11 @@ export default function Home() {
 		console.log("client verify otp");
 		console.log(otp, vonageid);
 		console.log("------------------")
-		let body = JSON.stringify({"code": otp, "vonageRequestId": vonageid});
+		let body = JSON.stringify({ "code": otp, "vonageRequestId": vonageid });
 		let options = {
 			url: "/api/otp/verify",
 			method: "POST",
-			headers: {'Content-Type': 'application/json'},
+			headers: { 'Content-Type': 'application/json' },
 			data: body,
 		}
 
@@ -53,11 +55,11 @@ export default function Home() {
 		console.log(number);
 		console.log("------------------")
 
-		let body = JSON.stringify({"number": number})
+		let body = JSON.stringify({ "number": number })
 		let options = {
 			url: "/api/otp/send",
 			method: "POST",
-			headers: {'Content-Type': 'application/json'},
+			headers: { 'Content-Type': 'application/json' },
 			data: body,
 		}
 
@@ -68,6 +70,7 @@ export default function Home() {
 			let rvonageid = response.data.vonageRequestId;
 			console.log(response.data);
 			setVonageid(rvonageid);
+			setRequestedOtp(true);
 		} else {
 			console.log(response.data);
 		}
@@ -75,20 +78,48 @@ export default function Home() {
 
 	let [inputNumber, setInputNumber] = useState<string>("");
 	let [inputOTP, setInputOTP] = useState<string>("");
+	let [requestedOtp, setRequestedOtp] = useState<boolean>(false);
 
 	return (
-		<>
-				<h1 className={s.title}>TooFake</h1>
+		<div className={s.log}>
+			{
+				!requestedOtp ? 
+				<div className={s.login}>
+					<div className={s.text}>
+						login using your phone number
+					</div>
 
-				<div className={s.phonenumber}>
-					<input type="text" placeholder="phone number" onChange={(event) => { setInputNumber(event.target.value); }} />
-					<button onClick={() => requestOTPVonage(inputNumber)}>send otp</button>
+					<div className={s.number}>
+						<PhoneInput
+							placeholder={'xxxyyyzzzz'}
+							enableSearch={true}
+							country={'us'}
+							value={inputNumber}
+							onChange={phone => setInputNumber('+' + phone)}
+							inputClass={s.digits}
+							dropdownClass={s.dropdown}
+							searchClass={s.search}
+							buttonClass={s.button}
+							containerClass={s.cont}
+						/>
+						<button className={s.send} onClick={() => requestOTPVonage(inputNumber)}>
+							send
+						</button>
+					</div>
+				</div> 
+				:
+				<div className={s.verify}>
+					<div className={s.text}>
+						enter the one time passcode
+					</div>
+					<div className={s.number}>
+						<input className={`${s.digits} ${s.space}`} onChange={(event) => {setInputOTP(event.target.value);}} placeholder={'000111'}></input>
+						<button className={s.send} onClick={() => verifyOTPVonage(inputOTP)}>
+							send
+						</button>
+					</div>
 				</div>
-
-				<div className={s.phoneotp}>
-					<input type="text" placeholder="otp" onChange={(event) => { setInputOTP(event.target.value); }} />
-					<button onClick={() => verifyOTPVonage(inputOTP)}>verify otp</button>
-				</div>
-		</>
+			}
+		</div>
 	)
 }

@@ -10,12 +10,18 @@ html, body {
   padding: 0;
   margin: 0;
   overflow-x: hidden;
+  height: 100%;
 }
 
 body {
   font-family: 'Roboto', sans-serif;
   background-color: #121212;
   color: #fff;
-
+  height: 100%;
   padding: 20px 60px;
+}
+
+main {
+  height: 100%;
+  display: flex;
 }
