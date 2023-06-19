@@ -6,6 +6,8 @@ import Instant from '@/components/instant/instant';
 import Instance from '@/models/instance';
 import { useState } from 'react';
 
+import s from './feed.module.scss';
+
 export default function Feed() {
 
     let [instances, setInstances] = useState<{ [key: string]: Instance }>({})
@@ -41,8 +43,7 @@ export default function Feed() {
     }, [])
 
     return (
-        <div>
-            <h1>Feed</h1>
+        <div className={s.feed}>
             {
                 Object.keys(instances).map((key) => {
                     return (

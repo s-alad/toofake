@@ -8,26 +8,28 @@ import { useState } from 'react';
 import { generateDeviceId } from '@/utils/device'
 import PhoneInput from 'react-phone-input-2';
 import "react-phone-input-2/lib/bootstrap.css";
-
+import { useRouter } from 'next/router'
 
 const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {
+
+	let router = useRouter();
+
 	let [vonageid, setVonageid] = useState<string>("");
 
 	async function verifyOTPVonage(otp: string) {
-		console.log("client verify otp");
-		console.log(otp, vonageid);
-		console.log("------------------")
-		let body = JSON.stringify({ "code": otp, "vonageRequestId": vonageid });
-		let options = {
-			url: "/api/otp/verify",
-			method: "POST",
-			headers: { 'Content-Type': 'application/json' },
-			data: body,
-		}
+		console.log("client verify otp: ", otp, " vonageid: ", vonageid);
 
+		let body = JSON.stringify({ "code": otp, "vonageRequestId": vonageid });
+		let options = { url: "/api/otp/verify", method: "POST", headers: { 'Content-Type': 'application/json' }, data: body,}
 		let response = await axios.request(options)
+
+		if (response.status == 400) {
+			console.log("error: ", response.data)
+			return;
+		}
+		
 		let token = response.data.token;
 		let uid = response.data.uid;
 		let refresh_token = response.data.refresh_token;
@@ -48,6 +50,8 @@ export default function Home() {
 		localStorage.setItem("uid", uid);
 		localStorage.setItem("is_new_user", is_new_user);
 		localStorage.setItem("token_type", token_type);
+
+		router.push("/feed");
 	}
 
 	async function requestOTPVonage(number: string) {
