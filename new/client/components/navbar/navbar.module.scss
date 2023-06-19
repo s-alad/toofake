@@ -2,4 +2,34 @@
     font-size: 44px;
     font-weight: 700;
     display: flex;
+
+    .navigation {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        .sep {
+            background-color: white;
+            height: 100%;
+            width: 4px;
+            margin: 0 16px;
+        }
+        .feed {
+            font-size: 28px;
+
+        }
+
+        .profile {
+            display: flex;
+            flex: 1;
+            justify-content: flex-end;
+            align-items: center;
+            img {
+                height: 40px;
+                width: 40px;
+                border-radius: 100%;
+                object-fit: cover;
+                background-color: white;
+            }
+        }
+    }
 }
