@@ -1,0 +1,67 @@
+@use "../../styles/common.scss" as c;
+
+.images {
+    display: flex;
+    flex-wrap: wrap;
+    .img {
+        width: 300px;
+        min-width: 300px;
+        height: 400px;
+        border: 2px solid white;
+        margin-right: 18px;
+        border-radius: 12px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 14px;
+        input[type=file] {
+            display: none;
+        }
+        .upload {
+            position: absolute;
+            border: 2px solid #fff;
+            display: inline-block;
+            cursor: pointer;
+            border-radius: 12px;
+            padding-left: 14px; padding-right: 14px;
+            height: 40px;
+            @include c.center();
+            background-color: rgb(0, 0, 0, 0.5);
+        }
+        .sub {
+            height: 100%;
+            width: 100%;
+            img {
+                height: 100%;
+                width: 100%;
+                object-fit: cover;
+                border-radius: 12px;
+            }
+            .data {
+                position: absolute;
+                top: 0px;
+            }
+        }
+    }
+}
+.caption {
+    padding-left: 14px; padding-right: 14px;
+    width: 100%;
+    min-width: 300px;
+    max-width: 620px;
+    height: 40px;
+    border-radius: 12px;
+    background-color: white;
+    color: black;
+}
+.submit {
+    margin-top: 14px;
+    cursor: pointer;
+    @include c.center();
+    border: 2px solid white;
+    min-width: 144px;
+    width: 144px;
+    height: 40px;
+    border-radius: 12px;
+    padding-left: 14px; padding-right: 14px;
+}

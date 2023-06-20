@@ -39,11 +39,11 @@ export default function Navbar() {
                     </> : ''
                 }
                 {
-                    router.pathname == "/me" || router.pathname.startsWith("/profile") ? 
+                    router.pathname == "/me" || router.pathname.startsWith("/profile") || router.pathname == "/post"? 
                     <> 
                         <div className={s.sep}></div>
                         <div className={s.feed}>
-                            Profile
+                            {router.pathname == "/post" ? "Post" : "Profile"}
                         </div>
                         <div className={s.profile} >
                             <Link href={"/feed"}>
