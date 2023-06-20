@@ -3,6 +3,7 @@ import Instance from "@/models/instance";
 import s from './instant.module.scss';
 import Draggable from "react-draggable";
 import { useState } from "react";
+import Link from "next/link";
 
 interface _Instant {
     instance: Instance;
@@ -21,29 +22,31 @@ export default function Instant({ instance }: _Instant) {
 
             <div className={s.top}>
                 <div className={s.pfp}>
-                    <img src={instance.user.pfp} />
+                    <Link href={`/profile/${instance.user.uid}`}><img src={instance.user.pfp} /></Link>
                 </div>
                 <div className={s.details}>
-                    <div className={s.username}> @{instance.user.username} </div>
+                    <Link href={`/profile/${instance.user.uid}`}><div className={s.username}> @{instance.user.username} </div></Link>
                     <div className={s.location}> {instance.location} </div>
-                </div> 
+                </div>
             </div>
 
             <div className={s.content}>
-                <img src={swap ? instance.primary : instance.secondary} className={s.primary}/>
+                <img src={swap ? instance.primary : instance.secondary} className={s.primary} />
                 <div className={s.bounds}>
                     <Draggable axis="both" bounds="parent">
-                        <img src={swap ? instance.secondary : instance.primary} className={s.secondary} onClick={() => setSwap(!swap)}/>
+                        <img src={swap ? instance.secondary : instance.primary} className={s.secondary} onClick={() => setSwap(!swap)} />
                     </Draggable>
                 </div>
                 <div className={s.realmojis}>
                     {
                         instance.realmojis.map((realmoji) => {
                             return (
-                                <div className={s.realmoji} key={realmoji.emoji_id}>
-                                    <div className={s.moji}>{realmoji.emoji}</div>
-                                    <img src={realmoji.uri} />
-                                </div>
+                                <Link href={`/profile/${realmoji.owner.uid}`}>
+                                    <div className={s.realmoji} key={realmoji.emoji_id}>
+                                        <div className={s.moji}>{realmoji.emoji}</div>
+                                        <img src={realmoji.uri} />
+                                    </div>
+                                </Link>
                             )
                         })
                     }
@@ -51,7 +54,7 @@ export default function Instant({ instance }: _Instant) {
             </div>
 
             <div className={s.caption}>
-                {instance.caption}
+                {instance.caption ? (instance.caption.length == 0 ? 'no caption' : instance.caption) : 'no caption'}
             </div>
             <div className={s.comments}>
                 {
@@ -59,26 +62,26 @@ export default function Instant({ instance }: _Instant) {
                         <div className={s.expand} onClick={() => setExpanded(!expanded)}>
                             {expanded ? '⬆ collapse comments' : '⬇ expand comments'}
                         </div>
-                    : 
-                    <div className={s.expand}></div>
+                        :
+                        <div className={s.expand}></div>
                 }
                 {
                     expanded ?
-                    instance.comments.map((comment) => {
-                        return (
-                            <div className={s.comment} key={comment.comment_id}>
-                                <img src={comment.owner.pfp} className={s.commentpfp}/>
-                                <div className={s.discourse}>
-                                    <div className={s.username}>@{comment.owner.username}</div>
-                                    <div className={s.convo}>{comment.text}</div>  
+                        instance.comments.map((comment) => {
+                            return (
+                                <div className={s.comment} key={comment.comment_id}>
+                                    <img src={comment.owner.pfp} className={s.commentpfp} />
+                                    <div className={s.discourse}>
+                                        <div className={s.username}>@{comment.owner.username}</div>
+                                        <div className={s.convo}>{comment.text}</div>
+                                    </div>
                                 </div>
-                            </div>
-                        )
-                    })
-                    : null
+                            )
+                        })
+                        : null
                 }
             </div>
-            
+
         </div>
 
 

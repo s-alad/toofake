@@ -10,6 +10,11 @@
     margin-right: 30px;
     height: min-content;
 
+    a {
+        text-decoration: none;
+        color: inherit;
+    }
+
     .top {
         /* height: 50px; */
         width: 100%;

@@ -35,7 +35,7 @@ export default function Navbar() {
                     </> : ''
                 }
                 {
-                    router.pathname == "/me" ? 
+                    router.pathname == "/me" || router.pathname.startsWith("/profile") ? 
                     <> 
                         <div className={s.sep}></div>
                         <div className={s.feed}>
