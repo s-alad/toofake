@@ -70,9 +70,13 @@ export default function Instant({ instance }: _Instant) {
                         instance.comments.map((comment) => {
                             return (
                                 <div className={s.comment} key={comment.comment_id}>
-                                    <img src={comment.owner.pfp} className={s.commentpfp} />
+                                    <Link href={`/profile/${comment.owner.uid}`}>
+                                        <img src={comment.owner.pfp} className={s.commentpfp} />
+                                    </Link>
                                     <div className={s.discourse}>
-                                        <div className={s.username}>@{comment.owner.username}</div>
+                                        <Link href={`/profile/${comment.owner.uid}`}>
+                                            <div className={s.username}>@{comment.owner.username}</div>
+                                        </Link>
                                         <div className={s.convo}>{comment.text}</div>
                                     </div>
                                 </div>
