@@ -69,9 +69,9 @@ export default function Feed() {
         <div className={s.feed}>
             {
                 loading ? <div className={l.loader}></div> :
-                Object.keys(instances).map((key) => {
+                Object.keys(instances).map((key, idx) => {
                     return (
-                        <Instant key={key} instance={instances[key]} />
+                        <Instant key={idx} instance={instances[key]} />
                     )
                 })
             }

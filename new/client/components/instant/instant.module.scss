@@ -8,6 +8,7 @@
     border: 1px solid white;
     box-shadow: 0 0 10px 1px #6a6565;
     margin-right: 30px;
+    height: min-content;
 
     .top {
         /* height: 50px; */
@@ -110,5 +111,46 @@
         width: 100%;
         padding: 10px;
         font-size: 12px;
+    }
+
+    .comments {
+        padding: 0px 10px;
+        .expand {
+            font-size: 14px;
+            height: 25px;
+            cursor: pointer;
+        }
+
+        .comment {
+            display: flex;
+            align-items: center;
+            margin-top: 12px;
+
+            &:last-child {
+                margin-bottom: 12px;
+            }
+            img {
+                height: 30px;
+                width: 30px;
+                border-radius: 100%;
+                object-fit: cover;
+                background-color: white;
+            }
+
+            .discourse {
+                display: flex;
+                flex-direction: column;
+                margin-left: 10px;
+                .username {
+                    font-size: 10px;
+                    font-weight: 500;
+                    margin-bottom: 2px;
+                    color: rgb(158, 158, 158);
+                }
+                .convo {
+                    font-size: 14px;
+                }
+            }
+        }
     }
 }

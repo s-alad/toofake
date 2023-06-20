@@ -56,16 +56,22 @@ export default function Instant({ instance }: _Instant) {
             <div className={s.comments}>
                 {
                     instance.comments.length > 0 ?
-                    <div className={s.expand} onClick={() => setExpanded(!expanded)}>expand comments</div>
-                    : null
+                        <div className={s.expand} onClick={() => setExpanded(!expanded)}>
+                            {expanded ? '⬆ collapse comments' : '⬇ expand comments'}
+                        </div>
+                    : 
+                    <div className={s.expand}></div>
                 }
                 {
                     expanded ?
                     instance.comments.map((comment) => {
                         return (
                             <div className={s.comment} key={comment.comment_id}>
-                                <div className={s.username}>@{comment.owner.username}</div>
-                                <div className={s.commenttext}>{comment.text}</div>
+                                <img src={comment.owner.pfp} className={s.commentpfp}/>
+                                <div className={s.discourse}>
+                                    <div className={s.username}>@{comment.owner.username}</div>
+                                    <div className={s.convo}>{comment.text}</div>  
+                                </div>
                             </div>
                         )
                     })
