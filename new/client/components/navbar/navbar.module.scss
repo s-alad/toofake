@@ -5,16 +5,17 @@
     font-weight: 700;
     display: flex;
 
+    .sep {
+        background-color: white;
+        height: 100%;
+        width: 4px;
+        margin: 0 16px;
+    }
+
     .navigation {
         flex: 1;
         display: flex;
         align-items: center;
-        .sep {
-            background-color: white;
-            height: 100%;
-            width: 4px;
-            margin: 0 16px;
-        }
         .feed {
             font-size: 28px;
 
@@ -25,17 +26,22 @@
             flex: 1;
             justify-content: flex-end;
             align-items: center;
+            height: 100%;
             a {
                 @include c.center();
                 color: white;
                 text-decoration: none;
             }
             img {
-                height: 40px;
-                width: 40px;
+                box-shadow: 0px 0px 6px 1px #fff;
+                height: 45px;
+                width: 45px;
                 border-radius: 100%;
                 object-fit: cover;
                 background-color: white;
+            }
+            .post {
+                margin-right: 0px;
             }
             button {
                 cursor: pointer;

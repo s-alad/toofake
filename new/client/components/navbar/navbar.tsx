@@ -28,6 +28,10 @@ export default function Navbar() {
                             Feed
                         </div>
                         <div className={s.profile} >
+                            <Link href={"/post"} className={s.post}>
+                                <button>post</button>
+                            </Link>
+                            <div className={s.sep}></div>
                             <Link href={"/me"}>
                                 <img src={pfp}/>
                             </Link>
