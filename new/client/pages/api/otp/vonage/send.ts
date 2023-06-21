@@ -15,7 +15,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     let device_id: string = generateDeviceId();
 
     console.log("------------------")
-    console.log("request otp");
+    console.log("request vonage otp");
     console.log(phonenumber, device_id);
     console.log("------------------")
 
