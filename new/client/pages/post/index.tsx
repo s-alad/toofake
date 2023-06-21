@@ -24,6 +24,21 @@ export default function Post() {
     const [primarybase64, setPrimaryBase64] = useState<any>('');
     const [secondarybase64, setSecondaryBase64] = useState('');
 
+    function getBase64(file: any) {
+        return new Promise(resolve => {
+            let fileInfo;
+            let baseURL: any = "";
+            let reader = new FileReader();
+            reader.readAsDataURL(file);
+
+            // on reader load somthing...
+            reader.onload = () => {
+                baseURL = reader.result;
+                resolve(baseURL);
+            };
+        });
+    };
+
     function fileOneHandler(event: any) {
         setIsFirstFilePicked(true);
         setSelectedFileOne(event.target.files[0]);
@@ -46,24 +61,6 @@ export default function Post() {
         });
     };
 
-    function getBase64(file: any) {
-        return new Promise(resolve => {
-            let fileInfo;
-            let baseURL: any = "";
-            // Make new FileReader
-            let reader = new FileReader();
-
-            // Convert the file to base64 text
-            reader.readAsDataURL(file);
-
-            // on reader load somthing...
-            reader.onload = () => {
-                baseURL = reader.result;
-                resolve(baseURL);
-            };
-        });
-    };
-
     let reader = new FileReader();
     function handleSubmission() {
 
@@ -76,8 +73,8 @@ export default function Post() {
         const formData = new FormData();
         formData.append('primary', selectedFileOne);
         formData.append('secondary', selectedFileTwo);
-        /* formData.append('primary', primarybase64);
-        formData.append('secondary', secondarybase64); */
+        formData.append('primaryb64', primarybase64);
+        formData.append('secondaryb64', secondarybase64);
         formData.append('caption', caption);
         formData.append('token', authorization_token!);
         console.log(formData);

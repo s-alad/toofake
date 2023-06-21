@@ -3,6 +3,9 @@ import axios from 'axios'
 import { File } from "formidable";
 import formidable, { IncomingForm } from "formidable";
 import Jimp from "jimp";
+import fs from "fs";
+import sharp from 'sharp';
+import moment from 'moment';
 
 export const config = {
     api: {
@@ -32,43 +35,65 @@ export async function parseFormAsync(req: NextApiRequest, formidableOptions?: fo
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
 
     const { fields, files } = await parseFormAsync(req);
-    //console.log(fields, files)
+    /* console.log(fields, files) */
+
     let primary: File = (files["primary"] as any as File[])[0];
     let secondary: File = (files["secondary"] as any as File[])[0];
     let caption: string = fields["caption"] as string;
     let authorization_token: string = fields["token"] as string;
+    let primaryb64: string = fields["primaryb64"][0] as string;
+    let secondaryb64: string = fields["secondaryb64"][0] as string;
 
-    //resize primary image using jimp
-    let primary_image = Jimp.read(primary.filepath).then((image) => {
-        return image.resize(1500, 2000).quality(100).write(primary.filepath);
-    }).catch((err) => {
-        console.log(err);
-    })
-    console.log(await primary_image);
-    console.log(primary)
-
-    //resize secondary image using jimp
-    let secondary_image = Jimp.read(secondary.filepath).then((image) => {
-        return image.resize(1500, 2000).quality(100).write(secondary.filepath);
-    }).catch((err) => {
-        console.log(err);
-    })
-    console.log(await secondary_image);
-    console.log(secondary)
-
-    return 
-
-    console.log('FORM DATA');
-    console.log(authorization_token, caption);
-    console.log('---------------------')
-    console.log('PRIMARY');
-    console.log(primary);
-    console.log('---------------------')
-    console.log('SECONDARY');
-    console.log(secondary);
-    console.log('---------------------')
+    // drop prefix of base64 string
+    primaryb64 = primaryb64.replace(/^data:image\/(png|jpeg|jpg);base64,/, "");
+    secondaryb64 = secondaryb64.replace(/^data:image\/(png|jpeg|jpg);base64,/, "");
 
     // ============================================================================================
+
+    //convert base64 to buffer
+    let primaryImageBuffer = Buffer.from(primaryb64, 'base64');
+    let secondaryImageBuffer = Buffer.from(secondaryb64, 'base64');
+    console.log("IMAGE BUFFERS");
+    console.log(primaryImageBuffer);
+    console.log('---------------------')
+    console.log(secondaryImageBuffer);
+    console.log('=====================')
+
+    // ============================================================================================
+
+    let sharp_primary = await sharp(primaryImageBuffer).toBuffer();
+    let sharp_secondary = await sharp(secondaryImageBuffer).toBuffer();
+
+    const primaryMimeType = (await sharp(sharp_primary).metadata()).format;
+    const secondaryMimeType = (await sharp(sharp_secondary).metadata()).format;
+
+    console.log("SHARP IMAGES");
+    console.log(sharp_primary);
+    console.log(primaryMimeType);
+    console.log('---------------------')
+    console.log(sharp_secondary);
+    console.log(secondaryMimeType);
+    console.log('=====================')    
+
+    if (primaryMimeType != 'webp') {
+        sharp_primary = await sharp(sharp_primary)
+            .toFormat('webp')
+            .toBuffer();
+    }
+    if (secondaryMimeType != 'webp') {
+        sharp_secondary = await sharp(sharp_secondary)
+            .toFormat('webp')
+            .toBuffer();
+    }
+
+    console.log("SHARP IMAGES AFTER CONVERSION");
+    console.log(sharp_primary);
+    console.log('---------------------')
+    console.log(sharp_secondary);
+    console.log('=====================')
+
+    // ============================================================================================
+    // upload url
 
     let upload_headers = {
         "authorization": "Bearer " + authorization_token,
@@ -91,14 +116,15 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     let primary_headers = primary_res.headers;
     let primary_url = primary_res.url;
+    let primary_path = primary_res.path;
+    let primary_bucket = primary_res.bucket;
     primary_headers["Authorization"] = "Bearer " + authorization_token
 
     let secondary_headers = secondary_res.headers;
     let secondary_url = secondary_res.url;
+    let secondary_path = secondary_res.path;
+    let secondary_bucket = secondary_res.bucket;
     secondary_headers["Authorization"] = "Bearer " + authorization_token
-
-    console.log("primary headers");
-    console.log(primary_headers);
 
     // ============================================================================================
 
@@ -106,24 +132,78 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         url: primary_url,
         method: "PUT",
         headers: primary_headers,
-        data: primary,
+        /* data: primary, */
+        data: sharp_primary,
     }
-    let put_primary_res = axios.request(put_primary_options).catch((err) => {
-        console.log(err);
-    })
-    /* console.log("put primary result");
-    console.log(put_primary_res.data);
-    console.log('---------------------') */
+    let put_primary_res = await axios.request(put_primary_options)
+    console.log("put primary result");
+    console.log(put_primary_res.status);
+    console.log('---------------------')
 
     let put_secondary_options = {
         url: secondary_url,
         method: "PUT",
         headers: secondary_headers,
-        data: secondary,
+        /* data: secondary, */
+        data: sharp_secondary,
     }
     let put_secondary_res = await axios.request(put_secondary_options)
     console.log("put secondary result");
-    console.log(put_secondary_res);
+    console.log(put_secondary_res.status);
+    console.log('---------------------')
+
+    // ============================================================================================
+
+    let taken_at = moment().format('YYYY-MM-DDTHH:mm:ss.SSS[Z]');
+    let post_data: any = {
+        "isLate": false,
+        "retakeCounter": 0,
+        takenAt: taken_at,
+        caption: "",
+        visibility: ["friends"],
+        backCamera: {
+            bucket: primary_bucket,
+            height: 1500,
+            width: 2000,
+            path: primary_path,
+        },
+        frontCamera: {
+            bucket: secondary_bucket,
+            height: 1500,
+            width: 2000,
+            path: secondary_path,
+        },
+    };
+    let post_headers = {
+        "content-type": "application/json",
+        "Authorization": "Bearer " + authorization_token,
+        "bereal-platform": "iOS",
+        "bereal-os-version": "14.7.1",
+        "accept-language": "en-US;q=1.0",
+        "bereal-app-language": "en-US",
+        "user-agent": "BeReal/0.28.2 (AlexisBarreyat.BeReal; build:8425; iOS 14.7.1) 1.0.0/BRApiKit",
+        "bereal-timezone": "America/Los_Angeles",
+        "bereal-device-language": "en",
+    }
+    console.log("post data");
+    console.log(post_data);
+    console.log(post_headers)
+    console.log('---------------------')
+
+    let post_response = axios.request({
+        method: 'POST',
+        url: 'https://mobile.bereal.com/api/content/posts',
+        data: JSON.stringify(post_data),
+        headers: post_headers,
+    }).then((response) => {
+        console.log(response.data);
+        return response.data;
+    }).catch((error) => {
+        console.log(error.response.data);
+        return error;
+    })
+    console.log("post response");
+    console.log(post_response);
     console.log('---------------------')
 
     res.status(200).json(upload_res.data);

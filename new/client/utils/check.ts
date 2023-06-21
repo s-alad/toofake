@@ -55,7 +55,7 @@ export default function useCheck() {
                             localStorage.setItem("refresh_token", refresh_token);
                             localStorage.setItem("expiration", expiration);
 
-                            router.push("/feed");
+                            router.push("/");
                         } else {
                             console.log("refresh error");
                             removeStorage();
