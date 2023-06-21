@@ -1,21 +1,30 @@
-# toofake: a bereal viewer
+# TooFake: a bereal viewer & client
 
-### a client for bereal.com! </br></br> want to stalk your friends, family, or ex without posting your own bereal? </br> toofake gives the ability to view bereals and post custom bereals without ever having to click on that annoying notification
+### want to stalk your friends, family, or ex without posting your own bereal? </br> toofake gives the ability to view bereals and post custom bereals without ever having to click on that annoying notification
 
 ### https://toofake.vercel.app/
 
 ---
-## current status:
-not working, all the functionality has been broken due to BeReal changes. [rvaidun](https://github.com/rvaidun)'s project has been shut down and no longer works aswell. Check out the project at [BeFake](https://github.com/notmarek/BeFake) for a working client!
+## current status: WORKING AGAIN!
+
+[rvaidun](https://github.com/rvaidun)'s project has been shut down.   
+check out the project at [BeFake](https://github.com/notmarek/BeFake) for a more up to date working client!
+
 ---
 
-## how to run locally
+todo:
+- [ ] mobile resize support
+- [ ] add custom realmoji reactions
+- [ ] add commenting
 
-* you need the correct python libraries installed (flask, dotenv, geopy, pendulum, Pillow, humanfriendly, and some others) 
-  * in the server directory run: ```pip install -r requirements.txt```
-* if you would like better location accuracy, create a .env file in the server directory and add a google maps api key labeled GAPI='your_key'. Otherwise ignore.
-* start flask server on api.py
-* npm start in client directory
+---
+
+### how to run locally
+
+* clone the project locally
+* cd into the new/client directory
+* run `npm i`
+* run `npm run dev`
 
 ---
 
