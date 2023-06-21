@@ -148,7 +148,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     // ============================================================================================
 
-    let taken_at = moment().format('YYYY-MM-DDTHH:mm:ss.SSS[Z]');
+    let taken_at = moment().utc().format('YYYY-MM-DDTHH:mm:ss.SSS[Z]');
     let post_data: any = {
         "isLate": false,
         "retakeCounter": 0,
