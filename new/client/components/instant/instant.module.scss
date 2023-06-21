@@ -128,6 +128,48 @@
         font-size: 12px;
     }
 
+    .addcomment {
+        width: 100%;
+        padding: 10px;
+        display: flex;
+        justify-content: space-between;
+        input {
+            height: 30px;
+            width: 77%;
+            border-radius: 6px;
+            border: 2px solid white;
+            background-color: transparent;
+            padding: 0px 10px;
+            font-size: 14px;
+            color: white;
+            outline: none;
+        }
+
+        button {
+            height: 30px;
+            width: 20%;
+            border-radius: 6px;
+            border: 2px solid white;
+            background-color: white;
+            padding: 0px 10px;
+            font-size: 14px;
+            color: black;
+            cursor: pointer;
+        }
+        .addloading {
+            height: 30px;
+            width: 20%;
+            border-radius: 6px;
+            border: 2px solid white;
+            background-color: white;
+            padding: 0px 10px;
+            font-size: 14px;
+            color: black;
+            @include c.center();
+        }
+
+    }
+
     .comments {
         padding: 0px 10px;
         .expand {

@@ -1,15 +1,45 @@
 import Instance from "@/models/instance";
 
 import s from './instant.module.scss';
+import l from '@/styles/loader.module.scss';
 import Draggable from "react-draggable";
 import { useState } from "react";
 import Link from "next/link";
+import axios from "axios";
 
 interface _Instant {
     instance: Instance;
 }
 
 export default function Instant({ instance }: _Instant) {
+
+    let [comment, setComment] = useState<string>("");
+    let [commentLoading, setCommentLoading] = useState<boolean>(false);
+    function sendComment() {
+        setCommentLoading(true);
+
+        let token = localStorage.getItem("token");
+        let body = JSON.stringify({ "token": token, "instance_id": instance.instanceid, "comment": comment });
+
+        let options = {
+            url: "/api/comment",
+            method: "POST",
+            headers: { 'Content-Type': 'application/json' },
+            data: body,
+        }
+        
+        axios.request(options).then(
+            (response) => {
+                console.log(response.data);
+                setComment("");
+                setCommentLoading(false);
+            }
+        ).catch((error) => {console.log(error); setCommentLoading(false);})
+    }
+
+    function refreshInstance() {
+        
+    }
 
     let [swap, setSwap] = useState<boolean>(false);
     let [expanded, setExpanded] = useState<boolean>(false);
@@ -62,6 +92,15 @@ export default function Instant({ instance }: _Instant) {
 
             <div className={s.caption}>
                 {instance.caption ? (instance.caption.length == 0 ? 'no caption' : instance.caption) : 'no caption'}
+            </div>
+            <div className={s.addcomment}>
+                <input placeholder="your comment" value={comment} onChange={(e) => {setComment(e.target.value);}}></input>
+                {
+                    commentLoading ? 
+                        <div className={s.addloading}><div className={l.loadersmall}></div></div> 
+                        : 
+                        <button onClick={sendComment}>add</button>
+                }
             </div>
             <div className={s.comments}>
                 {

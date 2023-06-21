@@ -16,13 +16,12 @@ export default function App({ Component, pageProps }: AppProps) {
         <meta charSet="utf-8" />
         <meta property='og:title' content='TooFake' />
         <meta property='og:description' content="A BeReal Viewer: Post custom BeReal's whenever, View friends BeReals without them knowing "/>
-
 				<link rel="icon" href="/TooFake.png" />
 			</Head>
-      
-      <GoogleAnalytics trackPageViews gaMeasurementId='G-0QYBTQCRXD' />
 
       <Component {...pageProps} />
+
+      <GoogleAnalytics trackPageViews gaMeasurementId='G-0QYBTQCRXD' />
       <Analytics />
     </Layout>
   )

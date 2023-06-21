@@ -11,3 +11,12 @@
     height: 40px;
     animation: spin 2s linear infinite;
 }
+
+.loadersmall {
+    border: 3px solid #f3f3f3; /* Light grey */
+    border-top: 3px solid grey; /* Blue */
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    animation: spin 2s linear infinite;
+}
