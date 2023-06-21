@@ -13,6 +13,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         return false;
     }
 
+    try {
+
     let otp = req.body.code;
     let vonageRequestId = req.body.vonageRequestId;
 
@@ -23,16 +25,13 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     console.log(vonageRequestId);
     console.log('---------------------')
 
-    let headersList = {"Accept": "application/json","User-Agent": "BeReal/8586 CFNetwork/1240.0.4 Darwin/20.6.0","x-ios-bundle-identifier": "AlexisBarreyat.BeReal","Content-Type": "application/json"}
+    let headers_list = {"Accept": "application/json","User-Agent": "BeReal/8586 CFNetwork/1240.0.4 Darwin/20.6.0","x-ios-bundle-identifier": "AlexisBarreyat.BeReal","Content-Type": "application/json"}
 
-    let bodyContent = JSON.stringify({
-        "code": otp,
-        "vonageRequestId": vonageRequestId
-    });
+    let bodyContent = JSON.stringify({ "code": otp, "vonageRequestId": vonageRequestId });
     let reqOptions = {
         url: "https://auth.bereal.team/api/vonage/check-code",
         method: "POST",
-        headers: headersList,
+        headers: headers_list,
         data: bodyContent,
     }
     let response = await axios.request(reqOptions);
@@ -48,20 +47,15 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     // ============================================================================================
 
-    let refreshBody = JSON.stringify({
-        "token": token,
-        "returnSecureToken": "True"
-    });
+    let refreshBody = JSON.stringify({ "token": token, "returnSecureToken": "True" });
     let refreshOptions = {
         url: "https://www.googleapis.com/identitytoolkit/v3/relyingparty/verifyCustomToken?key=AIzaSyDwjfEeparokD7sXPVQli9NsTuhT6fJ6iA",
         method: "POST",
-        headers: headersList,
+        headers: headers_list,
         data: refreshBody,
     }
-    let refreshResponse = await axios.request(refreshOptions);
-
-    if (check_response(refreshResponse)) {return;}
-
+    let refreshResponse = await axios.request(refreshOptions)
+    
     let kind = refreshResponse.data.kind;
     let idToken = refreshResponse.data.idToken;
     let refreshToken = refreshResponse.data.refreshToken;
@@ -82,7 +76,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     let firebase_refresh_options = {
         url: "https://securetoken.googleapis.com/v1/token?key=AIzaSyDwjfEeparokD7sXPVQli9NsTuhT6fJ6iA",
         method: "POST",
-        headers: headersList,
+        headers: headers_list,
         data: firebase_refresh_data,
     }
     let firebase_refresh_response = await axios.request(firebase_refresh_options);
@@ -110,7 +104,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     let access_grant_options = {
         url: "https://auth.bereal.team/token?grant_type=firebase",
         method: "POST",
-        headers: headersList,
+        headers: headers_list,
         data: access_grant,
     }
     let access_grant_response = await axios.request(access_grant_options);
@@ -135,4 +129,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         uid: uid, 
         is_new_user: is_new_user 
     });
+    
+    } catch (error) {
+        console.log(error);
+        res.status(400).json({ status: "error" });
+    }
 }

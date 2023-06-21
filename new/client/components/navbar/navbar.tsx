@@ -11,7 +11,7 @@ export default function Navbar() {
     let [pfp, setPfp] = React.useState<string>("");
 
     useEffect(() => {
-        if (localStorage && JSON.parse(localStorage.getItem("myself")!).profilePicture) {
+        if (localStorage && JSON.parse(localStorage.getItem("myself")!)) {
             setPfp(JSON.parse(localStorage.getItem("myself")!).profilePicture.url);
         }
     }, [router.pathname])

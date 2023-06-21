@@ -71,8 +71,8 @@ export default function Post() {
         let authorization_token = localStorage.getItem("token");
 
         const formData = new FormData();
-        formData.append('primary', selectedFileOne);
-        formData.append('secondary', selectedFileTwo);
+        /* formData.append('primary', selectedFileOne);
+        formData.append('secondary', selectedFileTwo); */
         formData.append('primaryb64', primarybase64);
         formData.append('secondaryb64', secondarybase64);
         formData.append('caption', caption);

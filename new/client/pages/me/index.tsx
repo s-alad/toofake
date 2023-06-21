@@ -16,6 +16,8 @@ export default function Profile() {
     let [bio, setBio] = React.useState<string>("");
     let [pfp, setPfp] = React.useState<string>("");
 
+    
+
     useEffect(() => {
 
         if (localStorage && JSON.parse(localStorage.getItem("myself")!)) {
@@ -23,7 +25,6 @@ export default function Profile() {
             setName(JSON.parse(localStorage.getItem("myself")!).fullname);
             setBio(JSON.parse(localStorage.getItem("myself")!).biography);
             setPfp(JSON.parse(localStorage.getItem("myself")!).profilePicture.url);
-            return
         }
 
         let token = localStorage.getItem("token");

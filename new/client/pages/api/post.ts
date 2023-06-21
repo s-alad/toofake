@@ -34,11 +34,18 @@ export async function parseFormAsync(req: NextApiRequest, formidableOptions?: fo
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
 
+    function check_response(response: { status: number; data: any; }) {
+        if (response.status > 350) {
+            console.log("error | ", response);
+            res.status(400).json({ status: "error" });
+            return true;
+        }
+        return false;
+    }
+
     const { fields, files } = await parseFormAsync(req);
     /* console.log(fields, files) */
 
-    let primary: File = (files["primary"] as any as File[])[0];
-    let secondary: File = (files["secondary"] as any as File[])[0];
     let caption: string = fields["caption"] as string;
     let authorization_token: string = fields["token"] as string;
     let primaryb64: string = fields["primaryb64"][0] as string;
@@ -51,53 +58,47 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     // ============================================================================================
 
     //convert base64 to buffer
-    let primaryImageBuffer = Buffer.from(primaryb64, 'base64');
-    let secondaryImageBuffer = Buffer.from(secondaryb64, 'base64');
+    let primary_image_buffer = Buffer.from(primaryb64, 'base64');
+    let secondary_image_buffer = Buffer.from(secondaryb64, 'base64');
     console.log("IMAGE BUFFERS");
-    console.log(primaryImageBuffer);
+    console.log(primary_image_buffer);
     console.log('---------------------')
-    console.log(secondaryImageBuffer);
+    console.log(secondary_image_buffer);
     console.log('=====================')
 
     // ============================================================================================
 
-    let sharp_primary = await sharp(primaryImageBuffer).toBuffer();
-    let sharp_secondary = await sharp(secondaryImageBuffer).toBuffer();
+    let sharp_primary = await sharp(primary_image_buffer).toBuffer();
+    let sharp_secondary = await sharp(secondary_image_buffer).toBuffer();
 
-    const primaryMimeType = (await sharp(sharp_primary).metadata()).format;
-    const secondaryMimeType = (await sharp(sharp_secondary).metadata()).format;
+    const primary_mime_type = (await sharp(sharp_primary).metadata()).format;
+    const secondary_mime_type = (await sharp(sharp_secondary).metadata()).format;
 
     console.log("SHARP IMAGES");
     console.log(sharp_primary);
-    console.log(primaryMimeType);
+    console.log(primary_mime_type);
     console.log('---------------------')
     console.log(sharp_secondary);
-    console.log(secondaryMimeType);
+    console.log(secondary_mime_type);
     console.log('=====================')    
 
-    if (primaryMimeType != 'webp') {
-        sharp_primary = await sharp(sharp_primary)
-            .toFormat('webp')
-            .toBuffer();
+    if (primary_mime_type != 'webp') {
+        sharp_primary = await sharp(sharp_primary).toFormat('webp').toBuffer();
     }
-    if (secondaryMimeType != 'webp') {
-        sharp_secondary = await sharp(sharp_secondary)
-            .toFormat('webp')
-            .toBuffer();
+    if (secondary_mime_type != 'webp') {
+        sharp_secondary = await sharp(sharp_secondary).toFormat('webp').toBuffer();
     }
 
-    console.log("SHARP IMAGES AFTER CONVERSION");
+    /* console.log("SHARP IMAGES AFTER CONVERSION");
     console.log(sharp_primary);
     console.log('---------------------')
     console.log(sharp_secondary);
-    console.log('=====================')
+    console.log('=====================') */
 
     // ============================================================================================
     // upload url
 
-    let upload_headers = {
-        "authorization": "Bearer " + authorization_token,
-    }
+    let upload_headers = { "authorization": "Bearer " + authorization_token,}
 
     let upload_options = {
         url: "https://mobile.bereal.com/api/content/posts/upload-url?mimeType=image/webp",
@@ -106,6 +107,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     }
 
     let upload_res = await axios.request(upload_options)
+    check_response(upload_res);
 
     console.log("upload result");
     console.log(upload_res.data);
@@ -159,7 +161,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         "isLate": false,
         "retakeCounter": 0,
         takenAt: taken_at,
-        caption: "",
+        caption: caption.toString(), // might not be working
         visibility: ["friends"],
         backCamera: {
             bucket: primary_bucket,
@@ -190,18 +192,13 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     console.log(post_headers)
     console.log('---------------------')
 
-    let post_response = axios.request({
+    let post_response = await axios.request({
         method: 'POST',
         url: 'https://mobile.bereal.com/api/content/posts',
         data: JSON.stringify(post_data),
         headers: post_headers,
-    }).then((response) => {
-        console.log(response.data);
-        return response.data;
-    }).catch((error) => {
-        console.log(error.response.data);
-        return error;
     })
+
     console.log("post response");
     console.log(post_response);
     console.log('---------------------')

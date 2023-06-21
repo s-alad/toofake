@@ -26,7 +26,7 @@ export default function Home() {
 		console.log("client verify otp: ", otp, " vonageid: ", vonageid);
 
 		let body = JSON.stringify({ "code": otp, "vonageRequestId": vonageid });
-		let options = { url: "/api/otp/verify", method: "POST", headers: { 'Content-Type': 'application/json' }, data: body,}
+		let options = { url: "/api/otp/vonage/verify", method: "POST", headers: { 'Content-Type': 'application/json' }, data: body,}
 		let response = await axios.request(options)
 
 		if (response.status == 400) {
@@ -52,30 +52,71 @@ export default function Home() {
 		router.push("/feed");
 	}
 
-	async function requestOTPVonage(number: string) {
-		console.log("client request otp");
+	async function requestOTPFirebase(number: string) {
+		console.log("client firebase request otp");
 		console.log(number);
 		console.log("------------------")
 
 		let body = JSON.stringify({ "number": number })
 		let options = {
-			url: "/api/otp/send",
+			url: "/api/otp/alternate",
 			method: "POST",
 			headers: { 'Content-Type': 'application/json' },
 			data: body,
 		}
 
-		let response = await axios.request(options)
+		let response = axios.request(options).then(
+			(response) => {
+				if (response.status == 200) {
+					let rstatus = response.data.status;
+					let rvonageid = response.data.session_info;
+					console.log(response.data);
+					setVonageid(rvonageid);
+					setRequestedOtp(true);
+				} else {
+					console.log(response.data);
+				}
+			}
+		).catch(
+			(error) => {
+				console.log(error.response);
+			}
+		)
+	}
 
-		if (response.status == 200) {
-			let rstatus = response.data.status;
-			let rvonageid = response.data.vonageRequestId;
-			console.log(response.data);
-			setVonageid(rvonageid);
-			setRequestedOtp(true);
-		} else {
-			console.log(response.data);
+	async function requestOTPVonage(number: string) {
+		console.log("client vonage request otp");
+		console.log(number);
+		console.log("------------------")
+
+		let body = JSON.stringify({ "number": number })
+		let options = {
+			url: "/api/otp/vonage/send",
+			method: "POST",
+			headers: { 'Content-Type': 'application/json' },
+			data: body,
 		}
+
+		let response = axios.request(options).then(
+			(response) => {
+				if (response.status == 200) {
+					let rstatus = response.data.status;
+					let rvonageid = response.data.vonageRequestId;
+					console.log(response.data);
+					setVonageid(rvonageid);
+					setRequestedOtp(true);
+				} else {
+					console.log(response.data);
+				}
+			}
+		).catch(
+			(error) => {
+				console.log(error.response);
+				if (error.response.status == 400) {
+					/* requestOTPFirebase(number); */
+				}
+			}
+		)
 	}
 
 	let [inputNumber, setInputNumber] = useState<string>("");
