@@ -14,8 +14,10 @@ check out the project at [BeFake](https://github.com/notmarek/BeFake) for a more
 
 todo:
 - [ ] mobile resize support
+- [ ] add friends list
+- [ ] delete post ability
+- [ ] delete comment ability
 - [ ] add custom realmoji reactions
-- [ ] add commenting
 
 ---
 
