@@ -37,7 +37,7 @@ export default function Profile() {
                 setUsername(response.data.username);
                 setName(response.data.fullname);
                 setBio(response.data.biography);
-                setPfp(response.data.profilePicture != undefined ? response.data.profilePicture : "");
+                setPfp(response.data.profilePicture != undefined ? response.data.profilePicture.url : "");
                 setStatus(response.data.relationship.status);
             }
         ).catch(
