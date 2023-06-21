@@ -12,7 +12,9 @@ export default function Navbar() {
 
     useEffect(() => {
         if (localStorage && JSON.parse(localStorage.getItem("myself")!)) {
-            setPfp(JSON.parse(localStorage.getItem("myself")!).profilePicture.url);
+            if (JSON.parse(localStorage.getItem("myself")!).pfp) {
+                setPfp(JSON.parse(localStorage.getItem("myself")!).pfp);
+            }
         }
     }, [router.pathname])
     

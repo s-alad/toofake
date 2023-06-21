@@ -17,15 +17,17 @@ export default function Instant({ instance }: _Instant) {
     console.log("instance")
     console.log(instance);
 
+    let profile_link = instance.user.uid == localStorage.getItem("uid") ? "/me" : `/profile/${instance.user.uid}`;
+
     return (
         <div className={s.instant}>
 
             <div className={s.top}>
                 <div className={s.pfp}>
-                    <Link href={`/profile/${instance.user.uid}`}><img src={instance.user.pfp} /></Link>
+                    <Link href={profile_link}><img src={instance.user.pfp} /></Link>
                 </div>
                 <div className={s.details}>
-                    <Link href={`/profile/${instance.user.uid}`}><div className={s.username}> @{instance.user.username} </div></Link>
+                    <Link href={profile_link}><div className={s.username}> @{instance.user.username} </div></Link>
                     <div className={s.location}> {instance.location} </div>
                 </div>
             </div>

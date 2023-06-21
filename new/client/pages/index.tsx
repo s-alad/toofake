@@ -20,9 +20,11 @@ export default function Home() {
 	let router = useRouter();
 
 	let [vonageid, setVonageid] = useState<string>("");
+	let [firebase_session, set_firebase_session] = useState<string>("");
 	let [inputNumber, setInputNumber] = useState<string>("");
 	let [inputOTP, setInputOTP] = useState<string>("");
 	let [requestedOtp, setRequestedOtp] = useState<boolean>(false);
+
 	let [failed, setFailed] = useState<string>("");
 
 
@@ -34,7 +36,7 @@ export default function Home() {
 
 
 	async function verifyOTPVonage(otp: string) {
-		console.log("client verify otp: ", otp, " vonageid: ", vonageid);
+		console.log("client vonage verify otp: ", otp, " vonageid: ", vonageid);
 
 		let body = JSON.stringify({ "code": otp, "vonageRequestId": vonageid });
 		let options = { 
@@ -59,38 +61,6 @@ export default function Home() {
 		).catch((error) => {failure(error.response.data.error.error.code + " | "+ error.response.data.error.error.message)})		
 	}
 
-	async function requestOTPFirebase(number: string) {
-		console.log("client firebase request otp");
-		console.log(number);
-		console.log("------------------")
-
-		let body = JSON.stringify({ "number": number })
-		let options = {
-			url: "/api/otp/alternate",
-			method: "POST",
-			headers: { 'Content-Type': 'application/json' },
-			data: body,
-		}
-
-		let response = axios.request(options).then(
-			(response) => {
-				if (response.status == 200) {
-					let rstatus = response.data.status;
-					let rvonageid = response.data.session_info;
-					console.log(response.data);
-					setVonageid(rvonageid);
-					setRequestedOtp(true);
-				} else {
-					console.log(response.data);
-				}
-			}
-		).catch(
-			(error) => {
-				console.log(error.response);
-			}
-		)
-	}
-
 	async function requestOTPVonage(number: string) {
 		console.log("client vonage request otp");
 		console.log(number);
@@ -111,7 +81,60 @@ export default function Home() {
 				setVonageid(rvonageid);
 				setRequestedOtp(true);
 			}
-		).catch((error) => {failure(JSON.stringify(error.response.data.error));})
+		).catch((error) => {failure(JSON.stringify(error.response.data.error) + "TRYING FIREBASE"); requestOTPFirebase(number);})
+	}
+
+	async function verifyOTPFirebase(otp: string) {
+		console.log("client firebase verify otp: ", otp, " firebase_session: ", firebase_session);
+
+		let body = JSON.stringify({ "code": otp, "session_info": firebase_session });
+		let options = { 
+			url: "/api/otp/fire/verify", 
+			method: "POST", 
+			headers: { 'Content-Type': 'application/json' }, 
+			data: body,
+		}
+
+		let response = axios.request(options).then(
+			async (response) => {
+				console.log(response.data);
+				localStorage.setItem("token", response.data.token);
+				localStorage.setItem("refresh_token", response.data.refresh_token);
+				localStorage.setItem("expiration", response.data.expiration)
+				localStorage.setItem("uid", response.data.uid);
+				localStorage.setItem("is_new_user", response.data.is_new_user);
+				localStorage.setItem("token_type", response.data.token_type);
+				await myself();
+				router.push("/feed");
+			}
+		).catch((error) => {failure(error.response.data.error.error.code + " | "+ error.response.data.error.error.message)})
+	}
+
+	async function requestOTPFirebase(number: string) {
+		console.log("client firebase request otp");
+		console.log(number);
+		console.log("------------------")
+
+		let body = JSON.stringify({ "number": number })
+		let options = {
+			url: "/api/otp/fire/send",
+			method: "POST",
+			headers: { 'Content-Type': 'application/json' },
+			data: body,
+		}
+
+		let response = axios.request(options).then(
+			(response) => {
+				console.log(response.data);
+				let firebase_session = response.data.session_info;
+				set_firebase_session(firebase_session);
+				setRequestedOtp(true);
+			}
+		).catch(
+			(error) => {
+				console.log(error.response);
+			}
+		)
 	}
 
 
@@ -149,7 +172,9 @@ export default function Home() {
 					</div>
 					<div className={s.number}>
 						<input className={`${s.digits} ${s.space}`} onChange={(event) => {setInputOTP(event.target.value);}} placeholder={'000111'}></input>
-						<button className={s.send} onClick={() => verifyOTPVonage(inputOTP)}>
+						<button className={s.send} onClick={() => {
+							vonageid != "" ? verifyOTPVonage(inputOTP) : verifyOTPFirebase(inputOTP);
+						}}>
 							send
 						</button>
 					</div>

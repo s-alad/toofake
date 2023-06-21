@@ -36,7 +36,7 @@ class Instance {
         /* console.log("CREATION")
         console.log(raw); */
         let username = raw.user.username;
-        let pfp = raw.user.profilePicture.url;
+        let pfp = raw.user.profilePicture == undefined ? "" : raw.user.profilePicture.url;
         let uid = raw.user.id;
 
         let user = new User(username, pfp, uid);

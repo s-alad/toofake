@@ -24,7 +24,7 @@ export default function Profile() {
             setUsername(JSON.parse(localStorage.getItem("myself")!).username);
             setName(JSON.parse(localStorage.getItem("myself")!).fullname);
             setBio(JSON.parse(localStorage.getItem("myself")!).biography);
-            setPfp(JSON.parse(localStorage.getItem("myself")!).profilePicture.url);
+            setPfp(JSON.parse(localStorage.getItem("myself")!).profilePicture != undefined ? JSON.parse(localStorage.getItem("myself")!).profilePicture.url : "");
         }
 
         let token = localStorage.getItem("token");
@@ -42,7 +42,7 @@ export default function Profile() {
                 setUsername(response.data.username);
                 setName(response.data.fullname);
                 setBio(response.data.biography);
-                setPfp(response.data.profilePicture.url);
+                setPfp(response.data.profilePicture != undefined ? response.data.profilePicture.url : "");
             }
         ).catch(
             (error) => {
@@ -66,7 +66,7 @@ export default function Profile() {
                         <div className={s.value}>{name}</div>
                     </div>
                     {
-                        bio.length > 0 ?
+                        bio && bio.length > 0 ?
                             <div className={s.detail}>
                                 <div className={s.label}>biography</div>
                                 <div className={s.value}>{bio}</div>

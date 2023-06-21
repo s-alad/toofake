@@ -4,73 +4,53 @@ import { generateDeviceId } from '@/utils/device';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
 
-    function check_response(response: { status: number; data: any; }) {
-        if (response.status > 350 || response.status == 16) {
-            console.log("error | ", response);
-            res.status(400).json({ status: response });
-            return true;
-        }
-        return false;
-    }
-
-    try {
-
-    let otp = req.body.code;
-    let vonage_request_id = req.body.vonageRequestId;
-
-    console.log('=====================')
-    console.log("login process");
-    console.log(req.body);
-    console.log(otp);
-    console.log(vonage_request_id);
-    console.log('---------------------')
-
     let headers_list = {"Accept": "application/json","User-Agent": "BeReal/8586 CFNetwork/1240.0.4 Darwin/20.6.0","x-ios-bundle-identifier": "AlexisBarreyat.BeReal","Content-Type": "application/json"}
 
-    let vonage_body_content = JSON.stringify({ "code": otp, "vonageRequestId": vonage_request_id });
-    let vonage_options = {
-        url: "https://auth.bereal.team/api/vonage/check-code",
-        method: "POST",
-        headers: headers_list,
-        data: vonage_body_content,
+    let otp = req.body.code;
+    let session_info = req.body.session_info;
+
+    let fire_otp_headers = {
+        "content-type": "application/json",
+        "x-firebase-client":
+            "apple-platform/ios apple-sdk/19F64 appstore/true deploy/cocoapods device/iPhone9,1 fire-abt/8.15.0 fire-analytics/8.15.0 fire-auth/8.15.0 fire-db/8.15.0 fire-dl/8.15.0 fire-fcm/8.15.0 fire-fiam/8.15.0 fire-fst/8.15.0 fire-fun/8.15.0 fire-install/8.15.0 fire-ios/8.15.0 fire-perf/8.15.0 fire-rc/8.15.0 fire-str/8.15.0 firebase-crashlytics/8.15.0 os-version/14.7.1 xcode/13F100",
+        "accept": "*/*",
+        "x-client-version": "iOS/FirebaseSDK/8.15.0/FirebaseCore-iOS",
+        "x-firebase-client-log-type": "0",
+        "x-ios-bundle-identifier": "AlexisBarreyat.BeReal",
+        "accept-language": "en",
+        "user-agent":
+            "FirebaseAuth.iOS/8.15.0 AlexisBarreyat.BeReal/0.22.4 iPhone/14.7.1 hw/iPhone9_1",
+        "x-firebase-locale": "en",
     }
-    let response = await axios.request(vonage_options);
 
-    if (check_response(response)) {return;}
-
-    let rstatus = response.data.status;
-    let token = response.data.token;
-    let uid = response.data.uid;
-    console.log("validated");
-    console.log(response.data);
-    console.log('---------------------')
-
-    // ============================================================================================
-
-    let refresh_body = JSON.stringify({ "token": token, "returnSecureToken": "True" });
-    let refresh_options = {
-        url: "https://www.googleapis.com/identitytoolkit/v3/relyingparty/verifyCustomToken?key=AIzaSyDwjfEeparokD7sXPVQli9NsTuhT6fJ6iA",
-        method: "POST",
-        headers: headers_list,
-        data: refresh_body,
+    let fire_otp_body = {
+        "code": otp,
+        "sessionInfo": session_info,
+        "operation": "SIGN_UP_OR_IN"
     }
-    let refresh_response = await axios.request(refresh_options)
-    
-    let id_token = refresh_response.data.idToken;
-    let refresh_token = refresh_response.data.refreshToken;
-    let expires_in = refresh_response.data.expiresIn;
-    let is_new_user = refresh_response.data.isNewUser;
 
-    console.log("first refresh");
-    console.log(refresh_response.status);
-    console.log(refresh_response.data);
+    let fire_otp_options = {
+        url: "https://www.googleapis.com/identitytoolkit/v3/relyingparty/verifyPhoneNumber?key=AIzaSyDwjfEeparokD7sXPVQli9NsTuhT6fJ6iA",
+        method: "POST",
+        headers: fire_otp_headers,
+        data: fire_otp_body,
+    }
+
+    let fire_otp_response = await axios.request(fire_otp_options);
+
+    let fire_refresh_token = fire_otp_response.data.refreshToken;
+    let is_new_user = fire_otp_response.data.isNewUser;
+    let uid = fire_otp_response.data.localId;
+
+    console.log("otp response");
+    console.log(fire_otp_response.data);
     console.log('---------------------')
 
     // ============================================================================================
 
     let firebase_refresh_data = JSON.stringify({
         "grantType": "refresh_token",
-        "refreshToken": refresh_token
+        "refreshToken": fire_refresh_token
     });
     let firebase_refresh_options = {
         url: "https://securetoken.googleapis.com/v1/token?key=AIzaSyDwjfEeparokD7sXPVQli9NsTuhT6fJ6iA",
@@ -80,7 +60,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     }
     let firebase_refresh_response = await axios.request(firebase_refresh_options);
 
-    if (check_response(firebase_refresh_response)) {return;}
+    /* if (check_response(firebase_refresh_response)) {return;} */
 
     console.log("firebase refresh");
     console.log(firebase_refresh_response.status);
@@ -108,7 +88,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     }
     let access_grant_response = await axios.request(access_grant_options);
 
-    if (check_response(access_grant_response)) {return;}
+    /* if (check_response(access_grant_response)) {return;} */
 
     let access_token = access_grant_response.data.access_token;
     let access_refresh_token = access_grant_response.data.refresh_token;
@@ -128,11 +108,5 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         uid: uid, 
         is_new_user: is_new_user 
     });
-    
 
-    } catch (error: any) {
-        console.log("FAILURE")
-        console.log(error.response.data);
-        res.status(400).json({ error: error.response.data });
-    }
 }
