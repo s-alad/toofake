@@ -35,11 +35,7 @@ class Instance {
     static async create(raw: any) {
         /* console.log("CREATION")
         console.log(raw); */
-        let username = raw.user.username;
-        let pfp = raw.user.profilePicture == undefined ? "" : raw.user.profilePicture.url;
-        let uid = raw.user.id;
-
-        let user = new User(username, pfp, uid);
+        let user = User.create(raw.user);
 
         let caption = raw.caption;
         let instanceid = raw.id;

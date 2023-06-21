@@ -40,6 +40,7 @@ export default function Feed() {
         axios.request(options).then(
             async (response) => {
                 
+                console.log("response.data")
                 console.log(response.data);
                 let newinstances: { [key: string]: Instance } = {};
 

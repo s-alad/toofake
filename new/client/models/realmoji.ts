@@ -18,11 +18,7 @@ class Realmoji {
 
     static create(raw: any) {
 
-        let username = raw.user.username;
-        let pfp = raw.user.profilePicture.url;
-        let uid = raw.user.id;
-
-        let owner = new User(username, pfp, uid);
+        let owner = User.create(raw.user);
 
         let emoji = raw.emoji;
         let emoji_id = raw.id;
