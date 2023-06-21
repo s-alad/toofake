@@ -6,10 +6,10 @@
 ### https://toofake.lol/
 
 ---
-### current status: WORKING AGAIN!
+# current status: WORKING AGAIN!
 
-[rvaidun](https://github.com/rvaidun)'s project has been cease and desisted but may still be up  
-check out the project at [BeFake](https://github.com/notmarek/BeFake) for a more up to date working client!
+[rvaidun](https://github.com/rvaidun)'s project has been cease and desisted but may still be up! It has more features.
+check out the project at [BeFake](https://github.com/notmarek/BeFake) for a usually more up-to date backend!
 
 ---
 
@@ -28,9 +28,9 @@ longterm:
 
 ### how to run locally
 
-* clone the project locally
+* clone the project
 * cd into the new/client directory
-* run `npm i`
+* run `npm install`
 * run `npm run dev`
 
 ---
