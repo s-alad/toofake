@@ -2,8 +2,8 @@
 
 ### want to stalk your friends, family, or ex without posting your own bereal? </br> toofake gives the ability to view bereals and post custom bereals without ever having to click on that annoying notification
 
-### https://toofake.vercel.app/
 ### https://toofake.lol/
+### https://toofake.vercel.app/
 
 ---
 # current status: WORKING AGAIN!
