@@ -5,7 +5,7 @@ import { generateDeviceId } from '@/utils/device';
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
 
     function check_response(response: { status: number; data: any; }) {
-        if (response.status > 350) {
+        if (response.status > 350 || response.status == 16) {
             console.log("error | ", response);
             res.status(400).json({ status: "error" });
             return true;
@@ -27,14 +27,14 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     let headers_list = {"Accept": "application/json","User-Agent": "BeReal/8586 CFNetwork/1240.0.4 Darwin/20.6.0","x-ios-bundle-identifier": "AlexisBarreyat.BeReal","Content-Type": "application/json"}
 
-    let bodyContent = JSON.stringify({ "code": otp, "vonageRequestId": vonageRequestId });
-    let reqOptions = {
+    let vonage_body_content = JSON.stringify({ "code": otp, "vonageRequestId": vonageRequestId });
+    let vonage_options = {
         url: "https://auth.bereal.team/api/vonage/check-code",
         method: "POST",
         headers: headers_list,
-        data: bodyContent,
+        data: vonage_body_content,
     }
-    let response = await axios.request(reqOptions);
+    let response = await axios.request(vonage_options);
 
     if (check_response(response)) {return;}
 
@@ -47,31 +47,31 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     // ============================================================================================
 
-    let refreshBody = JSON.stringify({ "token": token, "returnSecureToken": "True" });
-    let refreshOptions = {
+    let refresh_body = JSON.stringify({ "token": token, "returnSecureToken": "True" });
+    let refresh_options = {
         url: "https://www.googleapis.com/identitytoolkit/v3/relyingparty/verifyCustomToken?key=AIzaSyDwjfEeparokD7sXPVQli9NsTuhT6fJ6iA",
         method: "POST",
         headers: headers_list,
-        data: refreshBody,
+        data: refresh_body,
     }
-    let refreshResponse = await axios.request(refreshOptions)
+    let refresh_response = await axios.request(refresh_options)
     
-    let kind = refreshResponse.data.kind;
-    let idToken = refreshResponse.data.idToken;
-    let refreshToken = refreshResponse.data.refreshToken;
-    let expiresIn = refreshResponse.data.expiresIn;
-    let is_new_user = refreshResponse.data.isNewUser;
+    let kind = refresh_response.data.kind;
+    let id_token = refresh_response.data.idToken;
+    let refresh_token = refresh_response.data.refreshToken;
+    let expires_in = refresh_response.data.expiresIn;
+    let is_new_user = refresh_response.data.isNewUser;
 
     console.log("first refresh");
-    console.log(refreshResponse.status);
-    console.log(refreshResponse.data);
+    console.log(refresh_response.status);
+    console.log(refresh_response.data);
     console.log('---------------------')
 
     // ============================================================================================
 
     let firebase_refresh_data = JSON.stringify({
         "grantType": "refresh_token",
-        "refreshToken": refreshToken
+        "refreshToken": refresh_token
     });
     let firebase_refresh_options = {
         url: "https://securetoken.googleapis.com/v1/token?key=AIzaSyDwjfEeparokD7sXPVQli9NsTuhT6fJ6iA",
@@ -112,8 +112,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     if (check_response(access_grant_response)) {return;}
 
     let access_token = access_grant_response.data.access_token;
-    let refresh_token = access_grant_response.data.refresh_token;
-    let token_type = access_grant_response.data.token_type;
+    let access_refresh_token = access_grant_response.data.refresh_token;
+    let access_token_type = access_grant_response.data.token_type;
     let access_expiration = Date.now() + access_grant_response.data.expires_in * 1000;
 
     console.log("access grant");
@@ -123,15 +123,16 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     res.status(200).json({ 
         token: access_token, 
-        refresh_token: refresh_token,
-        token_type: token_type,
+        refresh_token: access_refresh_token,
+        token_type: access_token_type,
         expiration: access_expiration,
         uid: uid, 
         is_new_user: is_new_user 
     });
     
-    } catch (error) {
-        console.log(error);
+    } catch (error: any) {
+        console.log("FAILURE")
+        console.log(error.response.data);
         res.status(400).json({ status: "error" });
     }
 }

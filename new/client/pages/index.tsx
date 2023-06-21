@@ -27,29 +27,26 @@ export default function Home() {
 
 		let body = JSON.stringify({ "code": otp, "vonageRequestId": vonageid });
 		let options = { url: "/api/otp/vonage/verify", method: "POST", headers: { 'Content-Type': 'application/json' }, data: body,}
-		let response = await axios.request(options)
+		let response = axios.request(options).then(
+			(response) => {
+				let token = response.data.token;
+				let uid = response.data.uid;
+				let refresh_token = response.data.refresh_token;
+				let is_new_user = response.data.is_new_user;
+				let token_type = response.data.token_type;
+				let expiration = response.data.expiration;
 
-		if (response.status == 400) {
-			console.log("error: ", response.data)
-			return;
-		}
-		
-		let token = response.data.token;
-		let uid = response.data.uid;
-		let refresh_token = response.data.refresh_token;
-		let is_new_user = response.data.is_new_user;
-		let token_type = response.data.token_type;
-		let expiration = response.data.expiration;
-
-		console.log(response.data);
-		localStorage.setItem("token", token);
-		localStorage.setItem("refresh_token", refresh_token);
-		localStorage.setItem("expiration", expiration)
-		localStorage.setItem("uid", uid);
-		localStorage.setItem("is_new_user", is_new_user);
-		localStorage.setItem("token_type", token_type);
-		myself();
-		router.push("/feed");
+				console.log(response.data);
+				localStorage.setItem("token", token);
+				localStorage.setItem("refresh_token", refresh_token);
+				localStorage.setItem("expiration", expiration)
+				localStorage.setItem("uid", uid);
+				localStorage.setItem("is_new_user", is_new_user);
+				localStorage.setItem("token_type", token_type);
+				myself();
+				router.push("/feed");
+			}
+		).catch((error) => {console.log(error.response);})		
 	}
 
 	async function requestOTPFirebase(number: string) {
@@ -105,9 +102,7 @@ export default function Home() {
 					console.log(response.data);
 					setVonageid(rvonageid);
 					setRequestedOtp(true);
-				} else {
-					console.log(response.data);
-				}
+				} else { console.log(response.data);}
 			}
 		).catch(
 			(error) => {
