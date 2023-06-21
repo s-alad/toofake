@@ -4,6 +4,9 @@ import { generateDeviceId } from '@/utils/device';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
 
+
+    try {
+
     let headers_list = {"Accept": "application/json","User-Agent": "BeReal/8586 CFNetwork/1240.0.4 Darwin/20.6.0","x-ios-bundle-identifier": "AlexisBarreyat.BeReal","Content-Type": "application/json"}
 
     let otp = req.body.code;
@@ -108,5 +111,13 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         uid: uid, 
         is_new_user: is_new_user 
     });
+
+    
+    }
+    catch (error: any) {
+        console.log("FAILURE")
+        console.log(error.response.data);
+        res.status(400).json({ error: error.response.data });
+    }
 
 }

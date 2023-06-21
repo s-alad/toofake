@@ -34,14 +34,7 @@ export async function parseFormAsync(req: NextApiRequest, formidableOptions?: fo
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
 
-    function check_response(response: { status: number; data: any; }) {
-        if (response.status > 350) {
-            console.log("error | ", response);
-            res.status(400).json({ status: "error" });
-            return true;
-        }
-        return false;
-    }
+    try {
 
     const { fields, files } = await parseFormAsync(req);
     /* console.log(fields, files) */
@@ -107,7 +100,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     }
 
     let upload_res = await axios.request(upload_options)
-    check_response(upload_res);
 
     console.log("upload result");
     console.log(upload_res.data);
@@ -204,4 +196,20 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     console.log('---------------------')
 
     res.status(200).json(upload_res.data);
+
+    } catch (error: any) {
+        console.log("FAILURE")
+        console.log(error);
+        console.log('---------------------')
+
+        let error_message;
+
+        if (error.response) {
+            error_message = JSON.stringify(error.response.data);
+        } else {
+            error_message = error.toString();
+        }
+        console.log(error_message);
+        res.status(400).json({ error: error_message });
+    }
 }

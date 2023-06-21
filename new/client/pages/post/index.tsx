@@ -5,15 +5,8 @@ import axios from "axios";
 
 export default function Post() {
 
-    const [loading, setLoading] = useState(false);
-
-    const [valid, setValid] = useState(true);
-    const [validContent, setValidContent] = useState('');
-
-    const [publicpost, setPublic] = useState(false);
-
-    const [posting, setPosting] = useState(false);
-    const [postContent, setPostContent] = useState('');
+    let [loading, setLoading] = useState<boolean>(false);
+    let [failure, setFailure] = useState<string>("");
 
     const [caption, setCaption] = useState('');
     const [selectedFileOne, setSelectedFileOne]: any = useState();
@@ -61,8 +54,9 @@ export default function Post() {
         });
     };
 
-    let reader = new FileReader();
     function handleSubmission() {
+
+        setLoading(true);
 
         console.log("BASE64");
         console.log(primarybase64);
@@ -75,7 +69,7 @@ export default function Post() {
         formData.append('secondary', selectedFileTwo); */
         formData.append('primaryb64', primarybase64);
         formData.append('secondaryb64', secondarybase64);
-        formData.append('caption', caption);
+        formData.append('caption', caption ? caption : "");
         formData.append('token', authorization_token!);
         console.log(formData);
 
@@ -89,10 +83,14 @@ export default function Post() {
         axios.request(options).then(
             (response) => {
                 console.log(response.data);
+                setLoading(false);
             }
         ).catch(
             (error) => {
                 console.log(error);
+                setLoading(false);
+                setFailure(error.response.data.error)
+                setTimeout(() => { setFailure("") }, 3000);
             }
         )
     }
@@ -129,6 +127,19 @@ export default function Post() {
             <div className={s.submit} onClick={() => { handleSubmission() }}>
                 submit
             </div>
+            {
+                failure != "" ? (
+                    <div className={s.failure}>
+                        {failure}
+                    </div>
+                ) : (
+                    loading ? (
+                        <div className={s.loading}>
+                            loading...
+                        </div>
+                    ) : ""
+                )
+            }
         </div>
     )
 }
