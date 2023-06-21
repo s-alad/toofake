@@ -21,6 +21,7 @@ export default function Feed() {
 
     let [instances, setInstances] = useState<{ [key: string]: Instance }>({})
     let [loading, setLoading] = useState<boolean>(true);
+    let [failure, setFailure] = useState<string>("");
 
     useEffect(() => {
 
@@ -60,6 +61,9 @@ export default function Feed() {
         ).catch(
             (error) => {
                 console.log(error);
+                setLoading(false);
+                setFailure(JSON.stringify(error.response.data.error));
+                setTimeout(() => {setFailure("")}, 5000);
             }
         )
 
@@ -67,6 +71,14 @@ export default function Feed() {
 
     return (
         <div className={s.feed}>
+            {
+                failure ? 
+                    <div className={s.failure}>
+                        <div className={s.error}>{failure}</div>
+                        <div className={s.help}>something went wrong, please try refreshing the page or re-login</div>
+                    </div> 
+                : ''
+            }
             {
                 loading ? <div className={l.loader}></div> :
                 Object.keys(instances).map((key, idx) => {

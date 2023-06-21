@@ -3,4 +3,22 @@
     display: flex;
     overflow-x: scroll;
     padding-bottom: 40px;
+
+    .failure {
+        .error {
+            /* width: 100%; */
+            color: maroon;
+        }
+        .help {
+            margin-top: 12px;
+            width: 100%;
+        }
+    }
+
+
+
+    //if screen is small
+    @media (max-width: 600px) {
+        flex-direction: column;
+    }
 }
