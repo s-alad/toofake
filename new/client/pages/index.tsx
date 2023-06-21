@@ -139,53 +139,60 @@ export default function Home() {
 
 
 	return (
-		<div className={s.log}>
-			{
-				!requestedOtp ? 
-				<div className={s.login}>
-					<div className={s.text}>
-						login using your phone number
+		<div className={s.wrapper}>
+			<div className={s.log}>
+				{
+					!requestedOtp ?
+					<div className={s.login}>
+						<div className={s.text}>
+							login using your phone number
+						</div>
+						<div className={s.number}>
+							<PhoneInput
+								placeholder={'xxxyyyzzzz'}
+								enableSearch={true}
+								country={'us'}
+								value={inputNumber}
+								onChange={phone => setInputNumber('+' + phone)}
+								inputClass={s.digits}
+								dropdownClass={s.dropdown}
+								searchClass={s.search}
+								buttonClass={s.button}
+								containerClass={s.cont}
+							/>
+							<button className={s.send} onClick={() => requestOTPVonage(inputNumber)}>
+								send
+							</button>
+						</div>
 					</div>
+					:
+					<div className={s.verify}>
+						<div className={s.text}>
+							enter the one time passcode
+						</div>
+						<div className={s.number}>
+							<input className={`${s.digits} ${s.space}`} onChange={(event) => {setInputOTP(event.target.value);}} placeholder={'000111'}></input>
+							<button className={s.send} onClick={() => {
+								vonageid != "" ? verifyOTPVonage(inputOTP) : verifyOTPFirebase(inputOTP);
+							}}>
+								send
+							</button>
+						</div>
+					</div>
+				}
+				{
+					failed != "" ?
+					<div className={s.failed}>
+						{failed}
+					</div> : ""
+				}
+			</div>
+			<div className={s.info}>
+				TooFake is currently <span>working</span> again! <br /><br /> You can login using your phone number, view bereals and post custom images.
+				So far only american numbers have been tested. <br /><br />Please report any bugs or issues on the <a href="https://github.com/s-alad/toofake">github</a> theres probably a bunch! <br /><br />
+				More features coming soon!
 
-					<div className={s.number}>
-						<PhoneInput
-							placeholder={'xxxyyyzzzz'}
-							enableSearch={true}
-							country={'us'}
-							value={inputNumber}
-							onChange={phone => setInputNumber('+' + phone)}
-							inputClass={s.digits}
-							dropdownClass={s.dropdown}
-							searchClass={s.search}
-							buttonClass={s.button}
-							containerClass={s.cont}
-						/>
-						<button className={s.send} onClick={() => requestOTPVonage(inputNumber)}>
-							send
-						</button>
-					</div>
-				</div> 
-				:
-				<div className={s.verify}>
-					<div className={s.text}>
-						enter the one time passcode
-					</div>
-					<div className={s.number}>
-						<input className={`${s.digits} ${s.space}`} onChange={(event) => {setInputOTP(event.target.value);}} placeholder={'000111'}></input>
-						<button className={s.send} onClick={() => {
-							vonageid != "" ? verifyOTPVonage(inputOTP) : verifyOTPFirebase(inputOTP);
-						}}>
-							send
-						</button>
-					</div>
-				</div>
-			}
-			{
-				failed != "" ?
-				<div className={s.failed}>
-					{failed}
-				</div> : ""
-			}
+			</div>
 		</div>
 	)
 }

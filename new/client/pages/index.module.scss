@@ -1,8 +1,24 @@
 
+.wrapper {
+    display: flex;
+    flex-direction: column;
+}
+
 .log {
     display: flex;
     flex-direction: column;
     flex: 1;
+}
+
+.info {
+    flex: 1;
+    max-width: 600px;
+    span {
+        color: green;
+    }
+    a {
+        color: white;
+    }
 }
 
 .login, .verify{
