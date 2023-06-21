@@ -3,6 +3,7 @@ import type { AppProps } from 'next/app'
 import Head from 'next/head'
 import Layout from './layout'
 import { Analytics } from '@vercel/analytics/react';
+import Script from 'next/script';
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
@@ -17,6 +18,20 @@ export default function App({ Component, pageProps }: AppProps) {
 
 				<link rel="icon" href="/TooFake.png" />
 			</Head>
+      
+    <Script async src="https://www.googletagmanager.com/gtag/js?id=G-0QYBTQCRXD" strategy="afterInteractive"></Script>
+    <Script id="google-analytics" strategy="afterInteractive">
+      {
+        `
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-0QYBTQCRXD');
+        `
+      }
+    </Script>
+
       <Component {...pageProps} />
       <Analytics />
     </Layout>
