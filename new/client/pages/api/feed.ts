@@ -15,7 +15,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         headers: headers,
     }).then(
         (response) => {
+            console.log("------------------")
+            console.log("request feed success");
             console.log(response.data);
+            console.log("------------------")
             
             res.status(200).json(response.data);
         }
