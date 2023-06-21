@@ -6,12 +6,15 @@ import Draggable from "react-draggable";
 import { useState } from "react";
 import Link from "next/link";
 import axios from "axios";
+import { useRouter } from "next/router";
 
 interface _Instant {
     instance: Instance;
 }
 
 export default function Instant({ instance }: _Instant) {
+
+    let router = useRouter();
 
     let [comment, setComment] = useState<string>("");
     let [commentLoading, setCommentLoading] = useState<boolean>(false);
@@ -33,12 +36,9 @@ export default function Instant({ instance }: _Instant) {
                 console.log(response.data);
                 setComment("");
                 setCommentLoading(false);
+                router.reload();
             }
         ).catch((error) => {console.log(error); setCommentLoading(false);})
-    }
-
-    function refreshInstance() {
-        
     }
 
     let [swap, setSwap] = useState<boolean>(false);
