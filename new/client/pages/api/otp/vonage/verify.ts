@@ -7,7 +7,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     function check_response(response: { status: number; data: any; }) {
         if (response.status > 350 || response.status == 16) {
             console.log("error | ", response);
-            res.status(400).json({ status: "error" });
+            res.status(400).json({ status: response });
             return true;
         }
         return false;
@@ -16,18 +16,18 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     try {
 
     let otp = req.body.code;
-    let vonageRequestId = req.body.vonageRequestId;
+    let vonage_request_id = req.body.vonageRequestId;
 
     console.log('=====================')
     console.log("login process");
     console.log(req.body);
     console.log(otp);
-    console.log(vonageRequestId);
+    console.log(vonage_request_id);
     console.log('---------------------')
 
     let headers_list = {"Accept": "application/json","User-Agent": "BeReal/8586 CFNetwork/1240.0.4 Darwin/20.6.0","x-ios-bundle-identifier": "AlexisBarreyat.BeReal","Content-Type": "application/json"}
 
-    let vonage_body_content = JSON.stringify({ "code": otp, "vonageRequestId": vonageRequestId });
+    let vonage_body_content = JSON.stringify({ "code": otp, "vonageRequestId": vonage_request_id });
     let vonage_options = {
         url: "https://auth.bereal.team/api/vonage/check-code",
         method: "POST",
@@ -130,9 +130,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         is_new_user: is_new_user 
     });
     
+
     } catch (error: any) {
         console.log("FAILURE")
         console.log(error.response.data);
-        res.status(400).json({ status: "error" });
+        res.status(400).json({ error: error.response.data });
     }
 }

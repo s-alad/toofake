@@ -1,6 +1,7 @@
 
 .log {
     display: flex;
+    flex-direction: column;
     flex: 1;
 }
 
@@ -101,6 +102,17 @@
         color: #bf616a;
         font-size: 14px;
     }
+}
+
+.failed {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    width: 100%;
+    flex: 1;
+    padding-top: 20px;
+    height: 100%;
+    color: maroon;
 }
 
 //overides
