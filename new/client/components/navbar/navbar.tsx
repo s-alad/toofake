@@ -3,6 +3,7 @@ import s from './navbar.module.scss'
 
 import { useRouter } from 'next/router'
 import Link from 'next/link';
+import { logout } from '@/utils/logout';
 
 export default function Navbar() {
 
@@ -30,6 +31,9 @@ export default function Navbar() {
                             Feed
                         </div>
                         <div className={s.profile} >
+                            <span className={s.logout}>
+                                <button onClick={() => logout(router, localStorage)}>logout</button>
+                            </span>
                             <Link href={"/post"} className={s.post}>
                                 <button>post</button>
                             </Link>
@@ -54,6 +58,7 @@ export default function Navbar() {
                         </div>
                     </> : ''
                 }
+                
             </div>
         </nav>
     )

@@ -32,6 +32,9 @@
                 color: white;
                 text-decoration: none;
             }
+            span {
+                @include c.center();
+            }
             img {
                 box-shadow: 0px 0px 6px 1px #fff;
                 height: 45px;
@@ -42,6 +45,18 @@
             }
             .post {
                 margin-right: 0px;
+            }
+            .logout {
+                margin-right: 12px;
+                button {
+                    background-color: transparent;
+                    border: none;
+                    color: white;
+                    font-size: 16px;
+                    font-weight: 500;
+                    cursor: pointer;
+                    text-decoration: underline;
+                }
             }
             button {
                 cursor: pointer;
