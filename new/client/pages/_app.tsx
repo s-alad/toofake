@@ -8,9 +8,16 @@ export default function App({ Component, pageProps }: AppProps) {
     <Layout>
       <Head>
 				<title>TooFake</title>
-				<meta name="description" content="" />
+				<meta name="description" content="A BeReal Viewer: Post custom BeReal's whenever, View friends BeReals without them knowing " />
 				<meta name="viewport" content="width=device-width, initial-scale=1" />
-				<link rel="icon" href="/favicon.ico" />
+        <meta charSet="utf-8" />
+        <meta property='og:title' content='TooFake' />
+        <meta property='og:description' content="A BeReal Viewer: Post custom BeReal's whenever, View friends BeReals without them knowing "/>
+        
+
+
+
+				<link rel="icon" href="/TooFake.png" />
 			</Head>
       <Component {...pageProps} />
     </Layout>
