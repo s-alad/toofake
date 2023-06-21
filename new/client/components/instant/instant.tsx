@@ -19,12 +19,20 @@ export default function Instant({ instance }: _Instant) {
 
     let profile_link = instance.user.uid == localStorage.getItem("uid") ? "/me" : `/profile/${instance.user.uid}`;
 
+    function pfp() {
+        if (instance.user.pfp) {
+            return <img src={instance.user.pfp} />
+        } else {
+            return <div className={s.letter}>{instance.user.username.toUpperCase().charAt(0)}</div>
+        }
+    }
+
     return (
         <div className={s.instant}>
 
             <div className={s.top}>
                 <div className={s.pfp}>
-                    <Link href={profile_link}><img src={instance.user.pfp} /></Link>
+                    <Link href={profile_link}>{pfp()}</Link>
                 </div>
                 <div className={s.details}>
                     <Link href={profile_link}><div className={s.username}> @{instance.user.username} </div></Link>

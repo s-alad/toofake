@@ -10,6 +10,7 @@ export function logout(router: any, ls: any) {
             ls.removeItem("uid");
             ls.removeItem("is_new_user");
             ls.removeItem("token_type");
+            ls.removeItem("myself")
         }
 
         removeStorage();

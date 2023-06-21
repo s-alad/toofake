@@ -12,6 +12,7 @@ export default function useCheck() {
         localStorage.removeItem("uid");
         localStorage.removeItem("is_new_user");
         localStorage.removeItem("token_type");
+        localStorage.removeItem("myself")
     }
 
     useEffect(() => {

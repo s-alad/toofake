@@ -30,6 +30,16 @@
                 object-fit: cover;
                 background-color: white;
             }
+            .letter {
+                height: 30px;
+                width: 30px;
+                border-radius: 100%;
+                object-fit: cover;
+                background-color: white;
+                @include c.center();
+                font-size: 20px;
+                color: black;
+            }
         }
         .details {
             flex: 1;

@@ -35,6 +35,17 @@
             span {
                 @include c.center();
             }
+            .letter {
+                box-shadow: 0px 0px 6px 1px #fff;
+                height: 45px;
+                width: 45px;
+                border-radius: 100%;
+                object-fit: cover;
+                background-color: white;
+                color: black;
+                @include c.center();
+                font-size: 20px;
+            }
             img {
                 box-shadow: 0px 0px 6px 1px #fff;
                 height: 45px;

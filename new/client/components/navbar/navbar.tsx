@@ -10,9 +10,11 @@ export default function Navbar() {
     let router = useRouter();
 
     let [pfp, setPfp] = React.useState<string>("");
+    let [username, setUsername] = React.useState<string>("");
 
     useEffect(() => {
         if (localStorage && JSON.parse(localStorage.getItem("myself")!)) {
+            setUsername(JSON.parse(localStorage.getItem("myself")!).username);
             if (JSON.parse(localStorage.getItem("myself")!).pfp) {
                 setPfp(JSON.parse(localStorage.getItem("myself")!).pfp);
             }
@@ -39,7 +41,9 @@ export default function Navbar() {
                             </Link>
                             <div className={s.sep}></div>
                             <Link href={"/me"}>
-                                <img src={pfp}/>
+                                {
+                                    pfp ? <img src={pfp} /> : <div className={s.letter}>{username.toUpperCase().charAt(0)}</div>    
+                                }
                             </Link>
                         </div>
                     </> : ''
