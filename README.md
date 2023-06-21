@@ -4,10 +4,9 @@
 
 ### https://toofake.vercel.app/
 ### https://toofake.lol/
-### https://befaker.lol/
 
 ---
-## current status: WORKING AGAIN!
+### current status: WORKING AGAIN!
 
 [rvaidun](https://github.com/rvaidun)'s project has been cease and desisted but may still be up  
 check out the project at [BeFake](https://github.com/notmarek/BeFake) for a more up to date working client!
