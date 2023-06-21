@@ -19,6 +19,10 @@ todo:
 - [ ] delete comment ability
 - [ ] add custom realmoji reactions
 
+longterm:
+- [ ] change state management
+- [ ] cache things and use less requests
+
 ---
 
 ### how to run locally
