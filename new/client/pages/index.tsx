@@ -26,12 +26,9 @@ export default function Home() {
 	let [failed, setFailed] = useState<string>("");
 
 
-	function failure(response: any) {
-		let status = response.status;
-		let text = response.statusText;
-		let errorkey = response.data.error.errorKey ?? "";
-		
-		setFailed("ERROR | " + status + " " + text + " | " + errorkey);
+	function failure(text: string) {
+		console.log(text);		
+		setFailed("ERROR | " + text);
 		setTimeout(() => {setFailed("");}, 3000);
 	}
 
@@ -59,7 +56,7 @@ export default function Home() {
 				await myself();
 				router.push("/feed");
 			}
-		).catch((error) => {failure(error.response);})		
+		).catch((error) => {failure(error.response.data.error.error.code + " | "+ error.response.data.error.error.message)})		
 	}
 
 	async function requestOTPFirebase(number: string) {
@@ -114,7 +111,7 @@ export default function Home() {
 				setVonageid(rvonageid);
 				setRequestedOtp(true);
 			}
-		).catch((error) => {failure(error.response);})
+		).catch((error) => {failure(JSON.stringify(error.response.data.error));})
 	}
 
 
