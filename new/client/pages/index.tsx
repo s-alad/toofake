@@ -26,12 +26,18 @@ export default function Home() {
 	let [requestedOtp, setRequestedOtp] = useState<boolean>(false);
 
 	let [failed, setFailed] = useState<string>("");
+	let [help, setHelp] = useState<string>("");
 
 
 	function failure(text: string) {
 		console.log(text);		
 		setFailed("ERROR | " + text);
 		setTimeout(() => {setFailed("");}, 3000);
+	}
+
+	function helpme() {
+		setHelp("Failed with Vonage login provider, re-trying to login with Firebase...");
+		setTimeout(() => {setHelp("");}, 3000);
 	}
 
 
@@ -81,7 +87,7 @@ export default function Home() {
 				setVonageid(rvonageid);
 				setRequestedOtp(true);
 			}
-		).catch((error) => {failure(JSON.stringify(error.response.data.error) + "TRYING FIREBASE"); requestOTPFirebase(number);})
+		).catch((error) => {failure(JSON.stringify(error.response.data.error)); helpme(); requestOTPFirebase(number);})
 	}
 
 	async function verifyOTPFirebase(otp: string) {
@@ -180,12 +186,20 @@ export default function Home() {
 						</div>
 					</div>
 				}
-				{
-					failed != "" ?
-					<div className={s.failed}>
-						{failed}
-					</div> : ""
-				}
+				<div className={s.messages}>
+					{
+						failed != "" ?
+						<div className={s.failed}>
+							{failed}
+						</div> : ""
+					}
+					{
+						help != "" ?
+						<div className={s.help}>
+							{help}
+						</div> : ""
+					}
+				</div>
 			</div>
 			<div className={s.info}>
 				TooFake is currently <span>working</span> again! <br /><br /> You can login using your phone number, view bereals and post custom images.
