@@ -65,3 +65,13 @@
     border-radius: 12px;
     padding-left: 14px; padding-right: 14px;
 }
+.failure {
+    color: rgb(165, 0, 0);
+    font-size: 14px;
+    margin-top: 12px;       
+}
+.loading {
+    margin-top: 12px;
+    color: green;
+    font-size: 14px;
+}
