@@ -52,7 +52,13 @@ export default function Feed() {
                 }
 
                 for (let i = 0; i < response.data.length; i++) {
-                    await createInstance(response.data[i]);
+                    try {
+                        await createInstance(response.data[i]);
+                    } catch (error) {
+                        console.log("CULDNT MAKE INSTANCE WITH DATA: ", response.data[i])
+                        console.log(error);
+                    }
+                    
                 }
                 console.log("newinstances");
                 console.log(newinstances);
