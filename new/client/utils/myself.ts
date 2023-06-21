@@ -1,26 +1,30 @@
 import axios from "axios";
 
-export default function myself() {
+export default async function myself() {
 
     let token = localStorage.getItem("token");
-        let body = JSON.stringify({ "token": token });
+    let body = JSON.stringify({ "token": token });
 
-        let options = {
-            url: "/api/me",
-            method: "POST",
-            headers: { 'Content-Type': 'application/json' },
-            data: body,
+    let options = {
+        url: "/api/me",
+        method: "POST",
+        headers: { 'Content-Type': 'application/json' },
+        data: body,
+    }
+
+    return axios.request(options).then(
+        (response) => {
+            console.log(response.data); 
+            let myselfobject = response.data;
+            localStorage.setItem("myself", JSON.stringify(myselfobject));
+            return true
         }
+    ).catch(
+        (error) => {
+            console.log(error);
+            return false
+        }
+    )
 
-        axios.request(options).then(
-            (response) => {
-                console.log(response.data); 
-                let myselfobject = response.data;
-                localStorage.setItem("myself", JSON.stringify(myselfobject));
-            }
-        ).catch(
-            (error) => {
-                console.log(error);
-            }
-        )
+
 }

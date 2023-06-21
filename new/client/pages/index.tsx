@@ -28,7 +28,7 @@ export default function Home() {
 		let body = JSON.stringify({ "code": otp, "vonageRequestId": vonageid });
 		let options = { url: "/api/otp/vonage/verify", method: "POST", headers: { 'Content-Type': 'application/json' }, data: body,}
 		let response = axios.request(options).then(
-			(response) => {
+			async (response) => {
 				let token = response.data.token;
 				let uid = response.data.uid;
 				let refresh_token = response.data.refresh_token;
@@ -43,7 +43,7 @@ export default function Home() {
 				localStorage.setItem("uid", uid);
 				localStorage.setItem("is_new_user", is_new_user);
 				localStorage.setItem("token_type", token_type);
-				myself();
+				await myself();
 				router.push("/feed");
 			}
 		).catch((error) => {console.log(error.response);})		
