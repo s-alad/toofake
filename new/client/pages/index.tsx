@@ -31,12 +31,12 @@ export default function Home() {
 	function failure(text: string) {
 		console.log(text);		
 		setFailed("ERROR | " + text);
-		setTimeout(() => {setFailed("");}, 23000);
+		setTimeout(() => {setFailed("");}, 4000);
 	}
 
 	function helpme() {
 		setHelp("Failed with Vonage login provider, re-trying to login with Firebase...");
-		setTimeout(() => {setHelp("");}, 23000);
+		setTimeout(() => {setHelp("");}, 4000);
 	}
 
 
