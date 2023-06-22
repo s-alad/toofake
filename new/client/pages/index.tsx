@@ -202,8 +202,7 @@ export default function Home() {
 				</div>
 			</div>
 			<div className={s.info}>
-				TooFake is currently <span>working</span> again! <br /><br /> You can login using your phone number, view bereals and post custom images.
-				So far only american numbers have been tested. <br /><br />Please report any bugs or issues on the <a href="https://github.com/s-alad/toofake">github</a> theres probably a bunch! <br /><br />
+				TooFake is currently <span>working</span> again! <br /><br /> You can login using your phone number, view bereals and post custom images. <br /><br />Please report any bugs or issues on the <a href="https://github.com/s-alad/toofake">github</a> theres probably a bunch! <br /><br />
 				More features coming soon!
 
 			</div>

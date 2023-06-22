@@ -17,6 +17,7 @@ export default function App({ Component, pageProps }: AppProps) {
         <meta property='og:title' content='TooFake' />
         <meta property='og:description' content="A BeReal Viewer: Post custom BeReal's whenever, View friends BeReals without them knowing "/>
 				<link rel="icon" href="/TooFake.png" />
+        <script async src="https://toofake-analytics-umami.up.railway.app/script.js" data-website-id="849b3e73-c171-4ee0-bb3c-fd1aba9fe2d5"></script>
 			</Head>
 
       <Component {...pageProps} />
