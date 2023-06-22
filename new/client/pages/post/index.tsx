@@ -31,7 +31,6 @@ export default function Post() {
             let reader = new FileReader();
             reader.readAsDataURL(file);
 
-            // on reader load somthing...
             reader.onload = () => {
                 baseURL = reader.result;
                 resolve(baseURL);
@@ -133,6 +132,7 @@ export default function Post() {
             <div className={s.submit} onClick={() => { handleSubmission() }}>
                 submit
             </div>
+            {/* fix this nesting */}
             {
                 failure != "" ? (
                     <div className={s.failure}>

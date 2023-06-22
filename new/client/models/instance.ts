@@ -11,7 +11,7 @@ class Instance {
     realmojis: Realmoji[];
     comments: Comment[];
 
-    location: string;
+    location: { latitude: number, longitude: number } | undefined;
 
     caption: string;
     instanceid: string;
@@ -19,7 +19,7 @@ class Instance {
     secondary: string;
 
     // make a constructor
-    constructor(user: User, realmojis: Realmoji[], comments: Comment[], location: string, caption: string, instanceid: string, primary: string, secondary: string) {
+    constructor(user: User, realmojis: Realmoji[], comments: Comment[], location: { latitude: number, longitude: number } | undefined, caption: string, instanceid: string, primary: string, secondary: string) {
         this.user = user;
         this.realmojis = realmojis;
         this.comments = comments;
@@ -48,12 +48,14 @@ class Instance {
             realmojis.push(Realmoji.create(raw_moji));
         }
 
-        let initial_location = ""
+        let initial_location = undefined;
         if (raw.location) {
             let lat = raw.location._latitude;
             let long = raw.location._longitude;
 
-            try {
+            initial_location = { latitude: lat, longitude: long}
+
+            /* try {
                 let response = await axios.get(
                     `https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer/reverseGeocode?location=${long},${lat}&outSR=&forStorage=false&f=pjson`
                 )
@@ -72,10 +74,11 @@ class Instance {
                 } catch (e) {
                     console.log(e)
                 }
-            }
+            } */
         }
         let location = initial_location
-
+        /* console.log("MY LCATION")
+        console.log(location) */
         let comments: Comment[] = [];
         for (let raw_comment of raw.comment) {
             comments.push(Comment.create(raw_comment));

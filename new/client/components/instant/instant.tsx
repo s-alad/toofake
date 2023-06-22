@@ -3,7 +3,7 @@ import Instance from "@/models/instance";
 import s from './instant.module.scss';
 import l from '@/styles/loader.module.scss';
 import Draggable from "react-draggable";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import axios from "axios";
 import { useRouter } from "next/router";
@@ -20,6 +20,8 @@ export default function Instant({ instance }: _Instant) {
 
     let [comment, setComment] = useState<string>("");
     let [commentLoading, setCommentLoading] = useState<boolean>(false);
+    let [location, setLocation] = useState<string>("loading...");
+
     function sendComment() {
         setCommentLoading(true);
 
@@ -60,7 +62,7 @@ export default function Instant({ instance }: _Instant) {
                 router.reload();
             }
         ).catch((error) => {console.log(error);})
-        
+
     }
 
     let [swap, setSwap] = useState<boolean>(false);
@@ -73,6 +75,33 @@ export default function Instant({ instance }: _Instant) {
         else { return <div className={s.letter}>{instance.user.username.toUpperCase().charAt(0)}</div> }
     }
 
+    async function getLocation() {
+
+        if (instance.location == undefined) {
+            setLocation("No location data");
+            return;
+        }
+
+        let lat = instance.location.latitude;
+        let long = instance.location.longitude;
+        console.log(lat, long);
+
+        try {
+            let response = await axios.get(
+                `https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer/reverseGeocode?location=${long},${lat}&outSR=&forStorage=false&f=pjson`
+            )
+            console.log(response.data)
+            setLocation(response.data.address.Match_addr + ", " + response.data.address.City)
+        } catch (error) {
+            console.log(error);
+            setLocation("No location data");
+        }
+    }
+
+    useEffect(() => {
+        getLocation();
+    }, [])
+
     return (
         <div className={s.instant}>
 
@@ -82,7 +111,7 @@ export default function Instant({ instance }: _Instant) {
                 </div>
                 <div className={s.details}>
                     <div className={s.username}><Link href={profile_link}> @{instance.user.username} </Link></div>
-                    <div className={s.location}> {instance.location} </div>
+                    <div className={s.location}> {location} </div>
                 </div>
                 {
                     instance.user.uid == localStorage.getItem("uid") ?

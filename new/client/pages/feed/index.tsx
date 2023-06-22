@@ -48,8 +48,8 @@ export default function Feed() {
                     let id = data.id;
                     let newinstance = await Instance.create(data);
                     newinstances[id] = newinstance;
-                    console.log("newinstances");
-                    console.log(newinstances);
+                    /* console.log("newinstances");
+                    console.log(newinstances); */
 
                     setLoading(false);
                 }
