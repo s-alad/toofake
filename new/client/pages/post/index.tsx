@@ -3,13 +3,17 @@ import { useState } from "react";
 import s from './post.module.scss'
 import axios from "axios";
 import useCheck from "@/utils/check";
+import { useRouter } from "next/router";
 
 export default function Post() {
 
     useCheck();
 
+    let router = useRouter();
+
     let [loading, setLoading] = useState<boolean>(false);
     let [failure, setFailure] = useState<string>("");
+    let [success, setSuccess] = useState<string>("");
 
     const [caption, setCaption] = useState('');
     const [selectedFileOne, setSelectedFileOne]: any = useState();
@@ -87,13 +91,15 @@ export default function Post() {
             (response) => {
                 console.log(response.data);
                 setLoading(false);
+                setSuccess("Successfully posted!");
+                setTimeout(() => { setSuccess(""); router.push("/feed")}, 3000);
             }
         ).catch(
             (error) => {
                 console.log(error);
                 setLoading(false);
                 setFailure(error.response.data.error)
-                setTimeout(() => { setFailure("") }, 3000);
+                setTimeout(() => { setFailure("") }, 5000);
             }
         )
     }
@@ -137,7 +143,13 @@ export default function Post() {
                         <div className={s.loading}>
                             loading...
                         </div>
-                    ) : ""
+                    ) : (
+                        success != "" ? (
+                            <div className={s.success}>
+                                {success}
+                            </div>
+                        ) : (<></>)
+                    )
                 )
             }
         </div>
