@@ -44,6 +44,12 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     let primaryb64: string = fields["primaryb64"][0] as string;
     let secondaryb64: string = fields["secondaryb64"][0] as string;
 
+    // log the first 20 chars of the base64 string
+    console.log("BASE64 STRINGS 20chars");
+    console.log(primaryb64.substring(0, 20));
+    console.log(secondaryb64.substring(0, 20));
+    console.log('---------------------')
+
     // drop prefix of base64 string
     primaryb64 = primaryb64.replace(/^data:image\/(png|jpeg|jpg);base64,/, "");
     secondaryb64 = secondaryb64.replace(/^data:image\/(png|jpeg|jpg);base64,/, "");
