@@ -51,8 +51,13 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     console.log('---------------------')
 
     // drop prefix of base64 string
-    primaryb64 = primaryb64.replace(/^data:image\/(png|jpeg|jpg);base64,/, "");
-    secondaryb64 = secondaryb64.replace(/^data:image\/(png|jpeg|jpg);base64,/, "");
+    // the possible formats are png, jpeg, jpg, octet-stream
+    // the possible data formats are image and application
+
+    primaryb64 = primaryb64.replace(/^data:(image|application)\/(png|jpeg|jpg|octet-stream);base64,/, "");
+    secondaryb64 = secondaryb64.replace(/^data:(image|application)\/(png|jpeg|jpg|octet-stream);base64,/, "");
+    /* primaryb64 = primaryb64.replace(/^data:image\/(png|jpeg|jpg|octet-stream);base64,/, "");
+    secondaryb64 = secondaryb64.replace(/^data:image\/(png|jpeg|jpg|octet-stream);base64,/, ""); */
 
     // ============================================================================================
 
