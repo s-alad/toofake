@@ -50,7 +50,7 @@ class Instance {
 
         let initial_location = ""
         if (raw.location) {
-            let lat = raw.location._latitude;   
+            let lat = raw.location._latitude;
             let long = raw.location._longitude;
 
             try {
@@ -63,10 +63,19 @@ class Instance {
                 console.log(e)
             }
 
-            /* let response = await axios.get(
-                `https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${long}&zoom=15&format=jsonv2`
-            )
-            initial_location = response.data.display_name.split(",")[0] + ", " + response.data.display_name.split(",")[1]; */
+            if (initial_location == "") {
+                try {
+                    let response = await axios.get(
+                        `https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${long}&zoom=15&format=jsonv2`
+                    )
+                    initial_location = response.data.display_name.split(",")[0] + ", " + response.data.display_name.split(",")[1];
+                } catch (e) {
+                    console.log(e)
+                }
+            }
+
+
+
 
         }
         let location = initial_location
@@ -76,7 +85,7 @@ class Instance {
             comments.push(Comment.create(raw_comment));
         }
 
-        return new Instance(user, realmojis, comments ,location, caption, instanceid, primary, secondary);
+        return new Instance(user, realmojis, comments, location, caption, instanceid, primary, secondary);
     }
 }
 
