@@ -6,6 +6,7 @@ import useCheck from '@/utils/check';
 import myself from '@/utils/myself';
 
 import s from './me.module.scss'
+import l from '@/styles/loader.module.scss';
 import User from '@/models/user';
 import Friend from '@/models/friend';
 import Link from 'next/link';
@@ -19,6 +20,7 @@ export default function Profile() {
     let [bio, setBio] = React.useState<string>("");
     let [pfp, setPfp] = React.useState<string>("");
     let [friends, setFriends] = React.useState<Friend[]>([]);
+    let [friendsLoading, setFriendsLoading] = React.useState<boolean>(true);
 
     
 
@@ -77,6 +79,8 @@ export default function Profile() {
                 for (let i = 0; i < raw_friends.length; i++) {
                     try {
                         await createFriend(raw_friends[i]);
+                        setFriendsLoading(false);
+                        setFriends([...new_friends]);
                     } catch (error) {
                         console.log("COULDNT MAKE FRIEND WITH DATA: ", raw_friends[i])
                         console.log(error);
@@ -84,9 +88,7 @@ export default function Profile() {
                 }
 
                 console.log("new friends");
-                console.log(new_friends);
-                setFriends(new_friends);
-                
+                console.log(new_friends);                
             }
         ).catch(
             (error) => {
@@ -123,6 +125,7 @@ export default function Profile() {
             <div className={s.friends}>
                 <div className={s.title}>Friends</div>
                     {
+                        friendsLoading ? <div className={l.loader}></div> : 
                         friends.map((friend) => {
                             return (
                                 <Link href={`/profile/${friend.uid}`}>
