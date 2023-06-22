@@ -8,7 +8,7 @@ import Link from "next/link";
 import axios from "axios";
 import { useRouter } from "next/router";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
+import { faAdd, faTrashCan } from "@fortawesome/free-solid-svg-icons";
 
 interface _Instant {
     instance: Instance;
@@ -129,6 +129,11 @@ export default function Instant({ instance }: _Instant) {
                     </Draggable>
                 </div>
                 <div className={s.realmojis}>
+                    <div className={s.addmojis}>
+                        <div className={s.add}>
+                            <FontAwesomeIcon icon={faAdd} />
+                        </div>
+                    </div>
                     {
                         instance.realmojis.map((realmoji) => {
                             return (

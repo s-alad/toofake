@@ -128,7 +128,7 @@ export default function Profile() {
                         friendsLoading ? <div className={l.loader}></div> : 
                         friends.map((friend) => {
                             return (
-                                <Link href={`/profile/${friend.uid}`}>
+                                <Link href={`/profile/${friend.uid}`} key={friend.uid}>
                                     <div className={s.friend} key={friend.uid}>
                                         <img src={friend.pfp} className={s.pfp} />
                                         <div className={s.details}>
