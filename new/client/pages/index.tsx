@@ -208,8 +208,10 @@ export default function Home() {
 				</div>
 			</div>
 			<div className={s.info}>
-				TooFake is currently <span>working</span> again! <br /><br /> You can login using your phone number, view bereals and post custom images. <br /><br />Please report any bugs or issues on the <a href="https://github.com/s-alad/toofake">github</a> theres probably a bunch! <br /><br />
-				More features coming soon!
+				<p>TooFake is currently <span>working</span> again!</p>
+				<p>You can login using your phone number, view bereals and post custom images.</p>
+				<p>Please report any bugs or issues on the <a href="https://github.com/s-alad/toofake">github</a> theres probably a bunch!</p>
+				<p>More features coming soon!</p>
 			</div>
 		</div>
 	)
