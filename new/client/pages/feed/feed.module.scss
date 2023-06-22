@@ -20,5 +20,7 @@
     //if screen is small
     @media (max-width: 600px) {
         flex-direction: column;
+        align-items: center;
+        width: 100%;
     }
 }
