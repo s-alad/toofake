@@ -2,28 +2,35 @@
 
 ### want to stalk your friends, family, or ex without posting your own bereal? </br> toofake gives the ability to view bereals and post custom bereals without ever having to click on that annoying notification
 
+### https://toofake.lol/
 ### https://toofake.vercel.app/
 
 ---
-## current status: WORKING AGAIN!
+# current status: WORKING AGAIN!
 
-[rvaidun](https://github.com/rvaidun)'s project has been shut down.   
-check out the project at [BeFake](https://github.com/notmarek/BeFake) for a more up to date working client!
+[rvaidun](https://github.com/rvaidun)'s project has been cease and desisted but may still be up! It has more features.
+check out the project at [BeFake](https://github.com/notmarek/BeFake) for a usually more up-to date backend!
 
 ---
 
 todo:
 - [ ] mobile resize support
+- [ ] add friends list
+- [ ] delete post ability
+- [ ] delete comment ability
 - [ ] add custom realmoji reactions
-- [ ] add commenting
+
+longterm:
+- [ ] change state management
+- [ ] cache things and use less requests
 
 ---
 
 ### how to run locally
 
-* clone the project locally
+* clone the project
 * cd into the new/client directory
-* run `npm i`
+* run `npm install`
 * run `npm run dev`
 
 ---
