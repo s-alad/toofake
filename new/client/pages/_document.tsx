@@ -8,7 +8,6 @@ export default function Document() {
       <body>
         <Main />
         <NextScript />
-        <GoogleAnalytics trackPageViews gaMeasurementId='G-0QYBTQCRXD' />
       </body>
     </Html>
   )

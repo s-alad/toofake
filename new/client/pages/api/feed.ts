@@ -9,6 +9,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         "authorization": "Bearer " + authorization_token,
     }
 
+    console.log("FETCING FEED")
+
     return axios.request({
         url: "https://mobile.bereal.com/api" + "/feeds/friends",
         method: "GET",
