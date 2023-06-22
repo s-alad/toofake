@@ -23,7 +23,7 @@ export default function Navbar() {
     
     return (
         <nav className={s.toofake}>
-            <div>Toofake</div>
+            <div>TooFake</div>
             <div className={s.navigation}>
                 {
                     router.pathname == "/feed" ? 

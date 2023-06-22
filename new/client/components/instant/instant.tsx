@@ -109,7 +109,7 @@ export default function Instant({ instance }: _Instant) {
                             {expanded ? '⬆ collapse comments' : '⬇ expand comments'}
                         </div>
                         :
-                        <div className={s.expand}></div>
+                        <div className={s.holder}></div>
                 }
                 {
                     expanded ?

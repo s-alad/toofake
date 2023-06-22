@@ -6,6 +6,8 @@ import useCheck from '@/utils/check';
 import myself from '@/utils/myself';
 
 import s from './me.module.scss'
+import User from '@/models/user';
+import Friend from '@/models/friend';
 
 export default function Profile() {
 
@@ -15,6 +17,7 @@ export default function Profile() {
     let [name, setName] = React.useState<string>("");
     let [bio, setBio] = React.useState<string>("");
     let [pfp, setPfp] = React.useState<string>("");
+    let [friends, setFriends] = React.useState<Friend[]>([]);
 
     
 
@@ -50,6 +53,47 @@ export default function Profile() {
             }
         )
 
+        let friend_options = {
+            url: "/api/friends",
+            method: "POST",
+            headers: { 'Content-Type': 'application/json' },
+            data: body,
+        }
+
+        axios.request(friend_options).then(
+            async (response) => {
+                console.log(response.data);
+
+                let raw_friends = response.data.data;
+                let new_friends: Friend[] = [];
+
+                async function createFriend(data: any) {
+                    let newfriend = await Friend.create(data);
+                    new_friends.push(newfriend);
+                    return newfriend;
+                }
+
+                for (let i = 0; i < raw_friends.length; i++) {
+                    try {
+                        await createFriend(raw_friends[i]);
+                    } catch (error) {
+                        console.log("COULDNT MAKE FRIEND WITH DATA: ", raw_friends[i])
+                        console.log(error);
+                    }
+                }
+
+                console.log("new friends");
+                console.log(new_friends);
+                setFriends(new_friends);
+                
+            }
+        ).catch(
+            (error) => {
+                console.log(error);
+            }
+        )
+
+
     }, [])
 
     return (
@@ -73,6 +117,18 @@ export default function Profile() {
                             </div> : null
                     }
                 </div>
+            </div>
+
+            <div className={s.friends}>
+                    {
+                        friends.map((friend) => {
+                            return (
+                                <div className={s.friend} key={friend.uid}>
+                                    {friend.username}
+                                </div>
+                            )
+                        })
+                    }
             </div>
         </div>
     )
