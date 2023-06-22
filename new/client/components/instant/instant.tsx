@@ -69,7 +69,7 @@ export default function Instant({ instance }: _Instant) {
 
             <div className={s.content}>
                 <img src={swap ? instance.primary : instance.secondary} className={s.primary} />
-                <div className={s.bounds}>
+                <div className={s.bounds} onClick={() => setSwap(!swap)}>
                     <Draggable axis="both" bounds="parent" >
                         <img src={swap ? instance.secondary : instance.primary} className={s.secondary} onClick={() => setSwap(!swap)} onMouseDown={(e) => {e.stopPropagation()}} />
                     </Draggable>
