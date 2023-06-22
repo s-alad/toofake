@@ -37,8 +37,6 @@ export default function Profile() {
 
                 async function createMemory(data: any) {
                     let newmemory = await Memory.create(data);
-                    console.log("newmemory");
-                    console.log(newmemory);
                     newmemories.push(newmemory);
                     return newmemory;
                 }
@@ -60,7 +58,6 @@ export default function Profile() {
         ).catch((error) => {console.log(error);})
     }, [])
 
-    let [swap, setSwap] = useState<boolean>(false);
     return (
         <div className={s.memories}>
             {

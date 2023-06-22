@@ -27,27 +27,22 @@ export default function Memoire({ memory }: { memory: Memory }) {
         let long = mem.location!.longitude;
         console.log(lat, long);
 
-        let headers = {
-            'Content-Type': 'application/json',
+        try {
+            console.log("axios started");
+            let response = await axios.get(
+                `https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer/reverseGeocode?location=${long},${lat}&outSR=&forStorage=false&f=pjson`
+            )
+            console.log(response.data)
+            setLocation(response.data.address.Match_addr + ", " + response.data.address.City)
+        } catch (error) {
+            console.log(error);
+            setLocation("No location data");
         }
-
-        console.log("axios started");
-        axios.request({
-            url: `https://toofake-cors-proxy-4fefd1186131.herokuapp.com/https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${long}&zoom=15&format=jsonv2`,
-            method: "GET",
-            headers: headers,
-        }
-        ).then((response) => {
-            console.log(response.data);
-            setLocation(response.data.display_name.split(",")[0] + ", " + response.data.display_name.split(",")[1])
-        }).catch((error) => {
-            console.log("axios failed");
-        })
     }
 
-    useEffect(() => {   
+    /* useEffect(() => {
         getLocation();
-    }, [])
+    }, []) */
 
     return (
         <div className={s.memory} key={memory.memid}>

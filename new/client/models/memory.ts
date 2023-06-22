@@ -20,8 +20,6 @@ class Memory {
 
 
     static async create(raw: any) {
-        console.log("CREATION")
-        console.log(raw);
         let memid = raw.id;
         let primary = raw.primary.url;
         let secondary = raw.secondary.url;
