@@ -15,7 +15,7 @@ class Friend extends User {
         let pfp = rawuser.profilePicture == undefined ? "" : rawuser.profilePicture.url; 
         let uid = rawuser.id;
         let status = rawuser.status;
-        let fullname = rawuser.fullName;
+        let fullname = rawuser.fullname;
 
         return new Friend(username, pfp, uid, status, fullname);
     }

@@ -49,7 +49,7 @@ export default function Profile() {
     return (
         <div className={s.me}>
             <div className={s.card}>
-                <img src={pfp} className={s.pfp} />
+                {pfp ? <img src={pfp} className={s.pfp} /> : <div className={s.pfp}>no profile picture</div>}
                 <div className={s.details}>
                     <div className={s.detail}>
                         <div className={s.label}>username</div>

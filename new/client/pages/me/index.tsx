@@ -8,6 +8,7 @@ import myself from '@/utils/myself';
 import s from './me.module.scss'
 import User from '@/models/user';
 import Friend from '@/models/friend';
+import Link from 'next/link';
 
 export default function Profile() {
 
@@ -118,14 +119,21 @@ export default function Profile() {
                     }
                 </div>
             </div>
-
+            <div className={s.divider}></div>
             <div className={s.friends}>
+                <div className={s.title}>Friends</div>
                     {
                         friends.map((friend) => {
                             return (
-                                <div className={s.friend} key={friend.uid}>
-                                    {friend.username}
-                                </div>
+                                <Link href={`/profile/${friend.uid}`}>
+                                    <div className={s.friend} key={friend.uid}>
+                                        <img src={friend.pfp} className={s.pfp} />
+                                        <div className={s.details}>
+                                            <div className={s.username}>@{friend.username}</div>
+                                            <div className={s.fullname}>{friend.fullname}</div>
+                                        </div>
+                                    </div>
+                                </Link>
                             )
                         })
                     }

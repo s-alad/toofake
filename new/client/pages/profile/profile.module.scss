@@ -1,3 +1,5 @@
+@use "../../styles/common.scss" as c;
+
 .me {
     .card {
 
@@ -9,6 +11,8 @@
             width: 300px;
             border: 1px solid white;
             border-radius: 8px;
+            min-height: 200px;
+            @include c.center();
         }
         
         .details {
