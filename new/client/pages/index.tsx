@@ -30,7 +30,7 @@ export default function Home() {
 
 	function failure(text: string) {
 		console.log(text);		
-		setFailed("ERROR | " + text);
+		setFailed(`ERROR: ${text}`);
 		setTimeout(() => {setFailed("");}, 4000);
 	}
 
@@ -63,7 +63,7 @@ export default function Home() {
 				await myself();
 				router.push("/feed");
 			}
-		).catch((error) => {failure(error.response.data.error.error.code + " | "+ error.response.data.error.error.message)})		
+		).catch((error) => {failure((error.response.data.error.error.code + " | "+ error.response.data.error.error.message).toString())})		
 	}
 
 	async function requestOTPVonage(number: string) {
