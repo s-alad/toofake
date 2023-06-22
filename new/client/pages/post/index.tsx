@@ -2,8 +2,11 @@ import { useState } from "react";
 
 import s from './post.module.scss'
 import axios from "axios";
+import useCheck from "@/utils/check";
 
 export default function Post() {
+
+    useCheck();
 
     let [loading, setLoading] = useState<boolean>(false);
     let [failure, setFailure] = useState<string>("");

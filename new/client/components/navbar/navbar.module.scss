@@ -59,8 +59,11 @@
             .post {
                 margin-right: 0px;
             }
-            .logout {
+            .logout, .memories {
                 margin-right: 12px;
+                &:first-child {
+                    margin-right: 6px;
+                }
                 button {
                     background-color: transparent;
                     border: none;

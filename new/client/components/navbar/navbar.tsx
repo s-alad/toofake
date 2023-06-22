@@ -66,6 +66,9 @@ export default function Navbar() {
                         router.pathname == "/feed"
                             ?
                             <>
+                                <Link href={'/memories'} className={s.memories}>
+                                    <button >memories</button>
+                                </Link>
                                 <span className={s.logout}>
                                     <button onClick={() => logout(router, localStorage)}>logout</button>
                                 </span>
