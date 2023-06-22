@@ -20,49 +20,101 @@ export default function Navbar() {
             }
         }
     }, [router.pathname])
-    
+
+    function getPageName() {
+        if (router.pathname == "/feed") {
+            return "feed";
+        } else if (router.pathname == "/me") {
+            return "me";
+        } else if (router.pathname == "/post") {
+            return "post";
+        } else if (router.pathname.startsWith("/profile")) {
+            return "profile";
+        }
+    }
+
+    let [menu, setMenu] = React.useState<boolean>(false);
+
     return (
         <nav className={s.toofake}>
-            <div>TooFake</div>
             <div className={s.navigation}>
                 {
-                    router.pathname == "/feed" ? 
-                    <> 
-                        <div className={s.sep}></div>
-                        <div className={s.feed}>
-                            Feed
-                        </div>
-                        <div className={s.profile} >
+                    !menu ?
+                        <>
+                            <div className={s.fake}>TooFake</div>
+                            <div className={s.sep}></div>
+                            <div className={s.pagename}>
+                                {getPageName()}
+                            </div>
+                        </> :
+                        <div className={s.extra}>
+                            <div className={s.fake}>&nbsp;</div>
+                            <div className={s.sep}></div>
                             <span className={s.logout}>
                                 <button onClick={() => logout(router, localStorage)}>logout</button>
                             </span>
-                            <Link href={"/post"} className={s.post}>
+                            <Link href={"/post"} className={s.logout}>
                                 <button>post</button>
                             </Link>
-                            <div className={s.sep}></div>
-                            <Link href={"/me"}>
-                                {
-                                    pfp ? <img src={pfp} /> : <div className={s.letter}>{username.toUpperCase().charAt(0)}</div>    
-                                }
-                            </Link>
                         </div>
-                    </> : ''
                 }
-                {
-                    router.pathname == "/me" || router.pathname.startsWith("/profile") || router.pathname == "/post"? 
-                    <> 
-                        <div className={s.sep}></div>
-                        <div className={s.feed}>
-                            {router.pathname == "/post" ? "Post" : "Profile"}
-                        </div>
-                        <div className={s.profile} >
+
+                <div className={s.actions} >
+                    {
+                        router.pathname == "/feed"
+                            ?
+                            <>
+                                <span className={s.logout}>
+                                    <button onClick={() => logout(router, localStorage)}>logout</button>
+                                </span>
+                                <Link href={"/post"} className={s.post}>
+                                    <button>post</button>
+                                </Link>
+                                <div className={s.sep}></div>
+                                <Link href={"/me"}>
+                                    {
+                                        pfp ? <img src={pfp} /> : <div className={s.letter}>{username.toUpperCase().charAt(0)}</div>
+                                    }
+                                </Link>
+                            </>
+                            :
                             <Link href={"/feed"}>
                                 <button>back</button>
                             </Link>
-                        </div>
-                    </> : ''
-                }
-                
+                    }
+                </div>
+
+                <div className={s.mobile}>
+                    {
+                        router.pathname == "/feed"
+                            ?
+                            <>
+                                <div className={`${s.menu} ${menu ? s.menuopen : ""}`} onClick={() => setMenu(!menu)}>
+                                    <div className={s.line}></div>
+                                    <div className={s.line}></div>
+                                    <div className={s.line}></div>
+                                </div>
+                                <div className={s.sep}></div>
+                                <Link href={"/me"}>
+                                    {
+                                        pfp ? <img src={pfp} /> : <div className={s.letter}>{username.toUpperCase().charAt(0)}</div>
+                                    }
+                                </Link>
+                            </>
+                            :
+                            <>
+                                <div className={`${s.menu} ${menu ? s.menuopen : ""}`} onClick={() => setMenu(!menu)}>
+                                    <div className={s.line}></div>
+                                    <div className={s.line}></div>
+                                    <div className={s.line}></div>
+                                </div>
+                                <div className={s.sep}></div>
+                                <Link href={"/feed"}>
+                                    <button>back</button>
+                                </Link>
+                            </>
+                    }
+                </div>
             </div>
         </nav>
     )
