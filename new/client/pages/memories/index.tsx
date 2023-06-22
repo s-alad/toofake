@@ -8,6 +8,8 @@ import s from './memories.module.scss'
 import User from '@/models/user';
 import Link from 'next/link';
 import Memory from '@/models/memory';
+import Draggable from 'react-draggable';
+import Memoire from '@/components/memoire/memoire';
 
 export default function Profile() {
 
@@ -46,31 +48,23 @@ export default function Profile() {
                         console.log("CULDNT MAKE MEMORY WITH DATA: ", memorydata[i])
                         console.log(error);
                     }
-                    
+
                 }
                 console.log("newmemories");
                 console.log(newmemories);
-                
+
                 setMemories(newmemories);
             }
-        ).catch(
-            (error) => {
-                console.log(error);
-            }
-        )
-
-
-
+        ).catch((error) => {console.log(error);})
     }, [])
 
+    let [swap, setSwap] = useState<boolean>(false);
     return (
         <div className={s.memories}>
             {
-                memories.map((memory) => {
+                memories.map((memory, index) => {
                     return (
-                        <div className={s.memory} key={memory.memid}>
-                            {memory.date}
-                        </div>
+                        <Memoire memory={memory} key={index} />
                     )
                 })
             }
