@@ -49,16 +49,26 @@ class Instance {
         }
 
         let initial_location = ""
-        /* if (raw.location) {
+        if (raw.location) {
             let lat = raw.location._latitude;   
             let long = raw.location._longitude;
 
-            let response = await axios.get(
+            try {
+                let response = await axios.get(
+                    `https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer/reverseGeocode?location=${long},${lat}&outSR=&forStorage=false&f=pjson`
+                )
+                console.log(response.data)
+                initial_location = response.data.address.Match_addr + ", " + response.data.address.City;
+            } catch (e) {
+                console.log(e)
+            }
+
+            /* let response = await axios.get(
                 `https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${long}&zoom=15&format=jsonv2`
             )
-            initial_location = response.data.display_name.split(",")[0] + ", " + response.data.display_name.split(",")[1];
+            initial_location = response.data.display_name.split(",")[0] + ", " + response.data.display_name.split(",")[1]; */
 
-        } */
+        }
         let location = initial_location
 
         let comments: Comment[] = [];
