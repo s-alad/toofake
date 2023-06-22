@@ -157,13 +157,13 @@
             align-items: center;
             justify-content: center;
             height: 100%;
-            a {
+            a, span {
                 @include c.center();
                 color: white;
                 text-decoration: none;
             }
             .logout {
-                margin-right: 24px;
+                margin-right: 8px;
                 @include c.center();
                 button {
                     background-color: transparent;
@@ -180,7 +180,7 @@
                 font-size: 12px;
                 font-weight: 500;
                 height: 26px;
-                width: 50px;
+                width: min-content;
                 border-radius: 6px;
                 background-color: white;
                 border: none;

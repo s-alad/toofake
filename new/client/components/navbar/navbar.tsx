@@ -58,6 +58,9 @@ export default function Navbar() {
                             <Link href={"/post"} className={s.logout}>
                                 <button>post</button>
                             </Link>
+                            <Link href={"/memories"} className={s.logout}>
+                                <button>memories</button>
+                            </Link>
                         </div>
                 }
 
