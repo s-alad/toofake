@@ -49,7 +49,7 @@ class Instance {
         }
 
         let initial_location = ""
-        if (raw.location) {
+        /* if (raw.location) {
             let lat = raw.location._latitude;   
             let long = raw.location._longitude;
 
@@ -58,7 +58,7 @@ class Instance {
             )
             initial_location = response.data.display_name.split(",")[0] + ", " + response.data.display_name.split(",")[1];
 
-        }
+        } */
         let location = initial_location
 
         let comments: Comment[] = [];

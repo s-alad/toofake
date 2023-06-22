@@ -4,29 +4,35 @@ class Memory {
     secondary: string;
     thumbnail: string;
     date: string;
-    /* location?: { latitude: number, longitude: number }; */
+    location: { latitude: number, longitude: number } | undefined;
 
     constructor(
-        memid: string, primary: string, secondary: string, thumbnail: string, date: string/* , location: { latitude: number, longitude: number } */
+        memid: string, primary: string, secondary: string, thumbnail: string, date: string, 
+        location: { latitude: number, longitude: number } | undefined
     ) {
         this.memid = memid;
         this.primary = primary;
         this.secondary = secondary;
         this.thumbnail = thumbnail;
         this.date = date;
-        /* this.location = location; */
+        this.location = location;
     }
 
 
     static async create(raw: any) {
+        console.log("CREATION")
+        console.log(raw);
         let memid = raw.id;
         let primary = raw.primary.url;
         let secondary = raw.secondary.url;
         let thumbnail = raw.thumbnail.url;
         let date = raw.memoryDay;
-        /* let location = raw.location != undefined ? { latitude: raw.location.latitude, longitude: raw.location.longitude } : ""; */
+        let location = raw.location != undefined ? { 
+            latitude: raw.location.latitude as number, 
+            longitude: raw.location.longitude as number
+        } : undefined;
 
-        return new Memory(memid, primary, secondary, thumbnail, date /* location */);
+        return new Memory(memid, primary, secondary, thumbnail, date, location);
     }
 }
 

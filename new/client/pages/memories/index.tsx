@@ -37,6 +37,8 @@ export default function Profile() {
 
                 async function createMemory(data: any) {
                     let newmemory = await Memory.create(data);
+                    console.log("newmemory");
+                    console.log(newmemory);
                     newmemories.push(newmemory);
                     return newmemory;
                 }
