@@ -28,16 +28,15 @@ export default function Home() {
 	let [failed, setFailed] = useState<string>("");
 	let [help, setHelp] = useState<string>("");
 
-
 	function failure(text: string) {
 		console.log(text);		
 		setFailed("ERROR | " + text);
-		setTimeout(() => {setFailed("");}, 3000);
+		setTimeout(() => {setFailed("");}, 23000);
 	}
 
 	function helpme() {
 		setHelp("Failed with Vonage login provider, re-trying to login with Firebase...");
-		setTimeout(() => {setHelp("");}, 3000);
+		setTimeout(() => {setHelp("");}, 23000);
 	}
 
 
@@ -196,15 +195,15 @@ export default function Home() {
 				<div className={s.messages}>
 					{
 						failed != "" ?
-						<div className={s.failed}>
+						<span className={s.failed}>
 							{failed}
-						</div> : ""
+						</span> : <span></span>
 					}
 					{
 						help != "" ?
 						<div className={s.help}>
 							{help}
-						</div> : ""
+						</div> : <span></span>
 					}
 				</div>
 			</div>

@@ -1,4 +1,3 @@
-
 .wrapper {
     display: flex;
     flex-direction: column;
@@ -13,15 +12,18 @@
 .info {
     flex: 1;
     max-width: 600px;
+
     span {
         color: green;
     }
+
     a {
         color: white;
     }
 }
 
-.login, .verify{
+.login,
+.verify {
     display: flex;
     flex-direction: column;
     align-items: start;
@@ -29,19 +31,29 @@
     flex: 1;
     padding-top: 100px;
     height: 100%;
-    .text {font-size: 22px}
+
+    .text {
+        font-size: 22px
+    }
 
     //check if screen is small
     .number {
         display: flex;
         margin-top: 12px;
+
         /* @include common.center(); */
         @media (max-width: 600px) {
             flex-direction: column !important;
             align-items: start !important;
-            .send {margin-top: 16px;}
+
+            .send {
+                margin-top: 16px;
+            }
         }
-        .space {padding-left: 10px;}
+
+        .space {
+            padding-left: 10px;
+        }
 
         .digits {
             text-decoration: none;
@@ -53,57 +65,74 @@
             margin-right: 10px;
             height: 40px;
         }
+
         .digits:hover {
             background-color: transparent !important;
         }
-        .digits:focus {outline:0;}
+
+        .digits:focus {
+            outline: 0;
+        }
 
         .dropdown {
             background-color: transparent;
             border: 2px solid white;
         }
+
         .dropdown:hover {
             background-color: transparent;
         }
 
         .search {
-            outline:0;
+            outline: 0;
             text-decoration: none;
             background-color: #121212 !important;
         }
-        .search:focus {outline:0;}
+
+        .search:focus {
+            outline: 0;
+        }
+
         .search:hover {
             background-color: #121212;
         }
+
         .button {
 
             outline: 0;
             text-decoration: none;
         }
+
         .button:hover {
             outline: 0;
             text-decoration: none;
         }
+
         .button:focus {
             outline: 0;
             text-decoration: none;
         }
+
         .cont {
             background-color: transparent;
         }
+
         .cont:hover {
             background-color: transparent;
         }
+
         .country:hover {
             background-color: #7a7a7a39 !important;
         }
+
         .country.highlight {
             background-color: #7a7a7a39 !important;
         }
+
         .send {
             height: 40px;
-            width: 60px;
-            min-width: 60px;
+            width: 70px;
+            min-width: 70px;
             background-color: white;
             color: black;
             font-size: 18px;
@@ -122,17 +151,21 @@
 
 .messages {
     display: flex;
-        flex-direction: column;
-        align-items: start;
-        width: 100%;
-        padding-top: 20px;
-        height: 100%;   
+    flex-direction: column;
+    align-items: start;
+    /* width: 100%; */
+    padding-top: 20px;
+    height: 140px;
+
     .failed {
         color: rgb(165, 0, 0);
         margin-bottom: 12px;
+        word-wrap: normal;
     }
-    .help { 
+
+    .help {
         color: aqua;
+        word-wrap: normal;
     }
 }
 
@@ -140,16 +173,20 @@
 .country:hover {
     background-color: #7a7a7a39 !important;
 }
+
 .country.highlight {
     background-color: #7a7a7a39 !important;
 }
+
 .arrow.up {
     border-top: none !important;
     border-bottom: 4px solid white !important;
 }
+
 .arrow {
     border-top: 4px solid white !important;
 }
+
 .react-tel-input .country-list .country.highlight {
     background-color: transparent !important;
-  }
+}
