@@ -44,9 +44,6 @@ export default function Instant({ instance }: _Instant) {
     let [swap, setSwap] = useState<boolean>(false);
     let [expanded, setExpanded] = useState<boolean>(false);
 
-    console.log("instance")
-    console.log(instance);
-
     let profile_link = instance.user.uid == localStorage.getItem("uid") ? "/me" : `/profile/${instance.user.uid}`;
 
     function pfp(): JSX.Element {

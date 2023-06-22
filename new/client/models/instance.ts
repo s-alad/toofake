@@ -73,10 +73,6 @@ class Instance {
                     console.log(e)
                 }
             }
-
-
-
-
         }
         let location = initial_location
 

@@ -48,12 +48,17 @@ export default function Feed() {
                     let id = data.id;
                     let newinstance = await Instance.create(data);
                     newinstances[id] = newinstance;
-                    return newinstance;
+                    console.log("newinstances");
+                    console.log(newinstances);
+
+                    setLoading(false);
                 }
 
                 for (let i = 0; i < response.data.length; i++) {
                     try {
                         await createInstance(response.data[i]);
+                        setInstances({...newinstances});
+                        setLoading(false);
                     } catch (error) {
                         console.log("CULDNT MAKE INSTANCE WITH DATA: ", response.data[i])
                         console.log(error);
@@ -62,8 +67,6 @@ export default function Feed() {
                 }
                 console.log("newinstances");
                 console.log(newinstances);
-                setInstances(newinstances);
-                setLoading(false);
             }
         ).catch(
             (error) => {
