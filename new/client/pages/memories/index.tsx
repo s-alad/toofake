@@ -5,6 +5,7 @@ import axios from 'axios'
 import useCheck from '@/utils/check';
 import myself from '@/utils/myself';
 import s from './memories.module.scss'
+import l from '@/styles/loader.module.scss';
 import User from '@/models/user';
 import Link from 'next/link';
 import Memory from '@/models/memory';
@@ -16,6 +17,7 @@ export default function Profile() {
     useCheck();
 
     let [memories, setMemories] = useState<Memory[]>([]);
+    let [loading, setLoading] = useState<boolean>(true);
 
     useEffect(() => {
 
@@ -44,6 +46,7 @@ export default function Profile() {
                 for (let i = 0; i < memorydata.length; i++) {
                     try {
                         await createMemory(memorydata[i]);
+                        setLoading(false);
                         setMemories([...newmemories]);
                     } catch (error) {
                         console.log("CULDNT MAKE MEMORY WITH DATA: ", memorydata[i])
@@ -61,6 +64,7 @@ export default function Profile() {
     return (
         <div className={s.memories}>
             {
+                loading ? <div className={l.loader}></div> :
                 memories.map((memory, index) => {
                     return (
                         <Memoire memory={memory} key={index} />
