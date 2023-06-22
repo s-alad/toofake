@@ -46,8 +46,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     // log the first 20 chars of the base64 string
     console.log("BASE64 STRINGS 20chars");
-    console.log(primaryb64.substring(0, 20));
-    console.log(secondaryb64.substring(0, 20));
+    console.log(primaryb64.substring(0, 40));
+    console.log(secondaryb64.substring(0, 40));
     console.log('---------------------')
 
     // drop prefix of base64 string
