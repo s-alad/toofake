@@ -51,7 +51,7 @@ export default function Navbar() {
                             <div className={s.fake}>&nbsp;</div>
                             <div className={s.sep}></div>
                             <span className={s.logout}>
-                                <button onClick={() => logout(router, localStorage)}>logout</button>
+                                <button onClick={() => {logout(router, localStorage); setMenu(false)}}>logout</button>
                             </span>
                             <Link href={"/post"} className={s.logout}>
                                 <button>post</button>
@@ -101,7 +101,7 @@ export default function Navbar() {
                                     }
                                 </Link>
                             </>
-                            :
+                            : router.pathname == "/" ? "" :
                             <>
                                 <div className={`${s.menu} ${menu ? s.menuopen : ""}`} onClick={() => setMenu(!menu)}>
                                     <div className={s.line}></div>
