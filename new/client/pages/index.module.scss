@@ -1,3 +1,5 @@
+@use "../styles/common.scss" as c;
+
 .wrapper {
     display: flex;
     flex-direction: column;
@@ -139,6 +141,7 @@
             border-radius: 6px;
             border: 2px solid white;
             cursor: pointer;
+            @include c.center();
         }
     }
 
