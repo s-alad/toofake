@@ -30,6 +30,8 @@ export default function Navbar() {
             return "post";
         } else if (router.pathname.startsWith("/profile")) {
             return "profile";
+        } else if (router.pathname == "/memories") {
+            return "memories";
         }
     }
 

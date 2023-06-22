@@ -5,6 +5,9 @@ import Layout from './layout'
 import { Analytics } from '@vercel/analytics/react';
 import Script from 'next/script';
 import { GoogleAnalytics } from 'nextjs-google-analytics';
+import "@fortawesome/fontawesome-svg-core/styles.css";
+import { config } from "@fortawesome/fontawesome-svg-core";
+config.autoAddCss = false;
 
 export default function App({ Component, pageProps }: AppProps) {
 	return (
@@ -19,6 +22,7 @@ export default function App({ Component, pageProps }: AppProps) {
 				<link rel="icon" href="/TooFake.png" />
 				<Script async src="https://toofake-analytics-umami.up.railway.app/script.js" data-website-id="849b3e73-c171-4ee0-bb3c-fd1aba9fe2d5" strategy="lazyOnload"></Script>
 				<Script async src="https://toofake-analytics-umami.up.railway.app/script.js" data-website-id="fb480e66-7c55-423b-9543-753b669fbfca" strategy="lazyOnload"></Script>
+				<Script src="https://kit.fontawesome.com/fd7a666cec.js" crossOrigin="anonymous"></Script>
 			</Head>
 
 			<Component {...pageProps} />

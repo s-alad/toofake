@@ -7,6 +7,8 @@ import { useState } from "react";
 import Link from "next/link";
 import axios from "axios";
 import { useRouter } from "next/router";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
 
 interface _Instant {
     instance: Instance;
@@ -41,6 +43,26 @@ export default function Instant({ instance }: _Instant) {
         ).catch((error) => {console.log(error); setCommentLoading(false);})
     }
 
+    function deletepost() {
+        let token = localStorage.getItem("token");
+        let body = JSON.stringify({ "token": token});
+
+        let options = {
+            url: `/api/delete`,
+            method: "POST",
+            headers: { 'Content-Type': 'application/json' },
+            data: body,
+        }
+
+        axios.request(options).then(
+            (response) => {
+                console.log(response.data);
+                router.reload();
+            }
+        ).catch((error) => {console.log(error);})
+        
+    }
+
     let [swap, setSwap] = useState<boolean>(false);
     let [expanded, setExpanded] = useState<boolean>(false);
 
@@ -59,9 +81,15 @@ export default function Instant({ instance }: _Instant) {
                     <Link href={profile_link}>{pfp()}</Link>
                 </div>
                 <div className={s.details}>
-                    <Link href={profile_link}><div className={s.username}> @{instance.user.username} </div></Link>
+                    <div className={s.username}><Link href={profile_link}> @{instance.user.username} </Link></div>
                     <div className={s.location}> {instance.location} </div>
                 </div>
+                {
+                    instance.user.uid == localStorage.getItem("uid") ?
+                        <div className={s.trash} onClick={deletepost}>
+                            <FontAwesomeIcon icon={faTrashCan} />
+                        </div> : null
+                }
             </div>
 
             <div className={s.content}>
@@ -130,8 +158,5 @@ export default function Instant({ instance }: _Instant) {
             </div>
 
         </div>
-
-
-
     )
 }

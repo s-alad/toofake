@@ -67,6 +67,7 @@ export default function Feed() {
                 }
                 console.log("newinstances");
                 console.log(newinstances);
+                setLoading(false);
             }
         ).catch(
             (error) => {
@@ -91,11 +92,17 @@ export default function Feed() {
             }
             {
                 loading ? <div className={l.loader}></div> :
-                Object.keys(instances).map((key, idx) => {
-                    return (
-                        <Instant key={idx} instance={instances[key]} />
-                    )
-                })
+                (
+                    Object.keys(instances).length > 0 ? 
+                    Object.keys(instances).map((key, idx) => {
+                        return (
+                            <Instant key={idx} instance={instances[key]} />
+                        )
+                    }) :
+                    <div className={s.nothing}>
+                        It's quiet here, nobody has posted anything yet.
+                    </div>
+                )
             }
         </div>
     )
