@@ -4,6 +4,7 @@
     display: flex;
     flex-wrap: wrap;
     .img {
+        position: relative;
         width: 300px;
         min-width: 300px;
         height: 400px;
@@ -53,6 +54,11 @@
     border-radius: 12px;
     background-color: white;
     color: black;
+
+    @media screen and (max-width: 675px) {
+        margin-left: 0px !important;
+        width: 300px !important;
+    }
 }
 .submit {
     margin-top: 14px;

@@ -98,19 +98,16 @@ export default function Post() {
     return (
         <div>
             <div className={s.images}>
-                <div className={`${s.img} ${s.one}`}>
+                <div className={`${s.img}`}>
                     <label htmlFor="file-one-upload" className={s.upload}>Choose Front image</label>
                     <input id="file-one-upload" type="file" name="file" onChange={fileOneHandler} />
                     {isFirstFilePicked ? (
                         <div className={s.sub}>
                             <img src={URL.createObjectURL(selectedFileOne)} />
                         </div>
-                    ) : (
-                        <>
-                        </>
-                    )}
+                    ) : (<></>)}
                 </div>
-                <div className={`${s.img} ${s.two}`}>
+                <div className={`${s.img}`}>
                     <label htmlFor="file-two-upload" className={s.upload}>Choose Back image</label>
                     <input id="file-two-upload" type="file" name="file" onChange={fileTwoHandler} />
                     {isSecondFilePicked ? (

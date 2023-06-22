@@ -35,6 +35,8 @@ export default function Navbar() {
 
     let [menu, setMenu] = React.useState<boolean>(false);
 
+
+    // super hacky navbar but works for now
     return (
         <nav className={s.toofake}>
             <div className={s.navigation}>
