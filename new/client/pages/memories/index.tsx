@@ -44,6 +44,7 @@ export default function Profile() {
                 for (let i = 0; i < memorydata.length; i++) {
                     try {
                         await createMemory(memorydata[i]);
+                        setMemories([...newmemories]);
                     } catch (error) {
                         console.log("CULDNT MAKE MEMORY WITH DATA: ", memorydata[i])
                         console.log(error);
@@ -53,7 +54,6 @@ export default function Profile() {
                 console.log("newmemories");
                 console.log(newmemories);
 
-                setMemories(newmemories);
             }
         ).catch((error) => {console.log(error);})
     }, [])
