@@ -132,6 +132,9 @@ export default function Post() {
             <div className={s.submit} onClick={() => { handleSubmission() }}>
                 submit
             </div>
+            <div className={s.info}>
+                *some photos taken on an iphone (.heic) may not work. if there is an error try taking a screenshot of the image and uploading that instead.
+            </div>
             {/* fix this nesting */}
             {
                 failure != "" ? (

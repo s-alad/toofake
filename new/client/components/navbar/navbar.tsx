@@ -37,6 +37,8 @@ export default function Navbar() {
 
     let [menu, setMenu] = React.useState<boolean>(false);
 
+    // if width greater than 800px, show desktop navbar
+    // if width less than 800px, show mobile navbar
 
     // super hacky navbar but works for now
     return (
@@ -53,7 +55,7 @@ export default function Navbar() {
                         </> :
                         <div className={s.extra}>
                             <div className={s.fake}>&nbsp;</div>
-                            <div className={s.sep}></div>
+                            {/* <div className={s.sep}></div> */}
                             <span className={s.logout}>
                                 <button onClick={() => {logout(router, localStorage); setMenu(false)}}>logout</button>
                             </span>
@@ -74,13 +76,13 @@ export default function Navbar() {
                         router.pathname == "/feed"
                             ?
                             <>
-                                <Link href={'/memories'} className={s.memories}>
+                                <Link href={'/memories'} className={s.item}>
                                     <button >memories</button>
                                 </Link>
-                                <Link href={'/realmojis'} className={s.memories}>
+                                <Link href={'/realmojis'} className={s.item}>
                                     <button >realmojis</button>
                                 </Link>
-                                <span className={s.logout}>
+                                <span className={s.item}>
                                     <button onClick={() => logout(router, localStorage)}>logout</button>
                                 </span>
                                 <Link href={"/post"} className={s.post}>
@@ -94,7 +96,7 @@ export default function Navbar() {
                                 </Link>
                             </>
                             :
-                            <Link href={"/feed"}>
+                            <Link href={"/feed"} className={s.post} >
                                 <button>back</button>
                             </Link>
                     }

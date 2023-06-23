@@ -30,12 +30,34 @@
             align-items: center;
             height: 100%;
             a {
-                @include c.center();
                 color: white;
                 text-decoration: none;
             }
-            span {
+            .item {
+                margin-right: 12px;
                 @include c.center();
+                button {
+                    background-color: transparent;
+                    border: none;
+                    color: white;
+                    font-size: 16px;
+                    font-weight: 500;
+                    cursor: pointer;
+                    text-decoration: underline;
+                }
+            }
+            .post {
+                @include c.center();
+                button {
+                    cursor: pointer;
+                    font-size: 16px;
+                    font-weight: 500;
+                    height: 34px;
+                    width: 80px;
+                    border-radius: 8px;
+                    background-color: white;
+                    border: none;
+                }
             }
             .letter {
                 box-shadow: 0px 0px 6px 1px #fff;
@@ -55,34 +77,6 @@
                 border-radius: 100%;
                 object-fit: cover;
                 background-color: white;
-            }
-            .post {
-                margin-right: 0px;
-            }
-            .logout, .memories {
-                margin-right: 12px;
-                &:first-child {
-                    margin-right: 6px;
-                }
-                button {
-                    background-color: transparent;
-                    border: none;
-                    color: white;
-                    font-size: 16px;
-                    font-weight: 500;
-                    cursor: pointer;
-                    text-decoration: underline;
-                }
-            }
-            button {
-                cursor: pointer;
-                font-size: 16px;
-                font-weight: 500;
-                height: 34px;
-                width: 80px;
-                border-radius: 8px;
-                background-color: white;
-                border: none;
             }
         }
 
@@ -170,7 +164,7 @@
                     background-color: transparent;
                     border: none;
                     color: white;
-                    font-size: 20px;
+                    font-size: 14px;
                     font-weight: 500;
                     cursor: pointer;
                     text-decoration: underline;
@@ -189,8 +183,20 @@
         }
     }
 
+    @media screen and (max-width: 830px) {
+        font-size: 32px;
+    }
 
-    @media screen and (max-width: 600px) {
+    @media screen and (min-width: 700px) {
+        .navigation {
+            .extra {
+                display: none;
+            }
+        }
+    }
+
+
+    @media screen and (max-width: 700px) {
         font-size: 28px;
         .sep { width: 2px; margin: 0 12px;}
         .navigation {
@@ -203,6 +209,13 @@
             .mobile {
                 display: flex;
             }
+        }
+    }
+
+    @media screen and (max-width: 420px) {
+        font-size: 22px;
+        .navigation {
+            .pagename { font-size: 16px; }
         }
     }
 }
