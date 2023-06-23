@@ -32,6 +32,8 @@ export default function Navbar() {
             return "profile";
         } else if (router.pathname == "/memories") {
             return "memories";
+        } else if (router.pathname == "/realmojis") {
+            return "realmojis";
         }
     }
 
