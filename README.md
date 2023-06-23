@@ -14,11 +14,11 @@ check out the project at [BeFake](https://github.com/notmarek/BeFake) for a usua
 ---
 
 todo:
-- [ ] mobile resize support
-- [ ] add friends list
-- [ ] delete post ability
+- [ ] fix .heic and .heif image issues
+- [ ] make mobile navigation better
 - [ ] delete comment ability
-- [ ] add custom realmoji reactions
+- [x] add custom realmoji
+- [ ] add realmoji reactions
 
 longterm:
 - [ ] change state management
