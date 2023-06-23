@@ -163,7 +163,8 @@
                 text-decoration: none;
             }
             .logout {
-                margin-right: 8px;
+                margin-right: 4px;
+                font-size: 12px;
                 @include c.center();
                 button {
                     background-color: transparent;

@@ -63,6 +63,9 @@ export default function Navbar() {
                             <Link href={"/memories"} className={s.logout}>
                                 <button>memories</button>
                             </Link>
+                            <Link href={"/realmojis"} className={s.logout}>
+                                <button>mojis</button>
+                            </Link>
                         </div>
                 }
 
@@ -73,6 +76,9 @@ export default function Navbar() {
                             <>
                                 <Link href={'/memories'} className={s.memories}>
                                     <button >memories</button>
+                                </Link>
+                                <Link href={'/realmojis'} className={s.memories}>
+                                    <button >realmojis</button>
                                 </Link>
                                 <span className={s.logout}>
                                     <button onClick={() => logout(router, localStorage)}>logout</button>
