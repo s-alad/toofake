@@ -80,7 +80,7 @@ export default function Post() {
         console.log(formData);
 
         let options = {
-            url: "/api/post",
+            url: "/api/add/post",
             method: "POST",
             headers: { 'Content-Type': "multipart/form-data" },
             data: formData,

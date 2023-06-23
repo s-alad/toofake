@@ -11,6 +11,7 @@ import s from './realmojis.module.scss'
 import User from '@/models/user';
 import Friend from '@/models/friend';
 import Link from 'next/link';
+import Realmoji from '@/components/realmoji/realmoji';
 
 interface Moji {
     id: string;
@@ -78,24 +79,7 @@ export default function Profile() {
             {
                 Object.keys(myRealMojis).map((emoji) => {
                     return (
-                        (myRealMojis[emoji] != undefined) ?
-                        <div className={s.realmoji} key={myRealMojis[emoji]!.id}>
-                            <img src={myRealMojis[emoji]!.url} />
-                            <div className={s.details}>
-                                <div className={s.emoji}>{emoji}</div>
-                                <div className={s.utility}>
-                                    <label htmlFor="file-two-upload" className={s.upload}>change realmoji</label>
-                                    <input id="file-two-upload" type="file" name="file" onChange={() => {}} />
-                                </div>
-                            </div>
-                        </div>
-                        :
-                        <div className={s.realmoji}>
-                            <div className={s.nomoji} onClick={() => console.log(myRealMojis[emoji])}>no realmoji</div>
-                            <div className={s.details}>
-                                <div className={s.emoji}>{emoji}</div>
-                            </div>
-                        </div>
+                        <Realmoji emoji={emoji} realmoji={myRealMojis} />
                     )
                 })
             }
