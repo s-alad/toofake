@@ -144,7 +144,10 @@ export default function Instant({ instance }: _Instant) {
                         !addingmoji ?
                         instance.realmojis.map((realmoji) => {
                             return (
-                                <Link href={`/profile/${realmoji.owner.uid}`} key={realmoji.emoji_id}>
+                                <Link href={
+                                    realmoji.owner.uid == localStorage.getItem("uid") ?
+                                        "/me" : `/profile/${realmoji.owner.uid}`
+                                } key={realmoji.emoji_id}>
                                     <div className={s.realmoji} key={realmoji.emoji_id}>
                                         <div className={s.moji}>{realmoji.emoji}</div>
                                         <img src={realmoji.uri} />
