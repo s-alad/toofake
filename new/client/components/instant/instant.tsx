@@ -100,7 +100,13 @@ export default function Instant({ instance }: _Instant) {
 
     useEffect(() => {
         getLocation();
+
+
+
     }, [])
+
+    let [mymojis, setMymojis] = useState<string[]>([]); 
+    let [addingmoji, setAddingmoji] = useState<boolean>(false);
 
     return (
         <div className={s.instant}>
@@ -129,12 +135,13 @@ export default function Instant({ instance }: _Instant) {
                     </Draggable>
                 </div>
                 <div className={s.realmojis}>
-                    <div className={s.addmojis}>
-                        <div className={s.add}>
+                    {/* <div className={s.addmojis}>
+                        <div className={s.add} onClick={() => setAddingmoji(!addingmoji)}>
                             <FontAwesomeIcon icon={faAdd} />
                         </div>
-                    </div>
+                    </div> */}
                     {
+                        !addingmoji ?
                         instance.realmojis.map((realmoji) => {
                             return (
                                 <Link href={`/profile/${realmoji.owner.uid}`} key={realmoji.emoji_id}>
@@ -144,7 +151,15 @@ export default function Instant({ instance }: _Instant) {
                                     </div>
                                 </Link>
                             )
-                        })
+                        }) :
+                        <>
+                            <div className={s.addmojis}>
+                            <div className={s.moji}>⚡</div>
+                                <div className={s.add}>
+                                    <FontAwesomeIcon icon={faAdd} />
+                                </div>
+                            </div>
+                        </>
                     }
                 </div>
             </div>
