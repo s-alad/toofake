@@ -19,6 +19,7 @@
     "@vercel/analytics": "^1.0.1",
     "axios": "^1.4.0",
     "formidable": "^3.4.0",
+    "heic-convert": "^1.2.4",
     "jimp": "^0.22.8",
     "moment": "^2.29.4",
     "next": "13.4.6",
