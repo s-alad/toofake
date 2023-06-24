@@ -74,9 +74,10 @@ export default function Feed() {
             }
         ).catch(
             (error) => {
+                console.log("FETCHNG ERROR")
                 console.log(error);
                 setLoading(false);
-                setFailure(JSON.stringify(error.response.data.error));
+                setFailure("SOMETHING WENT WRONG: " + JSON.stringify(error.response.data.error));
                 setTimeout(() => {setFailure("")}, 5000);
             }
         )
@@ -97,8 +98,6 @@ export default function Feed() {
         if (localStorage.getItem("myself") == undefined) return;
 
         let my_real_mojis = JSON.parse(localStorage.getItem("myself")!).realmojis;
-        console.log("MY MOJIS");
-        console.log(my_real_mojis);
 
         let my_current_realmojis: Moji[] = []
         for (let i = 0; i < my_real_mojis.length; i++) {
