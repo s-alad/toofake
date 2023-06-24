@@ -22,6 +22,7 @@ todo:
 - [x] add realmoji reactions
 - [ ] add instant realmoji
 - [ ] react-all realmoji
+- [ ] not all friends show for big friends list
 
 longterm:
 - [ ] change state management
