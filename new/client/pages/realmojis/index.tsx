@@ -39,6 +39,9 @@ export default function RealMojis() {
     useEffect(() => {
         myself()
 
+        if (!localStorage.getItem("myself")) {
+            return;
+        }
         
         let my_real_mojis = JSON.parse(localStorage.getItem("myself")!).realmojis;
         console.log("MY MOJIS");

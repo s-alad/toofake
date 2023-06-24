@@ -19,6 +19,7 @@ export default function Feed() {
 
     let router = useRouter();
     useCheck();
+    let [ready, setReady] = useState<boolean>(false);
 
     let [instances, setInstances] = useState<{ [key: string]: Instance }>({})
     let [loading, setLoading] = useState<boolean>(true);
@@ -29,6 +30,7 @@ export default function Feed() {
         setLoading(true);
         let token = localStorage.getItem("token");
         let body = JSON.stringify({ "token": token });
+        setReady(true);
 
         let options = {
             url: "/api/feed",
@@ -92,6 +94,8 @@ export default function Feed() {
     let [mymojis, setMymojis] = useState<Moji[]>([]);
     useEffect(() => {
 
+        if (localStorage.getItem("myself") == undefined) return;
+
         let my_real_mojis = JSON.parse(localStorage.getItem("myself")!).realmojis;
         console.log("MY MOJIS");
         console.log(my_real_mojis);
@@ -117,7 +121,7 @@ export default function Feed() {
 
         setMymojis([...my_current_realmojis]);
         
-    }, [])
+    }, [loading])
 
     return (
         <div className={s.feed}>

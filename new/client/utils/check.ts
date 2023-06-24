@@ -4,7 +4,8 @@ import axios from 'axios';
 
 export default function useCheck() {
     const router = useRouter();
-
+    
+    
     function removeStorage() {
         localStorage.removeItem("token");
         localStorage.removeItem("refresh_token");
@@ -88,4 +89,5 @@ export default function useCheck() {
         console.log("====================================")
     }, [])
 
+    return true;
 }
