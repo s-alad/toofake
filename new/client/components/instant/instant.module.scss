@@ -181,10 +181,13 @@
     }
 
     .caption {
-        height: 40px;
         width: 100%;
-        padding: 10px;
+        padding: 7px 10px;
         font-size: 12px;
+
+        span {
+            color: rgb(158, 158, 158);
+        }
     }
 
     .addcomment {
@@ -231,13 +234,13 @@
 
     .comments {
         padding: 0px 10px;
-        padding-bottom: 2px;
+        padding-bottom: 4px;
         .expand {
             font-size: 14px;
             height: 25px;
             cursor: pointer;
         }
-        .holder {height: 25px;}
+        .holder {height: 25px; font-size: 14px; color: rgb(158, 158, 158);}
 
         .comment {
             display: flex;

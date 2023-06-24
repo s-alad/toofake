@@ -218,7 +218,7 @@ export default function Instant({ instance }: _Instant) {
             </div>
 
             <div className={s.caption}>
-                {instance.caption ? (instance.caption.length == 0 ? 'no caption' : instance.caption) : 'no caption'}
+                {instance.caption ? (instance.caption.length == 0 ? <span>no caption</span> : instance.caption) : <span>no caption</span>}
             </div>
             <div className={s.addcomment}>
                 <input placeholder="your comment" value={comment} onChange={(e) => { setComment(e.target.value); }}></input>
@@ -236,7 +236,7 @@ export default function Instant({ instance }: _Instant) {
                             {expanded ? '⬆ collapse comments' : '⬇ expand comments'}
                         </div>
                         :
-                        <div className={s.holder}></div>
+                        <div className={s.holder}>no comments</div>
                 }
                 {
                     expanded ?
