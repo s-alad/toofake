@@ -27,6 +27,7 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-draggable": "^4.4.5",
+    "react-multi-carousel": "^2.8.4",
     "react-phone-input-2": "^2.15.1",
     "sass": "^1.63.4",
     "sharp": "^0.32.1",

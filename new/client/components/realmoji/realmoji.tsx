@@ -122,7 +122,9 @@ export default function Realmoji({ emoji, realmoji }: RealmojiProperties) {
                             {
                                 loading ? <div className={l.loadertiny}></div> 
                                 : (
-                                    success ? <FontAwesomeIcon icon={faCheck} className={s.success} /> :
+                                    success ? 
+                                    <FontAwesomeIcon icon={faCheck} className={s.success} /> 
+                                        :
                                     <FontAwesomeIcon icon={faUpload} />
                                 )
                             }

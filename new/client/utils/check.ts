@@ -57,7 +57,7 @@ export default function useCheck() {
                             localStorage.setItem("expiration", expiration);
 
                             console.log("refreshing page");
-                            router.reload();
+                            router.reload(); // don't know if this works yet
                             
                         } else {
                             console.log("refresh error");
