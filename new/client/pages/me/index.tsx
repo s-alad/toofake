@@ -11,7 +11,7 @@ import User from '@/models/user';
 import Friend from '@/models/friend';
 import Link from 'next/link';
 
-export default function Profile() {
+export default function Me() {
 
     useCheck();
 

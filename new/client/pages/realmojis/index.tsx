@@ -14,7 +14,7 @@ import Link from 'next/link';
 import Realmoji from '@/components/realmoji/realmoji';
 import Moji from '@/models/moji';
 
-export default function Profile() {
+export default function RealMojis() {
 
     useCheck();
 

@@ -12,7 +12,7 @@ import Memory from '@/models/memory';
 import Draggable from 'react-draggable';
 import Memoire from '@/components/memoire/memoire';
 
-export default function Profile() {
+export default function Memories() {
 
     useCheck();
 
