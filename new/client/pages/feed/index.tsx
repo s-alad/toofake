@@ -12,6 +12,7 @@ import useCheck from '@/utils/check';
 
 import s from './feed.module.scss';
 import l from '@/styles/loader.module.scss';
+import Moji from '@/models/moji';
 
 
 export default function Feed() {
@@ -80,6 +81,44 @@ export default function Feed() {
 
     }, [])
 
+
+    let emoji_lookup: {[key: string]: string} = {
+        "😍": "heartEyes",
+        "😂": "laughing",
+        "😲": "surprised", 
+        "😃": "happy", 
+        "👍": "up"
+    }
+    let [mymojis, setMymojis] = useState<Moji[]>([]);
+    useEffect(() => {
+
+        let my_real_mojis = JSON.parse(localStorage.getItem("myself")!).realmojis;
+        console.log("MY MOJIS");
+        console.log(my_real_mojis);
+
+        let my_current_realmojis: Moji[] = []
+        for (let i = 0; i < my_real_mojis.length; i++) {
+
+            let emoji = my_real_mojis[i].emoji;
+
+            let my_real_moji: Moji = {
+                id: my_real_mojis[i].id,
+                emoji: emoji,
+                url: my_real_mojis[i].media.url,
+                userId: my_real_mojis[i].userId,
+                type: emoji_lookup[emoji]
+            }
+
+            my_current_realmojis.push(my_real_moji);
+        }
+
+        console.log("MY CURRENT MOJIS");
+        console.log(my_current_realmojis);
+
+        setMymojis([...my_current_realmojis]);
+        
+    }, [])
+
     return (
         <div className={s.feed}>
             {
@@ -96,7 +135,7 @@ export default function Feed() {
                     Object.keys(instances).length > 0 ? 
                     Object.keys(instances).map((key, idx) => {
                         return (
-                            <Instant key={idx} instance={instances[key]} />
+                            <Instant key={idx} instance={instances[key]} mymojis={mymojis}/>
                         )
                     }) :
                     <div className={s.nothing}>

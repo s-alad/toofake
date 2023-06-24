@@ -12,14 +12,7 @@ import User from '@/models/user';
 import Friend from '@/models/friend';
 import Link from 'next/link';
 import Realmoji from '@/components/realmoji/realmoji';
-
-interface Moji {
-    id: string;
-    emoji: string;
-    url: string;
-    userId: string;
-    type: string;
-}
+import Moji from '@/models/moji';
 
 export default function Profile() {
 

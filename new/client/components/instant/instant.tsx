@@ -9,16 +9,18 @@ import axios from "axios";
 import { useRouter } from "next/router";
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faAdd, faArrowCircleRight, faArrowLeft, faArrowRight, faCaretLeft, faCaretRight, faTrashCan } from "@fortawesome/free-solid-svg-icons";
+import { faAdd, faArrowCircleRight, faArrowLeft, faArrowRight, faCaretLeft, faCaretRight, faCheck, faCross, faFaceFrown, faFaceSadCry, faFaceSmile, faPlusCircle, faTrashCan } from "@fortawesome/free-solid-svg-icons";
 
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
+import Moji from "@/models/moji";
 
 interface _Instant {
-    instance: Instance;
+    instance: Instance,
+    mymojis: Moji[]
 }
 
-export default function Instant({ instance }: _Instant) {
+export default function Instant({ instance, mymojis }: _Instant) {
 
     let router = useRouter();
 
@@ -88,29 +90,65 @@ export default function Instant({ instance }: _Instant) {
 
         let lat = instance.location.latitude;
         let long = instance.location.longitude;
-        console.log(lat, long);
+        /* console.log(lat, long); */
 
         try {
             let response = await axios.get(
                 `https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer/reverseGeocode?location=${long},${lat}&outSR=&forStorage=false&f=pjson`
             )
-            console.log(response.data)
+            /* console.log(response.data) */
             setLocation(response.data.address.Address + ", " + response.data.address.City)
         } catch (error) {
             console.log(error);
             setLocation("No location data");
         }
     }
-
-    useEffect(() => {
-        getLocation();
-
-
-
-    }, [])
-
-    let [mymojis, setMymojis] = useState<string[]>([]);
+    
+    let [reactionSuccess, setReactionSuccess] = useState<boolean>(false);
+    let [reactionFailure, setReactionFailure] = useState<boolean>(false);
     let [addingmoji, setAddingmoji] = useState<boolean>(false);
+    let [reactionLoading, setReactionLoading] = useState<boolean>(false);
+    async function reactionHandler(emoji: Moji) {
+        setAddingmoji(false);
+        setReactionLoading(true)
+
+        let token = localStorage.getItem("token");
+        let post_id = instance.instanceid;
+        let post_user_id = instance.user.uid;
+
+        let body = JSON.stringify({ "token": token, "post_id": post_id, "post_user_id": post_user_id, "emoji": emoji.emoji });
+
+        let options = {
+            url: "/api/react",
+            method: "POST",
+            headers: { 'Content-Type': 'application/json' },
+            data: body,
+        }
+
+        axios.request(options).then(
+            (response) => {
+                console.log(response.data);
+                setReactionLoading(false);
+                setReactionSuccess(true);
+                setTimeout(() => { setReactionSuccess(false); router.reload() }, 2000);
+            }
+        ).catch((error) => { 
+            console.log(error); 
+            setReactionLoading(false); 
+            setReactionFailure(true); 
+            setTimeout(() => { setReactionFailure(false) }, 2000);
+        })
+    }
+
+    function getReactionState(): JSX.Element {
+        if (reactionSuccess) {
+            return <FontAwesomeIcon icon={faCheck} />
+        } else if (reactionFailure) {
+            return <FontAwesomeIcon icon={faCross} />
+        } else {
+            return <FontAwesomeIcon icon={!addingmoji ? faFaceSmile : faFaceFrown} onClick={() => setAddingmoji(!addingmoji)} />
+        }
+    }
 
     let carouselRef = createRef<Carousel>();
 
@@ -129,7 +167,15 @@ export default function Instant({ instance }: _Instant) {
                     instance.user.uid == localStorage.getItem("uid") ?
                         <div className={s.trash} onClick={deletepost}>
                             <FontAwesomeIcon icon={faTrashCan} />
-                        </div> : null
+                        </div>
+                        :
+                        <div className={s.trash}>
+                            {
+                                reactionLoading ?
+                                    <div className={s.addloading}><div className={l.loadersmall}></div></div> :
+                                    getReactionState()
+                            }
+                        </div>
                 }
             </div>
 
@@ -140,81 +186,87 @@ export default function Instant({ instance }: _Instant) {
                         <img src={swap ? instance.secondary : instance.primary} className={s.secondary} onClick={() => setSwap(!swap)} onMouseDown={(e) => { e.stopPropagation() }} />
                     </Draggable>
                 </div>
-                <div className={s.realmojis}>
-                    {/* <div className={s.addmojis}>
-                        <div className={s.add} onClick={() => setAddingmoji(!addingmoji)}>
-                            <FontAwesomeIcon icon={faAdd} />
-                        </div>
-                    </div> */}
-                        
-                        {    instance.realmojis.length > 5 ?
-                        <div className={s.nextlast}>
-                            <div className={s.add} onClick={() => carouselRef.current?.previous(carouselRef.current.state.currentSlide)}>
-                                <FontAwesomeIcon icon={faCaretLeft} />
-                            </div>
-                            </div>
-                            : null
-                        }
-                    {
-                        !addingmoji ?
-                            <Carousel
-                                responsive={{
-                                    main: {
-                                        breakpoint: {
-                                            max: 3000,
-                                            min: 1
-                                        },
-                                        items: 5,
-                                    },
-                                }}
-                                className={s.carousel}
-                                slidesToSlide={2}
-                                draggable
-                                swipeable
-                                renderButtonGroupOutside
-
-                                arrows={false}
-                                ref={carouselRef}
-                            >
-                                {
-                                    instance.realmojis.map((realmoji) => {
-                                        return (
-                                            <Link
-                                                href={realmoji.owner.uid == localStorage.getItem("uid") ?
-                                                    "/me" : `/profile/${realmoji.owner.uid}`
-                                                }
-                                                key={realmoji.emoji_id}
-                                            >
-                                                <div className={s.realmoji} key={realmoji.emoji_id}>
-                                                    <div className={s.moji}>{realmoji.emoji}</div>
-                                                    <img src={realmoji.uri} />
-                                                </div>
-                                            </Link>
-                                        )
-                                    })
-                                }
-                            </Carousel>
-                            :
-                            <>
-                                <div className={s.addmojis}>
-                                    <div className={s.moji}>⚡</div>
-                                    <div className={s.add}>
-                                        <FontAwesomeIcon icon={faAdd} />
+                {
+                    !addingmoji ?
+                        <div className={s.realmojis}>
+                            {
+                                instance.realmojis.length > 5 ?
+                                    <div className={s.nextlast}>
+                                        <div className={s.add} onClick={() => carouselRef.current?.previous(carouselRef.current.state.currentSlide)}>
+                                            <FontAwesomeIcon icon={faCaretLeft} />
+                                        </div>
                                     </div>
-                                </div>
-                            </>
-                    }
-                    {
-                        instance.realmojis.length > 5 ?
-                        <div className={s.nextlast}>
-                            <div className={s.add} onClick={() => carouselRef.current?.next(carouselRef.current.state.currentSlide)}>
-                                <FontAwesomeIcon icon={faCaretRight} />
-                            </div>
+                                    : null
+                            }
+                            {
+                                <Carousel
+                                    responsive={{
+                                        main: {
+                                            breakpoint: {
+                                                max: 3000,
+                                                min: 1
+                                            },
+                                            items: 5,
+                                        },
+                                    }}
+                                    className={s.carousel}
+                                    slidesToSlide={2}
+                                    draggable
+                                    swipeable
+                                    renderButtonGroupOutside
+
+                                    arrows={false}
+                                    ref={carouselRef}
+                                >
+                                    {
+                                        instance.realmojis.map((realmoji) => {
+                                            return (
+                                                <Link
+                                                    href={realmoji.owner.uid == localStorage.getItem("uid") ?
+                                                        "/me" : `/profile/${realmoji.owner.uid}`
+                                                    }
+                                                    key={realmoji.emoji_id}
+                                                >
+                                                    <div className={s.realmoji} key={realmoji.emoji_id}>
+                                                        <div className={s.moji}>{realmoji.emoji}</div>
+                                                        <img src={realmoji.uri} />
+                                                    </div>
+                                                </Link>
+                                            )
+                                        })
+                                    }
+                                </Carousel>
+                            }
+                            {
+                                instance.realmojis.length > 5 ?
+                                    <div className={s.nextlast}>
+                                        <div className={s.add} onClick={() => carouselRef.current?.next(carouselRef.current.state.currentSlide)}>
+                                            <FontAwesomeIcon icon={faCaretRight} />
+                                        </div>
+                                    </div> : null
+                            }
                         </div>
-                            :
-                            null
-                    }
-                </div>
+                        :
+                        <div className={s.realmojis}>
+                            {/* <div className={s.addmojis}>
+                                <div className={s.moji}>⚡</div>
+                                <div className={s.add}>
+                                    <FontAwesomeIcon icon={faAdd} />
+                                </div>
+                            </div> */}
+                            {
+                                mymojis != undefined ? mymojis.map((emoji) => {
+                                    return (
+                                        <div className={s.addmojis} key={emoji.id} onClick={() => reactionHandler(emoji)}>
+                                            <div className={s.moji}>{emoji.emoji}</div>
+                                            <img src={emoji.url} />
+                                        </div>
+                                    )
+                                }
+                                ) : 'nil'
+                            }
+                        </div>
+                }
             </div>
 
             <div className={s.caption}>
