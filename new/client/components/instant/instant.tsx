@@ -9,7 +9,7 @@ import axios from "axios";
 import { useRouter } from "next/router";
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faAdd, faArrowLeft, faArrowRight, faCaretLeft, faCaretRight, faTrashCan } from "@fortawesome/free-solid-svg-icons";
+import { faAdd, faArrowCircleRight, faArrowLeft, faArrowRight, faCaretLeft, faCaretRight, faTrashCan } from "@fortawesome/free-solid-svg-icons";
 
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';

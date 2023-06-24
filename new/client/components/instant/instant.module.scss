@@ -98,6 +98,7 @@
             /* height: 15%; */
             height: 60px;
             padding: 5px 0px;
+            padding-bottom: 4px;
             display: flex;
 
             .carousel {
@@ -107,9 +108,16 @@
 
             .nextlast {
                 cursor: pointer;
-                width: 20px;
+                width: 21px;
                 height: 100%;
+                color: white;
                 @include c.center();
+                .add {
+                    background-color: rgba(0, 0, 0, 0.155);
+                    height: 100%;
+                    width: 100%;
+                    @include c.center();
+                }
             }
 
             .addmojis {
@@ -148,7 +156,7 @@
                 position: relative;
                 width: 50px;
                 height: 50px;
-                margin-right: 10px;
+                /* margin-right: 10px; */
                 .moji {
                     position: absolute;
                     left: 2px;
