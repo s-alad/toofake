@@ -19,6 +19,7 @@ todo:
 - [ ] delete comment ability
 - [x] add custom realmoji
 - [ ] add realmoji reactions
+- [ ] fix realmoji ui on post
 
 longterm:
 - [ ] change state management
