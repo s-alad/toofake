@@ -184,10 +184,10 @@ export default function Instant({ instance, mymojis }: _Instant) {
             </div>
 
             <div className={s.content}>
-                <img src={swap ? instance.primary : instance.secondary} className={s.primary} />
-                <div className={s.bounds} onClick={() => setSwap(!swap)}>
+                <img src={swap ? instance.primary : instance.secondary} className={s.primary} onClick={() => setSwap(!swap)}/>
+                <div className={s.bounds} onClick={() => setSwap(!swap)} onMouseDown={(e) => { e.stopPropagation() }}>
                     <Draggable axis="both" bounds="parent" >
-                        <img src={swap ? instance.secondary : instance.primary} className={s.secondary} onClick={() => setSwap(!swap)} onMouseDown={(e) => { e.stopPropagation() }} />
+                        <img src={swap ? instance.secondary : instance.primary} className={s.secondary}  />
                     </Draggable>
                 </div>
                 {
