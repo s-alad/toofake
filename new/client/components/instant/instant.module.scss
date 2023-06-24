@@ -97,7 +97,7 @@
             width: 100%;
             /* height: 15%; */
             height: 60px;
-            padding: 5px 0px;
+            padding: 5px 10px;
             padding-bottom: 4px;
             display: flex;
 
@@ -124,7 +124,7 @@
                 position: relative;
                 width: 50px;
                 height: 50px;
-                margin-right: 10px;
+                margin-right: 4px;
                 .moji {
                     position: absolute;
                     left: 2px;
@@ -154,16 +154,18 @@
 
             .realmoji {
                 position: relative;
-                width: 50px;
+                width: 48px;
                 height: 50px;
+                
                 /* margin-right: 10px; */
                 .moji {
                     position: absolute;
-                    left: 2px;
+                    left: 0px;
+                    top: -2px;
                     z-index: 10;
                     font-size: 18px;
                 }
-                img {
+                img {border: 1px solid white;
                     position: absolute;
                     right: 0;
                     top: 4px;

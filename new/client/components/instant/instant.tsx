@@ -146,15 +146,15 @@ export default function Instant({ instance }: _Instant) {
                             <FontAwesomeIcon icon={faAdd} />
                         </div>
                     </div> */}
-                    <div className={s.nextlast}>
                         
                         {    instance.realmojis.length > 5 ?
+                        <div className={s.nextlast}>
                             <div className={s.add} onClick={() => carouselRef.current?.previous(carouselRef.current.state.currentSlide)}>
                                 <FontAwesomeIcon icon={faCaretLeft} />
                             </div>
+                            </div>
                             : null
                         }
-                    </div>
                     {
                         !addingmoji ?
                             <Carousel
@@ -204,16 +204,16 @@ export default function Instant({ instance }: _Instant) {
                                 </div>
                             </>
                     }
-                    <div className={s.nextlast}>
-                        {
-                            instance.realmojis.length > 5 ?
-                                <div className={s.add} onClick={() => carouselRef.current?.next(carouselRef.current.state.currentSlide)}>
-                                    <FontAwesomeIcon icon={faCaretRight} />
-                                </div>
-                                :
-                                null
-                        }
-                    </div>
+                    {
+                        instance.realmojis.length > 5 ?
+                        <div className={s.nextlast}>
+                            <div className={s.add} onClick={() => carouselRef.current?.next(carouselRef.current.state.currentSlide)}>
+                                <FontAwesomeIcon icon={faCaretRight} />
+                            </div>
+                        </div>
+                            :
+                            null
+                    }
                 </div>
             </div>
 
