@@ -150,15 +150,21 @@ export default function Instant({ instance, mymojis }: _Instant) {
         }
     }
 
-    function downloadImages() {
+    function downloadSecondary() {
         let link = document.createElement('a');
-        // add target="_blank" to open in new tab
         link.target = '_blank';
         link.href = instance.secondary;
         link.download = 'primary.png';
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
+
+        link = document.createElement('a');
+        link.target = '_blank';
+        link.href = instance.primary;
+        link.download = 'secondary.png';
+        document.body.appendChild(link);
+        link.click();
     }
 
     useEffect(() => {
@@ -299,9 +305,9 @@ export default function Instant({ instance, mymojis }: _Instant) {
             <div className={s.comments}>
                 {
                     <div className={s.download}>
-                        <a href={instance.primary} download target={"_blank"}>
-                                <FontAwesomeIcon icon={faDownload} onClick={downloadImages}/>
-                            </a>
+
+                                <FontAwesomeIcon icon={faDownload} onClick={downloadSecondary}/>
+  
                     </div>
                 }
                 {
