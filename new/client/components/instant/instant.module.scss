@@ -72,6 +72,7 @@
             position: relative;
             width: 100%;
             border-radius: 8px;
+            z-index: 100;
         }
 
         .bounds {
@@ -86,7 +87,7 @@
                 width: 100px;
                 position: absolute;
                 cursor: pointer;
-                z-index: 9;
+                z-index: 101;
             }
         }
         .realmojis {
