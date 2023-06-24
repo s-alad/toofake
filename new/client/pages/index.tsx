@@ -114,7 +114,7 @@ export default function Home() {
 			}
 		).catch((error) => {
 			if (error.response) {
-				failure(error.response.data.error.error.code + " | "+ error.response.data.error.error.message)
+				failure(error.response.data.error)
 			}else {
 				failure("unknown error, please try re-logging in")
 			}

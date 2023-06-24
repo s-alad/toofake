@@ -116,8 +116,18 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     }
     catch (error: any) {
         console.log("FAILURE")
-        console.log(error.response.data);
-        res.status(400).json({ error: error.response.data });
+        console.log(error);
+        console.log('---------------------')
+
+        let error_message;
+
+        if (error.response) {
+            error_message = JSON.stringify(error.response.data);
+        } else {
+            error_message = error.toString();
+        }
+        console.log(error_message);
+        res.status(400).json({ error: error_message });
     }
 
 }
