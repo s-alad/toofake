@@ -19,13 +19,14 @@ todo:
 - [ ] make mobile navigation better
 - [ ] delete comment ability
 - [x] add custom realmoji
-- [ ] add realmoji reactions
-- [ ] fix realmoji ui on post
+- [x] add realmoji reactions
+- [ ] add instant realmoji
+- [ ] react-all realmoji
 
 longterm:
 - [ ] change state management
 - [ ] cache things and use less requests
-
+- [ ] fix overused state and spagetti code
 ---
 
 ### how to run locally
