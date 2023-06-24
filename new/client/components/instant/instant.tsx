@@ -156,15 +156,20 @@ export default function Instant({ instance, mymojis }: _Instant) {
         link.href = swap ? instance.secondary : instance.primary;
         link.download = 'primary.png';
         document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
 
-        link = document.createElement('a');
-        link.target = '_blank';
-        link.href = swap ? instance.primary : instance.secondary;
-        link.download = 'secondary.png';
+        let link2 = document.createElement('a');
+        link2.target = '_blank';
+        link2.href = swap ? instance.primary : instance.secondary;
+        link2.download = 'secondary.png';
+
         document.body.appendChild(link);
+        document.body.appendChild(link2);
+
         link.click();
+        link2.click();
+        
+        document.body.removeChild(link);
+        document.body.removeChild(link2);
     }
 
     useEffect(() => {
