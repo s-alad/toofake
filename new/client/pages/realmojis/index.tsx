@@ -77,9 +77,9 @@ export default function Profile() {
     return (
         <div className={s.realmojis}>
             {
-                Object.keys(myRealMojis).map((emoji) => {
+                Object.keys(myRealMojis).map((emoji, index) => {
                     return (
-                        <Realmoji emoji={emoji} realmoji={myRealMojis} />
+                        <Realmoji emoji={emoji} realmoji={myRealMojis} key={index}/>
                     )
                 })
             }
