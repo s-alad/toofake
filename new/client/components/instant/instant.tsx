@@ -95,7 +95,7 @@ export default function Instant({ instance }: _Instant) {
                 `https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer/reverseGeocode?location=${long},${lat}&outSR=&forStorage=false&f=pjson`
             )
             console.log(response.data)
-            setLocation(response.data.address.Match_addr + ", " + response.data.address.City)
+            setLocation(response.data.address.Address + ", " + response.data.address.City)
         } catch (error) {
             console.log(error);
             setLocation("No location data");
