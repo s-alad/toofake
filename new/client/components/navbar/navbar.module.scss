@@ -149,17 +149,15 @@
         .extra {
             display: flex;
             align-items: center;
-            justify-content: center;
+            justify-content: start;
             height: 100%;
             a, span {
-                @include c.center();
                 color: white;
                 text-decoration: none;
             }
             .logout {
                 margin-right: 4px;
                 font-size: 12px;
-                @include c.center();
                 button {
                     background-color: transparent;
                     border: none;

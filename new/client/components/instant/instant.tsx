@@ -310,9 +310,7 @@ export default function Instant({ instance, mymojis }: _Instant) {
             <div className={s.comments}>
                 {
                     <div className={s.download}>
-
-                                <FontAwesomeIcon icon={faDownload} onClick={downloadSecondary}/>
-  
+                        <FontAwesomeIcon icon={faDownload} onClick={downloadSecondary}/>
                     </div>
                 }
                 {
