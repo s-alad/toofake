@@ -14,7 +14,7 @@ check out the project at [BeFake](https://github.com/notmarek/BeFake) for a usua
 ---
 
 todo:
-- [ ] fix .heic and .heif image issues
+- [ ] fix .heic and .heif image issues !!!
 - [ ] support for two - three bereals
 - [ ] make mobile navigation better
 - [ ] delete comment ability
@@ -22,6 +22,8 @@ todo:
 - [x] add realmoji reactions
 - [ ] add instant realmoji
 - [ ] react-all realmoji
+- [ ] not all friends show for big friends list
+- [ ] fix occasional login 500 errors
 
 longterm:
 - [ ] change state management
