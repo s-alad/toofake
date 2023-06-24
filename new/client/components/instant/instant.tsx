@@ -150,6 +150,10 @@ export default function Instant({ instance, mymojis }: _Instant) {
         }
     }
 
+    useEffect(() => {
+        getLocation();
+    }, [])
+
     let carouselRef = createRef<Carousel>();
 
     return (
