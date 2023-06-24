@@ -9,7 +9,7 @@ import axios from "axios";
 import { useRouter } from "next/router";
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faAdd, faArrowCircleRight, faArrowLeft, faArrowRight, faCaretLeft, faCaretRight, faCheck, faCross, faDownload, faFaceFrown, faFaceSadCry, faFaceSmile, faPlusCircle, faTrashCan } from "@fortawesome/free-solid-svg-icons";
+import { faAdd, faArrowCircleRight, faArrowLeft, faArrowRight, faCaretDown, faCaretLeft, faCaretRight, faCaretUp, faCheck, faCross, faDownload, faFaceFrown, faFaceSadCry, faFaceSmile, faPlusCircle, faTrashCan } from "@fortawesome/free-solid-svg-icons";
 
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
@@ -319,7 +319,10 @@ export default function Instant({ instance, mymojis }: _Instant) {
                     instance.comments.length > 0 ?
                         <div className={s.expand} >
                             <span className={s.click} onClick={() => setExpanded(!expanded)}>
-                                {expanded ? '⬆ collapse comments' : '⬇ expand comments'}
+                                {
+                                    !expanded ? 
+                                    <> <FontAwesomeIcon icon={faCaretDown} />  expand comments</>
+                                    : <> <FontAwesomeIcon icon={faCaretUp} />  collapse comments</>}
                             </span>
                         </div>
                         :
