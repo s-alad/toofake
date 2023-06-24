@@ -58,6 +58,7 @@
                 border: none;
                 border-radius: 8px;
                 cursor: pointer;
+                @include c.center();
             }
         }
         

@@ -20,3 +20,12 @@
     height: 20px;
     animation: spin 2s linear infinite;
 }
+
+.loadertiny {
+    border: 2px solid #f3f3f3; /* Light grey */
+    border-top: 2px solid grey; /* Blue */
+    border-radius: 50%;
+    width: 10px;
+    height: 10px;
+    animation: spin 2s linear infinite;
+}

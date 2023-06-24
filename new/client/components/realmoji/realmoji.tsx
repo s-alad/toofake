@@ -1,5 +1,6 @@
 
 import s from "./realmoji.module.scss"
+import l from "@/styles/loader.module.scss";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -76,7 +77,7 @@ export default function Realmoji({ emoji, realmoji }: RealmojiProperties) {
                 console.log(response.data);
                 setLoading(false);
                 setSuccess(true);
-                setTimeout(() => { setSuccess(false); router.reload()}, 3000);
+                setTimeout(() => { setSuccess(false); router.reload()}, 5000);
             }
         ).catch(
             (error) => {
@@ -118,7 +119,13 @@ export default function Realmoji({ emoji, realmoji }: RealmojiProperties) {
                     {
                         isFilePicked ?
                         <button className={s.send} onClick={handleSubmission}>
-                            <FontAwesomeIcon icon={faUpload} />
+                            {
+                                loading ? <div className={l.loadertiny}></div> 
+                                : (
+                                    success ? <FontAwesomeIcon icon={faCheck} className={s.success} /> :
+                                    <FontAwesomeIcon icon={faUpload} />
+                                )
+                            }
                         </button>
                         : ""
                     }
