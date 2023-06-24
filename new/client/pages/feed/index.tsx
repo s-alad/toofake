@@ -74,7 +74,7 @@ export default function Feed() {
             }
         ).catch(
             (error) => {
-                console.log("FETCHNG ERROR")
+                console.log("FETCHING ERROR")
                 console.log(error);
                 setLoading(false);
                 setFailure("SOMETHING WENT WRONG: " + JSON.stringify(error.response.data.error));
@@ -117,7 +117,6 @@ export default function Feed() {
 
         console.log("MY CURRENT MOJIS");
         console.log(my_current_realmojis);
-
         setMymojis([...my_current_realmojis]);
         
     }, [loading])

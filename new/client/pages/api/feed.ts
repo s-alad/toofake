@@ -1,6 +1,13 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import axios from 'axios';
 
+export const config = {
+    api: {
+        responseLimit: '8mb',
+    },
+}
+
+
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
 
     let authorization_token = req.body.token;
@@ -21,7 +28,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             console.log("request feed success");
             console.log(response.data);
             console.log("------------------")
-            
+
             res.status(200).json(response.data);
         }
     ).catch(
