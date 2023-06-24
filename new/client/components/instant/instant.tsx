@@ -9,7 +9,7 @@ import axios from "axios";
 import { useRouter } from "next/router";
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faAdd, faArrowCircleRight, faArrowLeft, faArrowRight, faCaretLeft, faCaretRight, faCheck, faCross, faFaceFrown, faFaceSadCry, faFaceSmile, faPlusCircle, faTrashCan } from "@fortawesome/free-solid-svg-icons";
+import { faAdd, faArrowCircleRight, faArrowLeft, faArrowRight, faCaretLeft, faCaretRight, faCheck, faCross, faDownload, faFaceFrown, faFaceSadCry, faFaceSmile, faPlusCircle, faTrashCan } from "@fortawesome/free-solid-svg-icons";
 
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
@@ -150,6 +150,17 @@ export default function Instant({ instance, mymojis }: _Instant) {
         }
     }
 
+    function downloadImages() {
+        let link = document.createElement('a');
+        // add target="_blank" to open in new tab
+        link.target = '_blank';
+        link.href = instance.secondary;
+        link.download = 'primary.png';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    }
+
     useEffect(() => {
         getLocation();
     }, [])
@@ -287,9 +298,18 @@ export default function Instant({ instance, mymojis }: _Instant) {
             </div>
             <div className={s.comments}>
                 {
+                    <div className={s.download}>
+                        <a href={instance.primary} download target={"_blank"}>
+                                <FontAwesomeIcon icon={faDownload} onClick={downloadImages}/>
+                            </a>
+                    </div>
+                }
+                {
                     instance.comments.length > 0 ?
-                        <div className={s.expand} onClick={() => setExpanded(!expanded)}>
-                            {expanded ? '⬆ collapse comments' : '⬇ expand comments'}
+                        <div className={s.expand} >
+                            <span className={s.click} onClick={() => setExpanded(!expanded)}>
+                                {expanded ? '⬆ collapse comments' : '⬇ expand comments'}
+                            </span>
                         </div>
                         :
                         <div className={s.holder}>no comments</div>

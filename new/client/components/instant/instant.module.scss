@@ -244,10 +244,24 @@
     .comments {
         padding: 0px 10px;
         padding-bottom: 4px;
+        position: relative;
+
+        .download {
+            position: absolute;
+            top: 0;
+            right: 10px;
+            width: 30px;
+            @include c.center();
+            cursor: pointer;
+        }
+
         .expand {
             font-size: 14px;
             height: 25px;
-            cursor: pointer;
+            .click {
+                cursor: pointer;
+                
+            }
         }
         .holder {height: 25px; font-size: 14px; color: rgb(158, 158, 158);}
 
