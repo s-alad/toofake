@@ -148,24 +148,24 @@
 
         .extra {
             display: flex;
-            align-items: center;
-            justify-content: start;
             height: 100%;
             a, span {
                 color: white;
                 text-decoration: none;
             }
             .logout {
-                margin-right: 4px;
+                margin-right: 1.3em;
                 font-size: 12px;
                 button {
                     background-color: transparent;
                     border: none;
                     color: white;
-                    font-size: 14px;
+                    font-size: 1.2em;
                     font-weight: 500;
                     cursor: pointer;
                     text-decoration: underline;
+                    margin: 0px;
+                    padding: 0px;
                 }
             }
             button {

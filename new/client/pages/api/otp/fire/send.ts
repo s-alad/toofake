@@ -56,7 +56,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         data: otp_request_body,
     }
 
-    let otp_request_response = axios.request(otp_request_options).then(
+    return axios.request(otp_request_options).then(
         (response) => {
             console.log("otp request response");
             console.log(response.data);
