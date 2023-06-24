@@ -153,7 +153,7 @@ export default function Instant({ instance, mymojis }: _Instant) {
     function downloadSecondary() {
         let link = document.createElement('a');
         link.target = '_blank';
-        link.href = instance.secondary;
+        link.href = swap ? instance.secondary : instance.primary;
         link.download = 'primary.png';
         document.body.appendChild(link);
         link.click();
@@ -161,7 +161,7 @@ export default function Instant({ instance, mymojis }: _Instant) {
 
         link = document.createElement('a');
         link.target = '_blank';
-        link.href = instance.primary;
+        link.href = swap ? instance.primary : instance.secondary;
         link.download = 'secondary.png';
         document.body.appendChild(link);
         link.click();
