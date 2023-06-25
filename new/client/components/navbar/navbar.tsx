@@ -132,7 +132,13 @@ export default function Navbar() {
                                     }
                                 </Link>
                             </>
-                            : router.pathname == "/" ? "" :
+                            : router.pathname == "/" ? 
+                            <div className={s.helpmobile}>
+                                <Link href="/help" className={""}>about</Link> 
+                                <Link href="/help#how-to-use" className={""}>help</Link>
+                                <Link href="/help#FAQ" className={""}>faq</Link>
+                            </div> 
+                            :
                             <>
                                 <div className={`${s.menu} ${menu ? s.menuopen : ""}`} onClick={() => setMenu(!menu)}>
                                     <div className={s.line}></div>
