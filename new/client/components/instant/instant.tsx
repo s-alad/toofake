@@ -71,7 +71,7 @@ export default function Instant({ instance, mymojis }: _Instant) {
 
     }
 
-    let [swap, setSwap] = useState<boolean>(false);
+    let [swap, setSwap] = useState<boolean>(true);
     let [expanded, setExpanded] = useState<boolean>(false);
 
     let profile_link = instance.user.uid == localStorage.getItem("uid") ? "/me" : `/profile/${instance.user.uid}`;
