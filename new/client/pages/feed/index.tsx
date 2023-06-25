@@ -18,7 +18,9 @@ import Moji from '@/models/moji';
 export default function Feed() {
 
     let router = useRouter();
-    useCheck();
+    if (!useCheck()) {
+        return <></>
+    }
     let [ready, setReady] = useState<boolean>(false);
 
     let [instances, setInstances] = useState<{ [key: string]: Instance }>({})
@@ -114,9 +116,7 @@ export default function Feed() {
 
             my_current_realmojis.push(my_real_moji);
         }
-
-        console.log("MY CURRENT MOJIS");
-        console.log(my_current_realmojis);
+        
         setMymojis([...my_current_realmojis]);
         
     }, [loading])
