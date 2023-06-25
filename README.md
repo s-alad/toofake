@@ -17,12 +17,11 @@ todo:
 - [ ] fix webp, .heic and .heif image issues !!!
 - [ ] support for two - three bereals
 - [ ] delete comment ability
-- [x] add custom realmoji
-- [x] add realmoji reactions
 - [ ] add instant realmoji
 - [ ] react-all realmoji
 - [ ] not all friends show for big friends list
 - [ ] fix occasional login 500 errors
+- [ ] fix the navbar code for the 9 billionth time
 
 longterm:
 - [ ] change state management
