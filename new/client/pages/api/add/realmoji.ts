@@ -52,7 +52,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         console.log('---------------------')
 
         // drop prefix of base64 string
-        filebase64 = filebase64.replace(/^data:(image|application)\/(png|jpeg|jpg|octet-stream);base64,/, "");
+        filebase64 = filebase64.replace(/^data:(image|application)\/(png|webp|jpeg|jpg|octet-stream);base64,/, "");
 
         // ============================================================================================
 

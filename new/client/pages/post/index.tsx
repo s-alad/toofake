@@ -64,9 +64,9 @@ export default function Post() {
 
         setLoading(true);
 
-        console.log("BASE64");
+        /* console.log("BASE64");
         console.log(primarybase64);
-        console.log(secondarybase64);
+        console.log(secondarybase64); */
 
         let authorization_token = localStorage.getItem("token");
 
@@ -77,7 +77,7 @@ export default function Post() {
         formData.append('secondaryb64', secondarybase64);
         formData.append('caption', caption ? caption : "");
         formData.append('token', authorization_token!);
-        console.log(formData);
+        /* console.log(formData); */
 
         let options = {
             url: "/api/add/post",
