@@ -34,6 +34,10 @@ export default function Navbar() {
             return "memories";
         } else if (router.pathname == "/realmojis") {
             return "realmojis";
+        } else if (router.pathname == "/") {
+            return "login";
+        } else if (router.pathname.startsWith("/help")) {
+            return "help";
         }
     }
 
@@ -98,9 +102,16 @@ export default function Navbar() {
                                 </Link>
                             </>
                             :
-                            router.pathname == "/" ? "" : <Link href={"/feed"} className={s.post} >
-                            <button>back</button>
-                        </Link>
+                            router.pathname == "/" ? 
+                            <>
+                                <Link href="/help" className={s.item}><button>about</button></Link> 
+                                <Link href="/help#how-to-use" className={s.item}><button>help</button></Link>
+                                <Link href="/help#FAQ" className={s.item}><button>faq</button></Link>
+                            </>
+                            : 
+                            <Link href={"/feed"} className={s.post} >
+                                <button>back</button>
+                            </Link>
                     }
                 </div>
 
