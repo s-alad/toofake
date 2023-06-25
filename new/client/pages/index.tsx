@@ -11,6 +11,8 @@ import "react-phone-input-2/lib/bootstrap.css";
 import { useRouter } from 'next/router'
 import useCheck from '@/utils/check'
 import myself from '@/utils/myself'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faGithub } from '@fortawesome/free-brands-svg-icons'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -210,7 +212,7 @@ export default function Home() {
 			<div className={s.info}>
 				<p>TooFake is currently <span>working</span> again!</p>
 				<p>You can login using your phone number, view bereals and post custom images.</p>
-				<p>Please report any bugs or issues on the <a href="https://github.com/s-alad/toofake">github</a> theres probably a bunch!</p>
+				<p>Please report any bugs or issues on the <a href="https://github.com/s-alad/toofake"><FontAwesomeIcon icon={faGithub} /> github</a> theres probably a bunch!</p>
 				<p>More features coming soon!</p>
 			</div>
 		</div>

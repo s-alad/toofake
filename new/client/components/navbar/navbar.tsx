@@ -98,9 +98,9 @@ export default function Navbar() {
                                 </Link>
                             </>
                             :
-                            <Link href={"/feed"} className={s.post} >
-                                <button>back</button>
-                            </Link>
+                            router.pathname == "/" ? "" : <Link href={"/feed"} className={s.post} >
+                            <button>back</button>
+                        </Link>
                     }
                 </div>
 
