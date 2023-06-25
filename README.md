@@ -14,7 +14,7 @@ check out the project at [BeFake](https://github.com/notmarek/BeFake) for a usua
 ---
 
 todo:
-- [ ] fix .heic and .heif image issues !!!
+- [ ] fix webp, .heic and .heif image issues !!!
 - [ ] support for two - three bereals
 - [ ] delete comment ability
 - [x] add custom realmoji
