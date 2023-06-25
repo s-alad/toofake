@@ -65,8 +65,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             isSecondaryHeic = true;
         }
 
-        primaryb64 = primaryb64.replace(/^data:(image|application)\/(png|jpeg|jpg|octet-stream);base64,/, "");
-        secondaryb64 = secondaryb64.replace(/^data:(image|application)\/(png|jpeg|jpg|octet-stream);base64,/, "");
+        primaryb64 = primaryb64.replace(/^data:(image|application)\/(png|webp|jpeg|jpg|octet-stream);base64,/, "");
+        secondaryb64 = secondaryb64.replace(/^data:(image|application)\/(png|webp|jpeg|jpg|octet-stream);base64,/, "");
         /* primaryb64 = primaryb64.replace(/^data:image\/(png|jpeg|jpg|octet-stream);base64,/, "");
         secondaryb64 = secondaryb64.replace(/^data:image\/(png|jpeg|jpg|octet-stream);base64,/, ""); */
 

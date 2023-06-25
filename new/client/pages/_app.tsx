@@ -9,7 +9,9 @@ import "@fortawesome/fontawesome-svg-core/styles.css";
 import { config } from "@fortawesome/fontawesome-svg-core";
 config.autoAddCss = false;
 
-export default function App({ Component, pageProps }: AppProps) {
+import { appWithTranslation } from 'next-i18next'
+
+function App({ Component, pageProps }: AppProps) {
 	return (
 		<Layout>
 			<Head>
@@ -36,3 +38,6 @@ export default function App({ Component, pageProps }: AppProps) {
 		</Layout>
 	)
 }
+
+/* export default appWithTranslation(App) */
+export default App;
