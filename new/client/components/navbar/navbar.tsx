@@ -63,7 +63,7 @@ export default function Navbar() {
                             <div className={s.fake}>&nbsp;</div>
                             {/* <div className={s.sep}></div> */}
                             <span className={s.logout}>
-                                <button onClick={() => {logout(router, localStorage); setMenu(false)}}>logout</button>
+                                <button onClick={() => { logout(router, localStorage); setMenu(false) }}>logout</button>
                             </span>
                             <Link href={"/post"} className={s.logout}>
                                 <button>post</button>
@@ -102,16 +102,16 @@ export default function Navbar() {
                                 </Link>
                             </>
                             :
-                            router.pathname == "/" ? 
-                            <>
-                                <Link href="/help" className={s.item}><button>about</button></Link> 
-                                <Link href="/help#how-to-use" className={s.item}><button>help</button></Link>
-                                <Link href="/help#FAQ" className={s.item}><button>faq</button></Link>
-                            </>
-                            : 
-                            <Link href={"/feed"} className={s.post} >
-                                <button>back</button>
-                            </Link>
+                            router.pathname == "/" ?
+                                <>
+                                    <Link href="/help" className={s.item}><button>about</button></Link>
+                                    <Link href="/help#how-to-use" className={s.item}><button>help</button></Link>
+                                    <Link href="/help#FAQ" className={s.item}><button>faq</button></Link>
+                                </>
+                                :
+                                <Link href={"/feed"} className={s.post} >
+                                    <button>back</button>
+                                </Link>
                     }
                 </div>
 
@@ -132,24 +132,36 @@ export default function Navbar() {
                                     }
                                 </Link>
                             </>
-                            : router.pathname == "/" ? 
-                            <div className={s.helpmobile}>
-                                <Link href="/help" className={""}>about</Link> 
-                                <Link href="/help#how-to-use" className={""}>help</Link>
-                                <Link href="/help#FAQ" className={""}>faq</Link>
-                            </div> 
                             :
-                            <>
-                                <div className={`${s.menu} ${menu ? s.menuopen : ""}`} onClick={() => setMenu(!menu)}>
-                                    <div className={s.line}></div>
-                                    <div className={s.line}></div>
-                                    <div className={s.line}></div>
-                                </div>
-                                <div className={s.sep}></div>
-                                <Link href={"/feed"}>
-                                    <button>back</button>
-                                </Link>
-                            </>
+                            (
+                                router.pathname == "/" ?
+                                    <div className={s.helpmobile}>
+                                        <Link href="/help" className={""}>about</Link>
+                                        <Link href="/help#how-to-use" className={""}>help</Link>
+                                        <Link href="/help#FAQ" className={""}>faq</Link>
+                                    </div>
+                                    :
+                                    (
+                                        router.pathname.startsWith("/help") ?
+                                            <>
+
+                                                <Link href={"/feed"}>
+                                                    <button>back</button>
+                                                </Link>
+                                            </> :
+                                            <>
+                                                <div className={`${s.menu} ${menu ? s.menuopen : ""}`} onClick={() => setMenu(!menu)}>
+                                                    <div className={s.line}></div>
+                                                    <div className={s.line}></div>
+                                                    <div className={s.line}></div>
+                                                </div>
+                                                <div className={s.sep}></div>
+                                                <Link href={"/feed"}>
+                                                    <button>back</button>
+                                                </Link>
+                                            </>
+                                    )
+                            )
                     }
                 </div>
             </div>
