@@ -12,6 +12,7 @@ import Memory from '@/models/memory';
 import Draggable from 'react-draggable';
 import Memoire from '@/components/memoire/memoire';
 
+
 export default function Memories() {
 
     useCheck();
@@ -59,9 +60,14 @@ export default function Memories() {
 
             }
         ).catch((error) => {console.log(error);})
-    }, [])
+    }, []);
+
+    
 
     return (
+
+        <div>
+
         <div className={s.memories}>
             {
                 loading ? <div className={l.loader}></div> :
@@ -72,6 +78,15 @@ export default function Memories() {
                 })
             }
         </div>
+
+
+        <div className={s.memories}>
+            <button>download</button>
+        </div>
+
+        </div>
+
+        
     )
 
 }

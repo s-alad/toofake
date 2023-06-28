@@ -9,4 +9,17 @@
         width: 100%;
         
     }
+
+    button {
+        cursor: pointer;
+        font-size: 12px;
+        font-weight: 500;
+        height: 26px;
+        width: 80px;
+        border-radius: 6px;
+        background-color: white;
+        border: none;
+        margin-top: 20px;
+    }
 }
+
