@@ -2,6 +2,13 @@
 
 This is a fork intended to add functionality for exporting your memories as a .zip.
 
+New packages needed:
+
+- JSZip (version 3.10.1 worked)
+- FileSaver (version 2.0.5 worked)
+
+---
+
 # TooFake: a bereal viewer & client
 
 ### want to stalk your friends, family, or ex without posting your own bereal? </br> toofake gives the ability to view bereals and post custom bereals without ever having to click on that annoying notification
