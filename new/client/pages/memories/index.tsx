@@ -11,7 +11,8 @@ import Link from 'next/link';
 import Memory from '@/models/memory';
 import Draggable from 'react-draggable';
 import Memoire from '@/components/memoire/memoire';
-
+import JSZip from 'jszip';
+import FileSaver from 'file-saver';
 
 
 // Made memories global for downloading (kinda ugly)
@@ -102,27 +103,17 @@ async function downloadMemories() {
 
     // REPLACE WITH PROPER PROXY SETUP!
     // Fetch image data
-    let request = await fetch("https://api.codetabs.com/v1/proxy?quest=" + memory.primary)
-
-
-
-    // Download image, adapted from https://stackoverflow.com/a/64441995/21809626
-    // Gets blob, creates anchor, simulates a download
-    let blob = await request.blob()
-
-    const url = window.URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.style.display = 'none';
-    a.href = url;
-    a.download = "image.jpg";
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    window.URL.revokeObjectURL(url);
-
-
+    let request = fetch("https://api.codetabs.com/v1/proxy?quest=" + memory.primary)
+                  .then((result) => result.blob())
 
     
+    // Create zip w/ image, adapted from https://stackoverflow.com/a/49836948/21809626
+
+    let zip = new JSZip();
+    zip.file('folder/image.jpg', request)
+    zip.generateAsync({ type: 'blob' }).then(function (content) {
+        FileSaver.saveAs(content, 'download.zip');
+    });
 
 
 }
