@@ -1,3 +1,7 @@
+# Fork
+
+This is a fork intended to add functionality for exporting your memories as a .zip.
+
 # TooFake: a bereal viewer & client
 
 ### want to stalk your friends, family, or ex without posting your own bereal? </br> toofake gives the ability to view bereals and post custom bereals without ever having to click on that annoying notification
