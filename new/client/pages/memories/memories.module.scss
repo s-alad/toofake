@@ -10,13 +10,15 @@
         
     }
 
+
+    // Added button style from @/components/navbar/navbar.module.css
     button {
         cursor: pointer;
-        font-size: 12px;
+        font-size: 16px;
         font-weight: 500;
-        height: 26px;
-        width: 80px;
-        border-radius: 6px;
+        height: 34px;
+        width: 90px;
+        border-radius: 8px;
         background-color: white;
         border: none;
         margin-top: 20px;

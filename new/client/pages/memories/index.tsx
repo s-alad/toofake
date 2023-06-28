@@ -13,6 +13,10 @@ import Draggable from 'react-draggable';
 import Memoire from '@/components/memoire/memoire';
 
 
+
+// Made memories global for downloading (kinda ugly)
+let newmemories: Memory[] = [];
+
 export default function Memories() {
 
     useCheck();
@@ -35,8 +39,6 @@ export default function Memories() {
             async (response) => {
                 console.log(response.data);
                 let memorydata = response.data.data;
-
-                let newmemories: Memory[] = [];
 
                 async function createMemory(data: any) {
                     let newmemory = await Memory.create(data);
@@ -80,7 +82,7 @@ export default function Memories() {
         </div>
 
 
-        <div className={s.memories}>
+        <div className={s.memories} onClick={() => downloadMemories()}>
             <button>download</button>
         </div>
 
@@ -88,5 +90,39 @@ export default function Memories() {
 
         
     )
+
+}
+
+async function downloadMemories() {
+
+    // Last memory, example
+    let memory = newmemories[newmemories.length - 1];
+
+    console.log(memory);
+
+    // REPLACE WITH PROPER PROXY SETUP!
+    // Fetch image data
+    let request = await fetch("https://api.codetabs.com/v1/proxy?quest=" + memory.primary)
+
+
+
+    // Download image, adapted from https://stackoverflow.com/a/64441995/21809626
+    // Gets blob, creates anchor, simulates a download
+    let blob = await request.blob()
+
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.style.display = 'none';
+    a.href = url;
+    a.download = "image.jpg";
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    window.URL.revokeObjectURL(url);
+
+
+
+    
+
 
 }
