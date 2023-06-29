@@ -15,7 +15,7 @@ import JSZip from 'jszip';
 import FileSaver from 'file-saver';
 
 
-// Made memories global for downloading (kinda ugly)
+// Made memories global for downloading (kinda ugly..)
 let newmemories: Memory[] = [];
 
 export default function Memories() {
@@ -98,22 +98,37 @@ async function downloadMemories() {
 
     // Last memory, example
     let memory = newmemories[newmemories.length - 1];
+    let date = new Date(memory.date);
 
-    console.log(memory);
+    // Date strings for folder/file names
+    let monthString = date.toLocaleString('en-us',{month:'long', year:'numeric'})
+    let dateString = date.toLocaleString('en-us', {dateStyle:'long'})
+
+
 
     // REPLACE WITH PROPER PROXY SETUP!
     // Fetch image data
-    let request = fetch("https://api.codetabs.com/v1/proxy?quest=" + memory.primary)
+    let primary = fetch("https://api.codetabs.com/v1/proxy?quest=" + memory.primary)
+                  .then((result) => result.blob())
+
+    let secondary = fetch("https://api.codetabs.com/v1/proxy?quest=" + memory.secondary)
                   .then((result) => result.blob())
 
     
-    // Create zip w/ image, adapted from https://stackoverflow.com/a/49836948/21809626
 
+    // Create zip w/ image, adapted from https://stackoverflow.com/a/49836948/21809626
+    // (Change this to use the matching extension)
     let zip = new JSZip();
-    zip.file('folder/image.jpg', request)
+
+    zip.file(`${monthString}/${dateString} -  primary.jpg`, primary)
+    zip.file(`${monthString}/${dateString} - secondary.jpg`, secondary)
+
+
     zip.generateAsync({ type: 'blob' }).then(function (content) {
         FileSaver.saveAs(content, 'download.zip');
     });
+
+
 
 
 }
