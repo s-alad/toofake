@@ -120,14 +120,17 @@ async function downloadMemories() {
 
     // Create zip w/ image, adapted from https://stackoverflow.com/a/49836948/21809626
     // (Change this to use the matching extension)
-    let zip = new JSZip();
 
-    zip.file(`${monthString}/${dateString} -  primary.jpg`, primary)
-    zip.file(`${monthString}/${dateString} - secondary.jpg`, secondary)
+    // Zip (primary + secondary) 
 
-    zip.generateAsync({ type: 'blob' }).then(function (content) {
-        FileSaver.saveAs(content, 'download.zip');
-    });
+    // let zip = new JSZip();
+
+    // zip.file(`${monthString}/${dateString} -  primary.jpg`, primary)
+    // zip.file(`${monthString}/${dateString} - secondary.jpg`, secondary)
+
+    // zip.generateAsync({ type: 'blob' }).then(function (content) {
+    //     FileSaver.saveAs(content, 'download.zip');
+    // });
 
 
 
@@ -143,8 +146,8 @@ async function downloadMemories() {
     var ctx = canvas.getContext("2d");
     var imageObj = new Image();
     
-    // for annoying 'context' error, bereal-style combined image
-    if (!(ctx == null)) {
+    // For dealing with error, bereal-style combined image
+    if (ctx) {
         ctx.drawImage(primaryImage, 0, 0)
 
         // Rounded secondary image, adapted from https://stackoverflow.com/a/19593950/21809626
@@ -177,13 +180,32 @@ async function downloadMemories() {
         ctx.fill()
         ctx.clip()
 
-        ctx.drawImage(secondaryImage, x, y, secondaryImage.width * 0.3, secondaryImage.height * 0.3)
+        ctx.drawImage(secondaryImage, x, y, width, height)
     }
 
-    console.log(imageObj);
+    
     
 
+    
 
+    // Zip (combined primary+secondary)
+    
+    canvas.toBlob((blob) => {
+
+        if (blob) {
+            let zip = new JSZip();
+
+            zip.file(`${monthString}/${dateString}.jpg`, blob)
+        
+            zip.generateAsync({ type: 'blob' }).then(function (content) {
+                FileSaver.saveAs(content, 'download.zip');
+            });
+        }
+
+    });
+
+
+    
 
 
 }
