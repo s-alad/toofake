@@ -15,7 +15,7 @@ import JSZip from 'jszip';
 import FileSaver from 'file-saver';
 
 
-// Made memories global for downloading (kinda ugly..)
+// Made memories global for downloading (kinda ugly)
 let newmemories: Memory[] = [];
 
 export default function Memories() {
@@ -86,6 +86,15 @@ export default function Memories() {
         <div className={s.memories}>
             <button onClick={() => downloadMemories()}>download</button>
         </div>
+
+        <div>
+            <p></p>
+            <label>Export both primary and secondary separately</label>
+            <input type="checkbox" id="separate"></input>
+            <p></p>
+            <label>Export merged primary + secondary into one image</label>
+            <input type="checkbox" id="merged"></input>
+        </div>
         
         <canvas id="myCanvas" width="1000" height="1000"></canvas>
 
@@ -98,6 +107,25 @@ export default function Memories() {
 
 async function downloadMemories() {
 
+    
+    // Note: this is JS code not TS which is why it's throwing an error but runs fine
+
+    // @ts-ignore: Object is possibly 'null'.
+    let separateImages = document.getElementById("separate").checked;
+    // @ts-ignore: Object is possibly 'null'.
+    let mergedImage = document.getElementById("merged").checked;
+    
+
+
+    console.log(`Separate: ${separateImages}, Merged: ${mergedImage}`)
+
+
+    // Don't do anything if no boxes are checked
+    if (!(separateImages || mergedImage)) {
+        console.log("No export setting selected");
+        return;
+    }
+    
     // Last memory, example
     let memory = newmemories[newmemories.length - 1];
     let date = new Date(memory.date);
@@ -123,89 +151,94 @@ async function downloadMemories() {
 
     // Zip (primary + secondary) 
 
-    // let zip = new JSZip();
+    let zip = new JSZip();
 
-    // zip.file(`${monthString}/${dateString} -  primary.jpg`, primary)
-    // zip.file(`${monthString}/${dateString} - secondary.jpg`, secondary)
-
-    // zip.generateAsync({ type: 'blob' }).then(function (content) {
-    //     FileSaver.saveAs(content, 'download.zip');
-    // });
+    if (separateImages) {
+        zip.file(`${monthString}/${dateString} -  primary.jpg`, primary)
+        zip.file(`${monthString}/${dateString} - secondary.jpg`, secondary)
+    }
 
 
-
-    // Merging images for combined view
-    let primaryImage = await createImageBitmap(await primary);
-    let secondaryImage = await createImageBitmap(await secondary);
-
-
-    var canvas = document.getElementById("myCanvas") as HTMLCanvasElement;
-    canvas.width = primaryImage.width;
-    canvas.height = primaryImage.height;
-
-    var ctx = canvas.getContext("2d");
-    var imageObj = new Image();
     
-    // For dealing with error, bereal-style combined image
-    if (ctx) {
-        ctx.drawImage(primaryImage, 0, 0)
-
-        // Rounded secondary image, adapted from https://stackoverflow.com/a/19593950/21809626
-
-        // Values relative to image size
-        let width = secondaryImage.width * 0.3;
-        let height = secondaryImage.height * 0.3;
-        let x = primaryImage.width * 0.03;
-        let y = primaryImage.height * 0.03;
-        let radius = 70;
+    // Merging images for combined view
+    
+    var canvas = document.getElementById("myCanvas") as HTMLCanvasElement;
+    if (mergedImage) {
+        console.log("Running merge")
+        let primaryImage = await createImageBitmap(await primary);
+        let secondaryImage = await createImageBitmap(await secondary);
 
 
-        ctx.beginPath();
-        ctx.moveTo(x + radius, y);
-        ctx.lineTo(x + width - radius, y);
-        ctx.quadraticCurveTo(x + width, y, x + width, y + radius);
-        ctx.lineTo(x + width, y + height - radius);
-        ctx.quadraticCurveTo(x + width, y + height, x + width - radius, y + height);
-        ctx.lineTo(x + radius, y + height);
-        ctx.quadraticCurveTo(x, y + height, x, y + height - radius);
-        ctx.lineTo(x, y + radius);
-        ctx.quadraticCurveTo(x, y, x + radius, y);
-        ctx.lineTo(500,500)
-
-        ctx.closePath();
         
-        ctx.lineWidth = 20;
-        ctx.stroke();
+        canvas.width = primaryImage.width;
+        canvas.height
+         = primaryImage.height;
 
-        ctx.fill()
-        ctx.clip()
+        var ctx = canvas.getContext("2d");
+        var imageObj = new Image();
+        
+        // For dealing with error, bereal-style combined image
+        if (ctx) {
+            ctx.drawImage(primaryImage, 0, 0)
 
-        ctx.drawImage(secondaryImage, x, y, width, height)
+            // Rounded secondary image, adapted from https://stackoverflow.com/a/19593950/21809626
+
+            // Values relative to image size
+            let width = secondaryImage.width * 0.3;
+            let height = secondaryImage.height * 0.3;
+            let x = primaryImage.width * 0.03;
+            let y = primaryImage.height * 0.03;
+            let radius = 70;
+
+
+            ctx.beginPath();
+            ctx.moveTo(x + radius, y);
+            ctx.lineTo(x + width - radius, y);
+            ctx.quadraticCurveTo(x + width, y, x + width, y + radius);
+            ctx.lineTo(x + width, y + height - radius);
+            ctx.quadraticCurveTo(x + width, y + height, x + width - radius, y + height);
+            ctx.lineTo(x + radius, y + height);
+            ctx.quadraticCurveTo(x, y + height, x, y + height - radius);
+            ctx.lineTo(x, y + radius);
+            ctx.quadraticCurveTo(x, y, x + radius, y);
+            ctx.lineTo(500,500)
+
+            ctx.closePath();
+            
+            ctx.lineWidth = 20;
+            ctx.stroke();
+
+            ctx.fill()
+            ctx.clip()
+
+            ctx.drawImage(secondaryImage, x, y, width, height)
+        }    
     }
 
     
     
+    // Save as zip
+    // Async stuff: Must have generateAsync in toBlob function to run in proper order
 
-    
-
-    // Zip (combined primary+secondary)
-    
-    canvas.toBlob((blob) => {
-
-        if (blob) {
-            let zip = new JSZip();
-
+    canvas.toBlob(async (blob) => {
+        console.log("Running toBlob")
+        if (blob && mergedImage) {
             zip.file(`${monthString}/${dateString}.jpg`, blob)
-        
-            zip.generateAsync({ type: 'blob' }).then(function (content) {
-                FileSaver.saveAs(content, 'download.zip');
-            });
         }
 
-    });
+        console.log("Running generate")
+        zip.generateAsync({ type: 'blob' }).then(function (content) {
+            FileSaver.saveAs(content, 'download.zip');
+        });
+        
+    });  
 
-
+        
+    
+    
     
 
-
 }
+
+
+
