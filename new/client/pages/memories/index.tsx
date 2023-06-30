@@ -86,6 +86,8 @@ export default function Memories() {
         <div className={s.memories} onClick={() => downloadMemories()}>
             <button>download</button>
         </div>
+        
+        <canvas id="myCanvas" width="1000" height="1000"></canvas>
 
         </div>
 
@@ -127,6 +129,28 @@ async function downloadMemories() {
     zip.generateAsync({ type: 'blob' }).then(function (content) {
         FileSaver.saveAs(content, 'download.zip');
     });
+
+
+
+    // Merging images for combined view
+
+
+    let primaryImage = await createImageBitmap(await primary);
+    let secondaryImage = await createImageBitmap(await secondary);
+
+
+    var canvas = document.getElementById("myCanvas") as HTMLCanvasElement;
+    canvas.width = primaryImage.width;
+    canvas.height = primaryImage.height;
+
+    var context = canvas.getContext("2d");
+    var imageObj = new Image();
+    
+    context.drawImage(primaryImage, 0, 0)
+    context.drawImage(secondaryImage, 0, 0, 600, 600)
+
+    console.log(imageObj);
+    
 
 
 
