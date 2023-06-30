@@ -125,7 +125,6 @@ async function downloadMemories() {
     zip.file(`${monthString}/${dateString} -  primary.jpg`, primary)
     zip.file(`${monthString}/${dateString} - secondary.jpg`, secondary)
 
-
     zip.generateAsync({ type: 'blob' }).then(function (content) {
         FileSaver.saveAs(content, 'download.zip');
     });
@@ -133,8 +132,6 @@ async function downloadMemories() {
 
 
     // Merging images for combined view
-
-
     let primaryImage = await createImageBitmap(await primary);
     let secondaryImage = await createImageBitmap(await secondary);
 
@@ -143,11 +140,45 @@ async function downloadMemories() {
     canvas.width = primaryImage.width;
     canvas.height = primaryImage.height;
 
-    var context = canvas.getContext("2d");
+    var ctx = canvas.getContext("2d");
     var imageObj = new Image();
     
-    context.drawImage(primaryImage, 0, 0)
-    context.drawImage(secondaryImage, 0, 0, 600, 600)
+    // for annoying 'context' error, bereal-style combined image
+    if (!(ctx == null)) {
+        ctx.drawImage(primaryImage, 0, 0)
+
+        // Rounded secondary image, adapted from https://stackoverflow.com/a/19593950/21809626
+
+        // Values relative to image size
+        let width = secondaryImage.width * 0.3;
+        let height = secondaryImage.height * 0.3;
+        let x = primaryImage.width * 0.03;
+        let y = primaryImage.height * 0.03;
+        let radius = 70;
+
+
+        ctx.beginPath();
+        ctx.moveTo(x + radius, y);
+        ctx.lineTo(x + width - radius, y);
+        ctx.quadraticCurveTo(x + width, y, x + width, y + radius);
+        ctx.lineTo(x + width, y + height - radius);
+        ctx.quadraticCurveTo(x + width, y + height, x + width - radius, y + height);
+        ctx.lineTo(x + radius, y + height);
+        ctx.quadraticCurveTo(x, y + height, x, y + height - radius);
+        ctx.lineTo(x, y + radius);
+        ctx.quadraticCurveTo(x, y, x + radius, y);
+        ctx.lineTo(500,500)
+
+        ctx.closePath();
+        
+        ctx.lineWidth = 20;
+        ctx.stroke();
+
+        ctx.fill()
+        ctx.clip()
+
+        ctx.drawImage(secondaryImage, 0, 0, 600, 600)
+    }
 
     console.log(imageObj);
     
