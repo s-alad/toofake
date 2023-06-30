@@ -169,10 +169,6 @@ async function downloadMemories() {
         let dateString = memoryDate.toLocaleString('en-us', { dateStyle: 'long' })
 
 
-        console.log(`Zipping memory #${i+1}: ${memoryDate}`)
-
-
-
         // REPLACE WITH PROPER PROXY SETUP!
         // Fetch image data
         let primary = fetch("https://api.codetabs.com/v1/proxy?quest=" + memory.primary)
@@ -199,7 +195,6 @@ async function downloadMemories() {
         var canvas = document.getElementById("myCanvas") as HTMLCanvasElement;
 
         if (mergedImage) {
-            console.log("Running merge")
 
             let primaryImage = await createImageBitmap(await primary);
             let secondaryImage = await createImageBitmap(await secondary);
@@ -258,14 +253,13 @@ async function downloadMemories() {
         // Async stuff: Must have generateAsync in toBlob function to run in proper order
 
         canvas.toBlob(async (blob) => {
-            console.log("Running toBlob")
+
             if (blob && mergedImage) {
                 zip.file(`${monthString}/${dateString}.png`, blob)
             }
 
             // Only save if on last memory
             if (i == newmemories.length-1) {
-                console.log("Running generate")
 
                 // @ts-ignore: Object is possibly 'null'.
                 status.textContent += `, exporting .zip...`
