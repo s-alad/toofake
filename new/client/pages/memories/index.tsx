@@ -83,8 +83,8 @@ export default function Memories() {
         </div>
 
 
-        <div className={s.memories} onClick={() => downloadMemories()}>
-            <button>download</button>
+        <div className={s.memories}>
+            <button onClick={() => downloadMemories()}>download</button>
         </div>
         
         <canvas id="myCanvas" width="1000" height="1000"></canvas>
@@ -177,7 +177,7 @@ async function downloadMemories() {
         ctx.fill()
         ctx.clip()
 
-        ctx.drawImage(secondaryImage, 0, 0, 600, 600)
+        ctx.drawImage(secondaryImage, x, y, secondaryImage.width * 0.3, secondaryImage.height * 0.3)
     }
 
     console.log(imageObj);
