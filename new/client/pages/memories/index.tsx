@@ -84,11 +84,18 @@ export default function Memories() {
 
 
             <div className={s.memories}>
-                <button onClick={() => downloadMemories()}>download</button>
+                <button id="download" onClick={() => downloadMemories()}>download</button>
+            </div>
+            
+            <div>
+                <p id="downloadStatus"></p>
+                
             </div>
 
+            <span>&nbsp;</span>
+            <span>&nbsp;</span>
+
             <div>
-                <p></p>
                 <label>Export both primary and secondary separately</label>
                 <input type="checkbox" id="separate"></input>
                 <p></p>
@@ -96,8 +103,11 @@ export default function Memories() {
                 <input type="checkbox" id="merged"></input>
             </div>
 
-            <canvas id="myCanvas" width="1000" height="1000"></canvas>
+           
 
+            <div className={s.canvas}>
+                <canvas id="myCanvas" width="1000" height="1000"></canvas>
+            </div>
         </div>
 
 
@@ -113,30 +123,53 @@ async function downloadMemories() {
     let separateImages = document.getElementById("separate").checked;
     // @ts-ignore: Object is possibly 'null'.
     let mergedImage = document.getElementById("merged").checked;
-
-
+    // @ts-ignore: Object is possibly 'null'.
+    let status = document.getElementById("downloadStatus");
+    // @ts-ignore: Object is possibly 'null'.
+    let downloadButton = document.getElementById("download");
 
 
 
     // Don't do anything if no boxes are checked
     if (!(separateImages || mergedImage)) {
-        console.log("No export setting selected");
+
+        // @ts-ignore: Object is possibly 'null'.
+        status.textContent = "No export option selected.";
         return;
     }
+
+
+    // Disable download button
+    // @ts-ignore: Object is possibly 'null'.
+    downloadButton.disabled = true;
+
 
     let zip = new JSZip();
 
     // Loop through each memory
     for (let i = 0; i < newmemories.length; i++) {
 
-        console.log(`Memory #${i+1}`)
-
         let memory = newmemories[i];
-        let date = new Date(memory.date);
 
+
+        // Update memory status
+        // @ts-ignore: Object is possibly 'null'.
+        status.textContent = `Zipping, ${(((i+1)/(newmemories.length)) * 100).toFixed(1)}% (Memory ${i+1}/${(newmemories.length)})`
+
+        
         // Date strings for folder/file names
-        let monthString = date.toLocaleString('en-us', { month: 'long', year: 'numeric' })
-        let dateString = date.toLocaleString('en-us', { dateStyle: 'long' })
+        let memoryDate = new Date(memory.date); 
+        memoryDate.setDate(memoryDate.getDate() + 1); // Memory date is one day off for some reason?
+        
+        // Month string for folder in the form: "yyyy-mm, Month Year"
+        let monthString = `${memoryDate.getFullYear()}-${memoryDate.toLocaleDateString("en-GB", {month: "2-digit"})}, ${memoryDate.toLocaleString('en-us', { month: 'long', year: 'numeric' })}`
+        monthString = monthString.replaceAll("/", "-"); // Slashes aren't allowed for filenames
+
+        // Date string for files in the form: "Month Day, Year"
+        let dateString = memoryDate.toLocaleString('en-us', { dateStyle: 'long' })
+
+
+        console.log(`Zipping memory #${i+1}: ${memoryDate}`)
 
 
 
@@ -151,26 +184,25 @@ async function downloadMemories() {
 
 
         // Create zip w/ image, adapted from https://stackoverflow.com/a/49836948/21809626
-        // (Change this to use the matching extension)
+        // (Change this to use the matching extension instead of only .png?)
 
-        // Zip (primary + secondary) 
-
-
+        // Zip (primary + secondary separate) 
         if (separateImages) {
-            zip.file(`${monthString}/${dateString} -  primary.jpg`, primary)
-            zip.file(`${monthString}/${dateString} - secondary.jpg`, secondary)
+            zip.file(`${monthString}/${dateString} -  primary.png`, primary)
+            zip.file(`${monthString}/${dateString} - secondary.png`, secondary)
         }
 
 
 
         // Merging images for combined view
-
+        // (Must have canvas declaration here to be accessed by toBlob())
         var canvas = document.getElementById("myCanvas") as HTMLCanvasElement;
+
         if (mergedImage) {
             console.log("Running merge")
+
             let primaryImage = await createImageBitmap(await primary);
             let secondaryImage = await createImageBitmap(await secondary);
-
 
 
             canvas.width = primaryImage.width;
@@ -180,7 +212,11 @@ async function downloadMemories() {
             var ctx = canvas.getContext("2d");
             var imageObj = new Image();
 
-            // For dealing with error, bereal-style combined image
+            // Check if ctx is null for dealing with TS error (not necessary)
+            // Bereal-style combined image
+
+            // NOTE: secondary image is bugged for custom-uploaded images through the site,
+            // that aren't phone-sized
             if (ctx) {
                 ctx.drawImage(primaryImage, 0, 0)
 
@@ -210,8 +246,6 @@ async function downloadMemories() {
 
                 ctx.lineWidth = 20;
                 ctx.stroke();
-
-                ctx.fill()
                 ctx.clip()
 
                 ctx.drawImage(secondaryImage, x, y, width, height)
@@ -226,15 +260,37 @@ async function downloadMemories() {
         canvas.toBlob(async (blob) => {
             console.log("Running toBlob")
             if (blob && mergedImage) {
-                zip.file(`${monthString}/${dateString}.jpg`, blob)
+                zip.file(`${monthString}/${dateString}.png`, blob)
             }
 
             // Only save if on last memory
-            if (i == newmemories.length - 1) {
+            if (i == newmemories.length-1) {
                 console.log("Running generate")
-                zip.generateAsync({ type: 'blob' }).then(function (content) {
-                    FileSaver.saveAs(content, 'download.zip');
-                });
+
+                // @ts-ignore: Object is possibly 'null'.
+                status.textContent += `, exporting .zip...`
+
+
+                // NOTE: Some toBlob() calls aren't done by the time we generate the zip,
+                // so instead it just waits for a second (probably change this)
+                setTimeout(() => {
+                
+                    // Save w/ zip name of current date
+                    zip.generateAsync({ type: 'blob' }).then(function (content) {
+                        FileSaver.saveAs(content, `bereal-export-${new Date().toLocaleDateString().replace(/\//g, '-')}.zip`);
+                    });
+                    
+                    // Reset status
+                    // @ts-ignore: Object is possibly 'null'.
+                    status.textContent = "Zip will download shortly...";
+
+                    // Enable download button
+                    // @ts-ignore: Object is possibly 'null'.
+                    downloadButton.disabled = false;
+
+                }, 1000)
+
+   
             }
         });
 
