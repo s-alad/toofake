@@ -196,9 +196,18 @@ async function downloadMemories() {
 
         if (mergedImage) {
 
-            let primaryImage = await createImageBitmap(await primary);
-            let secondaryImage = await createImageBitmap(await secondary);
+            let primaryImage;
+            let secondaryImage;
 
+            // Error can happen here, InvalidStateError?
+            // Only happens on specific images
+            try {
+                primaryImage = await createImageBitmap(await primary);
+                secondaryImage = await createImageBitmap(await secondary);
+            } catch (e) {
+                console.log(`ERROR: Memory #${i} on ${memoryDate} could not be zipped due to the following:\n${e}`);
+                continue;
+            }
 
             canvas.width = primaryImage.width;
             canvas.height
@@ -235,7 +244,6 @@ async function downloadMemories() {
                 ctx.quadraticCurveTo(x, y + height, x, y + height - radius);
                 ctx.lineTo(x, y + radius);
                 ctx.quadraticCurveTo(x, y, x + radius, y);
-                ctx.lineTo(500, 500)
 
                 ctx.closePath();
 
@@ -271,7 +279,7 @@ async function downloadMemories() {
                 
                     // Save w/ zip name of current date
                     zip.generateAsync({ type: 'blob' }).then(function (content) {
-                        FileSaver.saveAs(content, `bereal-export-${new Date().toLocaleDateString().replace(/\//g, '-')}.zip`);
+                        FileSaver.saveAs(content, `bereal-export-${new Date().toLocaleString("en-us", {year:"2-digit", month:"2-digit", day:"2-digit"}).replace(/\//g, '-')}.zip`);
                     });
                     
                     // Reset status
