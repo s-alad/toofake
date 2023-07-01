@@ -86,12 +86,15 @@ export default function Memories() {
             <div className={s.memories}>
                 <button id="download" onClick={() => downloadMemories()}>download</button>
             </div>
-            
+
             <div>
                 <p id="downloadStatus"></p>
-                
             </div>
 
+            <div className={s.error}>
+                <p id="error"></p>
+            </div>
+            
             <span>&nbsp;</span>
             <span>&nbsp;</span>
 
@@ -103,7 +106,7 @@ export default function Memories() {
                 <input type="checkbox" id="merged"></input>
             </div>
 
-           
+
 
             <div className={s.canvas}>
                 <canvas id="myCanvas" width="1000" height="1000"></canvas>
@@ -126,9 +129,15 @@ async function downloadMemories() {
     // @ts-ignore: Object is possibly 'null'.
     let status = document.getElementById("downloadStatus");
     // @ts-ignore: Object is possibly 'null'.
+    let error = document.getElementById("error");
+    // @ts-ignore: Object is possibly 'null'.
     let downloadButton = document.getElementById("download");
 
-
+    // Reset text
+    // @ts-ignore: Object is possibly 'null'.
+    status.textContent = "";
+    // @ts-ignore: Object is possibly 'null'.
+    error.textContent = "";
 
     // Don't do anything if no boxes are checked
     if (!(separateImages || mergedImage)) {
@@ -151,153 +160,167 @@ async function downloadMemories() {
 
         let memory = newmemories[i];
 
-
         // Update memory status
         // @ts-ignore: Object is possibly 'null'.
-        status.textContent = `Zipping, ${(((i+1)/(newmemories.length)) * 100).toFixed(1)}% (Memory ${i+1}/${(newmemories.length)})`
+        status.textContent = `Zipping, ${(((i + 1) / (newmemories.length)) * 100).toFixed(1)}% (Memory ${i + 1}/${(newmemories.length)})`
 
-        
+
         // Date strings for folder/file names
-        let memoryDate = new Date(memory.date); 
+        let memoryDate = new Date(memory.date);
         memoryDate.setDate(memoryDate.getDate() + 1); // Memory date is one day off for some reason?
-        
+
         // Month string for folder in the form: "yyyy-mm, Month Year"
-        let monthString = `${memoryDate.getFullYear()}-${memoryDate.toLocaleDateString("en-GB", {month: "2-digit"})}, ${memoryDate.toLocaleString('en-us', { month: 'long', year: 'numeric' })}`
+        let monthString = `${memoryDate.getFullYear()}-${memoryDate.toLocaleDateString("en-GB", { month: "2-digit" })}, ${memoryDate.toLocaleString('en-us', { month: 'long', year: 'numeric' })}`
         monthString = monthString.replaceAll("/", "-"); // Slashes aren't allowed for filenames
 
         // Date string for files in the form: "Month Day, Year"
         let dateString = memoryDate.toLocaleString('en-us', { dateStyle: 'long' })
 
 
-        // REPLACE WITH PROPER PROXY SETUP!
-        // Fetch image data
-        let primary = fetch("https://api.codetabs.com/v1/proxy?quest=" + memory.primary)
-            .then((result) => result.blob())
+        // An error can happen here, InvalidStateException
+        // Caused by the primary/secondary image fetch being corrupt,
+        // but only happens rarely on specific memories
+        try {
 
-        let secondary = fetch("https://api.codetabs.com/v1/proxy?quest=" + memory.secondary)
-            .then((result) => result.blob())
+            // REPLACE WITH PROPER PROXY SETUP!
+            // Fetch image data
+            let primary = await fetch("https://api.codetabs.com/v1/proxy?quest=" + memory.primary)
+                .then((result) => result.blob())
 
-
-
-        // Create zip w/ image, adapted from https://stackoverflow.com/a/49836948/21809626
-        // (Change this to use the matching extension instead of only .png?)
-
-        // Zip (primary + secondary separate) 
-        if (separateImages) {
-            zip.file(`${monthString}/${dateString} -  primary.png`, primary)
-            zip.file(`${monthString}/${dateString} - secondary.png`, secondary)
-        }
+            let secondary = await fetch("https://api.codetabs.com/v1/proxy?quest=" + memory.secondary)
+                .then((result) => result.blob())
 
 
-
-        // Merging images for combined view
-        // (Must have canvas declaration here to be accessed by toBlob())
-        var canvas = document.getElementById("myCanvas") as HTMLCanvasElement;
-
-        if (mergedImage) {
-
-            let primaryImage;
-            let secondaryImage;
-
-            // Error can happen here, InvalidStateError?
-            // Only happens on specific images
-            try {
-                primaryImage = await createImageBitmap(await primary);
-                secondaryImage = await createImageBitmap(await secondary);
-            } catch (e) {
-                console.log(`ERROR: Memory #${i} on ${memoryDate} could not be zipped due to the following:\n${e}`);
-                continue;
+            // Create zip w/ image, adapted from https://stackoverflow.com/a/49836948/21809626
+            // Zip (primary + secondary separate) 
+            if (separateImages) {
+                zip.file(`${monthString}/${dateString} -  primary.png`, primary)
+                zip.file(`${monthString}/${dateString} - secondary.png`, secondary)
             }
 
-            canvas.width = primaryImage.width;
-            canvas.height
-                = primaryImage.height;
-
-            var ctx = canvas.getContext("2d");
-            var imageObj = new Image();
-
-            // Check if ctx is null for dealing with TS error (not necessary)
-            // Bereal-style combined image
-
-            // NOTE: secondary image is bugged for custom-uploaded images through the site,
-            // that aren't phone-sized
-            if (ctx) {
-                ctx.drawImage(primaryImage, 0, 0)
-
-                // Rounded secondary image, adapted from https://stackoverflow.com/a/19593950/21809626
-
-                // Values relative to image size
-                let width = secondaryImage.width * 0.3;
-                let height = secondaryImage.height * 0.3;
-                let x = primaryImage.width * 0.03;
-                let y = primaryImage.height * 0.03;
-                let radius = 70;
 
 
-                ctx.beginPath();
-                ctx.moveTo(x + radius, y);
-                ctx.lineTo(x + width - radius, y);
-                ctx.quadraticCurveTo(x + width, y, x + width, y + radius);
-                ctx.lineTo(x + width, y + height - radius);
-                ctx.quadraticCurveTo(x + width, y + height, x + width - radius, y + height);
-                ctx.lineTo(x + radius, y + height);
-                ctx.quadraticCurveTo(x, y + height, x, y + height - radius);
-                ctx.lineTo(x, y + radius);
-                ctx.quadraticCurveTo(x, y, x + radius, y);
+            // Merging images for combined view
+            // (Must have canvas declaration here to be accessed by toBlob())
+            var canvas = document.getElementById("myCanvas") as HTMLCanvasElement;
 
-                ctx.closePath();
+            if (mergedImage) {
 
-                ctx.lineWidth = 20;
-                ctx.stroke();
-                ctx.clip()
+                let primaryImage = await createImageBitmap(await primary);
+                let secondaryImage = await createImageBitmap(await secondary);
 
-                ctx.drawImage(secondaryImage, x, y, width, height)
-            }
-        }
+                canvas.width = primaryImage.width;
+                canvas.height = primaryImage.height;
+
+                var ctx = canvas.getContext("2d");
+
+                // Check if ctx is null for dealing with TS error (not necessary)
+                // Bereal-style combined image
+                // NOTE: secondary image is bugged for custom-uploaded images through the site,
+                // that aren't phone-sized
+                if (ctx) {
+                    ctx.drawImage(primaryImage, 0, 0)
+
+                    // Rounded secondary image, adapted from https://stackoverflow.com/a/19593950/21809626
+
+                    // Values relative to image size
+                    let width = secondaryImage.width * 0.3;
+                    let height = secondaryImage.height * 0.3;
+                    let x = primaryImage.width * 0.03;
+                    let y = primaryImage.height * 0.03;
+                    let radius = 70;
 
 
+                    ctx.beginPath();
+                    ctx.moveTo(x + radius, y);
+                    ctx.lineTo(x + width - radius, y);
+                    ctx.quadraticCurveTo(x + width, y, x + width, y + radius);
+                    ctx.lineTo(x + width, y + height - radius);
+                    ctx.quadraticCurveTo(x + width, y + height, x + width - radius, y + height);
+                    ctx.lineTo(x + radius, y + height);
+                    ctx.quadraticCurveTo(x, y + height, x, y + height - radius);
+                    ctx.lineTo(x, y + radius);
+                    ctx.quadraticCurveTo(x, y, x + radius, y);
 
-        // Save as zip
-        // Async stuff: Must have generateAsync in toBlob function to run in proper order
+                    ctx.closePath();
 
-        canvas.toBlob(async (blob) => {
+                    ctx.lineWidth = 20;
+                    ctx.stroke();
+                    ctx.clip()
 
-            if (blob && mergedImage) {
-                zip.file(`${monthString}/${dateString}.png`, blob)
+                    ctx.drawImage(secondaryImage, x, y, width, height)
+                }
             }
 
-            // Only save if on last memory
+
+
+            // Save as zip
+            // Async stuff: Must have generateAsync in toBlob function to run in proper order
+
+            canvas.toBlob(async (blob) => {
+
+                if (blob && mergedImage) {
+                    zip.file(`${monthString}/${dateString}.png`, blob)
+                }
+
+                // Only save if on last memory
+                if (i == newmemories.length-1) {
+
+                    // @ts-ignore: Object is possibly 'null'.
+                    status.textContent += `, exporting .zip...`
+
+
+                    // NOTE: Some toBlob() calls aren't done by the time we generate the zip,
+                    // so instead it just waits for a second (probably change this)
+                    setTimeout(() => {
+
+                        // Save w/ zip name of current date
+                        zip.generateAsync({ type: 'blob' }).then(function (content) {
+                            FileSaver.saveAs(content, `bereal-export-${new Date().toLocaleString("en-us", { year: "2-digit", month: "2-digit", day: "2-digit" }).replace(/\//g, '-')}.zip`);
+                        });
+
+                        // Reset status
+                        // @ts-ignore: Object is possibly 'null'.
+                        status.textContent = "Zip will download shortly...";
+
+                        // Enable download button
+                        // @ts-ignore: Object is possibly 'null'.
+                        downloadButton.disabled = false;
+
+                    }, 1000)
+
+
+                }
+            });
+
+        } catch (e) {
+
+            // @ts-ignore: Object is possibly 'null'.
+            error.textContent = "Errors found, check console."
+            console.log(`ERROR: Memory #${i} on ${memoryDate} could not be zipped:\n${e}`);
+
+            // Save zip if error was found on the last memory
             if (i == newmemories.length-1) {
 
-                // @ts-ignore: Object is possibly 'null'.
-                status.textContent += `, exporting .zip...`
-
-
-                // NOTE: Some toBlob() calls aren't done by the time we generate the zip,
-                // so instead it just waits for a second (probably change this)
                 setTimeout(() => {
-                
-                    // Save w/ zip name of current date
                     zip.generateAsync({ type: 'blob' }).then(function (content) {
-                        FileSaver.saveAs(content, `bereal-export-${new Date().toLocaleString("en-us", {year:"2-digit", month:"2-digit", day:"2-digit"}).replace(/\//g, '-')}.zip`);
+                        FileSaver.saveAs(content, `bereal-export-${new Date().toLocaleString("en-us", { year: "2-digit", month: "2-digit", day: "2-digit" }).replace(/\//g, '-')}.zip`);
                     });
-                    
-                    // Reset status
+
                     // @ts-ignore: Object is possibly 'null'.
                     status.textContent = "Zip will download shortly...";
 
-                    // Enable download button
                     // @ts-ignore: Object is possibly 'null'.
                     downloadButton.disabled = false;
 
                 }, 1000)
-
-   
+                
+            } else {
+                continue;
             }
-        });
-
-
+        }
     }
+
 
 
 
