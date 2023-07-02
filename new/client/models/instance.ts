@@ -82,8 +82,8 @@ class Instance {
 
         let initial_location = undefined;
         if (raw.location) {
-            let lat = raw.location._latitude;
-            let long = raw.location._longitude;
+            let lat = raw.location.latitude;
+            let long = raw.location.longitude;
 
             initial_location = { latitude: lat, longitude: long}
         }
@@ -93,7 +93,6 @@ class Instance {
         for (let raw_comment of raw.comments) {
             comments.push(Comment.moment(raw_comment));
         }
-
         return new Instance(user, realmojis, comments, location, caption, instanceid, primary, secondary);
     }
 }
