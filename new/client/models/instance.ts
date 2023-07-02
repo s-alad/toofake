@@ -54,27 +54,6 @@ class Instance {
             let long = raw.location._longitude;
 
             initial_location = { latitude: lat, longitude: long}
-
-            /* try {
-                let response = await axios.get(
-                    `https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer/reverseGeocode?location=${long},${lat}&outSR=&forStorage=false&f=pjson`
-                )
-                console.log(response.data)
-                initial_location = response.data.address.Match_addr + ", " + response.data.address.City;
-            } catch (e) {
-                console.log(e)
-            }
-
-            if (initial_location == "") {
-                try {
-                    let response = await axios.get(
-                        `https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${long}&zoom=15&format=jsonv2`
-                    )
-                    initial_location = response.data.display_name.split(",")[0] + ", " + response.data.display_name.split(",")[1];
-                } catch (e) {
-                    console.log(e)
-                }
-            } */
         }
         let location = initial_location
         /* console.log("MY LCATION")
@@ -82,6 +61,37 @@ class Instance {
         let comments: Comment[] = [];
         for (let raw_comment of raw.comment) {
             comments.push(Comment.create(raw_comment));
+        }
+
+        return new Instance(user, realmojis, comments, location, caption, instanceid, primary, secondary);
+    }
+
+    static async moment(raw: any, rawuser: any) {
+        let user = User.create(rawuser);
+
+        let caption = raw.caption;
+        let instanceid = raw.id;
+        let primary = raw.primary.url;
+        let secondary = raw.secondary.url;
+
+        let raw_realmojis = raw.realMojis;
+        let realmojis: Realmoji[] = [];
+        for (let raw_moji of raw_realmojis) {
+            realmojis.push(Realmoji.moment(raw_moji));
+        }
+
+        let initial_location = undefined;
+        if (raw.location) {
+            let lat = raw.location._latitude;
+            let long = raw.location._longitude;
+
+            initial_location = { latitude: lat, longitude: long}
+        }
+        let location = initial_location
+
+        let comments: Comment[] = [];
+        for (let raw_comment of raw.comments) {
+            comments.push(Comment.moment(raw_comment));
         }
 
         return new Instance(user, realmojis, comments, location, caption, instanceid, primary, secondary);

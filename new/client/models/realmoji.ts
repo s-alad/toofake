@@ -29,6 +29,17 @@ class Realmoji {
 
     }
 
+    static moment(raw: any) {
+        let owner = User.create(raw.user);
+
+        let emoji = raw.emoji;
+        let emoji_id = raw.id;
+        let type = raw.type;
+        let uri = raw.media.url;
+
+        return new Realmoji(owner, emoji, emoji_id, type, uri);
+    }
+
 }
 
 export default Realmoji;

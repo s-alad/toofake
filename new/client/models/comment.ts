@@ -19,6 +19,15 @@ class Comment {
 
         return new Comment(comment_id, text, owner);
     }
+
+    static moment(raw: any) {
+        let comment_id = raw.id;
+        let text = raw.content;
+
+        let owner = User.create(raw.user);
+
+        return new Comment(comment_id, text, owner);
+    }
 }
 
 export default Comment;

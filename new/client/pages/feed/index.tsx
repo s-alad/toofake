@@ -27,6 +27,8 @@ export default function Feed() {
     let [loading, setLoading] = useState<boolean>(true);
     let [failure, setFailure] = useState<string>("");
 
+    let [myinstances, setMyinstances] = useState<Instance[]>([]);
+
     useEffect(() => {
 
         setLoading(true);
@@ -41,7 +43,7 @@ export default function Feed() {
             data: body,
         }
 
-        axios.request(options).then(
+/*         axios.request(options).then(
             async (response) => {
                 
                 console.log("response.data")
@@ -52,9 +54,6 @@ export default function Feed() {
                     let id = data.id;
                     let newinstance = await Instance.create(data);
                     newinstances[id] = newinstance;
-                    /* console.log("newinstances");
-                    console.log(newinstances); */
-
                     setLoading(false);
                 }
 
@@ -81,16 +80,66 @@ export default function Feed() {
                 setFailure("SOMETHING WENT WRONG: " + JSON.stringify(error.response.data.error));
                 setTimeout(() => {setFailure("")}, 5000);
             }
-        )
+        ) */
 
-/*         let testoptions = {
-            url: "/api/allfeed",
+        let testoptions = {
+            url: "/api/all",
             method: "POST",
             headers: { 'Content-Type': 'application/json' },
             data: body,
         }
 
-        axios.request(testoptions) */
+        axios.request(testoptions).then(
+            async (response) => {
+                console.log("all response.data")
+                console.log(response.data);
+                console.log("=====================================")
+
+                let newinstances: { [key: string]: Instance } = {};
+
+                let mine = response.data.userPosts;
+                let friends = response.data.friendsPosts;
+
+                async function createInstance(data: any, usr: any) {
+                    console.log("CURRENT INSTANCE DATA");
+                    console.log(data);
+                    console.log("=====================================")
+                    let id = data.id;
+                    let newinstance = await Instance.moment(data, usr);
+                    newinstances[id] = newinstance;
+                    /* console.log("newinstances");
+                    console.log(newinstances); */
+                    setLoading(false);
+                }
+
+                for (let i = 0; i < friends.length; i++) {
+                    let thisuser = friends[i].user;
+                    let posts = friends[i].posts;
+                    for (let j = 0; j < posts.length; j++) {
+                        let post = posts[j];
+
+                        try {
+                            await createInstance(post, thisuser);
+                            setInstances({...newinstances});
+                            setLoading(false);
+                        } catch (error) {
+                            console.log("COULDNT MAKE INSTANCE WITH DATA: ", post)
+                            console.log(error);
+                        }
+                    }
+                }
+                console.log("newfriendinstances");
+                console.log(newinstances);
+                setLoading(false);
+            }).catch(
+                (error) => {
+                    console.log("FETCHING ERROR")
+                    console.log(error);
+                    setLoading(false);
+                    setFailure("SOMETHING WENT WRONG: " + JSON.stringify(error.response.data.error));
+                    setTimeout(() => {setFailure("")}, 5000);
+                }
+            )
     }, [])
 
 
