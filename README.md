@@ -15,17 +15,19 @@ check out the project at [BeFake](https://github.com/notmarek/BeFake) for a usua
 
 todo:
 - [ ] fix webp, .heic and .heif image issues !!!
-- [ ] support for two - three bereals
+- [x] support for two - three bereals
 - [ ] delete comment ability
 - [ ] add instant realmoji
 - [ ] react-all realmoji
 - [ ] not all friends show for big friends list
+- [ ] feed not fetching for big friends list
 - [ ] fix occasional login 500 errors
 - [ ] fix the navbar code for the 9 billionth time
 
 longterm:
 - [ ] change state management
 - [ ] cache things and use less requests
+- [ ] move things to proxy?
 - [ ] fix overused state and spagetti code
 ---
 
