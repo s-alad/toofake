@@ -91,19 +91,15 @@ export default function Feed() {
 
         axios.request(testoptions).then(
             async (response) => {
-                console.log("all response.data")
+                console.log("all feed data")
                 console.log(response.data);
                 console.log("=====================================")
 
                 let newinstances: { [key: string]: Instance } = {};
-
-                let mine = response.data.userPosts;
-                let friends = response.data.friendsPosts;
-
                 async function createInstance(data: any, usr: any) {
-                    console.log("CURRENT INSTANCE DATA");
+                    /* console.log("CURRENT INSTANCE DATA");
                     console.log(data);
-                    console.log("=====================================")
+                    console.log("=====================================") */
                     let id = data.id;
                     let newinstance = await Instance.moment(data, usr);
                     newinstances[id] = newinstance;
@@ -112,12 +108,33 @@ export default function Feed() {
                     setLoading(false);
                 }
 
+                let mine = response.data.userPosts;
+
+                //check if mine is undefined
+                if (mine != undefined) {
+                    let myposts = mine.posts;
+                    for (let i = 0; i < myposts.length; i++) {
+                        let post = myposts[i];
+                        try {
+                            await createInstance(post, mine.user);
+                            setInstances({...newinstances});
+                            setLoading(false);
+                        } catch (error) {
+                            console.log("COULDNT MAKE INSTANCE WITH DATA: ", post)
+                            console.log(error);
+                        }
+                    }
+                } else {
+                    console.log("I have no posts")
+                }
+
+                let friends = response.data.friendsPosts;
+
                 for (let i = 0; i < friends.length; i++) {
                     let thisuser = friends[i].user;
                     let posts = friends[i].posts;
                     for (let j = 0; j < posts.length; j++) {
                         let post = posts[j];
-
                         try {
                             await createInstance(post, thisuser);
                             setInstances({...newinstances});
