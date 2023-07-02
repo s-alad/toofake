@@ -40,7 +40,6 @@ export default function Feed() {
             headers: { 'Content-Type': 'application/json' },
             data: body,
         }
-        
 
         axios.request(options).then(
             async (response) => {
@@ -84,6 +83,14 @@ export default function Feed() {
             }
         )
 
+/*         let testoptions = {
+            url: "/api/allfeed",
+            method: "POST",
+            headers: { 'Content-Type': 'application/json' },
+            data: body,
+        }
+
+        axios.request(testoptions) */
     }, [])
 
 

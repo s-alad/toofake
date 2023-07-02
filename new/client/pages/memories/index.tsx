@@ -275,7 +275,7 @@ async function downloadMemories() {
                     setTimeout(() => {
 
                         // Save w/ zip name of current date
-                        zip.generateAsync({ type: 'blob' }).then(function (content) {
+                        zip.generateAsync({ type: 'blob' }).then(function (content: any) {
                             FileSaver.saveAs(content, `bereal-export-${new Date().toLocaleString("en-us", { year: "2-digit", month: "2-digit", day: "2-digit" }).replace(/\//g, '-')}.zip`);
                         });
 
@@ -303,7 +303,7 @@ async function downloadMemories() {
             if (i == newmemories.length-1) {
 
                 setTimeout(() => {
-                    zip.generateAsync({ type: 'blob' }).then(function (content) {
+                    zip.generateAsync({ type: 'blob' }).then(function (content: any) {
                         FileSaver.saveAs(content, `bereal-export-${new Date().toLocaleString("en-us", { year: "2-digit", month: "2-digit", day: "2-digit" }).replace(/\//g, '-')}.zip`);
                     });
 
