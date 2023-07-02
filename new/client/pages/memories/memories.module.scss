@@ -9,26 +9,29 @@
         width: 100%;
         
     }
+}
 
-
-    // Added button style from @/components/navbar/navbar.module.css
+.download {
+    padding-top: 40px;
     button {
         cursor: pointer;
         font-size: 16px;
         font-weight: 500;
         height: 34px;
-        width: 90px;
+        width: 200px;
         border-radius: 8px;
         background-color: white;
         border: none;
         margin-top: 20px;
     }
+
+    .canvas {
+        display: none;
+    }
+
+    .error {
+        color: red;
+    }
 }
 
-.canvas {
-    display: none;
-}
 
-.error {
-    color: red;
-}

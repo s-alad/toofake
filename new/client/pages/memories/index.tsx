@@ -53,7 +53,7 @@ export default function Memories() {
                         setLoading(false);
                         setMemories([...newmemories]);
                     } catch (error) {
-                        console.log("CULDNT MAKE MEMORY WITH DATA: ", memorydata[i])
+                        console.log("COULDN'T MAKE MEMORY WITH DATA: ", memorydata[i])
                         console.log(error);
                     }
 
@@ -70,7 +70,6 @@ export default function Memories() {
     return (
 
         <div>
-
             <div className={s.memories}>
                 {
                     loading ? <div className={l.loader}></div> :
@@ -83,33 +82,31 @@ export default function Memories() {
             </div>
 
 
-            <div className={s.memories}>
-                <button id="download" onClick={() => downloadMemories()}>download</button>
-            </div>
+            <div className={s.download}>
+                <button id="download" onClick={() => downloadMemories()}>download all as zip</button>
 
-            <div>
-                <p id="downloadStatus"></p>
-            </div>
+                <div>
+                    <p id="downloadStatus"></p>
+                </div>
 
-            <div className={s.error}>
-                <p id="error"></p>
-            </div>
+                <div className={s.error}>
+                    <p id="error"></p>
+                </div>
             
-            <span>&nbsp;</span>
-            <span>&nbsp;</span>
+                <div>
+                    <div>
+                        <label>Export both primary and secondary separately</label>
+                        <input type="checkbox" id="separate"></input>
+                    </div>
+                    <div>
+                        <label>Export merged primary + secondary into one image</label>
+                        <input type="checkbox" id="merged"></input>
+                    </div>
+                </div>
 
-            <div>
-                <label>Export both primary and secondary separately</label>
-                <input type="checkbox" id="separate"></input>
-                <p></p>
-                <label>Export merged primary + secondary into one image</label>
-                <input type="checkbox" id="merged"></input>
-            </div>
-
-
-
-            <div className={s.canvas}>
-                <canvas id="myCanvas" width="1000" height="1000"></canvas>
+                <div className={s.canvas}>
+                    <canvas id="myCanvas" width="1000" height="1000"></canvas>
+                </div>
             </div>
         </div>
 
@@ -184,10 +181,10 @@ async function downloadMemories() {
 
             // REPLACE WITH PROPER PROXY SETUP!
             // Fetch image data
-            let primary = await fetch("https://api.codetabs.com/v1/proxy?quest=" + memory.primary)
+            let primary = await fetch("https://toofake-cors-proxy-4fefd1186131.herokuapp.com/" + memory.primary)
                 .then((result) => result.blob())
 
-            let secondary = await fetch("https://api.codetabs.com/v1/proxy?quest=" + memory.secondary)
+            let secondary = await fetch("https://toofake-cors-proxy-4fefd1186131.herokuapp.com/" + memory.secondary)
                 .then((result) => result.blob())
 
 
@@ -320,15 +317,6 @@ async function downloadMemories() {
             }
         }
     }
-
-
-
-
-
-
-
-
-
 
 }
 
