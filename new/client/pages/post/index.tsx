@@ -134,7 +134,7 @@ export default function Post() {
             </div>
             <div className={s.info}>
                 *some photos taken on an iphone (.heic) may not work. if there is an error try taking a screenshot of the image and uploading that instead.<br />
-                *you might get a client-side exception if the image is too large. The maximum limit currently is 4.5mb.
+                *you might get a client-side exception if the image is too large. The maximum limit currently is 4.5mb for both images combined.
             </div>
             {/* fix this nesting */}
             {
