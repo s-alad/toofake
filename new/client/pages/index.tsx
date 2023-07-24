@@ -214,6 +214,8 @@ export default function Home() {
 				<p>You can login using your phone number, view bereals and post custom images.</p>
 				<p>Please report any bugs or issues on the <a href="https://github.com/s-alad/toofake"><FontAwesomeIcon icon={faGithub} /> github</a> theres probably a bunch!</p>
 				<p>More features coming soon!</p>
+				<p></p>
+				<p>There has been increased reports of login not working & BeReal being generally less responsive</p>
 			</div>
 		</div>
 	)
