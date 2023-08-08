@@ -1,7 +1,11 @@
 FROM node:lts-alpine
 
-# Create app directory
+# Create app directory and give ownership to the non-root user
 WORKDIR /app
+RUN chown -R node:node /app
+
+# Switch to the non-root user
+USER node
 
 # Bundle app source
 COPY new/client /app
