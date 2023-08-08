@@ -3,7 +3,10 @@ name: ci
 on:
   push:
     branches:
-      - "master"
+      - "main"
+    paths:
+      - "new/client/**"
+    workflow_dispatch:
 
 jobs:
   docker:
