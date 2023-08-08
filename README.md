@@ -38,6 +38,9 @@ longterm:
 * run `npm install`
 * run `npm run dev`
 
+### docker
+
+* `docker run {user}:toofake/latest -p 3000:3000`
 ---
 
 > ### big shoutout to the team at [BeFake](https://github.com/notmarek/BeFake) for exposing many of the api endpoints!
