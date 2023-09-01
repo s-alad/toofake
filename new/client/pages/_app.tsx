@@ -16,6 +16,7 @@ function App({ Component, pageProps }: AppProps) {
 		<Layout>
 			<Head>
 				<title>TooFake</title>
+				<meta name="referrer" content="no-referrer" />
 				<meta name="description" content="A BeReal Viewer: Post custom BeReal's whenever, View friends BeReals without them knowing " />
 				<meta name="viewport" content="width=device-width, initial-scale=1" />
 				<meta charSet="utf-8" />
