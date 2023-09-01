@@ -6,7 +6,7 @@
 ### https://toofake.vercel.app/
 
 ---
-# current status: NOT WORKING!
+# current status: IFFY!
 
 [rvaidun](https://github.com/rvaidun)'s project has been cease and desisted but may still be up! It has more features.
 check out the project at [BeFake](https://github.com/notmarek/BeFake) for a usually more up-to date backend!
