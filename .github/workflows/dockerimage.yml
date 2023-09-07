@@ -6,6 +6,7 @@ on:
       - "main"
     paths:
       - "new/client/**"
+      - "DOckerfile"
   workflow_dispatch:
 
 jobs:
