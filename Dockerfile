@@ -3,23 +3,21 @@ FROM node:lts-alpine
 # Create app directory
 WORKDIR /app
 
+# Expose port
+EXPOSE 3000
+
+# Startup command
+CMD ["npm", "run", "dev"]
+HEALTHCHECK CMD curl --fail http://localhost:3000 || exit 1
+
 # Bundle app source and change permissions
 COPY new/client /app
 
-# Install app dependencies
-RUN npm install
-
-# Change app folder permissions
+# Change app folder permissions again
 RUN chown -R node:node /app
 
 # Switch to the non-root user
 USER node
 
-# Use a volume for node_modules
-VOLUME ["/app/node_modules"]
-
-# Expose port
-EXPOSE 3000
-
-# Run app
-CMD ["npm", "run", "dev"]
+# Install app dependencies
+RUN npm install
