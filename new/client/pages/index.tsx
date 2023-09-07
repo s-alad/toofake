@@ -210,7 +210,7 @@ export default function Home() {
 				</div>
 			</div>
 			<div className={s.info}>
-				<p>TooFake is currently <span>working</span> again!</p>
+				<p>TooFake is currently <span>kind of working</span> again!</p>
 				<p>You can login using your phone number, view bereals and post custom images.</p>
 				<p>Please report any bugs or issues on the <a href="https://github.com/s-alad/toofake"><FontAwesomeIcon icon={faGithub} /> github</a> theres probably a bunch!</p>
 				<p>More features coming soon!</p>
