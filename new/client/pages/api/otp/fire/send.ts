@@ -66,7 +66,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         }
     ).catch(
         (error) => {
-            console.log(error);
+            console.log("THERE IS AN ERROR")
+            console.log(error.response);
+            console.log(error.response.data)
+            console.log(error.response.data.error)
             res.status(400).json({ status: "error" });
         }
     )

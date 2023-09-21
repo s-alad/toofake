@@ -3,8 +3,9 @@ import axios from 'axios';
 
 export const config = {
     api: {
-        responseLimit: '8mb',
+        responseLimit: false,
     },
+    maxDuration: 300,
 }
 
 
