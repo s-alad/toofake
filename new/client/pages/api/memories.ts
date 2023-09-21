@@ -1,6 +1,13 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import axios from 'axios';
 
+export const config = {
+    api: {
+        responseLimit: false,
+    },
+    maxDuration: 300,
+}
+
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
 
     let authorization_token = req.body.token;
