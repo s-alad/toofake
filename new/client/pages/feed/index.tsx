@@ -209,9 +209,18 @@ export default function Feed() {
                 (
                     Object.keys(instances).length > 0 ? 
                     Object.keys(instances).map((key, idx) => {
-                        return (
-                            <Instant key={idx} instance={instances[key]} mymojis={mymojis}/>
-                        )
+                        const elements = [];
+                        elements.push(<Instant key={idx} instance={instances[key]} mymojis={mymojis}/>);
+
+                        if ((idx + 1) % 3 === 2) {
+                            elements.push(
+                                <a href="https://ishemine.com" target="_blank" rel="noopener noreferrer" key={'link' + idx}>
+                                    <img src={"https://ishemine-bucket.s3.us-east-1.amazonaws.com/ihm-toofake.png"} alt="Too Fake" key={'img' + idx} className={s.adimage} />
+                                </a>
+                                );
+                        }
+
+                        return elements;
                     }) :
                     <div className={s.nothing}>
                         It's quiet here, nobody has posted anything yet.

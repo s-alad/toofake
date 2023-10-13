@@ -24,3 +24,16 @@
         width: 100%;
     }
 }
+
+.adimage {
+    width: 300px;
+    height: min-content;
+    margin-right: 30px;
+    margin-top: 130px;
+
+    @media (max-width: 600px) {
+        margin-right: 0px;
+        margin-bottom: 12px;
+        margin-top: 0px;
+    }
+}
