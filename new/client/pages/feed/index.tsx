@@ -14,6 +14,11 @@ import s from './feed.module.scss';
 import l from '@/styles/loader.module.scss';
 import Moji from '@/models/moji';
 
+import Link from 'next/link'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faAdd, faClose } from "@fortawesome/free-solid-svg-icons";
+
+
 
 export default function Feed() {
 
@@ -194,6 +199,17 @@ export default function Feed() {
         
     }, [loading])
 
+
+    let [ad, setAd] = useState<boolean>(true);
+    function closeAds() {
+        sessionStorage.setItem("ads", "false");
+        setAd(false);
+    }
+    useEffect(() => {
+        let ads = sessionStorage.getItem("ads");
+        if (ads == "false") { setAd(false);}
+    }, [])
+
     return (
         <div className={s.feed}>
             {
@@ -214,9 +230,17 @@ export default function Feed() {
 
                         if ((idx + 1) % 3 === 2) {
                             elements.push(
-                                <a href="https://ishemine.com" target="_blank" rel="noopener noreferrer" key={'link' + idx}>
-                                    <img src={"https://ishemine-bucket.s3.us-east-1.amazonaws.com/ihm-toofake.png"} alt="Too Fake" key={'img' + idx} className={s.adimage} />
-                                </a>
+                                <div className={`${s.ad} ${ad ? '' : s.hide}`}>
+                                    <div className={s.head}>
+                                        advertisment
+                                        <FontAwesomeIcon icon={faClose} className={s.close}
+                                            onClick={closeAds}
+                                        />
+                                    </div>
+                                    <Link href="https://ishemine.com" target="_blank" rel="noopener noreferrer" key={'link' + idx}>
+                                        <img src={"https://ishemine-bucket.s3.us-east-1.amazonaws.com/ihm-toofake.png"} alt="ad" key={'img' + idx} className={s.adimage} />
+                                    </Link>
+                                </div>
                                 );
                         }
 
