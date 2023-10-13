@@ -24,3 +24,46 @@
         width: 100%;
     }
 }
+
+.ad {
+    height: min-content;
+    width: 300px;
+
+    border: 1px solid white;
+    border-radius: 8px;
+
+    margin-right: 30px;
+    margin-top: 248px;
+
+    @media (max-width: 600px) {
+        margin-right: 0px;
+        margin-bottom: 12px;
+        margin-top: 0px;
+    }
+
+    .head {
+        padding: 10px;
+        padding-top: 12px;
+        display: flex;
+        justify-content: space-between;
+        font-size: 12px;
+        .close {
+            cursor: pointer;
+            font-size: 16px;
+            margin-right: 6px;
+        }
+    }
+
+    .adimage {
+        height: min-content;
+        border-radius: 8px;
+        background-color: #ff7373;
+        width: 100%;
+        object-fit: cover;
+        position: relative;
+        top: 4px;
+    }
+}
+.hide {
+    display: none;
+}
