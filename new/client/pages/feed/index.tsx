@@ -221,9 +221,7 @@ export default function Feed() {
                 : ''
             }
             {
-                loading ? <div className={l.loader}></div> :
-                (
-                    Object.keys(instances).length > 0 ? 
+                /* 
                     Object.keys(instances).map((key, idx) => {
                         const elements = [];
                         elements.push(<Instant key={idx} instance={instances[key]} mymojis={mymojis}/>);
@@ -245,6 +243,14 @@ export default function Feed() {
                         }
 
                         return elements;
+                    })  */
+                loading ? <div className={l.loader}></div> :
+                (
+                    Object.keys(instances).length > 0 ? 
+                    Object.keys(instances).map((key, idx) => {
+                        return (
+                            <Instant key={idx} instance={instances[key]} mymojis={mymojis}/>
+                        )
                     }) :
                     <div className={s.nothing}>
                         It's quiet here, nobody has posted anything yet.
