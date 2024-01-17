@@ -15,6 +15,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     console.log(authorization_token);
     let headers = {
         "authorization": "Bearer " + authorization_token,
+        "bereal-app-version-code": "14549",
+        "bereal-signature": "berealsignature",
+        "bereal-device-id": "berealdeviceid",
     }
     return axios.request({
         url: "https://mobile.bereal.com/api" + "/feeds/memories",
