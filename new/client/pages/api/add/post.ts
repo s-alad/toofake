@@ -133,7 +133,12 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         // ============================================================================================
         // upload url
 
-        let upload_headers = { "authorization": "Bearer " + authorization_token, }
+        let upload_headers = {
+            "authorization": "Bearer " + authorization_token,
+            "bereal-app-version-code": "14549",
+            "bereal-signature": "berealsignature",
+            "bereal-device-id": "berealdeviceid",
+        }
 
         let upload_options = {
             url: "https://mobile.bereal.com/api/content/posts/upload-url?mimeType=image/webp",
@@ -155,12 +160,18 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         let primary_path = primary_res.path;
         let primary_bucket = primary_res.bucket;
         primary_headers["Authorization"] = "Bearer " + authorization_token
+        primary_headers["bereal-app-version-code"] = "14549";
+        primary_headers["bereal-signature"] = "berealsignature";
+        primary_headers["bereal-device-id"] = "berealdeviceid";
 
         let secondary_headers = secondary_res.headers;
         let secondary_url = secondary_res.url;
         let secondary_path = secondary_res.path;
         let secondary_bucket = secondary_res.bucket;
         secondary_headers["Authorization"] = "Bearer " + authorization_token
+        secondary_headers["bereal-app-version-code"] = "14549";
+        secondary_headers["bereal-signature"] = "berealsignature";
+        secondary_headers["bereal-device-id"] = "berealdeviceid";
 
         // ============================================================================================
 
@@ -213,6 +224,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         let post_headers = {
             "content-type": "application/json",
             "Authorization": "Bearer " + authorization_token,
+            "bereal-app-version-code": "14549",
+            "bereal-signature": "berealsignature",
+            "bereal-device-id": "berealdeviceid",
             "bereal-platform": "iOS",
             "bereal-os-version": "14.7.1",
             "accept-language": "en-US;q=1.0",
