@@ -210,12 +210,13 @@ export default function Home() {
 				</div>
 			</div>
 			<div className={s.info}>
-				<p>TooFake is currently <span>kind of working</span> again!</p>
-				<p>You can login using your phone number, view bereals and post custom images.</p>
+				<p>TooFake needs <span>your help!!!</span></p>
+				<p>BeReal continues to beef up its security making it much harder to reverse engineer. If you are well versed in reverse engineering, please check out the <a href="https://github.com/s-alad/toofake"><FontAwesomeIcon icon={faGithub} /> github</a> and help us keep the befake project working!</p>
+				{/* <p>You can login using your phone number, view bereals and post custom images.</p>
 				<p>Please report any bugs or issues on the <a href="https://github.com/s-alad/toofake"><FontAwesomeIcon icon={faGithub} /> github</a> theres probably a bunch!</p>
-				<p>More features coming soon!</p>
+				<p>More features coming soon!</p> */}
 				{/* <p></p> */}
-				<p>- There has been increased reports of login not working in the UK & other countries</p>
+				{/* <p>- There has been increased reports of login not working in the UK & other countries</p> */}
 			</div>
 		</div>
 	)
