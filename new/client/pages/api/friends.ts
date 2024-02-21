@@ -8,8 +8,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     let headers = {
         "authorization": "Bearer " + authorization_token,
         "bereal-app-version-code": "14549",
-        "bereal-signature": "berealsignature",
-        "bereal-device-id": "berealdeviceid",
+        "bereal-signature": "MToxNzA3NDgwMjI4OvR2hbFOdgnyAz1bfiCp68ul5sVZiHnv+NAZNySEcBfD",
+        'bereal-device-id': '937v3jb942b0h6u9',
+        'bereal-timezone': 'Europe/Paris',
     }
     return axios.request({
         url: "https://mobile.bereal.com/api" + "/relationships/friends",
