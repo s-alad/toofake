@@ -207,7 +207,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             "isLate": false,
             "retakeCounter": 0,
             takenAt: taken_at,
-            caption: caption.toString(), // might not be working
+           /*  caption: caption.toString(), // might not be working */
             visibility: ["friends"],
             backCamera: {
                 bucket: primary_bucket,
