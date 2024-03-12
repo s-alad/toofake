@@ -53,7 +53,9 @@ export default function Navbar() {
                 {
                     !menu ?
                         <>
-                            <div className={s.fake}>TooFake</div>
+                            <Link href={"/feed"} className={s.fake}>
+                                <div className={s.fake}>TooFake</div>
+                            </Link>
                             <div className={s.sep}></div>
                             <div className={s.pagename}>
                                 {getPageName()}
