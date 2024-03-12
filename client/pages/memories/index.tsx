@@ -69,7 +69,7 @@ export default function Memories() {
 
     return (
 
-        <div>
+        <div className={s.mem}>
             <div className={s.memories}>
                 {
                     loading ? <div className={l.loader}></div> :

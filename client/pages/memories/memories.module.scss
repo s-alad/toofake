@@ -1,6 +1,10 @@
+.mem {
+    width: 100%;
+}
+
 .memories {
     display: flex;
-    overflow-x: scroll;
+    overflow-x: scroll !important;
 
 
     @media screen and (max-width: 600px) {
