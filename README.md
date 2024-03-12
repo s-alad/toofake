@@ -15,14 +15,16 @@ BeReal will only continue to change and get more advanced, breaking projects lik
 # how to run locally
 
 **node**  
-* clone the project `git clone https://github.com/s-alad/toofake.gitlone` 
+* clone the project `git clone https://github.com/s-alad/toofake.git` 
 * cd into the /client directory `cd client`
 * run `npm install`
 * run `npm run dev`
 
 **docker**
-* `docker build . -t toofake`
-* `docker run -d -p 3000:3000 toofake`
+* clone the project `git clone https://github.com/s-alad/toofake.git` 
+* cd into the /client directory `cd client` 
+* run `docker build . -t toofake`
+* run `docker run -d -p 3000:3000 toofake`
 
 ---
 
