@@ -128,7 +128,9 @@ export default function Post() {
                     }
                 </div>
             </div>
-            <input className={s.caption} placeholder='your caption' onChange={(txt) => setCaption(txt.target.value)}></input>
+            <input className={s.caption} placeholder='captions not working, set them after you post in your app!' onChange={(txt) => setCaption(txt.target.value)}
+                disabled 
+            ></input>
             <div className={s.submit} onClick={() => { handleSubmission() }}>
                 submit
             </div>
