@@ -5,7 +5,7 @@ on:
     branches:
       - "main"
     paths:
-      - "new/client/**"
+      - "client/**"
       - "Dockerfile"
   workflow_dispatch:
 

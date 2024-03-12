@@ -1,14 +1,14 @@
 # Stage 1: install dependencies
 FROM node:lts-alpine AS deps
 WORKDIR /app
-COPY new/client/package*.json .
+COPY client/package*.json .
 RUN npm i
 
 # Stage 2: build
 FROM node:lts-alpine AS builder
 WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
-COPY new/client/ .
+COPY client/ .
 ARG NODE_ENV=production
 RUN npm run build
 
