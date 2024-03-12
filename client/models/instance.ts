@@ -37,7 +37,7 @@ class Instance {
         let caption = raw.caption;
         let instanceid = raw.id;
         let primary = raw.photoURL;
-        let secondary = raw.secondaryPhotoURL;
+        let secondary = raw.secondaryPhotoURL; 
         let creationdate = new Date(raw.creationDate).toLocaleString(undefined, { hour: '2-digit', minute: '2-digit', month: 'short', day: 'numeric' });
         
         let raw_realmojis = raw.realMojis;
@@ -70,7 +70,8 @@ class Instance {
         let instanceid = raw.id;
         let primary = raw.primary.url;
         let secondary = raw.secondary.url;
-        let creationdate = new Date(raw.creationDate).toLocaleString(undefined, { hour: '2-digit', minute: '2-digit', month: 'short', day: 'numeric' });
+        let creationdate = 
+            raw.creationDate ? new Date(raw.creationDate).toLocaleString(undefined, { hour: '2-digit', minute: '2-digit', month: 'short', day: 'numeric' }) : "no date available"
 
         let raw_realmojis = raw.realMojis;
         let realmojis: Realmoji[] = [];
