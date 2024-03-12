@@ -1,4 +1,4 @@
-# TooFake: a bereal viewer & client
+# TooFake: a bereal viewer & web client
 
 ### want to stalk your friends, family, or ex without posting your own bereal? </br> toofake gives the ability to view & download bereals, and post custom bereals & realmojis without ever having to click on that annoying notification
 
