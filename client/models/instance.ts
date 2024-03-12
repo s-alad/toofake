@@ -10,38 +10,36 @@ class Instance {
 
     realmojis: Realmoji[];
     comments: Comment[];
-
     location: { latitude: number, longitude: number } | undefined;
-
+    creationdate: string;
     caption: string;
     instanceid: string;
     primary: string;
     secondary: string;
 
     // make a constructor
-    constructor(user: User, realmojis: Realmoji[], comments: Comment[], location: { latitude: number, longitude: number } | undefined, caption: string, instanceid: string, primary: string, secondary: string) {
+    constructor(user: User, realmojis: Realmoji[], comments: Comment[], location: { latitude: number, longitude: number } | undefined, creationdate: string ,caption: string, instanceid: string, primary: string, secondary: string) {
         this.user = user;
         this.realmojis = realmojis;
         this.comments = comments;
         this.location = location;
+        this.creationdate = creationdate;
         this.caption = caption;
         this.instanceid = instanceid;
         this.primary = primary;
         this.secondary = secondary;
     }
 
-
     // static method to create instances
     static async create(raw: any) {
-        /* console.log("CREATION")
-        console.log(raw); */
         let user = User.create(raw.user);
 
         let caption = raw.caption;
         let instanceid = raw.id;
         let primary = raw.photoURL;
         let secondary = raw.secondaryPhotoURL;
-
+        let creationdate = new Date(raw.creationDate).toLocaleString(undefined, { hour: '2-digit', minute: '2-digit', month: 'short', day: 'numeric' });
+        
         let raw_realmojis = raw.realMojis;
         let realmojis: Realmoji[] = [];
         for (let raw_moji of raw_realmojis) {
@@ -56,14 +54,13 @@ class Instance {
             initial_location = { latitude: lat, longitude: long}
         }
         let location = initial_location
-        /* console.log("MY LCATION")
-        console.log(location) */
+
         let comments: Comment[] = [];
         for (let raw_comment of raw.comment) {
             comments.push(Comment.create(raw_comment));
         }
 
-        return new Instance(user, realmojis, comments, location, caption, instanceid, primary, secondary);
+        return new Instance(user, realmojis, comments, location, creationdate, caption, instanceid, primary, secondary);
     }
 
     static async moment(raw: any, rawuser: any) {
@@ -73,6 +70,7 @@ class Instance {
         let instanceid = raw.id;
         let primary = raw.primary.url;
         let secondary = raw.secondary.url;
+        let creationdate = new Date(raw.creationDate).toLocaleString(undefined, { hour: '2-digit', minute: '2-digit', month: 'short', day: 'numeric' });
 
         let raw_realmojis = raw.realMojis;
         let realmojis: Realmoji[] = [];
@@ -93,7 +91,7 @@ class Instance {
         for (let raw_comment of raw.comments) {
             comments.push(Comment.moment(raw_comment));
         }
-        return new Instance(user, realmojis, comments, location, caption, instanceid, primary, secondary);
+        return new Instance(user, realmojis, comments, location, creationdate ,caption, instanceid, primary, secondary);
     }
 }
 

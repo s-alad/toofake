@@ -194,6 +194,7 @@ export default function Instant({ instance, mymojis }: _Instant) {
                 <div className={s.details}>
                     <div className={s.username}><Link href={profile_link}> @{instance.user.username} </Link></div>
                     <div className={s.location}> {location} </div>
+                    <div className={s.timeposted}>{instance.creationdate}</div>
                 </div>
                 {
                     instance.user.uid == localStorage.getItem("uid") ?
