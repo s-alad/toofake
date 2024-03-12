@@ -21,6 +21,7 @@ interface _Instant {
 }
 
 export default function Instant({ instance, mymojis }: _Instant) {
+    console.log(instance.user.uid)
 
     let router = useRouter();
 
@@ -32,7 +33,12 @@ export default function Instant({ instance, mymojis }: _Instant) {
         setCommentLoading(true);
 
         let token = localStorage.getItem("token");
-        let body = JSON.stringify({ "token": token, "instance_id": instance.instanceid, "comment": comment });
+        let body = JSON.stringify({ 
+            "token": token, 
+            "instance_id": instance.instanceid, 
+            "poster_user_id": instance.user.uid,
+            "comment": comment
+        });
 
         let options = {
             url: "/api/comment",

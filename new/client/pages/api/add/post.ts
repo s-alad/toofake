@@ -47,7 +47,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         let secondaryb64: string = fields["secondaryb64"][0] as string;
 
         // log the first 20 chars of the base64 string
-        console.log("BASE64 STRINGS 20chars");
+        console.log("BASE64 STRINGS 40 chars");
         console.log(primaryb64.substring(0, 40));
         console.log(secondaryb64.substring(0, 40));
         console.log('---------------------')
@@ -135,9 +135,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
         let upload_headers = {
             "authorization": "Bearer " + authorization_token,
-            "bereal-app-version-code": "14549",
-            "bereal-signature": "berealsignature",
-            "bereal-device-id": "berealdeviceid",
+            'bereal-app-version-code': '14549',
+            'bereal-signature': 'MToxNzA3NDgwMjI4OvR2hbFOdgnyAz1bfiCp68ul5sVZiHnv+NAZNySEcBfD',
+            'bereal-timezone': 'Europe/Paris',
+            'bereal-device-id': '937v3jb942b0h6u9'
         }
 
         let upload_options = {
@@ -224,15 +225,14 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         let post_headers = {
             "content-type": "application/json",
             "Authorization": "Bearer " + authorization_token,
-            "bereal-app-version-code": "14549",
-            "bereal-signature": "berealsignature",
-            "bereal-device-id": "berealdeviceid",
-            "bereal-platform": "iOS",
+            'bereal-app-version-code': '14549',
+            'bereal-signature': 'MToxNzA3NDgwMjI4OvR2hbFOdgnyAz1bfiCp68ul5sVZiHnv+NAZNySEcBfD',
+            'bereal-timezone': 'Europe/Paris',
+            'bereal-device-id': '937v3jb942b0h6u9',
             "bereal-os-version": "14.7.1",
             "accept-language": "en-US;q=1.0",
             "bereal-app-language": "en-US",
             "user-agent": "BeReal/0.28.2 (AlexisBarreyat.BeReal; build:8425; iOS 14.7.1) 1.0.0/BRApiKit",
-            "bereal-timezone": "America/Los_Angeles",
             "bereal-device-language": "en",
         }
         console.log("post data");
