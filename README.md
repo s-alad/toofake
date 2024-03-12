@@ -1,47 +1,51 @@
 # TooFake: a bereal viewer & client
 
-### want to stalk your friends, family, or ex without posting your own bereal? </br> toofake gives the ability to view bereals and post custom bereals without ever having to click on that annoying notification
+### want to stalk your friends, family, or ex without posting your own bereal? </br> toofake gives the ability to view & download bereals, and post custom bereals & realmojis without ever having to click on that annoying notification
 
-### https://toofake.lol/
-### https://toofake.vercel.app/
-
----
-# current status: IFFY!
-
-[rvaidun](https://github.com/rvaidun)'s project has been cease and desisted but may still be up! It has more features.
-check out the project at [BeFake](https://github.com/notmarek/BeFake) for a usually more up-to date backend!
+### https://toofake.lol
 
 ---
 
-todo:
+# current status: IFFY - help wanted!  
+
+BeReal will only continue to change and get more advanced, breaking projects like toofake & befake. The open source community has kept this project going for very long & hopefully can for much longer! Any Pull Requests or changes are always happily welcomed!
+
+---
+
+# how to run locally
+
+**node**  
+* clone the project `git clone https://github.com/s-alad/toofake.gitlone` 
+* cd into the /client directory `cd client`
+* run `npm install`
+* run `npm run dev`
+
+**docker**
+* `docker build . -t toofake`
+* `docker run -d -p 3000:3000 toofake`
+
+---
+
+
+# TODO
+
 - [ ] fix webp, .heic and .heif image issues !!!
-- [x] support for two - three bereals
 - [ ] delete comment ability
 - [ ] add instant realmoji
 - [ ] react-all realmoji
 - [ ] not all friends show for big friends list
 - [ ] feed not fetching for big friends list
 - [ ] fix occasional login 500 errors
-- [ ] fix the navbar code for the 9 billionth time
-
-longterm:
-- [ ] change state management
+- [ ] change state & login management
 - [ ] cache things and use less requests
 - [ ] move things to proxy?
-- [ ] fix overused state and spagetti code
+- [ ] fix overused state and spaghetti code  
+
 ---
+# Peers
 
-### how to run locally
-
-* clone the project
-* cd into the new/client directory
-* run `npm install`
-* run `npm run dev`
-
-### docker
-
-* `docker run {user}:toofake/latest -p 3000:3000`
+toofake owes a lot to the open source community & great peer projects that have been cease & desisted:  
+### shoutout to [rvaidun's befake](https://github.com/rvaidun) for many parts of the reverse engineering!  
+### shoutout to the community at [BeFake](https://github.com/notmarek/BeFake) for exposing many of the api endpoints!
+### heavily inspired by [shomil](https://shomil.me/bereal/)
 ---
-
-> ### big shoutout to the team at [BeFake](https://github.com/notmarek/BeFake) for exposing many of the api endpoints!
-> ### heavily inspired by [shomil](https://shomil.me/bereal/) and [rvaidun](https://github.com/rvaidun) 
