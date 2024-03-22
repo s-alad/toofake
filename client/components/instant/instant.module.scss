@@ -2,308 +2,311 @@
 @use "../../styles/common.scss" as c;
 
 .instant {
-    border-radius: 8px;
-    width: 300px;
-    min-width: 300px;
-    border: 1px solid white;
-    box-shadow: 0 0 10px 1px #6a6565;
-    margin-right: 30px;
-    height: min-content;
+  border-radius: 8px;
+  width: 300px;
+  min-width: 300px;
+  border: 1px solid white;
+  box-shadow: 0 0 10px 1px #6a6565;
+  margin-right: 30px;
+  height: min-content;
 
-    a {
-        text-decoration: none;
-        color: inherit;
+  a {
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .top {
+    /* height: 50px; */
+    width: 100%;
+    display: flex;
+    padding: 12px 10px;
+    .pfp {
+      width: 50px;
+      @include c.center();
+      img {
+        height: 30px;
+        width: 30px;
+        border-radius: 100%;
+        object-fit: cover;
+        background-color: white;
+      }
+      .letter {
+        height: 30px;
+        width: 30px;
+        border-radius: 100%;
+        object-fit: cover;
+        background-color: white;
+        @include c.center();
+        font-size: 20px;
+        color: black;
+      }
+    }
+    .details {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      .username {
+        font-size: 15px;
+        font-weight: 600;
+        margin-bottom: 4px;
+      }
+      .location {
+        font-size: 10px;
+        color: rgb(158, 158, 158);
+      }
+      .timeposted {
+        font-size: 10px;
+        color: rgb(158, 158, 158);
+      }
+    }
+    .trash {
+      width: 30px;
+      @include c.center();
+      cursor: pointer;
+    }
+  }
+
+  .content {
+    position: relative;
+    /* height: 400px; */
+    width: 100%;
+
+    .primary {
+      position: relative;
+      width: 100%;
+      border-radius: 8px;
+      z-index: 100;
     }
 
-    .top {
-        /* height: 50px; */
-        width: 100%;
-        display: flex;
-        padding: 12px 10px;
-        .pfp {
-            width: 50px;
-            @include c.center();
-            img {
-                height: 30px;
-                width: 30px;
-                border-radius: 100%;
-                object-fit: cover;
-                background-color: white;
-            }
-            .letter {
-                height: 30px;
-                width: 30px;
-                border-radius: 100%;
-                object-fit: cover;
-                background-color: white;
-                @include c.center();
-                font-size: 20px;
-                color: black;
-            }
-        }
-        .details {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            .username {
-                font-size: 15px;
-                font-weight: 600;
-                margin-bottom: 4px;
-            }
-            .location {
-                font-size: 10px;
-                color: rgb(158, 158, 158);
-            }
-            .timeposted {
-                font-size: 10px;
-                color: rgb(158, 158, 158);
-            }
-        }
-        .trash {
-            width: 30px;
-            @include c.center();
-            cursor: pointer;
-        }
+    .bounds {
+      width: 100%;
+      position: absolute;
+      top: 0;
+      height: calc(100% - 60px);
+      left: 0;
+      padding: 10px;
+      .secondary {
+        border-radius: 8px;
+        width: 100px;
+        position: absolute;
+        cursor: pointer;
+        z-index: 101;
+      }
     }
+    .realmojis {
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 100%;
+      /* height: 15%; */
+      height: 60px;
+      padding: 5px 10px;
+      padding-bottom: 4px;
+      display: flex;
+      z-index: 200;
 
-    .content {
-        position: relative;
-        /* height: 400px; */
+      .carousel {
         width: 100%;
+        height: 100%;
+        .realmoji {
+          position: relative;
+          width: 48px;
+          height: 50px;
 
-        .primary {
-            position: relative;
-            width: 100%;
-            border-radius: 8px;
-            z-index: 100;
-        }
-
-        .bounds {
-            width: 100%;
+          /* margin-right: 10px; */
+          .moji {
             position: absolute;
-            top: 0;
-            height: calc(100% - 60px);
-            left: 0;
-            padding: 10px;
-            .secondary {
-                border-radius: 8px;
-                width: 100px;
-                position: absolute;
-                cursor: pointer;
-                z-index: 101;
-            }
-        }
-        .realmojis {
+            left: 0px;
+            top: -2px;
+            z-index: 10;
+            font-size: 18px;
+          }
+          img {
+            border: 1px solid white;
             position: absolute;
-            left: 0;
-            bottom: 0;
-            width: 100%;
-            /* height: 15%; */
-            height: 60px;
-            padding: 5px 10px;
-            padding-bottom: 4px;
-            display: flex;
-            z-index: 200;
-
-            .carousel {
-                width: 100%;
-                height: 100%;
-                .realmoji {
-                    position: relative;
-                    width: 48px;
-                    height: 50px;
-                    
-                    /* margin-right: 10px; */
-                    .moji {
-                        position: absolute;
-                        left: 0px;
-                        top: -2px;
-                        z-index: 10;
-                        font-size: 18px;
-                    }
-                    img {border: 1px solid white;
-                        position: absolute;
-                        right: 0;
-                        top: 4px;
-                        width: 40px;
-                        height: 40px;
-                        border-radius: 100%;
-                        object-fit: cover;
-                        background-color: white;
-                    }
-                }
-            }
-
-            .nextlast {
-                cursor: pointer;
-                width: 21px;
-                height: 100%;
-                color: white;
-                @include c.center();
-                .add {
-                    background-color: rgba(0, 0, 0, 0.155);
-                    height: 100%;
-                    width: 100%;
-                    @include c.center();
-                }
-            }
-
-            .addmojis {
-                position: relative;
-                width: 48px;
-                height: 50px;
-                margin-right: 4px;
-                cursor: pointer;
-                .moji {
-                    position: absolute;
-                    left: 2px;
-                    font-size: 18px;
-                    z-index: 10;
-                }
-
-                img {border: 1px solid white;
-                    position: absolute;
-                    right: 0;
-                    top: 4px;
-                    width: 40px;
-                    height: 40px;
-                    border-radius: 100%;
-                    object-fit: cover;
-                    background-color: white;
-                }
-
-                .add {
-                    cursor: pointer;
-                    position: absolute;
-                    right: 0;
-                    top: 4px;
-                    width: 40px;
-                    height: 40px;
-                    border-radius: 100%;
-                    object-fit: cover;
-                    background-color: rgba(0, 0, 0, 0.375);
-                    border: 2px solid white;
-                    color: #fff;
-                    @include c.center();
-                    font-size: 20px;
-                }
-
-            }
-        }
-    }
-
-    .caption {
-        width: 100%;
-        padding: 7px 10px;
-        font-size: 12px;
-
-        span {
-            color: rgb(158, 158, 158);
-        }
-    }
-
-    .addcomment {
-        width: 100%;
-        padding: 10px;
-        display: flex;
-        justify-content: space-between;
-        input {
-            height: 30px;
-            width: 77%;
-            border-radius: 6px;
-            border: 2px solid white;
-            background-color: transparent;
-            padding: 0px 10px;
-            font-size: 14px;
-            color: white;
-            outline: none;
-        }
-
-        button {
-            height: 30px;
-            width: 20%;
-            border-radius: 6px;
-            border: 2px solid white;
+            right: 0;
+            top: 4px;
+            width: 40px;
+            height: 40px;
+            border-radius: 100%;
+            object-fit: cover;
             background-color: white;
-            padding: 0px 10px;
-            font-size: 14px;
-            color: black;
-            cursor: pointer;
+          }
         }
-        .addloading {
-            height: 30px;
-            width: 20%;
-            border-radius: 6px;
-            border: 2px solid white;
-            background-color: white;
-            padding: 0px 10px;
-            font-size: 14px;
-            color: black;
-            @include c.center();
+      }
+
+      .nextlast {
+        cursor: pointer;
+        width: 21px;
+        height: 100%;
+        color: white;
+        @include c.center();
+        .add {
+          background-color: rgba(0, 0, 0, 0.155);
+          height: 100%;
+          width: 100%;
+          @include c.center();
         }
+      }
 
-    }
-
-    .comments {
-        padding: 0px 10px;
-        padding-bottom: 4px;
+      .addmojis {
         position: relative;
-
-        .download {
-            position: absolute;
-            top: 0;
-            right: 10px;
-            width: 30px;
-            @include c.center();
-            cursor: pointer;
+        width: 48px;
+        height: 50px;
+        margin-right: 4px;
+        cursor: pointer;
+        .moji {
+          position: absolute;
+          left: 2px;
+          font-size: 18px;
+          z-index: 10;
         }
 
-        .expand {
-            font-size: 14px;
-            height: 25px;
-            .click {
-                cursor: pointer;
-            }
+        img {
+          border: 1px solid white;
+          position: absolute;
+          right: 0;
+          top: 4px;
+          width: 40px;
+          height: 40px;
+          border-radius: 100%;
+          object-fit: cover;
+          background-color: white;
         }
-        .holder {height: 25px; font-size: 14px; color: rgb(158, 158, 158);}
 
-        .comment {
-            display: flex;
-            align-items: center;
-            margin-top: 12px;
-
-            &:last-child {
-                margin-bottom: 12px;
-            }
-            img {
-                height: 30px;
-                width: 30px;
-                border-radius: 100%;
-                object-fit: cover;
-                background-color: white;
-            }
-
-            .discourse {
-                display: flex;
-                flex-direction: column;
-                margin-left: 10px;
-                .username {
-                    font-size: 10px;
-                    font-weight: 500;
-                    margin-bottom: 2px;
-                    color: rgb(158, 158, 158);
-                }
-                .convo {
-                    font-size: 14px;
-                }
-            }
+        .add {
+          cursor: pointer;
+          position: absolute;
+          right: 0;
+          top: 4px;
+          width: 40px;
+          height: 40px;
+          border-radius: 100%;
+          object-fit: cover;
+          background-color: rgba(0, 0, 0, 0.375);
+          border: 2px solid white;
+          color: #fff;
+          @include c.center();
+          font-size: 20px;
         }
+      }
+    }
+  }
+
+  .caption {
+    width: 100%;
+    padding: 7px 10px;
+    font-size: 12px;
+
+    span {
+      color: rgb(158, 158, 158);
+    }
+  }
+
+  .addcomment {
+    width: 100%;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    input {
+      height: 30px;
+      width: 77%;
+      border-radius: 6px;
+      border: 2px solid white;
+      background-color: transparent;
+      padding: 0px 10px;
+      font-size: 14px;
+      color: white;
+      outline: none;
     }
 
+    button {
+      height: 30px;
+      width: 20%;
+      border-radius: 6px;
+      border: 2px solid white;
+      background-color: white;
+      padding: 0px 10px;
+      font-size: 14px;
+      color: black;
+      cursor: pointer;
+    }
+    .addloading {
+      height: 30px;
+      width: 20%;
+      border-radius: 6px;
+      border: 2px solid white;
+      background-color: white;
+      padding: 0px 10px;
+      font-size: 14px;
+      color: black;
+      @include c.center();
+    }
+  }
 
-    @media (max-width: 600px) {
-        margin-right: 0px;
+  .comments {
+    padding: 0px 10px;
+    padding-bottom: 4px;
+    position: relative;
+
+    .download {
+      position: absolute;
+      top: 0;
+      right: 10px;
+      width: 30px;
+      @include c.center();
+      cursor: pointer;
+    }
+
+    .expand {
+      font-size: 14px;
+      height: 25px;
+      .click {
+        cursor: pointer;
+      }
+    }
+    .holder {
+      height: 25px;
+      font-size: 14px;
+      color: rgb(158, 158, 158);
+    }
+
+    .comment {
+      display: flex;
+      align-items: center;
+      margin-top: 12px;
+
+      &:last-child {
         margin-bottom: 12px;
+      }
+      img {
+        height: 30px;
+        width: 30px;
+        border-radius: 100%;
+        object-fit: cover;
+        background-color: white;
+      }
+
+      .discourse {
+        display: flex;
+        flex-direction: column;
+        margin-left: 10px;
+        .username {
+          font-size: 10px;
+          font-weight: 500;
+          margin-bottom: 2px;
+          color: rgb(158, 158, 158);
+        }
+        .convo {
+          font-size: 14px;
+        }
+      }
     }
+  }
+
+  @media (max-width: 600px) {
+    margin-right: 0px;
+    margin-bottom: 12px;
+  }
 }

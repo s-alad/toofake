@@ -1,15 +1,15 @@
 /** @type {import('next').NextConfig} */
-const path = require('path')
+const path = require("path");
 
-const { i18n } = require('./next-i18next.config')
+const { i18n } = require("./next-i18next.config");
 
 const nextConfig = {
   reactStrictMode: false,
-  output: 'standalone',
+  output: "standalone",
   sassOptions: {
-    includePaths: [path.join(__dirname, 'styles')],
+    includePaths: [path.join(__dirname, "styles")],
   },
   i18n,
-}
+};
 
-module.exports = nextConfig
+module.exports = nextConfig;

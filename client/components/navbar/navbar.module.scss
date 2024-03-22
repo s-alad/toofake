@@ -1,232 +1,239 @@
 @use "../../styles/common.scss" as c;
 
 .toofake {
-    font-size: 44px;
-    font-weight: 700;
+  font-size: 44px;
+  font-weight: 700;
+  display: flex;
+
+  .sep {
+    background-color: white;
+    height: 100%;
+    width: 4px;
+    margin: 0 16px;
+  }
+
+  .navigation {
+    flex: 1;
     display: flex;
+    align-items: center;
+    .fake {
+      text-decoration: none;
+      color: white;
+      @include c.center();
+    }
+    .pagename {
+      font-size: 28px;
+    }
 
-    .sep {
+    .actions {
+      display: flex;
+      flex: 1;
+      justify-content: flex-end;
+      align-items: center;
+      height: 100%;
+      a {
+        color: white;
+        text-decoration: none;
+      }
+      .item {
+        margin-right: 12px;
+        @include c.center();
+        button {
+          background-color: transparent;
+          border: none;
+          color: white;
+          font-size: 16px;
+          font-weight: 500;
+          cursor: pointer;
+          text-decoration: underline;
+        }
+      }
+      .post {
+        @include c.center();
+        button {
+          cursor: pointer;
+          font-size: 16px;
+          font-weight: 500;
+          height: 34px;
+          width: 80px;
+          border-radius: 8px;
+          background-color: white;
+          border: none;
+        }
+      }
+      .letter {
+        box-shadow: 0px 0px 6px 1px #fff;
+        height: 45px;
+        width: 45px;
+        border-radius: 100%;
+        object-fit: cover;
         background-color: white;
-        height: 100%;
-        width: 4px;
-        margin: 0 16px;
+        color: black;
+        @include c.center();
+        font-size: 20px;
+      }
+      img {
+        box-shadow: 0px 0px 6px 1px #fff;
+        height: 45px;
+        width: 45px;
+        border-radius: 100%;
+        object-fit: cover;
+        background-color: white;
+      }
     }
 
-    .navigation {
-        flex: 1;
+    .mobile {
+      display: none;
+      flex: 1;
+      justify-content: flex-end;
+      align-items: center;
+      height: 100%;
+
+      .helpmobile {
         display: flex;
-        align-items: center;
-        .fake {
-            text-decoration: none;
-            color: white;
-            @include c.center();
+        a {
+          font-size: 14px;
+          font-weight: 500;
+          text-decoration: underline;
+          margin-left: 14px;
         }
-        .pagename {
-            font-size: 28px;
-        }
+      }
 
-        .actions {
-            display: flex;
-            flex: 1;
-            justify-content: flex-end;
-            align-items: center;
-            height: 100%;
-            a {
-                color: white;
-                text-decoration: none;
-            }
-            .item {
-                margin-right: 12px;
-                @include c.center();
-                button {
-                    background-color: transparent;
-                    border: none;
-                    color: white;
-                    font-size: 16px;
-                    font-weight: 500;
-                    cursor: pointer;
-                    text-decoration: underline;
-                }
-            }
-            .post {
-                @include c.center();
-                button {
-                    cursor: pointer;
-                    font-size: 16px;
-                    font-weight: 500;
-                    height: 34px;
-                    width: 80px;
-                    border-radius: 8px;
-                    background-color: white;
-                    border: none;
-                }
-            }
-            .letter {
-                box-shadow: 0px 0px 6px 1px #fff;
-                height: 45px;
-                width: 45px;
-                border-radius: 100%;
-                object-fit: cover;
-                background-color: white;
-                color: black;
-                @include c.center();
-                font-size: 20px;
-            }
-            img {
-                box-shadow: 0px 0px 6px 1px #fff;
-                height: 45px;
-                width: 45px;
-                border-radius: 100%;
-                object-fit: cover;
-                background-color: white;
-            }
+      img {
+        box-shadow: 0px 0px 6px 1px #fff;
+        height: 30px;
+        width: 30px;
+        border-radius: 100%;
+        object-fit: cover;
+        background-color: white;
+      }
+      a {
+        @include c.center();
+        color: white;
+        text-decoration: none;
+      }
+      button {
+        cursor: pointer;
+        font-size: 12px;
+        font-weight: 500;
+        height: 26px;
+        width: 50px;
+        border-radius: 6px;
+        background-color: white;
+        border: none;
+      }
+      .menu {
+        cursor: pointer;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        width: 26px;
+        height: 20px;
+        .line {
+          height: 2px;
+          width: 100%;
+          background-color: white;
+          /* margin: 4px 0px; */
         }
-
-        .mobile {
+      }
+      .menuopen {
+        position: relative;
+        .line {
+          &:first-child {
+            width: 100%;
+            transform: rotate(45deg);
+            top: 10px;
+            position: relative;
+          }
+          &:nth-child(2) {
+            width: 0%;
             display: none;
-            flex: 1;
-            justify-content: flex-end;
-            align-items: center;
-            height: 100%;
-
-            .helpmobile {
-                display: flex;
-                a {
-                    font-size: 14px;
-                    font-weight: 500;
-                    text-decoration: underline;
-                    margin-left: 14px;
-                }
-            }
-
-            img {
-                box-shadow: 0px 0px 6px 1px #fff;
-                height: 30px;
-                width: 30px;
-                border-radius: 100%;
-                object-fit: cover;
-                background-color: white;
-            }
-            a {
-                @include c.center();
-                color: white;
-                text-decoration: none;
-            }
-            button {
-                cursor: pointer;
-                font-size: 12px;
-                font-weight: 500;
-                height: 26px;
-                width: 50px;
-                border-radius: 6px;
-                background-color: white;
-                border: none;
-            }
-            .menu {
-                cursor: pointer;
-                display: flex;
-                flex-direction: column;
-                justify-content: space-between;
-                width: 26px;
-                height: 20px;
-                .line {
-                    height: 2px;
-                    width: 100%;
-                    background-color: white;
-                    /* margin: 4px 0px; */
-                }
-            }
-            .menuopen {
-                position: relative;
-                .line {
-                    &:first-child {
-                        width: 100%;
-                        transform: rotate(45deg);
-                        top: 10px;
-                        position: relative;
-                    }
-                    &:nth-child(2) {
-                        width: 0%;
-                        display: none;
-                    }
-                    &:last-child {
-                        width: 100%;
-                        transform: rotate(-45deg);
-                        top: -8px;
-                        position: relative;
-                    }
-                }
-            }
+          }
+          &:last-child {
+            width: 100%;
+            transform: rotate(-45deg);
+            top: -8px;
+            position: relative;
+          }
         }
-
-        .extra {
-            display: flex;
-            height: 100%;
-            a, span {
-                color: white;
-                text-decoration: none;
-            }
-            .logout {
-                margin-right: 1.3em;
-                font-size: 12px;
-                button {
-                    background-color: transparent;
-                    border: none;
-                    color: white;
-                    font-size: 1.2em;
-                    font-weight: 500;
-                    cursor: pointer;
-                    text-decoration: underline;
-                    margin: 0px;
-                    padding: 0px;
-                }
-            }
-            button {
-                cursor: pointer;
-                font-size: 12px;
-                font-weight: 500;
-                height: 26px;
-                width: min-content;
-                border-radius: 6px;
-                background-color: white;
-                border: none;
-            }
-        }
+      }
     }
 
-    @media screen and (max-width: 830px) {
-        font-size: 32px;
-    }
-
-    @media screen and (min-width: 700px) {
-        .navigation {
-            .extra {
-                display: none;
-            }
+    .extra {
+      display: flex;
+      height: 100%;
+      a,
+      span {
+        color: white;
+        text-decoration: none;
+      }
+      .logout {
+        margin-right: 1.3em;
+        font-size: 12px;
+        button {
+          background-color: transparent;
+          border: none;
+          color: white;
+          font-size: 1.2em;
+          font-weight: 500;
+          cursor: pointer;
+          text-decoration: underline;
+          margin: 0px;
+          padding: 0px;
         }
+      }
+      button {
+        cursor: pointer;
+        font-size: 12px;
+        font-weight: 500;
+        height: 26px;
+        width: min-content;
+        border-radius: 6px;
+        background-color: white;
+        border: none;
+      }
     }
+  }
 
+  @media screen and (max-width: 830px) {
+    font-size: 32px;
+  }
 
-    @media screen and (max-width: 700px) {
-        font-size: 28px;
-        .sep { width: 2px; margin: 0 12px;}
-        .navigation {
-            .pagename { font-size: 20px; }
-
-            .actions {
-                display: none;
-            }
-
-            .mobile {
-                display: flex;
-            }
-        }
+  @media screen and (min-width: 700px) {
+    .navigation {
+      .extra {
+        display: none;
+      }
     }
+  }
 
-    @media screen and (max-width: 420px) {
-        font-size: 22px;
-        .navigation {
-            .pagename { font-size: 16px; }
-        }
+  @media screen and (max-width: 700px) {
+    font-size: 28px;
+    .sep {
+      width: 2px;
+      margin: 0 12px;
     }
+    .navigation {
+      .pagename {
+        font-size: 20px;
+      }
+
+      .actions {
+        display: none;
+      }
+
+      .mobile {
+        display: flex;
+      }
+    }
+  }
+
+  @media screen and (max-width: 420px) {
+    font-size: 22px;
+    .navigation {
+      .pagename {
+        font-size: 16px;
+      }
+    }
+  }
 }

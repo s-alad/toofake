@@ -1,53 +1,61 @@
-# TooFake: a bereal viewer & web client
+# TooFake: A BeReal Viewer & Web Client
 
-### want to stalk your friends, family, or ex without posting your own bereal? </br> toofake gives the ability to view & download bereals, and post custom bereals & realmojis without ever having to click on that annoying notification
+### Want to keep up with your friends, family, or ex without revealing yourself? </br> TooFake provides the ability to view and download BeReals, and post custom BeReals & Realmojis without ever triggering that annoying notification.
 
-### https://toofake.lol
-
----
-
-# current status: IFFY - help wanted!  
-
-BeReal will only continue to change and get more advanced, breaking projects like toofake & befake. The open source community has kept this project going for very long & hopefully can for much longer! Any Pull Requests or changes are always happily welcomed!
+### Visit us at [TooFake](https://toofake.lol)
 
 ---
 
-# how to run locally
+# Current Status: Uncertain - Help Wanted!
 
-**node**  
-* clone the project `git clone https://github.com/s-alad/toofake.git` 
-* cd into the /client directory `cd client`
-* run `npm install`
-* run `npm run dev`
-
-**docker**
-* clone the project `git clone https://github.com/s-alad/toofake.git` 
-* cd into the /client directory `cd client` 
-* run `docker build . -t toofake`
-* run `docker run -d -p 3000:3000 toofake`
+BeReal is constantly evolving, potentially disrupting projects like TooFake & BeFake. The open-source community has been instrumental in sustaining this project thus far, and we hope it will continue to do so. Any Pull Requests or contributions are warmly welcomed!
 
 ---
 
+# How to Run Locally
+
+**Using Node.js**
+
+- Clone the project: `git clone https://github.com/s-alad/toofake.git`
+- Navigate to the /client directory: `cd client`
+- Install dependencies: `npm install`
+- Start the development server: `npm run dev`
+
+**Using Docker**
+
+- Clone the project: `git clone https://github.com/s-alad/toofake.git`
+- Navigate to the /client directory: `cd client`
+- Build the Docker image: `docker build . -t toofake`
+- Run the Docker container: `docker run -d -p 3000:3000 toofake`
+
+---
 
 # TODO
 
-- [ ] fix webp, .heic and .heif image issues !!!
-- [ ] delete comment ability
-- [ ] add instant realmoji
-- [ ] react-all realmoji
-- [ ] not all friends show for big friends list
-- [ ] feed not fetching for big friends list
-- [ ] fix occasional login 500 errors
-- [ ] change state & login management
-- [ ] cache things and use less requests
-- [ ] move things to proxy?
-- [ ] fix overused state and spaghetti code  
+- [ ] Resolve image format issues (webp, .heic, .heif)
+- [ ] Implement comment deletion functionality
+- [ ] Integrate instant Realmoji feature
+- [ ] Incorporate React-All Realmoji
+- [ ] Address display issues with large friends lists
+- [ ] Resolve feed fetching problems with large friends lists
+- [ ] Fix occasional login 500 errors
+- [ ] Refactor state management and login handling
+- [ ] Optimize caching and minimize API requests
+- [ ] Consider moving certain functionalities to a proxy server
+- [ ] Refactor code to eliminate overused state and spaghetti code
 
 ---
-# Peers
 
-toofake owes a lot to the open source community & great peer projects that have been cease & desisted:  
-### shoutout to [rvaidun's befake](https://github.com/rvaidun) for many parts of the reverse engineering!  
-### shoutout to the community at [BeFake](https://github.com/notmarek/BeFake) for exposing many of the api endpoints!
-### heavily inspired by [shomil](https://shomil.me/bereal/)
+# Acknowledgments
+
+TooFake owes much to the open-source community and peer projects that have paved the way, including those that have faced legal challenges:
+
+### Special thanks to [rvaidun's BeFake](https://github.com/rvaidun) for its contributions to reverse engineering!
+
+### Kudos to the community at [BeFake](https://github.com/notmarek/BeFake) for uncovering numerous API endpoints!
+
+### Heavily inspired by [Shomil](https://shomil.me/bereal/)
+
 ---
+
+Feel free to contribute and help make TooFake even better!
