@@ -1,37 +1,36 @@
 @use "../../styles/common.scss" as c;
 
 .me {
-    .card {
+  .card {
+    /* border: 1px solid white; */
+    border-radius: 8px;
+    box-shadow: 0px 0px 20px 0.1px rgba(84, 84, 84, 0.75);
 
-        /* border: 1px solid white; */
-        border-radius: 8px;
-        box-shadow: 0px 0px 20px .1px rgba(84, 84, 84, 0.75);
-
-        .pfp {
-            width: 300px;
-            border: 1px solid white;
-            border-radius: 8px;
-            min-height: 200px;
-            @include c.center();
-        }
-        
-        .details {
-            padding: 10px 20px;
-            display: flex;
-            flex-direction: column;
-
-            .detail {
-                display: flex;
-                flex-direction: column;
-                margin-bottom: 8px;
-                .label {
-                    font-size: 12px;
-                    color: gray;
-                }
-                .value {
-                    font-size: 18px;
-                }
-            }
-        }
+    .pfp {
+      width: 300px;
+      border: 1px solid white;
+      border-radius: 8px;
+      min-height: 200px;
+      @include c.center();
     }
+
+    .details {
+      padding: 10px 20px;
+      display: flex;
+      flex-direction: column;
+
+      .detail {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 8px;
+        .label {
+          font-size: 12px;
+          color: gray;
+        }
+        .value {
+          font-size: 18px;
+        }
+      }
+    }
+  }
 }

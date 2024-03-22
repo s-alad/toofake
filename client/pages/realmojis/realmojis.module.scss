@@ -1,15 +1,14 @@
 @use "../../styles/common.scss" as c;
 
 .realmojis {
-    width: 100%;
-    display: flex;
-    overflow-x: scroll;
-    flex-wrap: wrap;
+  width: 100%;
+  display: flex;
+  overflow-x: scroll;
+  flex-wrap: wrap;
 
-
-    @media screen and (max-width: 600px) {
-        flex-direction: column;
-        flex-wrap: nowrap;
-        align-items: center;
-    }
+  @media screen and (max-width: 600px) {
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-items: center;
+  }
 }

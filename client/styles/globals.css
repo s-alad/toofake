@@ -1,21 +1,21 @@
 :root {
-
 }
 
 * {
   box-sizing: border-box;
 }
 
-html, body {
+html,
+body {
   padding: 0;
   margin: 0;
   overflow-x: hidden;
-  
+
   height: 100%;
 }
 
 body {
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
   background-color: #121212;
   color: #fff;
   height: 100%;
@@ -26,7 +26,7 @@ body {
 @media screen and (max-width: 768px) {
   body {
     padding: 20px 20px;
-  }  
+  }
 }
 
 main {
