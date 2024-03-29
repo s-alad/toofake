@@ -10,6 +10,7 @@ const nextConfig = {
     includePaths: [path.join(__dirname, 'styles')],
   },
   i18n,
+  poweredByHeader: false,
 }
 
 module.exports = nextConfig
