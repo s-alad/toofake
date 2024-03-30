@@ -23,7 +23,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     });
 
     let refresh_options = {
-        url: "https://auth.bereal.team/token?grant_type=refresh_token",
+        url: "https://us-east1-toofake.cloudfunctions.net/toofakeproxy?target=https://auth.bereal.team/token?grant_type=refresh_token",
         method: "POST",
         headers: headersList,
         data: refresh_body,

@@ -84,7 +84,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         "token": firebase_token
     });
     let access_grant_options = {
-        url: "https://auth.bereal.team/token?grant_type=firebase",
+        url: "https://us-east1-toofake.cloudfunctions.net/toofakeproxy?target=https://auth.bereal.team/token?grant_type=firebase",
         method: "POST",
         headers: headers_list,
         data: access_grant,
