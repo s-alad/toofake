@@ -1,0 +1,16 @@
+{
+  "type": "module",
+  "scripts": {
+    "build": "tsc",
+    "deploy": "gcloud functions deploy toofakeproxy --gen2 --region=us-east1 --runtime=nodejs20 --trigger-http --allow-unauthenticated",
+    "dev": "npm run build && npx @google-cloud/functions-framework --target=toofakeproxy",
+    "gcp-build": "npm run build"
+  },
+  "dependencies": {
+    "@google-cloud/functions-framework": "^3.0.0",
+    "@types/node": "^20.12.2",
+    "@types/node-fetch": "^2.6.11",
+    "node-fetch": "^3.3.2",
+    "typescript": "^5.4.3"
+  }
+}
