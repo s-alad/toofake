@@ -11,10 +11,11 @@ export const toofakeproxy = async (req, res) => {
             headers[key] = value;
         }
     });
+    console.log("request target", { target }, "request headers", { headers });
     delete headers['host'];
     delete headers['content-length'];
     delete headers["x-vercel-id"];
-    console.log('Proxying request to', target, 'headers:', headers);
+    console.log('Proxying request to', { target }, 'headers:', { headers });
     try {
         const proxyresponse = await fetch(target, {
             method: req.method,
