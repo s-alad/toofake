@@ -1,5 +1,10 @@
 let BEREAL_SIGNATURE = "MToxNzExNTc0ODYyOoqIZ5a9FAreOBIuDRzjdonbo6QGGOQDNCQzQ5vC1UI4";
 
+let PROXY = (
+    process.env.VERCEL ? "https://us-east1-toofake.cloudfunctions.net/toofakeproxy?target=" : ""
+)
+
+console.log("PROXY", PROXY)
 
 let HEADERS = {
     "bereal-app-version-code": "14549",
@@ -8,4 +13,4 @@ let HEADERS = {
     "bereal-signature": BEREAL_SIGNATURE,
 }
 
-export { BEREAL_SIGNATURE, HEADERS };
+export { BEREAL_SIGNATURE, HEADERS, PROXY };

@@ -1,5 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import axios from 'axios';
+import { PROXY } from '@/utils/constants';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
 
@@ -23,7 +24,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     });
 
     let refresh_options = {
-        url: "https://auth.bereal.team/token?grant_type=refresh_token",
+        url: `${PROXY}https://auth.bereal.team/token?grant_type=refresh_token`,
         method: "POST",
         headers: headersList,
         data: refresh_body,
