@@ -1,6 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import axios from 'axios';
 import { generateDeviceId } from '@/utils/device';
+import { PROXY } from '@/utils/constants';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
 
@@ -84,7 +85,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         "token": firebase_token
     });
     let access_grant_options = {
-        url: "https://us-east1-toofake.cloudfunctions.net/toofakeproxy?target=https://auth.bereal.team/token?grant_type=firebase",
+        url: `${PROXY}https://auth.bereal.team/token?grant_type=firebase`,
         method: "POST",
         headers: headers_list,
         data: access_grant,
