@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import axios from 'axios';
-import { BEREAL_SIGNATURE } from '@/utils/constants';
+import { BEREAL_SIGNATURE, PROXY } from '@/utils/constants';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
 
@@ -15,7 +15,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     }
 
     return axios.request({
-        url: "https://mobile.bereal.com/api" + "/person/me",
+        url: `${PROXY}https://mobile.bereal.com/api` + "/person/me",
         method: "GET",
         headers: headers,
     }).then(
