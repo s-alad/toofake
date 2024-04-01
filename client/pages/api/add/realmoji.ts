@@ -6,6 +6,7 @@ import Jimp from "jimp";
 import fs from "fs";
 import sharp from 'sharp';
 import moment from 'moment';
+import { BEREAL_SIGNATURE } from '@/utils/constants';
 
 export const config = {
     api: {
@@ -82,7 +83,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         let upload_headers = {
             "authorization": "Bearer " + authorization_token,
             "bereal-app-version-code": "14549",
-            "bereal-signature": "berealsignature",
+            "bereal-signature": BEREAL_SIGNATURE,
             "bereal-device-id": "berealdeviceid",
         }
 
@@ -106,7 +107,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         let primary_bucket = primary_res.bucket;
         primary_headers["Authorization"] = "Bearer " + authorization_token;
         primary_headers["bereal-app-version-code"] = "14549";
-        primary_headers["bereal-signature"] = "berealsignature";
+        primary_headers["bereal-signature"] = BEREAL_SIGNATURE;
         primary_headers["bereal-device-id"] = "berealdeviceid";
     
         // ============================================================================================
@@ -138,7 +139,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             "content-type": "application/json",
             "Authorization": "Bearer " + authorization_token,
             "bereal-app-version-code": "14549",
-            "bereal-signature": "berealsignature",
+            "bereal-signature": BEREAL_SIGNATURE,
             "bereal-device-id": "berealdeviceid",
             "bereal-platform": "iOS",
             "bereal-os-version": "14.7.1",

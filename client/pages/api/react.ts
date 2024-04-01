@@ -1,5 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import axios from 'axios';
+import { BEREAL_SIGNATURE } from '@/utils/constants';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
 
@@ -13,7 +14,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     let headers = {
         "authorization": "Bearer " + authorization_token,
         "bereal-app-version-code": "14549",
-        "bereal-signature": "berealsignature",
+        "bereal-signature": BEREAL_SIGNATURE,
         "bereal-device-id": "berealdeviceid",
     }
 
