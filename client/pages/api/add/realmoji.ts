@@ -6,6 +6,7 @@ import Jimp from "jimp";
 import fs from "fs";
 import sharp from 'sharp';
 import moment from 'moment';
+import { getAuthHeaders } from '@/utils/authHeaders';
 
 export const config = {
     api: {
@@ -79,17 +80,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         // ============================================================================================
         // upload url
 
-        let upload_headers = {
-            "authorization": "Bearer " + authorization_token,
-            "bereal-app-version-code": "14549",
-            "bereal-signature": "berealsignature",
-            "bereal-device-id": "berealdeviceid",
-        }
-
         let upload_options = {
             url: "https://mobile.bereal.com/api/content/realmojis/upload-url?mimeType=image/webp",
             method: "GET",
-            headers: upload_headers,
+            headers: getAuthHeaders(authorization_token),
         }
     
         let upload_res = await axios.request(upload_options)
@@ -104,10 +98,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         let primary_url = primary_res.url;
         let primary_path = primary_res.path;
         let primary_bucket = primary_res.bucket;
-        primary_headers["Authorization"] = "Bearer " + authorization_token;
-        primary_headers["bereal-app-version-code"] = "14549";
-        primary_headers["bereal-signature"] = "berealsignature";
-        primary_headers["bereal-device-id"] = "berealdeviceid";
+        Object.assign(primary_headers, getAuthHeaders(authorization_token))
     
         // ============================================================================================
 
@@ -136,17 +127,13 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         };
         let post_headers = {
             "content-type": "application/json",
-            "Authorization": "Bearer " + authorization_token,
-            "bereal-app-version-code": "14549",
-            "bereal-signature": "berealsignature",
-            "bereal-device-id": "berealdeviceid",
             "bereal-platform": "iOS",
             "bereal-os-version": "14.7.1",
             "accept-language": "en-US;q=1.0",
             "bereal-app-language": "en-US",
             "user-agent": "BeReal/0.28.2 (AlexisBarreyat.BeReal; build:8425; iOS 14.7.1) 1.0.0/BRApiKit",
-            "bereal-timezone": "America/Los_Angeles",
             "bereal-device-language": "en",
+            ...getAuthHeaders(authorization_token)
         }
         console.log("post data");
         console.log(post_data);

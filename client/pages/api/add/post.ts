@@ -8,7 +8,7 @@ import sharp from 'sharp';
 import moment from 'moment';
 // @ts-ignore
 import * as convert from 'heic-convert';
-import { BEREAL_SIGNATURE } from '@/utils/constants';
+import { getAuthHeaders } from '@/utils/authHeaders';
 
 export const config = {
     api: {
@@ -134,18 +134,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         // ============================================================================================
         // upload url
 
-        let upload_headers = {
-            "authorization": "Bearer " + authorization_token,
-            'bereal-app-version-code': '14549',
-            'bereal-signature': BEREAL_SIGNATURE,
-            'bereal-timezone': 'Europe/Paris',
-            'bereal-device-id': '937v3jb942b0h6u9'
-        }
-
         let upload_options = {
             url: "https://mobile.bereal.com/api/content/posts/upload-url?mimeType=image/webp",
             method: "GET",
-            headers: upload_headers,
+            headers: getAuthHeaders(authorization_token),
         }
 
         let upload_res = await axios.request(upload_options)
@@ -161,19 +153,13 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         let primary_url = primary_res.url;
         let primary_path = primary_res.path;
         let primary_bucket = primary_res.bucket;
-        primary_headers["Authorization"] = "Bearer " + authorization_token
-        primary_headers["bereal-app-version-code"] = "14549";
-        primary_headers["bereal-signature"] = "berealsignature";
-        primary_headers["bereal-device-id"] = "berealdeviceid";
+        Object.assign(primary_headers, getAuthHeaders(authorization_token))
 
         let secondary_headers = secondary_res.headers;
         let secondary_url = secondary_res.url;
         let secondary_path = secondary_res.path;
         let secondary_bucket = secondary_res.bucket;
-        secondary_headers["Authorization"] = "Bearer " + authorization_token
-        secondary_headers["bereal-app-version-code"] = "14549";
-        secondary_headers["bereal-signature"] = "berealsignature";
-        secondary_headers["bereal-device-id"] = "berealdeviceid";
+        Object.assign(secondary_headers, getAuthHeaders(authorization_token))
 
         // ============================================================================================
 
@@ -225,16 +211,13 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         };
         let post_headers = {
             "content-type": "application/json",
-            "Authorization": "Bearer " + authorization_token,
             'bereal-app-version-code': '14549',
-            'bereal-signature': BEREAL_SIGNATURE,
-            'bereal-timezone': 'Europe/Paris',
-            'bereal-device-id': '937v3jb942b0h6u9',
             "bereal-os-version": "14.7.1",
             "accept-language": "en-US;q=1.0",
             "bereal-app-language": "en-US",
             "user-agent": "BeReal/0.28.2 (AlexisBarreyat.BeReal; build:8425; iOS 14.7.1) 1.0.0/BRApiKit",
             "bereal-device-language": "en",
+            ...getAuthHeaders(authorization_token)
         }
         console.log("post data");
         console.log(post_data);

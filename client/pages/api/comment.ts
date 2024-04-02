@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import axios from 'axios';
-import { BEREAL_SIGNATURE } from '@/utils/constants';
+import { getAuthHeaders } from '@/utils/authHeaders';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
 
@@ -11,20 +11,14 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     console.log("me");
     console.log(authorization_token)
     console.log(instance_id, comment);
-    let headers = {
-        "authorization": "Bearer " + authorization_token,
-        'bereal-app-version-code': '14549',
-        'bereal-signature': BEREAL_SIGNATURE,
-        'bereal-timezone': 'Europe/Paris',
-        'bereal-device-id': '937v3jb942b0h6u9',
-    }
+
     let body = {
         content: comment, 
     }
     let options = {
         url: "https://mobile.bereal.com/api" + "/content/comments" + "?postId=" + instance_id + "&postUserId=" + poster_user_id,
         method: "POST",
-        headers: headers,
+        headers: getAuthHeaders(req.body.token),
         data: body,
     }
 

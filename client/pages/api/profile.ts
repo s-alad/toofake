@@ -1,5 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import axios from 'axios';
+import { getAuthHeaders } from '@/utils/authHeaders';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
 
@@ -7,17 +8,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     let profile_id = req.body.profile_id;
     console.log("profile");
     console.log(authorization_token, profile_id);
-    let headers = {
-        "authorization": "Bearer " + authorization_token,
-        "bereal-app-version-code": "14549",
-        "bereal-signature": "berealsignature",
-        "bereal-device-id": "berealdeviceid",
-    }
 
     return axios.request({
         url: "https://mobile.bereal.com/api" + `/person/profiles/${profile_id}`,
         method: "GET",
-        headers: headers,
+        headers: getAuthHeaders(req.body.token),
     }).then(
         (response) => {
             console.log(response.data);
