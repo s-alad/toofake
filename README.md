@@ -21,6 +21,7 @@ BeReal will only continue to change and get more advanced, breaking projects lik
 * run `npm run dev`
 
 **docker**
+* dockerhub: https://hub.docker.com/repository/docker/ssalad/toofake/general
 * clone the project `git clone https://github.com/s-alad/toofake.git` 
 * cd into the /client directory `cd client` 
 * run `docker build . -t toofake`
