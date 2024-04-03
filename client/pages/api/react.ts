@@ -1,5 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import axios from 'axios';
+import { getAuthHeaders } from '@/utils/authHeaders';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
 
@@ -10,12 +11,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     console.log("me");
     console.log(authorization_token);
-    let headers = {
-        "authorization": "Bearer " + authorization_token,
-        "bereal-app-version-code": "14549",
-        "bereal-signature": "berealsignature",
-        "bereal-device-id": "berealdeviceid",
-    }
 
     let data = {
         "emoji": `${emoji}`,
@@ -29,7 +24,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     return axios.request({
         url: "https://mobile.bereal.com/api" + `/content/realmojis`,
         method: "PUT",
-        headers: headers,
+        headers: getAuthHeaders(req.body.token),
         data: data,
         params: params,
     }).then(

@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import axios from 'axios';
-import { BEREAL_SIGNATURE } from '@/utils/constants';
+import { getAuthHeaders } from '@/utils/authHeaders';
 
 //testing vercel headers
 
@@ -13,16 +13,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         return;
     }
 
-    let headers = {
-        "bereal-app-version-code": "14549",
-        "bereal-signature": BEREAL_SIGNATURE,
-        "bereal-device-id": "berealdeviceid",
-    }
-
     return axios.request({
         url: uri as string,
         method: "GET",
-        headers: headers,
+        headers: getAuthHeaders(req.body.token),
     }).then(
         (response) => {
             console.log("------------------")

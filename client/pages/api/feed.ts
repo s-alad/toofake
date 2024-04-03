@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import axios from 'axios';
-import { BEREAL_SIGNATURE } from '@/utils/constants';
+import { getAuthHeaders } from '@/utils/authHeaders';
 
 export const config = {
     api: {
@@ -12,22 +12,12 @@ export const config = {
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
 
-    let authorization_token = req.body.token;
-
-    let headers = {
-        "authorization": "Bearer " + authorization_token,
-        "bereal-app-version-code": "14549",
-        "bereal-signature": BEREAL_SIGNATURE,
-        'bereal-device-id': '937v3jb942b0h6u9',
-        'bereal-timezone': 'Europe/Paris',
-    }
-
     console.log("FETCING FEED")
 
     return axios.request({
         url: "https://mobile.bereal.com/api" + "/feeds/friends",
         method: "GET",
-        headers: headers,
+        headers: getAuthHeaders(req.body.token),
     }).then(
         (response) => {
             console.log("------------------")
