@@ -2,6 +2,8 @@ import axios from "axios";
 
 export default async function myself() {
 
+    console.log("setting myself");
+
     let token = localStorage.getItem("token");
     let body = JSON.stringify({ "token": token });
 
@@ -14,7 +16,7 @@ export default async function myself() {
 
     return axios.request(options).then(
         (response) => {
-            console.log(response.data); 
+            console.log("me resp", response.data); 
             let myselfobject = response.data;
             localStorage.setItem("myself", JSON.stringify(myselfobject));
             return true
