@@ -9,6 +9,7 @@ import moment from 'moment';
 // @ts-ignore
 import * as convert from 'heic-convert';
 import { getAuthHeaders } from '@/utils/authHeaders';
+import { PROXY } from '@/utils/constants';
 
 export const config = {
     api: {
@@ -135,7 +136,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         // upload url
 
         let upload_options = {
-            url: "https://mobile.bereal.com/api/content/posts/upload-url?mimeType=image/webp",
+            url: `${PROXY}https://mobile.bereal.com/api/content/posts/upload-url?mimeType=image/webp`,
             method: "GET",
             headers: getAuthHeaders(authorization_token),
         }

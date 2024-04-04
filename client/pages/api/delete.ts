@@ -1,6 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import axios from 'axios';
 import { getAuthHeaders } from '@/utils/authHeaders';
+import { PROXY } from '@/utils/constants';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
 
@@ -9,7 +10,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     console.log(authorization_token);
 
     return axios.request({
-        url: "https://mobile.bereal.com/api" + "/content/posts",
+        url: `${PROXY}https://mobile.bereal.com/api" + "/content/posts`,
         method: "DELETE",
         headers: getAuthHeaders(req.body.token),
     }).then(
