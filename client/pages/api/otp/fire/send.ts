@@ -1,10 +1,12 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import axios from 'axios';
 import { generateDeviceId } from '@/utils/device';
+import { GAPIKEY } from '@/utils/constants';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
 
     let phone_number = req.body.number;
+    console.log(phone_number)
 
     let receipt_headers = {
         "content-type": "application/json",
@@ -20,13 +22,15 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     let receipt_body = { "appToken": "54F80A258C35A916B38A3AD83CA5DDD48A44BFE2461F90831E0F97EBA4BB2EC7" }
 
     let receipt_options = {
-        url: "https://www.googleapis.com/identitytoolkit/v3/relyingparty/verifyClient?key=AIzaSyDwjfEeparokD7sXPVQli9NsTuhT6fJ6iA",
+        url: `https://www.googleapis.com/identitytoolkit/v3/relyingparty/verifyClient?key=${GAPIKEY}`,
         method: "POST",
         headers: receipt_headers,
         data: receipt_body,
     }
+    console.log(receipt_options)
 
-    let receipt_response = await axios.request(receipt_options);
+
+    let receipt_response = await axios.request(receipt_options)
     let receipt = receipt_response.data.receipt;
 
     console.log("receipt response");
@@ -50,7 +54,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         "iosReceipt": receipt,
     }
     let otp_request_options = {
-        url: "https://www.googleapis.com/identitytoolkit/v3/relyingparty/sendVerificationCode?key=AIzaSyDwjfEeparokD7sXPVQli9NsTuhT6fJ6iA",
+        url: `https://www.googleapis.com/identitytoolkit/v3/relyingparty/sendVerificationCode?key=${GAPIKEY}`,
         method: "POST",
         headers: otp_request_headers,
         data: otp_request_body,

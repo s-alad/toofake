@@ -1,6 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import axios from 'axios';
 import { generateDeviceId } from '@/utils/device';
+import { GAPIKEY } from '@/utils/constants';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
 
@@ -49,7 +50,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     let refresh_body = JSON.stringify({ "token": token, "returnSecureToken": "True" });
     let refresh_options = {
-        url: "https://www.googleapis.com/identitytoolkit/v3/relyingparty/verifyCustomToken?key=AIzaSyDwjfEeparokD7sXPVQli9NsTuhT6fJ6iA",
+        url: `https://www.googleapis.com/identitytoolkit/v3/relyingparty/verifyCustomToken?key=${GAPIKEY}`,
         method: "POST",
         headers: headers_list,
         data: refresh_body,
@@ -73,7 +74,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         "refreshToken": refresh_token
     });
     let firebase_refresh_options = {
-        url: "https://securetoken.googleapis.com/v1/token?key=AIzaSyDwjfEeparokD7sXPVQli9NsTuhT6fJ6iA",
+        url: `https://securetoken.googleapis.com/v1/token?key=${GAPIKEY}`,
         method: "POST",
         headers: headers_list,
         data: firebase_refresh_data,
