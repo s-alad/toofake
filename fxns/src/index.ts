@@ -2,6 +2,7 @@ import { HttpFunction } from '@google-cloud/functions-framework';
 import fetch from 'node-fetch';
 import { Request, Response } from 'express';
 
+// issues working on certain request endpoints
 export const toofakeproxy: HttpFunction = async (req: Request, res: Response) => {
     const target = req.query.target as string;
 
