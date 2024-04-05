@@ -44,7 +44,7 @@ export default function Me() {
 
         axios.request(options).then(
             (response) => {
-                console.log(response.data);
+                console.log("resp me", response.data);
                 setUsername(response.data.username);
                 setName(response.data.fullname);
                 setBio(response.data.biography);
@@ -65,7 +65,7 @@ export default function Me() {
 
         axios.request(friend_options).then(
             async (response) => {
-                console.log(response.data);
+                console.log("resp friend", response.data);
 
                 let raw_friends = response.data.data;
                 let new_friends: Friend[] = [];
