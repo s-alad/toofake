@@ -1,6 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import axios from 'axios';
 import { getAuthHeaders } from '@/utils/authHeaders';
+import { PROXY } from '@/utils/constants';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
 
@@ -16,7 +17,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         content: comment, 
     }
     let options = {
-        url: "https://mobile.bereal.com/api" + "/content/comments" + "?postId=" + instance_id + "&postUserId=" + poster_user_id,
+        url: `${PROXY}https://mobile.bereal.com/api` + "/content/comments" + "?postId=" + instance_id + "&postUserId=" + poster_user_id,
         method: "POST",
         headers: getAuthHeaders(req.body.token),
         data: body,

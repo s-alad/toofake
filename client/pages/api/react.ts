@@ -1,6 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import axios from 'axios';
 import { getAuthHeaders } from '@/utils/authHeaders';
+import { PROXY } from '@/utils/constants';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
 
@@ -22,7 +23,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     }
 
     return axios.request({
-        url: "https://mobile.bereal.com/api" + `/content/realmojis`,
+        url: `${PROXY}https://mobile.bereal.com/api` + `/content/realmojis`,
         method: "PUT",
         headers: getAuthHeaders(req.body.token),
         data: data,

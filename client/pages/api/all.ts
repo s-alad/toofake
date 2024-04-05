@@ -9,7 +9,7 @@ export const config = {
     maxDuration: 300,
 }
 
-
+// friends feed v1
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
 
     console.log("FETCHING FEED")

@@ -1,6 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import axios from 'axios';
 import { getAuthHeaders } from '@/utils/authHeaders';
+import { PROXY } from '@/utils/constants';
 
 export const config = {
     api: {
@@ -16,7 +17,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     console.log(authorization_token);
 
     return axios.request({
-        url: "https://mobile.bereal.com/api" + "/feeds/memories",
+        url: `${PROXY}https://mobile.bereal.com/api` + "/feeds/memories",
         method: "GET",
         headers: getAuthHeaders(req.body.token),
     }).then(

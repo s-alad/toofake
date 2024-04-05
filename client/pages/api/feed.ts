@@ -9,7 +9,7 @@ export const config = {
     maxDuration: 300,
 }
 
-
+// deprecated
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
 
     console.log("FETCING FEED")

@@ -26,21 +26,20 @@ export default function Feed() {
     if (!useCheck()) {
         return <></>
     }
-    let [ready, setReady] = useState<boolean>(false);
-
+    
     let [instances, setInstances] = useState<{ [key: string]: Instance }>({})
     let [loading, setLoading] = useState<boolean>(true);
     let [failure, setFailure] = useState<string>("");
-
-    let [myinstances, setMyinstances] = useState<Instance[]>([]);
 
     useEffect(() => {
 
         setLoading(true);
         let token = localStorage.getItem("token");
         let body = JSON.stringify({ "token": token });
-        setReady(true);
 
+        /* 
+        old feed api
+        
         let options = {
             url: "/api/feed",
             method: "POST",
@@ -48,7 +47,7 @@ export default function Feed() {
             data: body,
         }
 
-/*         axios.request(options).then(
+        axios.request(options).then(
             async (response) => {
                 
                 console.log("response.data")
@@ -85,7 +84,8 @@ export default function Feed() {
                 setFailure("SOMETHING WENT WRONG: " + JSON.stringify(error.response.data.error));
                 setTimeout(() => {setFailure("")}, 5000);
             }
-        ) */
+        ) 
+        */
 
         let testoptions = {
             url: "/api/all",
@@ -96,20 +96,16 @@ export default function Feed() {
 
         axios.request(testoptions).then(
             async (response) => {
+                console.log("=====================================")
                 console.log("all feed data")
                 console.log(response.data);
                 console.log("=====================================")
 
                 let newinstances: { [key: string]: Instance } = {};
                 async function createInstance(data: any, usr: any) {
-                    /* console.log("CURRENT INSTANCE DATA");
-                    console.log(data);
-                    console.log("=====================================") */
                     let id = data.id;
                     let newinstance = await Instance.moment(data, usr);
                     newinstances[id] = newinstance;
-                    /* console.log("newinstances");
-                    console.log(newinstances); */
                     setLoading(false);
                 }
 
@@ -235,15 +231,14 @@ export default function Feed() {
                                             onClick={closeAds}
                                         />
                                     </div>
-                                    <Link href="https://ishemine.com" target="_blank" rel="noopener noreferrer" key={'link' + idx}>
-                                        <img src={"https://ishemine-bucket.s3.us-east-1.amazonaws.com/ihm-toofake.png"} alt="ad" key={'img' + idx} className={s.adimage} />
-                                    </Link>
                                 </div>
                                 );
                         }
 
                         return elements;
-                    })  */
+                    })  
+                */
+
                 loading ? <div className={l.loader}></div> :
                 (
                     Object.keys(instances).length > 0 ? 
