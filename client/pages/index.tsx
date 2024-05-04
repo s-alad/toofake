@@ -1,11 +1,9 @@
 import Head from 'next/head'
 import { Inter } from 'next/font/google'
-import styles from '@/styles/Home.module.css'
 import Image from 'next/image'
 import s from './index.module.scss'
 import axios from "axios";
 import { useState } from 'react';
-import { generateDeviceId } from '@/utils/device'
 import PhoneInput from 'react-phone-input-2';
 import "react-phone-input-2/lib/bootstrap.css";
 import { useRouter } from 'next/router'

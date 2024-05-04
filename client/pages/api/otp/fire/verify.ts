@@ -1,6 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import axios from 'axios';
-import { generateDeviceId } from '@/utils/device';
 import { GAPIKEY, PROXY } from '@/utils/constants';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
