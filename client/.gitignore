@@ -42,7 +42,7 @@ sst.config.ts
 # open-next
 .open-next
 
-# firebase
-firebase.json
-.firebaserc
+# firebase for current deployment
+# firebase.json
+# .firebaserc
 .firebase
