@@ -1,7 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import axios from 'axios'
-import { File } from "formidable";
-import formidable, { IncomingForm } from "formidable";
+/* import { File } from "formidable";
+import formidable, { IncomingForm } from "formidable"; */
 import Jimp from "jimp";
 import fs from "fs";
 import sharp from 'sharp';
@@ -10,11 +10,11 @@ import { getAuthHeaders } from '@/utils/authHeaders';
 
 export const config = {
     api: {
-        bodyParser: false
+        bodyParser: { sizeLimit: '12mb', },
     }
 };
 
-export type FormidableParseReturn = {
+/* export type FormidableParseReturn = {
     fields: formidable.Fields;
     files: formidable.Files;
 };
@@ -31,18 +31,25 @@ export async function parseFormAsync(req: NextApiRequest, formidableOptions?: fo
             resolve({ fields, files });
         });
     });
-}
+} */
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
 
     try {
 
+        /*
         const { fields, files } = await parseFormAsync(req);
-        /* console.log(fields, files) */
+        console.log(fields, files)
 
         let authorization_token: string = fields["token"] as string;
         let filebase64: string = fields["fileBase64"][0] as string;
-        let emoji: string = fields["emoji"] as string;
+        let emoji: string = fields["emoji"] as string; 
+        */
+
+        // using fetch
+        let authorization_token: string = req.body.token;
+        let filebase64: string = req.body.fileBase64;
+        let emoji: string = req.body.emoji;
 
         console.log("emoji");
         console.log(emoji);

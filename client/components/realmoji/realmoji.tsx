@@ -21,7 +21,7 @@ export default function Realmoji({ emoji, realmoji }: RealmojiProperties) {
     let [failure, setFailure] = useState<boolean>(false);
     const [selectedFile, setSelectedFile]: any = useState();
     const [isFilePicked, setIsFilePicked] = useState(false);
-    const [fileBase64, setFileBase64] = useState<any>('');
+    const [fileBase64, setFileBase64] = useState('');
 
     function getBase64(file: any) {
         return new Promise(resolve => {
@@ -57,9 +57,31 @@ export default function Realmoji({ emoji, realmoji }: RealmojiProperties) {
 
         let authorization_token = localStorage.getItem("token");
 
-        const formData = new FormData();
-        /* formData.append('primary', selectedFileOne);
-        formData.append('secondary', selectedFileTwo); */
+        fetch("/api/add/realmoji", {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                token: authorization_token,
+                fileBase64: fileBase64,
+                emoji: emoji
+            })
+        }).then((response) => {
+            console.log(response);
+            if (response.ok) {
+                setLoading(false);
+                setSuccess(true);
+                setTimeout(() => { setSuccess(false); router.reload()}, 5000);
+            } else { throw new Error("Error: " + response.statusText); }
+        }).catch((error) => {
+            console.log(error);
+            setLoading(false);
+            setFailure(true)
+            setTimeout(() => { setFailure(false) }, 5000);
+        })
+
+        /* const formData = new FormData();
         formData.append('fileBase64', fileBase64);
         formData.append('token', authorization_token!);
         formData.append('emoji', emoji);
@@ -86,7 +108,7 @@ export default function Realmoji({ emoji, realmoji }: RealmojiProperties) {
                 setFailure(true)
                 setTimeout(() => { setFailure(false) }, 5000);
             }
-        )
+        ) */
     }
 
     return (
