@@ -19,3 +19,5 @@ jobs:
           firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_TOOFAKE_CLIENT }}'
           projectId: toofake-client
           entryPoint: client
+        env:
+          FIREBASE_CLI_EXPERIMENTS: webframeworks
