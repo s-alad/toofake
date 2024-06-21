@@ -8,7 +8,8 @@ export default function useCheck() {
     
     function removeStorage() {
         localStorage.removeItem("token");
-        localStorage.removeItem("refresh_token");
+        localStorage.removeItem("firebase_refresh_token");
+        localStorage.removeItem("firebase_id_token");
         localStorage.removeItem("expiration");
         localStorage.removeItem("uid");
         localStorage.removeItem("is_new_user");
@@ -21,15 +22,15 @@ export default function useCheck() {
         console.log("CHECKING STATE")
 
         let token = localStorage.getItem("token");
-        let refresh_token = localStorage.getItem("refresh_token");
+        let firebase_refresh_token = localStorage.getItem("firebase_refresh_token");
         let expiration = localStorage.getItem("expiration");
         let now = Date.now();
         console.log(token);
-        console.log(refresh_token);
+        console.log(firebase_refresh_token);
         console.log(expiration);
         console.log(now);
 
-        if (token == null || expiration == null || refresh_token == null) {
+        if (token == null || expiration == null || firebase_refresh_token == null) {
             console.log("no token or expiration or refresh_token");
             removeStorage();
             router.push("/");
@@ -42,19 +43,21 @@ export default function useCheck() {
                     {
                         url: "/api/refresh",
                         method: "POST",
-                        data: { refresh: refresh_token }
+                        data: { refresh: firebase_refresh_token }
                     }
                 ).then(
                     (response) => {
                         console.log(response.data);
                         if (response.data.status == "success") {
                             console.log("refresh success");
-                            let token = response.data.token;
-                            let refresh_token = response.data.refresh;
+                            let new_token = response.data.token;
+                            let new_firebase_id_token = response.data.firebase_id_token;
+                            let new_firebase_refresh_token = response.data.firebase_refresh_token;
                             let expiration = response.data.expiration;
 
-                            localStorage.setItem("token", token);
-                            localStorage.setItem("refresh_token", refresh_token);
+                            localStorage.setItem("token", new_token);
+                            localStorage.setItem("firebase_refresh_token", new_firebase_refresh_token);
+                            localStorage.setItem("firebase_id_token", new_firebase_id_token);
                             localStorage.setItem("expiration", expiration);
 
                             console.log("refreshing page");

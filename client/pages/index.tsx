@@ -103,8 +103,9 @@ export default function Home() {
 		let response = axios.request(options).then(
 			async (response) => {
 				console.log(response.data);
-				localStorage.setItem("token", response.data.token);
-				localStorage.setItem("refresh_token", response.data.refresh_token);
+				localStorage.setItem("token", response.data.bereal_access_token);
+				localStorage.setItem("firebase_refresh_token", response.data.firebase_refresh_token);
+				localStorage.setItem("firebase_id_token", response.data.firebase_id_token)
 				localStorage.setItem("expiration", response.data.expiration)
 				localStorage.setItem("uid", response.data.uid);
 				localStorage.setItem("is_new_user", response.data.is_new_user);
