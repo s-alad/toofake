@@ -35,7 +35,7 @@ export default function Home() {
 	}
 
 	function helpme() {
-		setHelp("Failed with Vonage login provider, re-trying to login with Vonage...");
+		setHelp("Failed with Firebase login provider, re-trying to login with Vonage...");
 		setTimeout(() => {setHelp("");}, 4000);
 	}
 
@@ -87,7 +87,7 @@ export default function Home() {
 				setVonageid(rvonageid);
 				setRequestedOtp(true);
 			}
-		).catch((error) => {failure(JSON.stringify(error.response.data.error));})
+		).catch((error) => {failure("VONAGE REQUEST ERROR: " + JSON.stringify(error.response.data.error));})
 	}
 
 	async function verifyOTPFirebase(otp: string) {
@@ -116,11 +116,10 @@ export default function Home() {
 			}
 		).catch((error) => {
 			if (error.response) {
-				failure(error.response.data.error)
+				failure("FIREBASE VERIFY ERROR: " + error.response.data.error)
 			}else {
-				failure("unknown error, please try re-logging in")
+				failure("FIREBASE VERIFY ERROR: " + "unknown error, please try re-logging in")
 			}
-			
 		})
 	}
 
@@ -146,7 +145,7 @@ export default function Home() {
 			}
 		).catch(
 			(error) => {
-				failure(JSON.stringify(error.response.data));
+				failure("FIREBASE OTP REQUEST ERROR:" + JSON.stringify(error.response.data));
 				helpme();
 				requestOTPVonage(number);
 			}
