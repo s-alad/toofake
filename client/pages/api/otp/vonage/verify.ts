@@ -121,10 +121,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     console.log('---------------------')
 
     res.status(200).json({ 
-        token: access_token, 
-        refresh_token: access_refresh_token,
+        bereal_access_token: access_token, 
+        firebase_refresh_token: firebase_refresh_token,
+        firebase_id_token: firebase_token,
         token_type: access_token_type,
-        expiration: access_expiration,
+        expiration: firebase_expiration,
         uid: uid, 
         is_new_user: is_new_user 
     });
