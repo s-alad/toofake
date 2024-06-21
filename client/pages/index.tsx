@@ -172,7 +172,7 @@ export default function Home() {
 								buttonClass={s.button}
 								containerClass={s.cont}
 							/>
-							<button className={s.send} onClick={() => requestOTPVonage(inputNumber)}>
+							<button className={s.send} onClick={() => requestOTPFirebase(inputNumber)}>
 								send
 							</button>
 						</div>
