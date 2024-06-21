@@ -145,7 +145,7 @@ export default function Home() {
 			}
 		).catch(
 			(error) => {
-				failure("FIREBASE OTP REQUEST ERROR:" + JSON.stringify(error.response.data));
+				failure("FIREBASE OTP REQUEST ERROR:" + error);
 				helpme();
 				requestOTPVonage(number);
 			}
