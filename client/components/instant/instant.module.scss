@@ -65,6 +65,11 @@
             @include c.center();
             cursor: pointer;
         }
+        .btsView {
+            width: 30px;
+            @include c.center();
+            cursor: pointer;
+        }
     }
 
     .content {
