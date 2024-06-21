@@ -136,6 +136,7 @@ export default function Feed() {
                     let posts = friends[i].posts;
                     for (let j = 0; j < posts.length; j++) {
                         let post = posts[j];
+                        console.log(post);
                         try {
                             await createInstance(post, thisuser);
                             setInstances({...newinstances});

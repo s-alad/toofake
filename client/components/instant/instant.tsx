@@ -9,7 +9,7 @@ import axios from "axios";
 import { useRouter } from "next/router";
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faAdd, faArrowCircleRight, faArrowLeft, faArrowRight, faCaretDown, faCaretLeft, faCaretRight, faCaretUp, faCheck, faCross, faDownload, faFaceFrown, faFaceSadCry, faFaceSmile, faPlusCircle, faTrashCan } from "@fortawesome/free-solid-svg-icons";
+import { faAdd, faArrowCircleRight, faArrowLeft, faArrowRight, faCaretDown, faCaretLeft, faCaretRight, faCaretUp, faCheck, faCross, faDownload, faFaceFrown, faFaceSadCry, faFaceSmile, faPlusCircle, faTrashCan, faPlayCircle } from "@fortawesome/free-solid-svg-icons";
 
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
@@ -75,6 +75,10 @@ export default function Instant({ instance, mymojis }: _Instant) {
             }
         ).catch((error) => { console.log(error); })
 
+    }
+
+    function viewBts() {
+        window.open(instance.btsMedia, "_blank")?.focus();
     }
 
     let [swap, setSwap] = useState<boolean>(true);
@@ -198,17 +202,25 @@ export default function Instant({ instance, mymojis }: _Instant) {
                 </div>
                 {
                     instance.user.uid == localStorage.getItem("uid") ?
-                        <div className={s.trash} onClick={deletepost}>
+                        <div className={s.trash} onClick={deletepost} title="Click to delete">
                             <FontAwesomeIcon icon={faTrashCan} />
                         </div>
                         :
-                        <div className={s.trash}>
+                        <div className={s.trash} title="Click to react">
                             {
                                 reactionLoading ?
                                     <div className={s.addloading}><div className={l.loadersmall}></div></div> :
                                     getReactionState()
                             }
                         </div>
+                }
+                {
+                    instance.btsMedia != undefined ? 
+                    <div className={s.btsView} onClick={viewBts} title="Click to view the BTS">
+                        <FontAwesomeIcon icon={faPlayCircle} />
+                    </div>
+                    :
+                    <div></div>
                 }
             </div>
 

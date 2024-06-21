@@ -16,9 +16,10 @@ class Instance {
     instanceid: string;
     primary: string;
     secondary: string;
+    btsMedia: string | undefined;
 
     // make a constructor
-    constructor(user: User, realmojis: Realmoji[], comments: Comment[], location: { latitude: number, longitude: number } | undefined, creationdate: string ,caption: string, instanceid: string, primary: string, secondary: string) {
+    constructor(user: User, realmojis: Realmoji[], comments: Comment[], location: { latitude: number, longitude: number } | undefined, creationdate: string ,caption: string, instanceid: string, primary: string, secondary: string, btsMedia: string | undefined) {
         this.user = user;
         this.realmojis = realmojis;
         this.comments = comments;
@@ -28,9 +29,10 @@ class Instance {
         this.instanceid = instanceid;
         this.primary = primary;
         this.secondary = secondary;
+        this.btsMedia = btsMedia;
     }
 
-    // static method to create instances
+    // static method to create instances (old api)
     static async create(raw: any) {
         let user = User.create(raw.user);
 
@@ -60,9 +62,10 @@ class Instance {
             comments.push(Comment.create(raw_comment));
         }
 
-        return new Instance(user, realmojis, comments, location, creationdate, caption, instanceid, primary, secondary);
+        return new Instance(user, realmojis, comments, location, creationdate, caption, instanceid, primary, secondary, "");
     }
 
+    // same but new api
     static async moment(raw: any, rawuser: any) {
         let user = User.create(rawuser);
 
@@ -92,7 +95,13 @@ class Instance {
         for (let raw_comment of raw.comments) {
             comments.push(Comment.moment(raw_comment));
         }
-        return new Instance(user, realmojis, comments, location, creationdate ,caption, instanceid, primary, secondary);
+
+        let bts: string | undefined = undefined;
+        if (raw.btsMedia) {
+            bts = raw.btsMedia.url;
+        }
+
+        return new Instance(user, realmojis, comments, location, creationdate ,caption, instanceid, primary, secondary, bts);
     }
 }
 
