@@ -73,7 +73,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             console.log(error.response);
             console.log(error.response.data)
             console.log(error.response.data.error)
-            res.status(400).json({ status: "error" });
+            res.status(400).json({ status: "error", errorData: error.response.data.error });
         }
     )
 

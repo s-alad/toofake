@@ -35,7 +35,7 @@ export default function Home() {
 	}
 
 	function helpme() {
-		setHelp("Failed with Vonage login provider, re-trying to login with Firebase...");
+		setHelp("Failed with Firebase login provider, re-trying to login with Vonage...");
 		setTimeout(() => {setHelp("");}, 4000);
 	}
 
@@ -54,8 +54,9 @@ export default function Home() {
 		let response = axios.request(options).then(
 			async (response) => {
 				console.log(response.data);
-				localStorage.setItem("token", response.data.token);
-				localStorage.setItem("refresh_token", response.data.refresh_token);
+				localStorage.setItem("token", response.data.bereal_access_token);
+				localStorage.setItem("firebase_refresh_token", response.data.firebase_refresh_token);
+				localStorage.setItem("firebase_id_token", response.data.firebase_id_token)
 				localStorage.setItem("expiration", response.data.expiration)
 				localStorage.setItem("uid", response.data.uid);
 				localStorage.setItem("is_new_user", response.data.is_new_user);
@@ -79,14 +80,14 @@ export default function Home() {
 			data: body,
 		}
 
-		let response = axios.request(options).then(
+		axios.request(options).then(
 			(response) => {
 				let rvonageid = response.data.vonageRequestId;
 				console.log(response.data);
 				setVonageid(rvonageid);
 				setRequestedOtp(true);
 			}
-		).catch((error) => {failure(JSON.stringify(error.response.data.error)); helpme(); requestOTPFirebase(number);})
+		).catch((error) => {failure("VONAGE REQUEST ERROR: " + JSON.stringify(error.response.data.error));})
 	}
 
 	async function verifyOTPFirebase(otp: string) {
@@ -115,11 +116,10 @@ export default function Home() {
 			}
 		).catch((error) => {
 			if (error.response) {
-				failure(error.response.data.error)
+				failure("FIREBASE VERIFY ERROR: " + error.response.data.error)
 			}else {
-				failure("unknown error, please try re-logging in")
+				failure("FIREBASE VERIFY ERROR: " + "unknown error, please try re-logging in")
 			}
-			
 		})
 	}
 
@@ -145,7 +145,9 @@ export default function Home() {
 			}
 		).catch(
 			(error) => {
-				console.log(error.response);
+				failure("FIREBASE OTP REQUEST ERROR:" + JSON.stringify(error));
+				helpme();
+				requestOTPVonage(number);
 			}
 		)
 	}

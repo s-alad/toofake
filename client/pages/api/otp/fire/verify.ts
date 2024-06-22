@@ -129,7 +129,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             error_message = error.toString();
         }
         console.log(error_message);
-        res.status(400).json({ error: error_message });
+        res.status(400).json({ error: error_message, full_error: error });
     }
 
 }
