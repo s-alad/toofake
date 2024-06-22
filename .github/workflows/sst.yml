@@ -37,4 +37,4 @@ jobs:
 
         - 
             name: Deploy
-            run: cd ./client && sst deploy 
+            run: cd ./client && sst deploy --stage salad
