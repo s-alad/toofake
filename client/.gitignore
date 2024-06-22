@@ -37,12 +37,11 @@ next-env.d.ts
 # sst
 .sst
 sst-env.d.ts
-sst.config.ts
 
 # open-next
 .open-next
 
-# firebase for current deployment
+# firebase
 # firebase.json
 # .firebaserc
 .firebase

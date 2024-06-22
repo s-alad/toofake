@@ -211,7 +211,6 @@ export default function Home() {
 				</div>
 			</div>
 			<div className={s.info}>
-				<p>Posting & commenting have been fixed!</p>
 				<p>TooFake is currently working (I think??) but needs <span>your help!!!</span></p>
 				<p>BeReal continues to beef up its security making it much harder to reverse engineer. If you are well versed in reverse engineering, please check out the <a href="https://github.com/s-alad/toofake"><FontAwesomeIcon icon={faGithub} /> github</a> and help us keep the befake project working!</p>
 				{/* <p>You can login using your phone number, view bereals and post custom images.</p>
