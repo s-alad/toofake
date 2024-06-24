@@ -58,7 +58,6 @@ export default function Memories(){
     }, []);
 
     return (
-
         <div className={s.mem}>
             <div className={s.memories}>
                 {
@@ -70,7 +69,6 @@ export default function Memories(){
                         })
                 }
             </div>
-
 
             <div className={s.download}>
                 <button id="download" onClick={() => downloadMemories(memories)}>download all as zip</button>
@@ -99,19 +97,16 @@ export default function Memories(){
                 </div>
             </div>
         </div>
-
-
     )
-
 }
 
-async function fetchImage(url: string): Promise<Blob> {
+const fetchImage = async (url: string): Promise<Blob> => {
     const proxyUrl = "https://toofake-cors-proxy-4fefd1186131.herokuapp.com/" + url;
     const response = await fetch(proxyUrl);
     return await response.blob();
 }
 
-async function mergeImages(primary: Blob, secondary: Blob, monthString: string, dateString: string, zip: JSZip) {
+const mergeImages = async (primary: Blob, secondary: Blob, monthString: string, dateString: string, zip: JSZip): Promise<void> => {
     const canvas = document.getElementById("myCanvas") as HTMLCanvasElement;
     const primaryImage = await createImageBitmap(primary);
     const secondaryImage = await createImageBitmap(secondary);
@@ -152,11 +147,14 @@ async function mergeImages(primary: Blob, secondary: Blob, monthString: string, 
     }
 }
 
-async function processMemory(memory: Memory, zip: JSZip, separateImages: boolean, mergedImage: boolean) {
+const processMemory = async (memory: Memory, zip: JSZip, separateImages: boolean, mergedImage: boolean): Promise<any> => {
     let memoryDate = new Date(memory.date);
     memoryDate.setDate(memoryDate.getDate() + 1);
 
-    let monthString = `${memoryDate.getFullYear()}-${memoryDate.toLocaleDateString("en-GB", { month: "2-digit" })}, ${memoryDate.toLocaleString('en-us', { month: 'long', year: 'numeric' })}`.replaceAll("/", "-");
+    let monthString = `${memoryDate.getFullYear()}-${memoryDate.toLocaleDateString("en-GB", { month: "2-digit" })}, ${memoryDate.toLocaleString('en-us', {
+        month: 'long',
+        year: 'numeric'
+    })}`.replaceAll("/", "-");
     let dateString = memoryDate.toLocaleString('en-us', { dateStyle: 'long' });
 
     try {
@@ -177,10 +175,14 @@ async function processMemory(memory: Memory, zip: JSZip, separateImages: boolean
     }
 }
 
-async function generateAndSaveZip(zip: JSZip, downloadButton: HTMLButtonElement | null, status: HTMLElement | null) {
+const generateAndSaveZip = async (zip: JSZip, downloadButton: HTMLButtonElement | null, status: HTMLElement | null): Promise<void> => {
     setTimeout(() => {
         zip.generateAsync({ type: 'blob' }).then((content) => {
-            FileSaver.saveAs(content, `bereal-export-${new Date().toLocaleString("en-us", { year: "2-digit", month: "2-digit", day: "2-digit" }).replace(/\//g, '-')}.zip`);
+            FileSaver.saveAs(content, `bereal-export-${new Date().toLocaleString("en-us", {
+                year: "2-digit",
+                month: "2-digit",
+                day: "2-digit"
+            }).replace(/\//g, '-')}.zip`);
         });
 
         if (status) status.textContent = "Zip will download shortly...";
@@ -188,7 +190,7 @@ async function generateAndSaveZip(zip: JSZip, downloadButton: HTMLButtonElement 
     }, 1000);
 }
 
-async function downloadMemories(memories: Memory[]) {
+const downloadMemories = async (memories: Memory[]): Promise<void> => {
     const separateImages = (document.getElementById("separate") as HTMLInputElement)?.checked;
     const mergedImage = (document.getElementById("merged") as HTMLInputElement)?.checked;
     const status = document.getElementById("downloadStatus");
@@ -227,6 +229,3 @@ async function downloadMemories(memories: Memory[]) {
         await generateAndSaveZip(zip, downloadButton, status);
     }
 }
-
-
-
