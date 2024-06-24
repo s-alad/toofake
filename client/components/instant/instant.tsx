@@ -9,7 +9,7 @@ import axios from "axios";
 import { useRouter } from "next/router";
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faAdd, faArrowCircleRight, faArrowLeft, faArrowRight, faCaretDown, faCaretLeft, faCaretRight, faCaretUp, faCheck, faCross, faDownload, faFaceFrown, faFaceSadCry, faFaceSmile, faPlusCircle, faTrashCan, faPlayCircle } from "@fortawesome/free-solid-svg-icons";
+import { faCaretDown, faCaretLeft, faCaretRight, faCaretUp, faCheck, faCross, faDownload, faFaceFrown, faFaceSmile, faTrashCan, faPlayCircle } from "@fortawesome/free-solid-svg-icons";
 
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
@@ -33,9 +33,9 @@ export default function Instant({ instance, mymojis }: _Instant) {
         setCommentLoading(true);
 
         let token = localStorage.getItem("token");
-        let body = JSON.stringify({ 
-            "token": token, 
-            "instance_id": instance.instanceid, 
+        let body = JSON.stringify({
+            "token": token,
+            "instance_id": instance.instanceid,
             "poster_user_id": instance.user.uid,
             "comment": comment
         });
@@ -113,7 +113,7 @@ export default function Instant({ instance, mymojis }: _Instant) {
             setLocation("No location data");
         }
     }
-    
+
     let [reactionSuccess, setReactionSuccess] = useState<boolean>(false);
     let [reactionFailure, setReactionFailure] = useState<boolean>(false);
     let [addingmoji, setAddingmoji] = useState<boolean>(false);
@@ -142,10 +142,10 @@ export default function Instant({ instance, mymojis }: _Instant) {
                 setReactionSuccess(true);
                 setTimeout(() => { setReactionSuccess(false); router.reload() }, 2000);
             }
-        ).catch((error) => { 
-            console.log(error); 
-            setReactionLoading(false); 
-            setReactionFailure(true); 
+        ).catch((error) => {
+            console.log(error);
+            setReactionLoading(false);
+            setReactionFailure(true);
             setTimeout(() => { setReactionFailure(false) }, 2000);
         })
     }
@@ -177,7 +177,7 @@ export default function Instant({ instance, mymojis }: _Instant) {
 
         link.click();
         link2.click();
-        
+
         document.body.removeChild(link);
         document.body.removeChild(link2);
     }
@@ -215,7 +215,7 @@ export default function Instant({ instance, mymojis }: _Instant) {
                         </div>
                 }
                 {
-                    instance.btsMedia != undefined ? 
+                    instance.btsMedia != undefined ?
                     <div className={s.btsView} onClick={viewBts} title="Click to view the BTS">
                         <FontAwesomeIcon icon={faPlayCircle} />
                     </div>
@@ -337,7 +337,7 @@ export default function Instant({ instance, mymojis }: _Instant) {
                         <div className={s.expand} >
                             <span className={s.click} onClick={() => setExpanded(!expanded)}>
                                 {
-                                    !expanded ? 
+                                    !expanded ?
                                     <> <FontAwesomeIcon icon={faCaretDown} />  expand comments</>
                                     : <> <FontAwesomeIcon icon={faCaretUp} />  collapse comments</>}
                             </span>

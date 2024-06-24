@@ -1,7 +1,5 @@
-
 import React, { useState } from 'react'
 import { useEffect } from 'react'
-import axios from 'axios'
 import useCheck from '@/utils/check';
 import myself from '@/utils/myself';
 
@@ -21,8 +19,8 @@ export default function RealMojis() {
     let emoji_lookup: {[key: string]: string} = {
         "😍": "heartEyes",
         "😂": "laughing",
-        "😲": "surprised", 
-        "😃": "happy", 
+        "😲": "surprised",
+        "😃": "happy",
         "👍": "up"
     }
 
@@ -35,14 +33,14 @@ export default function RealMojis() {
             "👍": undefined
         }
     );
-    
+
     useEffect(() => {
         myself()
 
         if (!localStorage.getItem("myself")) {
             return;
         }
-        
+
         let my_real_mojis = JSON.parse(localStorage.getItem("myself")!).realmojis;
         console.log("MY MOJIS");
         console.log(my_real_mojis);

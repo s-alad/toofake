@@ -2,10 +2,7 @@ import type { NextApiRequest, NextApiResponse } from 'next'
 import axios from 'axios'
 /* import { File } from "formidable";
 import formidable, { IncomingForm } from "formidable"; */
-import Jimp from "jimp";
-import fs from "fs";
 import sharp from 'sharp';
-import moment from 'moment';
 import { getAuthHeaders } from '@/utils/authHeaders';
 
 export const config = {
@@ -43,7 +40,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
         let authorization_token: string = fields["token"] as string;
         let filebase64: string = fields["fileBase64"][0] as string;
-        let emoji: string = fields["emoji"] as string; 
+        let emoji: string = fields["emoji"] as string;
         */
 
         // using fetch
@@ -73,13 +70,13 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         let sharp_file = await sharp(file_image_buffer).toBuffer();
         const primary_mime_type = (await sharp(sharp_file).metadata()).format;
 
-    
+
         console.log("SHARP IMAGES");
         console.log(sharp_file);
         console.log(primary_mime_type);
         console.log('---------------------')
 
-    
+
         if (primary_mime_type != 'webp') {
             sharp_file = await sharp(sharp_file).toFormat('webp').toBuffer();
         }
@@ -92,21 +89,21 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             method: "GET",
             headers: getAuthHeaders(authorization_token),
         }
-    
+
         let upload_res = await axios.request(upload_options)
-    
+
         console.log("upload result");
         console.log(upload_res.data);
         console.log('---------------------')
 
         let primary_res = upload_res.data.data
-    
+
         let primary_headers = primary_res.headers;
         let primary_url = primary_res.url;
         let primary_path = primary_res.path;
         let primary_bucket = primary_res.bucket;
         Object.assign(primary_headers, getAuthHeaders(authorization_token))
-    
+
         // ============================================================================================
 
         let put_file_options = {
@@ -120,7 +117,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         console.log("put secondary result");
         console.log(put_file_res.status);
         console.log('---------------------')
-    
+
         // ============================================================================================
 
         let post_data: any = {
@@ -146,18 +143,18 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         console.log(post_data);
         console.log(post_headers)
         console.log('---------------------')
-    
+
         let post_response = await axios.request({
             method: 'PUT',
             url: "https://mobile.bereal.com/api" + "/person/me/realmojis",
             data: JSON.stringify(post_data),
             headers: post_headers,
         })
-    
+
         console.log("post response");
         console.log(post_response);
         console.log('---------------------')
-    
+
         res.status(200).json(upload_res.data.data);
 
 

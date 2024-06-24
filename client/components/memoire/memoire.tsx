@@ -1,7 +1,7 @@
 import Memory from "@/models/memory"
 import s from "./memoire.module.scss"
 import Draggable from "react-draggable"
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import axios from "axios";
 
 
