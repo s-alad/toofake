@@ -1,8 +1,6 @@
-
 import s from "./realmoji.module.scss"
 import l from "@/styles/loader.module.scss";
-import { useEffect, useState } from "react";
-import axios from "axios";
+import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck, faUpload } from "@fortawesome/free-solid-svg-icons";
 import { useRouter } from "next/router";
@@ -119,9 +117,9 @@ export default function Realmoji({ emoji, realmoji }: RealmojiProperties) {
                 (realmoji[emoji] != undefined)
                 ?
                     (
-                        isFilePicked ? 
-                        <img src={URL.createObjectURL(selectedFile)} className={s.emoji} /> 
-                        : 
+                        isFilePicked ?
+                        <img src={URL.createObjectURL(selectedFile)} className={s.emoji} />
+                        :
                         <img src={realmoji[emoji].url} className={s.emoji} />
                     )
                 :
@@ -142,10 +140,10 @@ export default function Realmoji({ emoji, realmoji }: RealmojiProperties) {
                         isFilePicked ?
                         <button className={s.send} onClick={handleSubmission}>
                             {
-                                loading ? <div className={l.loadertiny}></div> 
+                                loading ? <div className={l.loadertiny}></div>
                                 : (
-                                    success ? 
-                                    <FontAwesomeIcon icon={faCheck} className={s.success} /> 
+                                    success ?
+                                    <FontAwesomeIcon icon={faCheck} className={s.success} />
                                         :
                                     <FontAwesomeIcon icon={faUpload} />
                                 )

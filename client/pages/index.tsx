@@ -1,6 +1,4 @@
-import Head from 'next/head'
 import { Inter } from 'next/font/google'
-import Image from 'next/image'
 import s from './index.module.scss'
 import axios from "axios";
 import { useState } from 'react';
@@ -29,7 +27,7 @@ export default function Home() {
 	let [help, setHelp] = useState<string>("");
 
 	function failure(text: string) {
-		console.log(text);		
+		console.log(text);
 		setFailed(`ERROR: ${text}`);
 		setTimeout(() => {setFailed("");}, 4000);
 	}
@@ -44,10 +42,10 @@ export default function Home() {
 		console.log("client vonage verify otp: ", otp, " vonageid: ", vonageid);
 
 		let body = JSON.stringify({ "code": otp, "vonageRequestId": vonageid });
-		let options = { 
-			url: "/api/otp/vonage/verify", 
-			method: "POST", 
-			headers: { 'Content-Type': 'application/json' }, 
+		let options = {
+			url: "/api/otp/vonage/verify",
+			method: "POST",
+			headers: { 'Content-Type': 'application/json' },
 			data: body,
 		}
 
@@ -64,7 +62,7 @@ export default function Home() {
 				await myself();
 				router.push("/feed");
 			}
-		).catch((error) => {failure((error.response.data.error.error.code + " | "+ error.response.data.error.error.message).toString())})		
+		).catch((error) => {failure((error.response.data.error.error.code + " | "+ error.response.data.error.error.message).toString())})
 	}
 
 	async function requestOTPVonage(number: string) {
@@ -94,10 +92,10 @@ export default function Home() {
 		console.log("client firebase verify otp: ", otp, " firebase_session: ", firebase_session);
 
 		let body = JSON.stringify({ "code": otp, "session_info": firebase_session });
-		let options = { 
-			url: "/api/otp/fire/verify", 
-			method: "POST", 
-			headers: { 'Content-Type': 'application/json' }, 
+		let options = {
+			url: "/api/otp/fire/verify",
+			method: "POST",
+			headers: { 'Content-Type': 'application/json' },
 			data: body,
 		}
 
