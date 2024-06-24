@@ -16,6 +16,18 @@ export default function Memories(){
     let [memories, setMemories] = useState<Memory[]>([]);
     let [loading, setLoading] = useState<boolean>(true);
 
+    const createMemories = async (memoryData: any[]): Promise<Memory[]> => {
+        return Promise.all(memoryData.map(async (data) => {
+            try {
+                return await Memory.create(data);
+            } catch (error) {
+                console.log("COULDN'T MAKE MEMORY WITH DATA: ", data);
+                console.log(error);
+                throw error; // Let the error propagate to the Promise.all level
+            }
+        }));
+    };
+
     useEffect(() => {
 
         const fetchMemories = async () => {
@@ -32,17 +44,9 @@ export default function Memories(){
                 const response = await axios.request(options);
                 const memoryData = response.data.data;
 
-                const newMemories: Memory[] = await Promise.all(memoryData.map(async (data: any) => {
-                    try {
-                        return await Memory.create(data);
-                    } catch (error) {
-                        console.log("COULDN'T MAKE MEMORY WITH DATA: ", data);
-                        console.log(error);
-                        throw error; // Let the error propagate to the Promise.all level
-                    }
-                }));
+                const memories: Memory[] = await createMemories(memoryData);
 
-                setMemories(newMemories);
+                setMemories(memories);
             } catch (error) {
                 console.log(error);
             } finally {
@@ -52,7 +56,6 @@ export default function Memories(){
 
         fetchMemories();
     }, []);
-
 
     return (
 
@@ -102,7 +105,7 @@ export default function Memories(){
 
 }
 
-async function downloadMemories(newmemories: Memory[]){
+async function downloadMemories(memories: Memory[]){
 
     // Note: this is JS code not TS which is why it's throwing an error but runs fine
 
@@ -140,13 +143,13 @@ async function downloadMemories(newmemories: Memory[]){
     let zip = new JSZip();
 
     // Loop through each memory
-    for (let i = 0; i < newmemories.length; i++) {
+    for (let i = 0; i < memories.length; i++) {
 
-        let memory = newmemories[i];
+        let memory = memories[i];
 
         // Update memory status
         // @ts-ignore: Object is possibly 'null'.
-        status.textContent = `Zipping, ${(((i + 1) / (newmemories.length)) * 100).toFixed(1)}% (Memory ${i + 1}/${(newmemories.length)})`
+        status.textContent = `Zipping, ${(((i + 1) / (memories.length)) * 100).toFixed(1)}% (Memory ${i + 1}/${(memories.length)})`
 
 
         // Date strings for folder/file names
@@ -249,7 +252,7 @@ async function downloadMemories(newmemories: Memory[]){
                 }
 
                 // Only save if on last memory
-                if (i == newmemories.length - 1) {
+                if (i == memories.length - 1) {
 
                     // @ts-ignore: Object is possibly 'null'.
                     status.textContent += `, exporting .zip...`
@@ -289,7 +292,7 @@ async function downloadMemories(newmemories: Memory[]){
             console.log(`ERROR: Memory #${i} on ${memoryDate} could not be zipped:\n${e}`);
 
             // Save zip if error was found on the last memory
-            if (i == newmemories.length - 1) {
+            if (i == memories.length - 1) {
 
                 setTimeout(() => {
                     zip.generateAsync({ type: 'blob' }).then(function (content: any){
