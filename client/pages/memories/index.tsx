@@ -1,24 +1,15 @@
-
-import React, { useState } from 'react'
+import React, { memo, useState } from 'react'
 import { useEffect } from 'react'
 import axios from 'axios'
 import useCheck from '@/utils/check';
-import myself from '@/utils/myself';
 import s from './memories.module.scss'
 import l from '@/styles/loader.module.scss';
-import User from '@/models/user';
-import Link from 'next/link';
 import Memory from '@/models/memory';
-import Draggable from 'react-draggable';
 import Memoire from '@/components/memoire/memoire';
 import JSZip from 'jszip';
 import FileSaver from 'file-saver';
 
-
-// Made memories global for downloading (kinda ugly)
-let newmemories: Memory[] = [];
-
-export default function Memories() {
+export default function Memories(){
 
     useCheck();
 
@@ -27,44 +18,40 @@ export default function Memories() {
 
     useEffect(() => {
 
-        let token = localStorage.getItem("token");
-        let body = JSON.stringify({ "token": token });
-        let options = {
-            url: "/api/memories",
-            method: "POST",
-            headers: { 'Content-Type': 'application/json' },
-            data: body,
-        }
+        const fetchMemories = async () => {
+            try {
+                const token = localStorage.getItem("token");
+                const body = JSON.stringify({ token });
+                const options = {
+                    url: "/api/memories",
+                    method: "POST",
+                    headers: { 'Content-Type': 'application/json' },
+                    data: body,
+                };
 
-        axios.request(options).then(
-            async (response) => {
-                console.log(response.data);
-                let memorydata = response.data.data;
+                const response = await axios.request(options);
+                const memoryData = response.data.data;
 
-                async function createMemory(data: any) {
-                    let newmemory = await Memory.create(data);
-                    newmemories.push(newmemory);
-                    return newmemory;
-                }
-
-                for (let i = 0; i < memorydata.length; i++) {
+                const newMemories: Memory[] = await Promise.all(memoryData.map(async (data: any) => {
                     try {
-                        await createMemory(memorydata[i]);
-                        setLoading(false);
-                        setMemories([...newmemories]);
+                        return await Memory.create(data);
                     } catch (error) {
-                        console.log("COULDN'T MAKE MEMORY WITH DATA: ", memorydata[i])
+                        console.log("COULDN'T MAKE MEMORY WITH DATA: ", data);
                         console.log(error);
+                        throw error; // Let the error propagate to the Promise.all level
                     }
+                }));
 
-                }
-                console.log("newmemories");
-                console.log(newmemories);
-
+                setMemories(newMemories);
+            } catch (error) {
+                console.log(error);
+            } finally {
+                setLoading(false);
             }
-        ).catch((error) => { console.log(error); })
-    }, []);
+        };
 
+        fetchMemories();
+    }, []);
 
 
     return (
@@ -75,7 +62,7 @@ export default function Memories() {
                     loading ? <div className={l.loader}></div> :
                         memories.map((memory, index) => {
                             return (
-                                <Memoire memory={memory} key={index} />
+                                <Memoire memory={memory} key={index}/>
                             )
                         })
                 }
@@ -83,7 +70,7 @@ export default function Memories() {
 
 
             <div className={s.download}>
-                <button id="download" onClick={() => downloadMemories()}>download all as zip</button>
+                <button id="download" onClick={() => downloadMemories(memories)}>download all as zip</button>
 
                 <div>
                     <p id="downloadStatus"></p>
@@ -92,7 +79,7 @@ export default function Memories() {
                 <div className={s.error}>
                     <p id="error"></p>
                 </div>
-            
+
                 <div>
                     <div>
                         <label>Export both primary and secondary separately</label>
@@ -115,7 +102,7 @@ export default function Memories() {
 
 }
 
-async function downloadMemories() {
+async function downloadMemories(newmemories: Memory[]){
 
     // Note: this is JS code not TS which is why it's throwing an error but runs fine
 
@@ -167,7 +154,10 @@ async function downloadMemories() {
         memoryDate.setDate(memoryDate.getDate() + 1); // Memory date is one day off for some reason?
 
         // Month string for folder in the form: "yyyy-mm, Month Year"
-        let monthString = `${memoryDate.getFullYear()}-${memoryDate.toLocaleDateString("en-GB", { month: "2-digit" })}, ${memoryDate.toLocaleString('en-us', { month: 'long', year: 'numeric' })}`
+        let monthString = `${memoryDate.getFullYear()}-${memoryDate.toLocaleDateString("en-GB", { month: "2-digit" })}, ${memoryDate.toLocaleString('en-us', {
+            month: 'long',
+            year: 'numeric'
+        })}`
         monthString = monthString.replaceAll("/", "-"); // Slashes aren't allowed for filenames
 
         // Date string for files in the form: "Month Day, Year"
@@ -189,12 +179,11 @@ async function downloadMemories() {
 
 
             // Create zip w/ image, adapted from https://stackoverflow.com/a/49836948/21809626
-            // Zip (primary + secondary separate) 
+            // Zip (primary + secondary separate)
             if (separateImages) {
                 zip.file(`${monthString}/${dateString} -  primary.png`, primary)
                 zip.file(`${monthString}/${dateString} - secondary.png`, secondary)
             }
-
 
 
             // Merging images for combined view
@@ -250,7 +239,6 @@ async function downloadMemories() {
             }
 
 
-
             // Save as zip
             // Async stuff: Must have generateAsync in toBlob function to run in proper order
 
@@ -261,7 +249,7 @@ async function downloadMemories() {
                 }
 
                 // Only save if on last memory
-                if (i == newmemories.length-1) {
+                if (i == newmemories.length - 1) {
 
                     // @ts-ignore: Object is possibly 'null'.
                     status.textContent += `, exporting .zip...`
@@ -272,8 +260,12 @@ async function downloadMemories() {
                     setTimeout(() => {
 
                         // Save w/ zip name of current date
-                        zip.generateAsync({ type: 'blob' }).then(function (content: any) {
-                            FileSaver.saveAs(content, `bereal-export-${new Date().toLocaleString("en-us", { year: "2-digit", month: "2-digit", day: "2-digit" }).replace(/\//g, '-')}.zip`);
+                        zip.generateAsync({ type: 'blob' }).then(function (content: any){
+                            FileSaver.saveAs(content, `bereal-export-${new Date().toLocaleString("en-us", {
+                                year: "2-digit",
+                                month: "2-digit",
+                                day: "2-digit"
+                            }).replace(/\//g, '-')}.zip`);
                         });
 
                         // Reset status
@@ -297,11 +289,15 @@ async function downloadMemories() {
             console.log(`ERROR: Memory #${i} on ${memoryDate} could not be zipped:\n${e}`);
 
             // Save zip if error was found on the last memory
-            if (i == newmemories.length-1) {
+            if (i == newmemories.length - 1) {
 
                 setTimeout(() => {
-                    zip.generateAsync({ type: 'blob' }).then(function (content: any) {
-                        FileSaver.saveAs(content, `bereal-export-${new Date().toLocaleString("en-us", { year: "2-digit", month: "2-digit", day: "2-digit" }).replace(/\//g, '-')}.zip`);
+                    zip.generateAsync({ type: 'blob' }).then(function (content: any){
+                        FileSaver.saveAs(content, `bereal-export-${new Date().toLocaleString("en-us", {
+                            year: "2-digit",
+                            month: "2-digit",
+                            day: "2-digit"
+                        }).replace(/\//g, '-')}.zip`);
                     });
 
                     // @ts-ignore: Object is possibly 'null'.
@@ -311,7 +307,7 @@ async function downloadMemories() {
                     downloadButton.disabled = false;
 
                 }, 1000)
-                
+
             } else {
                 continue;
             }
