@@ -2,8 +2,6 @@ import type { NextApiRequest, NextApiResponse } from 'next'
 import axios from 'axios'
 /* import { File } from "formidable";
 import formidable, { IncomingForm } from "formidable"; */
-import Jimp from "jimp";
-import fs from "fs";
 import sharp from 'sharp';
 import moment from 'moment';
 // @ts-ignore
@@ -42,14 +40,14 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     console.log("POST REQUEST");
     try {
 
-        /* 
+        /*
         const { fields, files } = await parseFormAsync(req);
         console.log(fields, files)
 
         let caption: string = fields["caption"] as string;
         let authorization_token: string = fields["token"] as string;
         let primaryb64: string = fields["primaryb64"][0] as string;
-        let secondaryb64: string = fields["secondaryb64"][0] as string; 
+        let secondaryb64: string = fields["secondaryb64"][0] as string;
         */
 
         // using fetch

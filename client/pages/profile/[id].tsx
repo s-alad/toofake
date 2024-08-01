@@ -4,74 +4,90 @@ import { useEffect, useState } from 'react'
 
 import s from './profile.module.scss'
 
-export default function Profile() {
+interface ProfileData {
+    username: string;
+    name: string;
+    bio: string;
+    pfp: string;
+    status: string;
+}
+
+export default function Profile(){
     const router = useRouter()
 
-    let [username, setUsername] = useState<string>("");
-    let [name, setName] = useState<string>("");
-    let [bio, setBio] = useState<string>("");
-    let [pfp, setPfp] = useState<string>("");
-    let [status, setStatus] = useState<string>("");
+    const [profile, setProfile] = useState<ProfileData | null>(null);
+    const [loading, setLoading] = useState<boolean>(true);
+    const [error, setError] = useState<string | null>(null);
 
     useEffect(() => {
+        const fetchProfile = async () => {
+            if (!router.isReady) return;
 
-        if (!router.isReady) return;
+            try {
+                const rid = router.query.id;
+                const token = localStorage.getItem("token");
 
-        console.log("router.query.id")
-        console.log(router.query.id)
+                const response = await axios.post("/api/profile", {
+                    token,
+                    profile_id: rid,
+                }, {
+                    headers: { 'Content-Type': 'application/json' }
+                });
 
-        let rid = router.query.id;
+                const data = response.data;
 
-        let token = localStorage.getItem("token");
-        let body = JSON.stringify({ "token": token, "profile_id": rid });
-        let options = {
-            url: "/api/profile",
-            method: "POST",
-            headers: { 'Content-Type': 'application/json' },
-            data: body,
+                setProfile({
+                    username: data.username,
+                    name: data.fullname,
+                    bio: data.biography || "",
+                    pfp: data.profilePicture?.url || "",
+                    status: data.relationship.status,
+                });
+            } catch (error) {
+                console.error(error);
+                setError("An error occurred while fetching the profile.");
+            } finally {
+                setLoading(false);
+            }
         }
 
-        axios.request(options).then(
-            (response) => {
-                console.log(response.data);
-                setUsername(response.data.username);
-                setName(response.data.fullname);
-                setBio(response.data.biography != undefined ? response.data.biography : "");
-                setPfp(response.data.profilePicture != undefined ? response.data.profilePicture.url : "");
-                setStatus(response.data.relationship.status);
-            }
-        ).catch(
-            (error) => {
-                console.log(error);
-            }
-        )
-    }, [router.isReady])
+        fetchProfile();
+
+    }, [router.isReady]);
+
+    if (loading) return <div>Loading...</div>;
+
+    if (error) return <div className={s.error}>{error}</div>;
+
+    if (!profile) return <div className={s.error}>Profile not found.</div>;
+
     return (
         <div className={s.me}>
             <div className={s.card}>
-                {pfp ? <img src={pfp} className={s.pfp} /> : <div className={s.pfp}>no profile picture</div>}
+                {profile.pfp ? (
+                    <img src={profile.pfp} alt="Profile picture" className={s.pfp}/>
+                ) : (
+                    <div className={s.pfp}>No profile picture</div>
+                )}
                 <div className={s.details}>
-                    <div className={s.detail}>
-                        <div className={s.label}>username</div>
-                        <div className={s.value}>{username}</div>
-                    </div>
-                    <div className={s.detail}>
-                        <div className={s.label}>name</div>
-                        <div className={s.value}>{name}</div>
-                    </div>
-                    {
-                        bio.length > 0 ?
-                            <div className={s.detail}>
-                                <div className={s.label}>biography</div>
-                                <div className={s.value}>{bio}</div>
-                            </div> : null
-                    }
-                    <div className={s.detail}>
-                        <div className={s.label}>relation</div>
-                        <div className={s.value}>{status == "accepted" ? "friends" : "stranger"}</div>
-                    </div>
+                    <ProfileDetail label="Username" value={profile.username}/>
+                    <ProfileDetail label="Name" value={profile.name}/>
+                    {profile.bio && <ProfileDetail label="Biography" value={profile.bio}/>}
+                    <ProfileDetail label="Relation" value={profile.status === "accepted" ? "Friends" : "Stranger"}/>
                 </div>
             </div>
         </div>
-    )
+    );
 }
+
+interface ProfileDetailProps {
+    label: string;
+    value: string;
+}
+
+const ProfileDetail = ({ label, value }: ProfileDetailProps) => (
+    <div className={s.detail}>
+        <div className={s.label}>{label}</div>
+        <div className={s.value}>{value}</div>
+    </div>
+);
