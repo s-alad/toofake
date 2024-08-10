@@ -17,9 +17,22 @@ class Instance {
     primary: string;
     secondary: string;
     btsMedia: string | undefined;
+    music: any;
 
-    // make a constructor
-    constructor(user: User, realmojis: Realmoji[], comments: Comment[], location: { latitude: number, longitude: number } | undefined, creationdate: string ,caption: string, instanceid: string, primary: string, secondary: string, btsMedia: string | undefined) {
+
+    constructor(
+        user: User, 
+        realmojis: Realmoji[], 
+        comments: Comment[], 
+        location: { latitude: number, longitude: number } | undefined, 
+        creationdate: string,
+        caption: string, 
+        instanceid: string, 
+        primary: string, 
+        secondary: string, 
+        btsMedia: string | undefined,
+        music: any
+    ) {
         this.user = user;
         this.realmojis = realmojis;
         this.comments = comments;
@@ -30,6 +43,7 @@ class Instance {
         this.primary = primary;
         this.secondary = secondary;
         this.btsMedia = btsMedia;
+        this.music = music;
     }
 
     // static method to create instances (old api)
@@ -38,10 +52,11 @@ class Instance {
 
         let caption = raw.caption;
         let instanceid = raw.id;
-        let primary = raw.photoURL;
-        let secondary = raw.secondaryPhotoURL; 
-        let creationdate = new Date(raw.creationDate).toLocaleString(undefined, { hour: '2-digit', minute: '2-digit', month: 'short', day: 'numeric' });
-        
+        let primary = raw.primary.url;
+        let secondary = raw.secondary.url; 
+		
+        let creationdate = raw.takenAt ? new Date(raw.takenAt).toLocaleString(undefined, { hour: '2-digit', minute: '2-digit', second: '2-digit', month: 'short', day: 'numeric' }) : "no date available";
+
         let raw_realmojis = raw.realMojis;
         let realmojis: Realmoji[] = [];
         for (let raw_moji of raw_realmojis) {
@@ -52,29 +67,30 @@ class Instance {
         if (raw.location) {
             let lat = raw.location._latitude;
             let long = raw.location._longitude;
-
-            initial_location = { latitude: lat, longitude: long}
+            initial_location = { latitude: lat, longitude: long };
         }
-        let location = initial_location
+        let location = initial_location;
 
         let comments: Comment[] = [];
         for (let raw_comment of raw.comment) {
             comments.push(Comment.create(raw_comment));
         }
 
-        return new Instance(user, realmojis, comments, location, creationdate, caption, instanceid, primary, secondary, "");
+
+        let music: any = raw.music ? raw.music : undefined;
+
+        return new Instance(user, realmojis, comments, location, creationdate, caption, instanceid, primary, secondary, "", music);
     }
 
     // same but new api
     static async moment(raw: any, rawuser: any) {
         let user = User.create(rawuser);
-
         let caption = raw.caption;
         let instanceid = raw.id;
         let primary = raw.primary.url;
         let secondary = raw.secondary.url;
-        let creationdate = 
-            raw.creationDate ? new Date(raw.creationDate).toLocaleString(undefined, { hour: '2-digit', minute: '2-digit', month: 'short', day: 'numeric' }) : "no date available"
+
+        let creationdate = raw.takenAt ? new Date(raw.takenAt).toLocaleString(undefined, { hour: '2-digit', minute: '2-digit', second: '2-digit', month: 'short', day: 'numeric' }) : "no date available";
 
         let raw_realmojis = raw.realMojis;
         let realmojis: Realmoji[] = [];
@@ -86,10 +102,9 @@ class Instance {
         if (raw.location) {
             let lat = raw.location.latitude;
             let long = raw.location.longitude;
-
-            initial_location = { latitude: lat, longitude: long}
+            initial_location = { latitude: lat, longitude: long };
         }
-        let location = initial_location
+        let location = initial_location;
 
         let comments: Comment[] = [];
         for (let raw_comment of raw.comments) {
@@ -101,7 +116,9 @@ class Instance {
             bts = raw.btsMedia.url;
         }
 
-        return new Instance(user, realmojis, comments, location, creationdate ,caption, instanceid, primary, secondary, bts);
+        let music: any = raw.music ? raw.music : undefined;
+
+        return new Instance(user, realmojis, comments, location, creationdate, caption, instanceid, primary, secondary, bts, music);
     }
 }
 

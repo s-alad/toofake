@@ -21,13 +21,14 @@ interface _Instant {
 }
 
 export default function Instant({ instance, mymojis }: _Instant) {
-    console.log(instance.user.uid)
+    console.log(instance.user.uid + " aka " + instance.user.username)
 
     let router = useRouter();
 
     let [comment, setComment] = useState<string>("");
     let [commentLoading, setCommentLoading] = useState<boolean>(false);
     let [location, setLocation] = useState<string>("loading...");
+	let [music, setMusic] = useState<string>("loading...");
 
     function sendComment() {
         setCommentLoading(true);
@@ -91,28 +92,65 @@ export default function Instant({ instance, mymojis }: _Instant) {
         else { return <div className={s.letter}>{instance.user.username.toUpperCase().charAt(0)}</div> }
     }
 
-    async function getLocation() {
-
-        if (instance.location == undefined) {
-            setLocation("No location data");
-            return;
-        }
-
-        let lat = instance.location.latitude;
-        let long = instance.location.longitude;
-        /* console.log(lat, long); */
-
-        try {
-            let response = await axios.get(
-                `https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer/reverseGeocode?location=${long},${lat}&outSR=&forStorage=false&f=pjson`
-            )
-            /* console.log(response.data) */
-            setLocation(response.data.address.Address + ", " + response.data.address.City)
-        } catch (error) {
-            console.log(error);
-            setLocation("No location data");
-        }
+   async function getLocation() {
+    if (instance.location == undefined) {
+        setLocation("No location data");
+        return;
     }
+
+    let lat = instance.location.latitude;
+    let long = instance.location.longitude;
+    /* console.log(lat, long); */
+
+    try {
+        let response = await axios.get(
+            `https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer/reverseGeocode?location=${long},${lat}&outSR=&forStorage=false&f=pjson`
+        )
+        /* console.log(response.data) */
+        const address = response.data.address.Address;
+        const city = response.data.address.City;
+        const locationString = `${address}, ${city}`;
+        const googleMapsLink = `https://www.google.com/maps?q=${lat},${long}`;
+
+        setLocation(
+            <div>
+                <p>{locationString}</p>
+                <a href={googleMapsLink} target="_blank" rel="noopener noreferrer">View on Google Maps</a>
+            </div>
+        );
+    } catch (error) {
+        console.log(error);
+        setLocation("No location data");
+    }
+}
+
+async function getMusicData() {
+    if (instance.music === undefined) {
+        setMusic( <p className={s.noMusicTitle}>No music data</p> );
+        return;
+    }
+
+    const { artwork: coverArt, track: songTitle, artist: songArtist, provider: musicProvider, openUrl: musicUrl } = instance.music;
+
+    try {
+        setMusic(
+            <div 
+				className={s.musicContainer} 
+				onClick={() => window.open(musicUrl, '_blank')}
+				title={`Open in ${musicProvider}`}
+			>
+				<img src={coverArt} alt="Cover Art" className={s.musicCoverArt} />
+				<div className={s.musicDetails}>
+					<p className={s.musicTitle}>🎵 {songTitle}</p>
+					<p className={s.musicArtist}>by {songArtist}</p>
+				</div>
+			</div>
+        );
+    } catch (error) {
+        console.log(error);
+        setMusic( <p className={s.noMusicTitle}>No music data</p> );
+    }
+}
     
     let [reactionSuccess, setReactionSuccess] = useState<boolean>(false);
     let [reactionFailure, setReactionFailure] = useState<boolean>(false);
@@ -184,6 +222,7 @@ export default function Instant({ instance, mymojis }: _Instant) {
 
     useEffect(() => {
         getLocation();
+		getMusicData();
     }, [])
 
     let carouselRef = createRef<Carousel>();
@@ -197,6 +236,7 @@ export default function Instant({ instance, mymojis }: _Instant) {
                 </div>
                 <div className={s.details}>
                     <div className={s.username}><Link href={profile_link}> @{instance.user.username} </Link></div>
+					<div> {music} </div>
                     <div className={s.location}> {location} </div>
                     <div className={s.timeposted}>{instance.creationdate}</div>
                 </div>
@@ -234,63 +274,65 @@ export default function Instant({ instance, mymojis }: _Instant) {
                 {
                     !addingmoji ?
                         <div className={s.realmojis}>
-                            {
-                                instance.realmojis.length > 5 ?
-                                    <div className={s.nextlast}>
-                                        <div className={s.add} onClick={() => carouselRef.current?.previous(carouselRef.current.state.currentSlide)}>
-                                            <FontAwesomeIcon icon={faCaretLeft} />
-                                        </div>
-                                    </div>
-                                    : null
-                            }
-                            {
-                                <Carousel
-                                    responsive={{
-                                        main: {
-                                            breakpoint: {
-                                                max: 3000,
-                                                min: 1
-                                            },
-                                            items: 5,
-                                        },
-                                    }}
-                                    className={s.carousel}
-                                    slidesToSlide={2}
-                                    draggable
-                                    swipeable
-                                    renderButtonGroupOutside
-
-                                    arrows={false}
-                                    ref={carouselRef}
-                                >
-                                    {
-                                        instance.realmojis.map((realmoji) => {
-                                            return (
-                                                <Link
-                                                    href={realmoji.owner.uid == localStorage.getItem("uid") ?
-                                                        "/me" : `/profile/${realmoji.owner.uid}`
-                                                    }
-                                                    key={realmoji.emoji_id}
-                                                >
-                                                    <div className={s.realmoji} key={realmoji.emoji_id}>
-                                                        <div className={s.moji}>{realmoji.emoji}</div>
-                                                        <img src={realmoji.uri} />
-                                                    </div>
-                                                </Link>
-                                            )
-                                        })
-                                    }
-                                </Carousel>
-                            }
-                            {
-                                instance.realmojis.length > 5 ?
-                                    <div className={s.nextlast}>
-                                        <div className={s.add} onClick={() => carouselRef.current?.next(carouselRef.current.state.currentSlide)}>
-                                            <FontAwesomeIcon icon={faCaretRight} />
-                                        </div>
-                                    </div> : null
-                            }
-                        </div>
+						{
+							instance.realmojis.length > 5 ?
+								<div className={s.nextlast}>
+									<div className={s.add} onClick={() => carouselRef.current?.previous(carouselRef.current.state.currentSlide)}>
+										<FontAwesomeIcon icon={faCaretLeft} />
+									</div>
+								</div>
+								: null
+						}
+						{
+							<Carousel
+								responsive={{
+									main: {
+										breakpoint: {
+											max: 3000,
+											min: 1
+										},
+										items: 5,
+									},
+								}}
+								className={s.carousel}
+								slidesToSlide={2}
+								draggable
+								swipeable
+								renderButtonGroupOutside
+								arrows={false}
+								ref={carouselRef}
+							>
+								{
+									instance.realmojis.map((realmoji) => {
+										return (
+											<Link
+												href={realmoji.owner.uid == localStorage.getItem("uid") ?
+													"/me" : `/profile/${realmoji.owner.uid}`
+												}
+												key={realmoji.emoji_id}
+											>
+												<div className={s.realmoji} key={realmoji.emoji_id}>
+													<div className={s.moji}>{realmoji.emoji}</div>
+													<img 
+														src={realmoji.uri} 
+														title={realmoji.owner.username} 
+													/>
+												</div>
+											</Link>
+										)
+									})
+								}
+							</Carousel>
+						}
+						{
+							instance.realmojis.length > 5 ?
+								<div className={s.nextlast}>
+									<div className={s.add} onClick={() => carouselRef.current?.next(carouselRef.current.state.currentSlide)}>
+										<FontAwesomeIcon icon={faCaretRight} />
+									</div>
+								</div> : null
+						}
+					</div>
                         :
                         <div className={s.realmojis}>
                             {/* <div className={s.addmojis}>
