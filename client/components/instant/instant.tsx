@@ -91,28 +91,37 @@ export default function Instant({ instance, mymojis }: _Instant) {
         else { return <div className={s.letter}>{instance.user.username.toUpperCase().charAt(0)}</div> }
     }
 
-    async function getLocation() {
-
-        if (instance.location == undefined) {
-            setLocation("No location data");
-            return;
-        }
-
-        let lat = instance.location.latitude;
-        let long = instance.location.longitude;
-        /* console.log(lat, long); */
-
-        try {
-            let response = await axios.get(
-                `https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer/reverseGeocode?location=${long},${lat}&outSR=&forStorage=false&f=pjson`
-            )
-            /* console.log(response.data) */
-            setLocation(response.data.address.Address + ", " + response.data.address.City)
-        } catch (error) {
-            console.log(error);
-            setLocation("No location data");
-        }
+   async function getLocation() {
+    if (instance.location == undefined) {
+        setLocation("No location data");
+        return;
     }
+
+    let lat = instance.location.latitude;
+    let long = instance.location.longitude;
+    /* console.log(lat, long); */
+
+    try {
+        let response = await axios.get(
+            `https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer/reverseGeocode?location=${long},${lat}&outSR=&forStorage=false&f=pjson`
+        )
+        /* console.log(response.data) */
+        const address = response.data.address.Address;
+        const city = response.data.address.City;
+        const locationString = `${address}, ${city}`;
+        const googleMapsLink = `https://www.google.com/maps?q=${lat},${long}`;
+
+        setLocation(
+            <div>
+                <p>{locationString}</p>
+                <a href={googleMapsLink} target="_blank" rel="noopener noreferrer">View on Google Maps</a>
+            </div>
+        );
+    } catch (error) {
+        console.log(error);
+        setLocation("No location data");
+    }
+}
     
     let [reactionSuccess, setReactionSuccess] = useState<boolean>(false);
     let [reactionFailure, setReactionFailure] = useState<boolean>(false);
