@@ -274,63 +274,65 @@ async function getMusicData() {
                 {
                     !addingmoji ?
                         <div className={s.realmojis}>
-                            {
-                                instance.realmojis.length > 5 ?
-                                    <div className={s.nextlast}>
-                                        <div className={s.add} onClick={() => carouselRef.current?.previous(carouselRef.current.state.currentSlide)}>
-                                            <FontAwesomeIcon icon={faCaretLeft} />
-                                        </div>
-                                    </div>
-                                    : null
-                            }
-                            {
-                                <Carousel
-                                    responsive={{
-                                        main: {
-                                            breakpoint: {
-                                                max: 3000,
-                                                min: 1
-                                            },
-                                            items: 5,
-                                        },
-                                    }}
-                                    className={s.carousel}
-                                    slidesToSlide={2}
-                                    draggable
-                                    swipeable
-                                    renderButtonGroupOutside
-
-                                    arrows={false}
-                                    ref={carouselRef}
-                                >
-                                    {
-                                        instance.realmojis.map((realmoji) => {
-                                            return (
-                                                <Link
-                                                    href={realmoji.owner.uid == localStorage.getItem("uid") ?
-                                                        "/me" : `/profile/${realmoji.owner.uid}`
-                                                    }
-                                                    key={realmoji.emoji_id}
-                                                >
-                                                    <div className={s.realmoji} key={realmoji.emoji_id}>
-                                                        <div className={s.moji}>{realmoji.emoji}</div>
-                                                        <img src={realmoji.uri} />
-                                                    </div>
-                                                </Link>
-                                            )
-                                        })
-                                    }
-                                </Carousel>
-                            }
-                            {
-                                instance.realmojis.length > 5 ?
-                                    <div className={s.nextlast}>
-                                        <div className={s.add} onClick={() => carouselRef.current?.next(carouselRef.current.state.currentSlide)}>
-                                            <FontAwesomeIcon icon={faCaretRight} />
-                                        </div>
-                                    </div> : null
-                            }
-                        </div>
+						{
+							instance.realmojis.length > 5 ?
+								<div className={s.nextlast}>
+									<div className={s.add} onClick={() => carouselRef.current?.previous(carouselRef.current.state.currentSlide)}>
+										<FontAwesomeIcon icon={faCaretLeft} />
+									</div>
+								</div>
+								: null
+						}
+						{
+							<Carousel
+								responsive={{
+									main: {
+										breakpoint: {
+											max: 3000,
+											min: 1
+										},
+										items: 5,
+									},
+								}}
+								className={s.carousel}
+								slidesToSlide={2}
+								draggable
+								swipeable
+								renderButtonGroupOutside
+								arrows={false}
+								ref={carouselRef}
+							>
+								{
+									instance.realmojis.map((realmoji) => {
+										return (
+											<Link
+												href={realmoji.owner.uid == localStorage.getItem("uid") ?
+													"/me" : `/profile/${realmoji.owner.uid}`
+												}
+												key={realmoji.emoji_id}
+											>
+												<div className={s.realmoji} key={realmoji.emoji_id}>
+													<div className={s.moji}>{realmoji.emoji}</div>
+													<img 
+														src={realmoji.uri} 
+														title={realmoji.owner.username} 
+													/>
+												</div>
+											</Link>
+										)
+									})
+								}
+							</Carousel>
+						}
+						{
+							instance.realmojis.length > 5 ?
+								<div className={s.nextlast}>
+									<div className={s.add} onClick={() => carouselRef.current?.next(carouselRef.current.state.currentSlide)}>
+										<FontAwesomeIcon icon={faCaretRight} />
+									</div>
+								</div> : null
+						}
+					</div>
                         :
                         <div className={s.realmojis}>
                             {/* <div className={s.addmojis}>
