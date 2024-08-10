@@ -21,13 +21,14 @@ interface _Instant {
 }
 
 export default function Instant({ instance, mymojis }: _Instant) {
-    console.log(instance.user.uid)
+    console.log(instance.user.uid + " aka " + instance.user.username)
 
     let router = useRouter();
 
     let [comment, setComment] = useState<string>("");
     let [commentLoading, setCommentLoading] = useState<boolean>(false);
     let [location, setLocation] = useState<string>("loading...");
+	let [music, setMusic] = useState<string>("loading...");
 
     function sendComment() {
         setCommentLoading(true);
@@ -122,6 +123,34 @@ export default function Instant({ instance, mymojis }: _Instant) {
         setLocation("No location data");
     }
 }
+
+async function getMusicData() {
+    if (instance.music === undefined) {
+        setMusic( <p className={s.noMusicTitle}>No music data</p> );
+        return;
+    }
+
+    const { artwork: coverArt, track: songTitle, artist: songArtist, provider: musicProvider, openUrl: musicUrl } = instance.music;
+
+    try {
+        setMusic(
+            <div 
+				className={s.musicContainer} 
+				onClick={() => window.open(musicUrl, '_blank')}
+				title={`Open in ${musicProvider}`}
+			>
+				<img src={coverArt} alt="Cover Art" className={s.musicCoverArt} />
+				<div className={s.musicDetails}>
+					<p className={s.musicTitle}>🎵 {songTitle}</p>
+					<p className={s.musicArtist}>by {songArtist}</p>
+				</div>
+			</div>
+        );
+    } catch (error) {
+        console.log(error);
+        setMusic( <p className={s.noMusicTitle}>No music data</p> );
+    }
+}
     
     let [reactionSuccess, setReactionSuccess] = useState<boolean>(false);
     let [reactionFailure, setReactionFailure] = useState<boolean>(false);
@@ -193,6 +222,7 @@ export default function Instant({ instance, mymojis }: _Instant) {
 
     useEffect(() => {
         getLocation();
+		getMusicData();
     }, [])
 
     let carouselRef = createRef<Carousel>();
@@ -206,6 +236,7 @@ export default function Instant({ instance, mymojis }: _Instant) {
                 </div>
                 <div className={s.details}>
                     <div className={s.username}><Link href={profile_link}> @{instance.user.username} </Link></div>
+					<div> {music} </div>
                     <div className={s.location}> {location} </div>
                     <div className={s.timeposted}>{instance.creationdate}</div>
                 </div>
