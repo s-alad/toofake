@@ -394,7 +394,7 @@ async function getMusicData() {
                                     </Link>
                                     <div className={s.discourse}>
                                         <Link href={`/profile/${comment.owner.uid}`}>
-                                            <div className={s.username}>@{comment.owner.username}</div>
+                                            <div className={s.username}>@{comment.owner.username} posted {comment.comment_time}</div>
                                         </Link>
                                         <div className={s.convo}>{comment.text}</div>
                                     </div>
