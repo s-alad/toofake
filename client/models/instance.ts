@@ -55,7 +55,7 @@ class Instance {
         let primary = raw.primary.url;
         let secondary = raw.secondary.url; 
 		
-        let creationdate = raw.takenAt ? new Date(raw.takenAt).toLocaleString(undefined, { hour: '2-digit', minute: '2-digit', second: '2-digit', month: 'short', day: 'numeric' }) : "no date available";
+        let creationdate = Instance.formatTime(raw.takenAt);
 
         let raw_realmojis = raw.realMojis;
         let realmojis: Realmoji[] = [];
@@ -90,7 +90,7 @@ class Instance {
         let primary = raw.primary.url;
         let secondary = raw.secondary.url;
 
-        let creationdate = raw.takenAt ? new Date(raw.takenAt).toLocaleString(undefined, { hour: '2-digit', minute: '2-digit', second: '2-digit', month: 'short', day: 'numeric' }) : "no date available";
+        let creationdate = Instance.formatTime(raw.takenAt);
 
         let raw_realmojis = raw.realMojis;
         let realmojis: Realmoji[] = [];
@@ -119,6 +119,30 @@ class Instance {
         let music: any = raw.music ? raw.music : undefined;
 
         return new Instance(user, realmojis, comments, location, creationdate, caption, instanceid, primary, secondary, bts, music);
+    }
+
+    // static method to format time
+    static formatTime(takenAt: string): string {
+        if (!takenAt) return "no date available";
+
+        let postedDate = new Date(takenAt);
+        let now = new Date();
+        let diffInSeconds = Math.floor((now.getTime() - postedDate.getTime()) / 1000);
+
+        if (diffInSeconds < 60) {
+            return `${diffInSeconds} seconds ago`;
+        } else if (diffInSeconds < 3600) {
+            let minutes = Math.floor(diffInSeconds / 60);
+            return `${minutes} minutes ago`;
+        } else {
+            return postedDate.toLocaleString(undefined, {
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit',
+                month: 'short',
+                day: 'numeric'
+            });
+        }
     }
 }
 
