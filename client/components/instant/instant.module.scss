@@ -20,9 +20,11 @@
         width: 100%;
         display: flex;
         padding: 12px 10px;
+
         .pfp {
             width: 50px;
             @include c.center();
+
             img {
                 height: 30px;
                 width: 30px;
@@ -30,6 +32,7 @@
                 object-fit: cover;
                 background-color: white;
             }
+
             .letter {
                 height: 30px;
                 width: 30px;
@@ -41,30 +44,37 @@
                 color: black;
             }
         }
+
         .details {
             flex: 1;
             display: flex;
             flex-direction: column;
             justify-content: center;
+
             .username {
                 font-size: 15px;
                 font-weight: 600;
                 margin-bottom: 4px;
             }
+
             .location {
                 font-size: 10px;
+                text-decoration: underline;
                 color: rgb(158, 158, 158);
             }
+
             .timeposted {
                 font-size: 10px;
                 color: rgb(158, 158, 158);
             }
         }
+
         .trash {
             width: 30px;
             @include c.center();
             cursor: pointer;
         }
+
         .btsView {
             width: 30px;
             @include c.center();
@@ -91,6 +101,7 @@
             height: calc(100% - 60px);
             left: 0;
             padding: 10px;
+
             .secondary {
                 border-radius: 8px;
                 width: 100px;
@@ -99,6 +110,7 @@
                 z-index: 101;
             }
         }
+
         .realmojis {
             position: absolute;
             left: 0;
@@ -114,11 +126,12 @@
             .carousel {
                 width: 100%;
                 height: 100%;
+
                 .realmoji {
                     position: relative;
                     width: 48px;
                     height: 50px;
-                    
+
                     /* margin-right: 10px; */
                     .moji {
                         position: absolute;
@@ -127,7 +140,9 @@
                         z-index: 10;
                         font-size: 18px;
                     }
-                    img {border: 1px solid white;
+
+                    img {
+                        border: 1px solid white;
                         position: absolute;
                         right: 0;
                         top: 4px;
@@ -146,6 +161,7 @@
                 height: 100%;
                 color: white;
                 @include c.center();
+
                 .add {
                     background-color: rgba(0, 0, 0, 0.155);
                     height: 100%;
@@ -160,6 +176,7 @@
                 height: 50px;
                 margin-right: 4px;
                 cursor: pointer;
+
                 .moji {
                     position: absolute;
                     left: 2px;
@@ -167,7 +184,8 @@
                     z-index: 10;
                 }
 
-                img {border: 1px solid white;
+                img {
+                    border: 1px solid white;
                     position: absolute;
                     right: 0;
                     top: 4px;
@@ -213,6 +231,7 @@
         padding: 10px;
         display: flex;
         justify-content: space-between;
+
         input {
             height: 30px;
             width: 77%;
@@ -236,6 +255,7 @@
             color: black;
             cursor: pointer;
         }
+
         .addloading {
             height: 30px;
             width: 20%;
@@ -267,11 +287,17 @@
         .expand {
             font-size: 14px;
             height: 25px;
+
             .click {
                 cursor: pointer;
             }
         }
-        .holder {height: 25px; font-size: 14px; color: rgb(158, 158, 158);}
+
+        .holder {
+            height: 25px;
+            font-size: 14px;
+            color: rgb(158, 158, 158);
+        }
 
         .comment {
             display: flex;
@@ -281,6 +307,7 @@
             &:last-child {
                 margin-bottom: 12px;
             }
+
             img {
                 height: 30px;
                 width: 30px;
@@ -293,12 +320,14 @@
                 display: flex;
                 flex-direction: column;
                 margin-left: 10px;
+
                 .username {
                     font-size: 10px;
                     font-weight: 500;
                     margin-bottom: 2px;
                     color: rgb(158, 158, 158);
                 }
+
                 .convo {
                     font-size: 14px;
                 }
@@ -311,66 +340,64 @@
         margin-right: 0px;
         margin-bottom: 12px;
     }
-	
-	.musicContainer {
-		display: flex;
-		align-items: center;
-		gap: 15px;
-		padding: 4px;
-		border-radius: 5px;
-		background-color: #0e1b29;
-		cursor: pointer; /* Indicate that it is clickable */
-		position: relative; /* For tooltip positioning */
 
-		&:hover::after {
-			content: attr(title); /* Use the title attribute for the tooltip */
-			position: absolute;
-			bottom: 100%; /* Position above the element */
-			left: 50%;
-			transform: translateX(-50%);
-			background-color: #333;
-			color: #fff;
-			padding: 5px;
-			border-radius: 5px;
-			white-space: nowrap; /* Prevent text wrapping */
-			font-size: 12px;
-			z-index: 10;
-			opacity: 0.9;
-		}
-	}
+    .musicContainer {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        padding: 4px;
+        border-radius: 5px;
+        background-color: #0e1b29;
+        cursor: pointer;
+        position: relative;
 
-
-	.musicCoverArt {
-		width: 40px;
-		height: 40px;
-		border-radius: 10%;
-		object-fit: cover;
-	}
-
-	.musicDetails {
-		display: flex;
-		flex-direction: column;
-	}
-
-	.musicTitle {
-		margin: 0;
-		font-size: 10px;
-		font-weight: bold;
-	}
-
-	.musicArtist {
-		margin: 0;
-		font-size: 9px;
-		color: #555;
-	}
+        &:hover::after {
+            content: attr(title);
+            /* Use the title attribute for the tooltip */
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #333;
+            color: #fff;
+            padding: 5px;
+            border-radius: 5px;
+            white-space: nowrap;
+            /* Prevent text wrapping */
+            font-size: 12px;
+            z-index: 10;
+            opacity: 0.9;
+        }
+    }
 
 
-	.noMusicTitle {
-	font-size: 10px;
-	color: rgb(158, 158, 158);
-	}
+    .musicCoverArt {
+        width: 40px;
+        height: 40px;
+        border-radius: 10%;
+        object-fit: cover;
+    }
+
+    .musicDetails {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .musicTitle {
+        margin: 0;
+        font-size: 10px;
+        font-weight: bold;
+    }
+
+    .musicArtist {
+        margin: 0;
+        font-size: 9px;
+        color: #555;
+    }
 
 
-	
+    .noMusicTitle {
+        font-size: 10px;
+        color: rgb(158, 158, 158);
+    }
 }
-

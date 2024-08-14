@@ -113,10 +113,7 @@ export default function Instant({ instance, mymojis }: _Instant) {
         const googleMapsLink = `https://www.google.com/maps?q=${lat},${long}`;
 
         setLocation(
-            <div>
-                <p>{locationString}</p>
-                <a href={googleMapsLink} target="_blank" rel="noopener noreferrer">View on Google Maps</a>
-            </div>
+            <a href={googleMapsLink} target="_blank" rel="noopener noreferrer">{locationString}</a>
         );
     } catch (error) {
         console.log(error);
@@ -126,7 +123,7 @@ export default function Instant({ instance, mymojis }: _Instant) {
 
 async function getMusicData() {
     if (instance.music === undefined) {
-        setMusic( <p className={s.noMusicTitle}>No music data</p> );
+        setMusic( <div className={s.noMusicTitle}>No music data</div> );
         return;
     }
 
@@ -141,8 +138,8 @@ async function getMusicData() {
 			>
 				<img src={coverArt} alt="Cover Art" className={s.musicCoverArt} />
 				<div className={s.musicDetails}>
-					<p className={s.musicTitle}>🎵 {songTitle}</p>
-					<p className={s.musicArtist}>by {songArtist}</p>
+					<div className={s.musicTitle}>🎵 {songTitle}</div>
+					<div className={s.musicArtist}>by {songArtist}</div>
 				</div>
 			</div>
         );
