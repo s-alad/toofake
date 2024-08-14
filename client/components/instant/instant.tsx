@@ -27,8 +27,8 @@ export default function Instant({ instance, mymojis }: _Instant) {
 
     let [comment, setComment] = useState<string>("");
     let [commentLoading, setCommentLoading] = useState<boolean>(false);
-    let [location, setLocation] = useState<string>("loading...");
-	let [music, setMusic] = useState<string>("loading...");
+    let [location, setLocation] = useState<string | JSX.Element>("loading...");
+	let [music, setMusic] = useState<string | JSX.Element>("loading...");
 
     function sendComment() {
         setCommentLoading(true);
