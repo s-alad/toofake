@@ -66,15 +66,15 @@ export default function Navbar() {
                             {/* <div className={s.sep}></div> */}
                             <span className={s.logout}>
                                 <button
-									  onClick={() => {
-										const confirmLogout = window.confirm("Are you sure you want to logout?");
-										if (confirmLogout) {
-										  logout(router, localStorage);
-										}
-									  }}
-									>
-									  Logout
-									</button>
+                                    onClick={() => {
+                                        const confirmLogout = window.confirm("Are you sure you want to logout?");
+                                        if (confirmLogout) {
+                                            logout(router, localStorage);
+                                        }
+                                    }}
+                                >
+                                    logout
+                                </button>
                             </span>
                             <Link href={"/post"} className={s.logout}>
                                 <button>post</button>
@@ -100,16 +100,16 @@ export default function Navbar() {
                                     <button >realmojis</button>
                                 </Link>
                                 <span className={s.item}>
-                                  <button
-									  onClick={() => {
-										const confirmLogout = window.confirm("Are you sure you want to logout?");
-										if (confirmLogout) {
-										  logout(router, localStorage);
-										}
-									  }}
-									>
-									  Logout
-									</button>
+                                    <button
+                                        onClick={() => {
+                                            const confirmLogout = window.confirm("Are you sure you want to logout?");
+                                            if (confirmLogout) {
+                                                logout(router, localStorage);
+                                            }
+                                        }}
+                                    >
+                                        logout
+                                    </button>
                                 </span>
                                 <Link href={"/post"} className={s.post}>
                                     <button>post</button>
