@@ -131,6 +131,9 @@ export default function Post() {
 
     return (
         <div>
+		<button className={s.switchMode} onClick={() => window.location.replace("/post/post-with-camera")}>
+                        Take Images With Camera
+		</button>
             <div className={s.images}>
                 <div className={`${s.img}`}>
                     <label htmlFor="file-one-upload" className={s.upload}>Choose Back image</label>
@@ -158,7 +161,7 @@ export default function Post() {
                 disabled
             ></input>
             <div className={s.submit} onClick={() => { handleSubmission() }}>
-                submit
+                Post
             </div>
             <div className={s.info}>
                 *some photos taken on an iphone (.heic) may not work. if there is an error try taking a screenshot of the image and uploading that instead.<br />
