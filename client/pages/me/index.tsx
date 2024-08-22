@@ -19,6 +19,9 @@ export default function Me() {
     let [name, setName] = React.useState<string>("");
     let [bio, setBio] = React.useState<string>("");
     let [pfp, setPfp] = React.useState<string>("");
+	let [joinDate, setJoined] = React.useState<string>("");
+    let [location, setLocation] = React.useState<string>("");
+    let [streak, setStreak] = React.useState<string>("");
     let [friends, setFriends] = React.useState<Friend[]>([]);
     let [friendsLoading, setFriendsLoading] = React.useState<boolean>(true);
 
@@ -30,7 +33,7 @@ export default function Me() {
             setUsername(JSON.parse(localStorage.getItem("myself")!).username);
             setName(JSON.parse(localStorage.getItem("myself")!).fullname);
             setBio(JSON.parse(localStorage.getItem("myself")!).biography);
-            setPfp(JSON.parse(localStorage.getItem("myself")!).profilePicture != undefined ? JSON.parse(localStorage.getItem("myself")!).profilePicture.url : "");
+			setPfp(JSON.parse(localStorage.getItem("myself")!).profilePicture != undefined ? JSON.parse(localStorage.getItem("myself")!).profilePicture.url : "");
         }
 
         let token = localStorage.getItem("token");
@@ -49,6 +52,10 @@ export default function Me() {
                 setName(response.data.fullname);
                 setBio(response.data.biography);
                 setPfp(response.data.profilePicture != undefined ? response.data.profilePicture.url : "");
+				setLocation(response.data.location ?? "");
+				setStreak(response.data.streakLength ?? "")
+				setJoined(new Date(response.data.createdAt).toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' }) + ', ' + new Date(response.data.createdAt).toLocaleTimeString());
+
             }
         ).catch(
             (error) => {
@@ -119,11 +126,26 @@ export default function Me() {
                                 <div className={s.value}>{bio}</div>
                             </div> : null
                     }
+					{
+                        location && location.length > 0 ?
+                            <div className={s.detail}>
+                                <div className={s.label}>location</div>
+                                <div className={s.value}>{location}</div>
+                            </div> : null
+                    }
+					<div className={s.detail}>
+                        <div className={s.label}>date joined</div>
+                        <div className={s.value}>{joinDate}</div>
+                    </div>
+					<div className={s.detail}>
+                        <div className={s.label}>current streak</div>
+                        <div className={s.value}>🔥 {streak} 🔥</div>
+                    </div>
                 </div>
             </div>
             <div className={s.divider}></div>
             <div className={s.friends}>
-                <div className={s.title}>Friends</div>
+                <div className={s.title}>Friends ({friends.length})</div>
                     {
                         friendsLoading ? <div className={l.loader}></div> : 
                         friends.map((friend) => {

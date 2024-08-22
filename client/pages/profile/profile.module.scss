@@ -34,4 +34,58 @@
             }
         }
     }
+    .divider {
+        margin-top: 40px;
+
+        height: 1px;
+        background-color: white;
+    }
+    .friends {
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+        display: flex;
+        flex-direction: column;
+        margin-top: 20px;
+
+        .title {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+
+        .friend {
+            border-radius: 8px;
+            box-shadow: 0px 0px 5px .1px rgba(84, 84, 84, 0.75);
+            display: flex;
+            margin-bottom: 12px;
+            .pfp {
+                width: 60px;
+                height: 60px;
+                border: 1px solid white;
+                border-radius: 8px;
+                @include c.center();
+            }
+            .details {
+                display: flex;
+                flex-direction: column;
+                padding-left: 18px;
+                justify-content: center;
+
+                .username {
+                    font-size: 16px;
+                    font-weight: 600;
+                    margin-bottom: 4px;
+                }
+                .fullname {
+                    font-size: 14px;
+                    color: rgb(158, 158, 158);
+                }
+            }
+
+        }
+
+    }
+    
 }
