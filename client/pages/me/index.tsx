@@ -152,7 +152,7 @@ export default function Me() {
                             return (
                                 <Link href={`/profile/${friend.uid}`} key={friend.uid}>
                                     <div className={s.friend} key={friend.uid}>
-                                        <img src={friend.pfp} className={s.pfp} />
+                                        <img src={friend.pfp || "../TooFake.png"} className={s.pfp} />
                                         <div className={s.details}>
                                             <div className={s.username}>@{friend.username}</div>
                                             <div className={s.fullname}>{friend.fullname}</div>
