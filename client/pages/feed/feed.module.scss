@@ -67,3 +67,19 @@
 .hide {
     display: none;
 }
+
+.feed::-webkit-scrollbar {
+    width: 10px;
+}
+  
+.feed::-webkit-scrollbar-track {
+    background: #fff; 
+}
+
+.feed::-webkit-scrollbar-thumb {
+    background: #555; 
+}
+
+.feed::-webkit-scrollbar-thumb:hover {
+    background: #444; 
+}
