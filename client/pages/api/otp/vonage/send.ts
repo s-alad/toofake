@@ -1,14 +1,19 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import axios from 'axios';
 import { generateDeviceId } from '@/utils/device';
+import { fetchSignature } from "@/utils/requests";
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
 
     let headers_list = {
-        "Accept": "*/*",
-        "User-Agent": "BeReal/8586 CFNetwork/1240.0.4 Darwin/20.6.0",
-        "x-ios-bundle-identifier": "AlexisBarreyat.BeReal",
-        "Content-Type": "application/json"
+		"Accept": "*/*",
+		"User-Agent": "BeReal/8586 CFNetwork/1240.0.4 Darwin/20.6.0",
+		"x-ios-bundle-identifier": "AlexisBarreyat.BeReal",
+		"Content-Type": "application/json",
+		"bereal-app-version-code": "14549",
+		"bereal-signature": (await fetchSignature()),
+		"bereal-device-id": "937v3jb942b0h6u9",
+		"bereal-timezone": "Europe/Paris",
     }
 
     let phonenumber = req.body.number;
