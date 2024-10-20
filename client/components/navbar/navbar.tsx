@@ -32,6 +32,8 @@ export default function Navbar() {
             return "profile";
         } else if (router.pathname == "/memories") {
             return "memories";
+        } else if (router.pathname == "/allMemories") {
+            return "allMemories";
         } else if (router.pathname == "/realmojis") {
             return "realmojis";
         } else if (router.pathname == "/") {
@@ -79,6 +81,9 @@ export default function Navbar() {
                             <Link href={"/post"} className={s.logout}>
                                 <button>post</button>
                             </Link>
+                            <Link href={"/allMemories"} className={s.logout}>
+                                <button>all memories</button>
+                            </Link>
                             <Link href={"/memories"} className={s.logout}>
                                 <button>memories</button>
                             </Link>
@@ -93,6 +98,9 @@ export default function Navbar() {
                         router.pathname == "/feed"
                             ?
                             <>
+                                <Link href={"/allMemories"} className={s.item}>
+                                    <button>all memories</button>
+                                </Link>
                                 <Link href={'/memories'} className={s.item}>
                                     <button >memories</button>
                                 </Link>
